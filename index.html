@@ -258,10 +258,10 @@ const VOW=[[800,1150,2900],[400,1700,2600],[280,2200,2950],[450,800,2830],[325,7
 const ENG=[
  {name:'CLUSTER',pn:['SPREAD','SUB','CUTOFF','RESO'],build(f,p,t){
    const out=flt('lowpass',80*2**(p[2]*7.8),.5+p[3]*14),srcs=[],det=[];
-   for(let k=-2;k<=2;k++){const o=osc('sawtooth',f,t,k*p[0]*35),g=gn(.34);o.connect(g);g.connect(out);srcs.push(o);det.push(o.detune)}
+   for(let k=-2;k<=2;k++){const o=osc('sawtooth',f,t,k*p[0]*35),g=gn(.19);o.connect(g);g.connect(out);srcs.push(o);det.push(o.detune)}
    const s=osc('sine',f/2,t),sg=gn(p[1]*.7);s.connect(sg);sg.connect(out);srcs.push(s);det.push(s.detune);return{out,srcs,det}}},
  {name:'FM',pn:['RATIO','INDEX','STACK','DECAY'],fmt:[v=>'×'+FMR[idx(v,8)]],build(f,p,t){
-   const r=FMR[idx(p[0],8)],c=osc('sine',f,t),m=osc('sine',f*r,t),m2=osc('sine',f*r*2.01,t),mg=gn(0),m2g=gn(p[2]*f*r*3),out=gn(.9);
+   const r=FMR[idx(p[0],8)],c=osc('sine',f,t),m=osc('sine',f*r,t),m2=osc('sine',f*r*2.01,t),mg=gn(0),m2g=gn(p[2]*f*r*3),out=gn(.76);
    const I=p[1]*p[1]*9*f,dc=.04+p[3]*p[3]*3;mg.gain.setValueAtTime(I,t);if(p[3]<.97)mg.gain.setTargetAtTime(I*.12,t,dc);
    m2.connect(m2g);m2g.connect(m.frequency);m.connect(mg);mg.connect(c.frequency);c.connect(out);
    return{out,srcs:[c,m,m2],det:[c.detune,m.detune,m2.detune]}}},
@@ -276,13 +276,13 @@ const ENG=[
  {name:'PULSE',pn:['WIDTH','PWM','RATE','SUB'],build(f,p,t){
    const w=.5-p[0]*.45,a=osc('sawtooth',f,t),b=osc('sawtooth',f,t),inv=gn(-1),dl=AC.createDelay(.12),hp=flt('highpass',25,.5),out=flt('lowpass',7000,.5);
    dl.delayTime.value=w/f;const l=osc('sine',.1*2**(p[2]*6.5),t),lg=gn(p[1]*.85*w/f);l.connect(lg);lg.connect(dl.delayTime);
-   const m=gn(.5);a.connect(m);b.connect(inv);inv.connect(dl);dl.connect(m);m.connect(hp);hp.connect(out);
+   const m=gn(.75);a.connect(m);b.connect(inv);inv.connect(dl);dl.connect(m);m.connect(hp);hp.connect(out);
    const s=osc('square',f/2,t),sg=gn(p[3]*.35);s.connect(sg);sg.connect(out);
    return{out,srcs:[a,b,l,s],det:[a.detune,b.detune,s.detune]}}},
  {name:'ORGAN',pn:["16'","8'","4'",'BRIGHT'],build(f,p,t){
    const key=p.map(v=>Math.round(v*20)).join();let w=waveCache[key];
    if(!w){const im=new Float32Array(17),re=new Float32Array(17);im[1]=p[0];im[2]=p[1]+.001;im[4]=p[2];im[3]=p[3]*.5;im[6]=p[3]*.6;im[8]=p[3]*.5;im[12]=p[3]*.3;im[16]=p[3]*.2;w=waveCache[key]=AC.createPeriodicWave(re,im)}
-   const a=osc(w,f/2,t),b=osc(w,f/2,t,7),out=gn(.55);a.connect(out);b.connect(out);return{out,srcs:[a,b],det:[a.detune,b.detune]}}},
+   const a=osc(w,f/2,t),b=osc(w,f/2,t,7),out=gn(.62);a.connect(out);b.connect(out);return{out,srcs:[a,b],det:[a.detune,b.detune]}}},
  {name:'FOLD',pn:['FOLD','BIAS','OCTAVE','TONE'],build(f,p,t){
    if(!foldCurve){foldCurve=new Float32Array(4096);for(let i=0;i<4096;i++)foldCurve[i]=Math.sin((i/2047.5-1)*4.5*Math.PI)}
    const a=osc('sine',f,t),b=osc('sine',f*2,t),bg=gn(p[2]),pre=gn(0),sh=AC.createWaveShaper(),dc=AC.createConstantSource(),hp=flt('highpass',30,.5),out=flt('lowpass',300*2**(p[3]*6),.8);
@@ -290,13 +290,13 @@ const ENG=[
    dc.offset.value=p[1]*.22;dc.start(t);a.connect(pre);b.connect(bg);bg.connect(pre);pre.connect(sh);dc.connect(sh);sh.connect(hp);hp.connect(out);
    return{out,srcs:[a,b,dc],det:[a.detune,b.detune]}}},
  {name:'VOX',pn:['VOWEL','FORMANT','BREATH','VIBRATO'],fmt:[v=>'AEIOU'[Math.round(v*4)]],build(f,p,t){
-   const v=p[0]*4,i=Math.min(3,Math.floor(v)),fr=v-i,sh=.7+p[1]*.8,src=osc('sawtooth',f,t),nsrc=nz(t),ng=gn(p[2]*.5),sum=gn(1),out=gn(2.2);
+   const v=p[0]*4,i=Math.min(3,Math.floor(v)),fr=v-i,sh=.7+p[1]*.8,src=osc('sawtooth',f,t),nsrc=nz(t),ng=gn(p[2]*.5),sum=gn(1),out=gn(7);
    src.connect(sum);nsrc.connect(ng);ng.connect(sum);
    [1,.55,.3].forEach((gv,k)=>{const bp=flt('bandpass',(VOW[i][k]*(1-fr)+VOW[i+1][k]*fr)*sh,9+k*2),g=gn(gv);sum.connect(bp);bp.connect(g);g.connect(out)});
    const l=osc('sine',5.6,t),lg=gn(0);lg.gain.setValueAtTime(0,t);lg.gain.linearRampToValueAtTime(p[3]*45,t+.5);l.connect(lg);lg.connect(src.detune);
    return{out,srcs:[src,nsrc,l],det:[src.detune]}}},
  {name:'STORM',pn:['RESO','COLOR','TONE','SWEEP'],build(f,p,t){
-   const tf=f*(1+p[1]*3),bp=flt('bandpass',tf,2+p[0]*70),n1=nz(t),out=gn(1.8),ng=gn(.5+p[0]*5),s=osc('sine',f,t),sg=gn(p[2]*.6);
+   const tf=f*(1+p[1]*3),bp=flt('bandpass',tf,2+p[0]*70),n1=nz(t),out=gn(2.8),ng=gn(.5+p[0]*5),s=osc('sine',f,t),sg=gn(p[2]*.6);
    bp.frequency.setValueAtTime(Math.min(18000,tf*(1+p[3]*8)),t);bp.frequency.exponentialRampToValueAtTime(tf,t+.05+p[3]*.6);
    n1.connect(bp);bp.connect(ng);ng.connect(out);s.connect(sg);sg.connect(out);return{out,srcs:[n1,s],det:[s.detune,bp.detune]}}}
 ];
@@ -711,9 +711,8 @@ function analyze(x,sr,note){const dB=v=>+(20*Math.log10(Math.max(v,1e-6))).toFix
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 window.web1={analyze,
   capture(sec,tap='inst'){N.capI.gain.value=tap==='inst'?1:0;N.capO.gain.value=tap==='inst'?0:1;return new Promise(r=>{N.cap.port.onmessage=e=>r(e.data);N.cap.port.postMessage({n:Math.floor(sec*AC.sampleRate)})})},
-  async probe({slot=S.slot,note=60,hold=.6,dur=1.3,tap='inst',show=false}={}){press('synth');press('s'+slot);press('t0');await sleep(30);const c=this.capture(dur,tap);await sleep(60);
-    const v=voiceOn(note,AC.currentTime,1);setTimeout(()=>voiceOff(v,AC.currentTime),hold*1000);const x=await c;if(show)this.spectro(x,engOf().name+' · note '+note);return{engine:engOf().name,note,...analyze(x,AC.sampleRate,note)}},
-  async probeDrum({kit=S.kit,key=0,dur=.9,show=false}={}){press('drum');press('s'+kit);await sleep(30);const c=this.capture(dur);await sleep(60);drumHit(key,AC.currentTime);const x=await c;
+  async probe({slot=S.slot,note=60,hold=.6,dur=1.3,tap='inst',show=false}={}){press('synth');press('s'+slot);press('t0');const c=this.capture(dur+.2,tap),t0=AC.currentTime+.1,v=voiceOn(note,t0,1);voiceOff(v,t0+hold);const x=await c;if(show)this.spectro(x,engOf().name+' · note '+note);return{engine:engOf().name,note,...analyze(x,AC.sampleRate,note)}},
+  async probeDrum({kit=S.kit,key=0,dur=.9,show=false}={}){press('drum');press('s'+kit);const c=this.capture(dur+.2);drumHit(key,AC.currentTime+.1);const x=await c;
     if(show)this.spectro(x,KITS[kit]+' · '+DN[key%12]);return{kit:KITS[kit],drum:DN[key%12],...analyze(x,AC.sampleRate)}},
   async probeAll(notes=[48,60,72]){const out=[];for(let s=0;s<8;s++)for(const n of notes)out.push(await this.probe({slot:s,note:n}));return out},
   spectro(x,label=''){const c=$('#probe'),k=c.getContext('2d'),sr=AC.sampleRate,Wc=c.width,Hs=160,n=2048,cols=Wc,hop=Math.max(1,Math.floor((x.length-n)/cols));c.style.display='block';
