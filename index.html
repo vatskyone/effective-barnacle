@@ -171,7 +171,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>B N M ,</td><td>T1–T4. In synth/drum: ENGINE · ENVELOPE · FX · LFO (press T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL · PAN · EQ · MASTER.</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode.</td></tr>
 <tr><td>Shift + 1 – 8</td><td>Synth bank B (orange light): NEON supersaw · LADDER mono bass/lead with glide · ORBIT poly brass · SYNC hard-sync lead · WAVES digital wavetable · AURORA string ensemble · ACID squelch bass (overlap notes to slide) · HOOVER rave lead.</td></tr>
-<tr><td>Shift + B N M ,</td><td>Sound FX bank B (Shift + T1–T4, orange light on T3): BOUNCE ping-pong tape delay · COIL spring reverb · CUBE feedback-box reverb · RADIO lo-fi radio. T3 again steps through the bank.</td></tr>
+<tr><td>Shift + M</td><td>Sound FX bank B (Shift + T3, orange light on T3): BOUNCE ping-pong tape delay · COIL spring reverb · CUBE feedback-box reverb · RADIO lo-fi radio. Shift + T3 again steps through them; plain T3 goes back to ECHO · ROOM · CRUSH · SWIRL.</td></tr>
 <tr><td>A…' row</td><td>Musical keys (W E T Y U O P are the black keys). Shift+← / → changes octave.</td></tr>
 <tr><td>R · Space · Enter</td><td>REC · PLAY · STOP. REC starts the tape and overdubs what you play onto the selected track. STOP twice rewinds. Shift+PLAY plays in reverse.</td></tr>
 <tr><td>← →</td><td>Hold to wind the tape.</td></tr>
@@ -856,8 +856,10 @@ function press(a){initAudio();
   if(a==='shift'){S.shift=true}
   else if(a==='help'){$('#help').classList.toggle('show')}
   else if(['synth','drum','tape','mixer'].includes(a)){S.mode=a;S.overlay=null;if(a==='synth'||a==='drum'){S.inst=a;applyPatch()}}
-  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='seq'&&i<3){seq.type=i;seq.playing=false;seq.held.clear();seq.cur=-1}else if(S.overlay==='fx'){if(S.rkSel===i){S.rkOn[i]=!S.rkOn[i];applyRack()}else S.rkSel=i}else if(S.overlay)S.overlay=null;else if(S.mode==='tape'){S.track=i;tapeSet()}else if(S.shift&&(S.mode==='synth'||S.mode==='drum')){const P=cur();P.fxType=4+i;S.page=2;applyFx()}
-    else{if(S.mode!=='mixer'&&S.page===2&&i===2){const P=cur();P.fxType=P.fxType<4?(P.fxType+1)%4:4+(P.fxType-3)%4;applyFx()}S.page=i}}
+  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='seq'&&i<3){seq.type=i;seq.playing=false;seq.held.clear();seq.cur=-1}else if(S.overlay==='fx'){if(S.rkSel===i){S.rkOn[i]=!S.rkOn[i];applyRack()}else S.rkSel=i}else if(S.overlay)S.overlay=null;else if(S.mode==='tape'){S.track=i;tapeSet()}else if(i===2&&S.mode!=='mixer'){const P=cur(),ty=P.fxType,b=ty>=4;
+      // T3 = effects ECHO ROOM CRUSH SWIRL · Shift+T3 = BOUNCE COIL CUBE RADIO; pressing again on the FX page steps through the bank
+      if(S.page!==2){if(S.shift&&!b)P.fxType=ty+4}else if(S.shift)P.fxType=b?4+(ty-3)%4:ty+4;else P.fxType=b?ty-4:(ty+1)%4;if(P.fxType!==ty)applyFx();S.page=2}
+    else S.page=i}
   else if(a[0]==='s'&&a.length===2){const i=+a[1];if(S.shift){S.slot=8+i;if(S.inst!=='synth'){S.inst='synth';if(S.mode==='drum')S.mode='synth'}}
     else if(S.mode==='tape'&&!S.overlay&&i<3)trick(i,true);else if(S.inst==='synth')S.slot=i;else S.kit=i;applyPatch()}
   else if(a==='fx'){if(S.shift){S.rkOn=[false,false,false,false];applyRack()}else S.overlay=S.overlay==='fx'?null:'fx'}
