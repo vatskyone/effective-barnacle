@@ -6,9 +6,13 @@ WEB-1 is a small instrument for making music in the browser. It has 16 synth eng
 
 Designed and built by Snow Bayles, 2026.
 
+### ▶ [Play WEB-1 in your browser](https://vatskyone.github.io/effective-barnacle/)
+
 ---
 
 ## Quick start
+
+The fastest way is the **[live version](https://vatskyone.github.io/effective-barnacle/)**: open it, click the device and play. To run it on your own machine instead:
 
 1. Download or clone this repository.
 2. Open `index.html` in a recent desktop browser (Chrome, Edge, Firefox or Safari).
