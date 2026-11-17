@@ -46,6 +46,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **B N M ,** | T1 · T2 · T3 · T4 |
 | **1 – 8** | Sound slot (synth bank A, or drum kit) |
 | **Shift + 1 – 8** | Synth bank B |
+| **Shift + B N M ,** | Effect bank B: BOUNCE · COIL · CUBE · RADIO |
 | **R** | REC |
 | **Space** | PLAY (Shift + PLAY plays in reverse) |
 | **Enter** | STOP (press twice to rewind) |
@@ -66,10 +67,28 @@ Press **SYNTH** (Z). The T keys choose the page:
 |---|---|
 | **T1 ENGINE** | The engine's own four parameters (listed below) |
 | **T2 ENVELOPE** | ATTACK · DECAY · SUSTAIN · RELEASE |
-| **T3 FX** | The sound's own effect. Press T3 again to switch between ECHO, ROOM, CRUSH and SWIRL. |
+| **T3 FX** | The sound's own effect. Press T3 again to switch between ECHO, ROOM, CRUSH and SWIRL. Shift + T1–T4 picks one of the bank B effects (see below). |
 | **T4 LFO** | RATE · AMOUNT · DEST (PITCH, AMP, PAN, TONE) · SHAPE (SINE, TRI, SQR, SAW) |
 
 Each slot remembers its own engine settings, envelope, effect and LFO.
+
+### Effects
+
+Every synth slot and drum kit has one effect, chosen on the T3 page. There are 8 effects in two banks:
+
+| Effect | Sound | Knobs |
+|---|---|---|
+| **ECHO** | Simple delay | TIME · REPEAT · TONE · MIX |
+| **ROOM** | Room reverb | SIZE · DAMP · PRE · MIX |
+| **CRUSH** | Bit crusher and drive | CRUSH · DRIVE · TONE · MIX |
+| **SWIRL** | Phaser | RATE · DEPTH · FEEDBK · MIX |
+| **BOUNCE** (⇧T1) | Ping-pong delay that bounces left and right, with tape-style wobble | TIME · WOBBLE · FEEDBK · MIX |
+| **COIL** (⇧T2) | Spring reverb | TONE · TENSION · DAMP · MIX |
+| **CUBE** (⇧T3) | Box-shaped room reverb; SHAPE goes from natural to metallic | SIZE · SHAPE · FEEDBK · MIX |
+| **RADIO** (⇧T4) | Old radio or phone: narrow band, lower sample rate, crackle and dropouts | BAND · CRUSH · STATIC · MIX |
+
+- The first four: press T3 (repeatedly) to step through them.
+- Bank B: **Shift + T1–T4** (Shift + B N M ,) jumps straight to BOUNCE, COIL, CUBE or RADIO. The T3 light turns orange, and pressing T3 again steps through bank B.
 
 ### Bank A: keys 1–8
 
@@ -109,7 +128,7 @@ Every musical key plays a different drum sound, and the screen flashes the pad y
 |---|---|
 | **T1** | TUNE · DECAY · TONE · DRIVE |
 | **T2 MIX** | KICK · SNARE · HATS · PERC levels |
-| **T3 FX** | The kit's effect (press T3 again to change it) |
+| **T3 FX** | The kit's effect (press T3 again to change it, or Shift + T1–T4 for bank B) |
 | **T4 LFO** | Same as for synths |
 
 ## 5. Sampler

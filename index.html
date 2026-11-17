@@ -108,6 +108,7 @@ html.dark .scr .glow{filter:invert(1) hue-rotate(180deg) saturate(1.4) blur(5px)
 <tr><td>B N M ,</td><td>T1–T4. In synth/drum: ENGINE · ENVELOPE · FX · LFO (press T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL · PAN · EQ · MASTER.</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode.</td></tr>
 <tr><td>Shift + 1 – 8</td><td>Synth bank B (orange light): NEON supersaw · LADDER mono bass/lead with glide · ORBIT poly brass · SYNC hard-sync lead · WAVES digital wavetable · AURORA string ensemble · ACID squelch bass (overlap notes to slide) · HOOVER rave lead.</td></tr>
+<tr><td>Shift + B N M ,</td><td>Sound FX bank B (Shift + T1–T4, orange light on T3): BOUNCE ping-pong tape delay · COIL spring reverb · CUBE feedback-box reverb · RADIO lo-fi radio. T3 again steps through the bank.</td></tr>
 <tr><td>A…' row</td><td>Musical keys (W E T Y U O P are the black keys). Shift+← / → changes octave.</td></tr>
 <tr><td>R · Space · Enter</td><td>REC · PLAY · STOP. REC starts the tape and overdubs what you play onto the selected track. STOP twice rewinds. Shift+PLAY plays in reverse.</td></tr>
 <tr><td>← →</td><td>Hold to wind the tape.</td></tr>
@@ -149,7 +150,8 @@ const S={mode:'synth',inst:'synth',page:0,slot:0,kit:0,oct:0,shift:false,overlay
   tq:[.5,0,1],count:null,fb:0,fbT:0,lastBeat:-1e9,tposAt:0,
   metro:false,nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
 const seq={on:false,type:0,pat:Array.from({length:16},()=>[]),steps:[],held:new Set(),playing:false,i:0,cnt:0,next:0,tr:0,dirS:1,cur:-1};
-const fxDef=(t,m)=>[[.35,.4,.6,t===0?m:.3],[.5,.4,.1,t===1?m:.3],[.5,.3,.7,t===2?m:.5],[.3,.6,.4,t===3?m:.5]];
+const fxDef=(t,m)=>[[.35,.4,.6,t===0?m:.3],[.5,.4,.1,t===1?m:.3],[.5,.3,.7,t===2?m:.5],[.3,.6,.4,t===3?m:.5],
+  [.35,.3,.45,t===4?m:.3],[.55,.45,.4,t===5?m:.35],[.45,.5,.6,t===6?m:.3],[.45,.4,.35,t===7?m:.7]];
 const mkP=(eng,env,ft,fm)=>({eng,env,fxType:ft,fx:fxDef(ft,fm),lfo:[.5,0,0,0],smp:[0,1,0,.5]});
 const synthP=[
   mkP([.35,.3,.7,.2],[.02,.4,.7,.35],1,.25), mkP([.3,.45,.2,.4],[0,.5,.3,.4],0,.2),
@@ -176,6 +178,7 @@ const mod24=x=>((x%24)+24)%24;
 const LSK='web1.v1',SKEYS=['inst','slot','kit','oct','bpm','tm','sqp','tp','lv','pn','eq','ms','rk','rkOn','rkSel','tq'];
 const snapshot=()=>JSON.stringify({S:Object.fromEntries(SKEYS.map(k=>[k,S[k]])),synthP,drumP,seq:{type:seq.type,steps:seq.steps,pat:seq.pat}});
 try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){Object.assign(S,d.S);d.synthP.forEach((p,i)=>Object.assign(synthP[i],p));d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));Object.assign(seq,d.seq);S.mode=S.inst}}catch(_){}
+[...synthP,...drumP].forEach(P=>{const f=fxDef(-1);for(let i=P.fx.length;i<f.length;i++)P.fx[i]=f[i];if(!(P.fxType<f.length))P.fxType=0});
 let lastSnap=snapshot(),tapeDirty=false;
 const saveTimer=setInterval(()=>{const s=snapshot();if(s!==lastSnap){lastSnap=s;try{localStorage.setItem(LSK,s)}catch(_){}}
   if(tapeDirty&&tape&&!(S.rec&&S.playing)){tapeDirty=false;saveTape()}},1500);
@@ -276,7 +279,22 @@ class Wt extends AudioWorkletProcessor{
       o[i]=y}
     return true}
 }
-registerProcessor('wt',Wt);`;
+registerProcessor('wt',Wt);
+class Lofi extends AudioWorkletProcessor{
+  static get parameterDescriptors(){return[{name:'hold',defaultValue:1,minValue:1,maxValue:64},{name:'bits',defaultValue:16,minValue:2,maxValue:16},{name:'noise',defaultValue:0,minValue:0,maxValue:1}]}
+  constructor(){super();this.c=0;this.h=[0,0];this.g=1;this.tg=1;this.dt=0;this.env=0;this.hs=0}
+  process(ins,outs,p){const x=ins[0],y=outs[0],n=y[0].length,hold=Math.max(1,Math.round(p.hold[0])),lev=Math.pow(2,p.bits[0]-1),nz=p.noise[0];
+    for(let s=0;s<n;s++){
+      if(--this.dt<=0){this.dt=sampleRate*(.04+Math.random()*.3);this.tg=Math.random()<nz*.45?.08:1}
+      this.g+=(this.tg-this.g)*.003;
+      const a=x.length?x[0][s]:0;this.env=Math.max(Math.abs(a),this.env*.9995);
+      if(this.c++%hold===0)for(let ch=0;ch<2;ch++){const v=x.length?x[Math.min(ch,x.length-1)][s]:0;this.h[ch]=Math.round(v*lev)/lev}
+      this.hs=this.hs*.5+(Math.random()*2-1)*.5;
+      const st=(this.hs*.12+(Math.random()<.002?(Math.random()*2-1)*.6:0))*nz*Math.min(1,this.env*3);
+      for(let ch=0;ch<y.length;ch++)y[ch][s]=this.h[ch]*this.g+st}
+    return true}
+}
+registerProcessor('lofi',Lofi);`;
 
 async function initAudio(){
   if(AC){if(AC.state==='suspended')AC.resume();return}
@@ -289,7 +307,7 @@ async function initAudio(){
   n.toneF=flt('lowpass',20000,.7);n.trem=gn(1);n.pan=AC.createStereoPanner();
   n.fxIn=gn(1);n.fxOut=gn(1);n.dry=gn(1);
   n.synthIn.connect(n.toneF);n.toneF.connect(n.trem);n.trem.connect(n.pan);n.pan.connect(n.fxIn);n.fxIn.connect(n.dry);n.dry.connect(n.fxOut);
-  n.wet=[0,1,2,3].map(()=>{const w=gn(0);w.connect(n.fxOut);return w});
+  n.wet=[0,1,2,3,4,5,6,7].map(()=>{const w=gn(0);w.connect(n.fxOut);return w});
   // echo
   n.dl=AC.createDelay(1.2);n.dlFb=gn(.4);n.dlLp=flt('lowpass',4000,.5);
   n.fxIn.connect(n.dl);n.dl.connect(n.dlLp);n.dlLp.connect(n.dlFb);n.dlFb.connect(n.dl);n.dlLp.connect(n.wet[0]);
@@ -303,6 +321,20 @@ async function initAudio(){
   n.phLfo=osc('sine',.4,0);n.phDepth=gn(400);n.phLfo.connect(n.phDepth);
   n.fxIn.connect(n.ph[0]);for(let i=0;i<3;i++)n.ph[i].connect(n.ph[i+1]);n.ph.forEach(a=>n.phDepth.connect(a.frequency));
   n.ph[3].connect(n.wet[3]);n.ph[3].connect(n.phD);n.phD.connect(n.phFb);n.phFb.connect(n.ph[0]);
+  // bounce (ping-pong delay with wobble)
+  n.bnL=AC.createDelay(1.5);n.bnR=AC.createDelay(1.5);n.bnFb=gn(.4);n.bnLp=flt('lowpass',4000,-3);n.bnSat=AC.createWaveShaper();n.bnSat.curve=Float32Array.from({length:2048},(_,i)=>Math.tanh((i/1023.5-1)*1.4)/1.4);n.bnM=AC.createChannelMerger(2);
+  n.bnLfo=osc('sine',.8,0);n.bnWob=gn(0);n.bnLfo.connect(n.bnWob);n.bnWob.connect(n.bnL.delayTime);n.bnWob.connect(n.bnR.delayTime);
+  n.fxIn.connect(n.bnL);n.bnL.connect(n.bnLp);n.bnLp.connect(n.bnSat);n.bnSat.connect(n.bnR);n.bnSat.connect(n.bnM,0,0);n.bnR.connect(n.bnM,0,1);n.bnR.connect(n.bnFb);n.bnFb.connect(n.bnL);n.bnM.connect(n.wet[4]);
+  // coil (spring reverb)
+  n.coHp=flt('highpass',200,.7);n.coil=AC.createConvolver();n.coLp=flt('lowpass',4000,.7);
+  n.fxIn.connect(n.coHp);n.coHp.connect(n.coil);n.coil.connect(n.coLp);n.coLp.connect(n.wet[5]);
+  // cube (8 damped comb loops, 4 per side, then allpass diffusion)
+  n.cbD=[0,1,2,3,4,5,6,7].map(()=>AC.createDelay(1));n.cbLp=n.cbD.map(()=>flt('lowpass',7000,-3));n.cbFb=n.cbD.map(()=>gn(0));n.cbM=AC.createChannelMerger(2);
+  n.cbD.forEach((d,i)=>{n.fxIn.connect(d);d.connect(n.cbLp[i]);n.cbLp[i].connect(n.cbFb[i]);n.cbFb[i].connect(d);n.cbLp[i].connect(n.cbM,0,i<4?0:1)});
+  n.cbAp=[0,1].map(i=>flt('allpass',[900,2300][i],-3));n.cbM.connect(n.cbAp[0]);n.cbAp[0].connect(n.cbAp[1]);n.cbAp[1].connect(n.wet[6]);
+  // radio (band-pass, drive, then the lofi worklet once it loads)
+  n.rdHp=flt('highpass',400,.9);n.rdLp=flt('lowpass',3000,.9);n.rdSh=AC.createWaveShaper();n.rdSh.curve=satCurve(3);
+  n.fxIn.connect(n.rdHp);n.rdHp.connect(n.rdLp);n.rdLp.connect(n.rdSh);n.rdSh.connect(n.wet[7]);
   // lfo
   n.lfo=osc('sine',2,0);n.lfoPitch=gn(0);n.lfoAmp=gn(0);n.lfoPan=gn(0);n.lfoTone=gn(0);
   [n.lfoPitch,n.lfoAmp,n.lfoPan,n.lfoTone].forEach(g=>n.lfo.connect(g));
@@ -337,6 +369,7 @@ async function initAudio(){
     idb.get('tape').then(d=>{if(d&&d.sr===AC.sampleRate){tape.port.postMessage({t:'load',tr:d.tr});d.ov.forEach((a,i)=>ov[i].set(a))}}).catch(()=>{});
     n.cap=new AudioWorkletNode(AC,'cap',{numberOfInputs:1,numberOfOutputs:1,channelCount:2,channelCountMode:'explicit'});n.capI=gn(1);n.capO=gn(0);
     n.inst.connect(n.capI);n.comp.connect(n.capO);n.capI.connect(n.cap);n.capO.connect(n.cap);const z=gn(0);n.cap.connect(z);z.connect(AC.destination);
+    n.rdLofi=new AudioWorkletNode(AC,'lofi',{numberOfInputs:1,numberOfOutputs:1,outputChannelCount:[2]});n.rdSh.disconnect();n.rdSh.connect(n.rdLofi);n.rdLofi.connect(n.wet[7]);applyFx();
   }catch(err){console.warn('tape unavailable',err)}
 }
 function tapeSet(){if(!tape)return;tape.port.postMessage({t:'set',v:{playing:S.playing||!!S.count,rec:S.rec,track:S.track,speed:tapeSpeed()*(S.rev!==S.revHold?-1:1),loop:S.loop,li:S.li,lo:S.lo}})}
@@ -534,14 +567,28 @@ let irKey='',irTimer=0,crKey=-1,drKey=-1,mdKey=-1;
 const satCurve=k=>{const c=new Float32Array(2048);for(let i=0;i<2048;i++){const x=i/1023.5-1;c[i]=k<.01?x:Math.tanh(k*x)/Math.tanh(k)}return c};
 function mkIR(size,damp){const sr=AC.sampleRate,len=Math.floor(sr*(.3+size*4.5)),b=AC.createBuffer(2,len,sr);
   for(let ch=0;ch<2;ch++){const d=b.getChannelData(ch);let lp=0;for(let i=0;i<len;i++){const u=i/len,c=1-damp*.93*Math.min(1,u*3);lp+=((Math.random()*2-1)*Math.pow(1-u,2.5)-lp)*c;d[i]=lp}}return b}
+function mkSpring(ten,damp){const sr=AC.sampleRate,T=.022+ten*.05,len=Math.floor(sr*(1.1+(1-damp)*2.4)),b=AC.createBuffer(2,len,sr),dec=6.9/(len/sr);
+  for(let ch=0;ch<2;ch++){const d=b.getChannelData(ch),Tc=T*(ch?1.11:1);
+    for(let k=0;;k++){const t0=k*Tc+(ch?.003:0),j0=Math.floor(t0*sr);if(j0>=len)break;
+      const a=Math.exp(-t0*dec)*(k?1:.5),L=Math.floor(sr*Math.min(Tc*1.5,.08)*Math.min(3,1+k*.12)),f0=4200-damp*2200,f1=220;let ph=0;
+      for(let i=0;i<L&&j0+i<len;i++){const u=i/L,f=f1+(f0-f1)*Math.pow(1-u,2.4);ph+=6.2832*f/sr;d[j0+i]+=a*Math.sin(ph)*Math.sin(Math.PI*u)*(.7+.3*Math.random())}}
+    let lp=0;for(let i=0;i<len;i++){const e=Math.exp(-i/sr*dec);d[i]+=(Math.random()*2-1)*.04*e;const c=.85-damp*.6*Math.min(1,i/len*4);lp+=(d[i]-lp)*c;d[i]=lp}}
+  return b}
+let coKey='',coTimer=0;
 function applyFx(){if(!AC)return;const P=cur(),ty=P.fxType,p=P.fx[ty],n=N,now=AC.currentTime;
-  n.wet.forEach((w,i)=>w.gain.setTargetAtTime(i===ty?p[3]*(ty===1?1.6:1):0,now,.02));
-  n.dry.gain.setTargetAtTime(ty>=2?1-p[3]*(ty===2?1:.5):1,now,.02);
+  n.wet.forEach((w,i)=>w.gain.setTargetAtTime(i===ty?p[3]*WETK[ty]:0,now,.02));
+  n.dry.gain.setTargetAtTime(ty===2||ty===7?1-p[3]:ty===3?1-p[3]*.5:1,now,.02);
   if(ty===0){n.dl.delayTime.setTargetAtTime(.03+p[0]*.97,now,.08);n.dlFb.gain.value=p[1]*.93;n.dlLp.frequency.value=500*2**(p[2]*5)}
   else n.dlFb.gain.value=Math.min(n.dlFb.gain.value,.5);
   if(ty===1){const k=Math.round(p[0]*20)+'_'+Math.round(p[1]*10);if(k!==irKey||!n.cv.buffer){irKey=k;clearTimeout(irTimer);irTimer=setTimeout(()=>n.cv.buffer=mkIR(p[0],p[1]),n.cv.buffer?120:0)}n.pre.delayTime.value=p[2]*.15}
   if(ty===2){const bits=12-Math.round(p[0]*10);if(bits!==crKey){crKey=bits;const st=2**bits/2,c=new Float32Array(4096);for(let i=0;i<4096;i++)c[i]=Math.round((i/2047.5-1)*st)/st;n.crSh.curve=c}n.crDr.gain.value=1+p[1]*6;n.crLp.frequency.value=400*2**(p[2]*5.5)}
-  if(ty===3){n.phLfo.frequency.value=.05*2**(p[0]*7);n.phDepth.gain.value=p[1]*500;n.phFb.gain.value=p[2]*.85}else n.phFb.gain.value=0}
+  if(ty===3){n.phLfo.frequency.value=.05*2**(p[0]*7);n.phDepth.gain.value=p[1]*500;n.phFb.gain.value=p[2]*.85}else n.phFb.gain.value=0
+  if(ty===4){const d=.025+Math.pow(p[0],1.6)*.75;n.bnL.delayTime.setTargetAtTime(d,now,.08);n.bnR.delayTime.setTargetAtTime(d,now,.08);n.bnWob.gain.setTargetAtTime(p[1]*Math.min(.006,d*.2),now,.05);n.bnLfo.frequency.value=.25+p[1]*4;n.bnFb.gain.value=p[2]*.88;n.bnLp.frequency.value=6500-p[2]*3500}
+  if(ty===5){const k=Math.round(p[1]*12)+'_'+Math.round(p[2]*10);if(k!==coKey||!n.coil.buffer){coKey=k;clearTimeout(coTimer);coTimer=setTimeout(()=>n.coil.buffer=mkSpring(p[1],p[2]),n.coil.buffer?120:0)}n.coLp.frequency.value=900*2**(p[0]*4);n.coHp.frequency.value=90+(1-p[0])*250}
+  if(ty===6){const b=.012+p[0]*.06,r=[1,1.19+p[1]*.31,1.37+p[1]*.83,1.61+p[1]*1.47],rt=.4+p[2]*p[2]*6;
+    n.cbD.forEach((d,i)=>{const dt=b*r[i%4]*(i<4?1:1.071);d.delayTime.setTargetAtTime(dt,now,.1);n.cbLp[i].frequency.value=9000-p[2]*4500;n.cbFb[i].gain.setTargetAtTime(Math.pow(.001,dt/rt),now,.05)})}
+  if(ty===7){const fc=350*2**(p[0]*3.6);n.rdHp.frequency.value=fc/2;n.rdLp.frequency.value=fc*2;if(n.rdLofi){const q=n.rdLofi.parameters;q.get('hold').value=1+Math.round(p[1]*p[1]*24);q.get('bits').value=16-p[1]*12;q.get('noise').value=p[2]}}}
+const WETK=[1,1.6,1,1,1,1,.5,1];
 function applyLfo(){if(!AC)return;const p=cur().lfo,n=N,d=idx(p[2],4),a=p[1];
   n.lfo.frequency.value=.05*2**(p[0]*8.6);n.lfo.type=['sine','triangle','square','sawtooth'][idx(p[3],4)];
   n.lfoPitch.gain.value=d===0?a*a*1200:0;n.lfoAmp.gain.value=d===1?a*.5:0;n.trem.gain.value=d===1?1-a*.5:1;
@@ -607,7 +654,8 @@ function applyRack(){if(AC&&N.rack)N.rack.apply()}
 
 /* ───────────── params on encoders ───────────── */
 const mk=(arr,i,n,fmt,cb)=>({n,val:()=>(fmt||pct)(arr[i]),turn(d){arr[i]=clamp(arr[i]+d);cb&&cb()},arr,i});
-const FXN=['ECHO','ROOM','CRUSH','SWIRL'],FXP=[['TIME','REPEAT','TONE','MIX'],['SIZE','DAMP','PRE','MIX'],['CRUSH','DRIVE','TONE','MIX'],['RATE','DEPTH','FEEDBK','MIX']];
+const FXN=['ECHO','ROOM','CRUSH','SWIRL','BOUNCE','COIL','CUBE','RADIO'],FXP=[['TIME','REPEAT','TONE','MIX'],['SIZE','DAMP','PRE','MIX'],['CRUSH','DRIVE','TONE','MIX'],['RATE','DEPTH','FEEDBK','MIX'],
+  ['TIME','WOBBLE','FEEDBK','MIX'],['TONE','TENSION','DAMP','MIX'],['SIZE','SHAPE','FEEDBK','MIX'],['BAND','CRUSH','STATIC','MIX']];
 const LFD=['PITCH','AMP','PAN','TONE'],LFS=['SINE','TRI','SQR','SAW'],RATES=['1/4','1/8','1/16','1/32'],DIRS=['FWD','REV','PING','RND'];
 const ARPM=['UP','DOWN','UPDN','RND'],SEQT=['ENDLESS','PATTERN','ARP'];const patStep=()=>idx(S.sqp[1][0],16),patLen=()=>1+idx(S.sqp[1][2],16);
 const fmtT=s=>{const m=Math.floor(s/60),x=s-m*60;return m+':'+(x<10?'0':'')+x.toFixed(1)};
@@ -683,6 +731,7 @@ addEventListener('resize',fit);fit();
 function leds(){const L=(a,on)=>actEl[a].classList.toggle('lit',!!on);
   ['synth','drum','tape','mixer'].forEach(m=>L(m,S.mode===m));
   for(let i=0;i<4;i++)L('t'+i,S.overlay==='seq'?seq.type===i:S.overlay==='fx'?S.rkOn[i]:!S.overlay&&(S.mode==='tape'?S.track===i:S.page===i));
+  actEl.t2.classList.toggle('alt',!S.overlay&&(S.mode==='synth'||S.mode==='drum')&&S.page===2&&cur().fxType>=4);
   for(let i=0;i<8;i++){L('s'+i,(S.inst==='synth'?S.slot%8:S.kit)===i);actEl['s'+i].classList.toggle('alt',S.inst==='synth'&&S.slot>=8)}
   L('fx',S.overlay==='fx');actEl.fx.querySelectorAll('.dots i').forEach((e,i)=>e.classList.toggle('on',S.rkOn[i]));L('metro',S.metro);L('seq',seq.on);L('tempo',S.overlay==='tempo');L('loop',S.loop);L('rec',S.rec&&!S.count);L('play',S.playing);L('shift',S.shift)}
 leds();
@@ -722,7 +771,8 @@ function press(a){initAudio();
   if(a==='shift'){S.shift=true}
   else if(a==='help'){$('#help').classList.toggle('show')}
   else if(['synth','drum','tape','mixer'].includes(a)){S.mode=a;S.overlay=null;if(a==='synth'||a==='drum'){S.inst=a;applyPatch()}}
-  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='seq'&&i<3){seq.type=i;seq.playing=false;seq.held.clear();seq.cur=-1}else if(S.overlay==='fx'){if(S.rkSel===i){S.rkOn[i]=!S.rkOn[i];applyRack()}else S.rkSel=i}else if(S.overlay)S.overlay=null;else if(S.mode==='tape'){S.track=i;tapeSet()}else{if(S.mode!=='mixer'&&S.page===2&&i===2){const P=cur();P.fxType=(P.fxType+1)%4;applyFx()}S.page=i}}
+  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='seq'&&i<3){seq.type=i;seq.playing=false;seq.held.clear();seq.cur=-1}else if(S.overlay==='fx'){if(S.rkSel===i){S.rkOn[i]=!S.rkOn[i];applyRack()}else S.rkSel=i}else if(S.overlay)S.overlay=null;else if(S.mode==='tape'){S.track=i;tapeSet()}else if(S.shift&&(S.mode==='synth'||S.mode==='drum')){const P=cur();P.fxType=4+i;S.page=2;applyFx()}
+    else{if(S.mode!=='mixer'&&S.page===2&&i===2){const P=cur();P.fxType=P.fxType<4?(P.fxType+1)%4:4+(P.fxType-3)%4;applyFx()}S.page=i}}
   else if(a[0]==='s'&&a.length===2){const i=+a[1];if(S.shift){S.slot=8+i;if(S.inst!=='synth'){S.inst='synth';if(S.mode==='drum')S.mode='synth'}}
     else if(S.mode==='tape'&&!S.overlay&&i<3)trick(i,true);else if(S.inst==='synth')S.slot=i;else S.kit=i;applyPatch()}
   else if(a==='fx'){if(S.shift){S.rkOn=[false,false,false,false];applyRack()}else S.overlay=S.overlay==='fx'?null:'fx'}
@@ -762,7 +812,7 @@ addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;const c=
   if(c in NOTEK){e.preventDefault();if(!e.repeat)keyDown(NOTEK[c]);return}
   let a=ACTK[c];if(!a)return;e.preventDefault();if(e.repeat)return;
   if(a==='play'&&c==='Space'&&S.playing)a='stop';
-  actEl[a]&&actEl[a].classList.add('on');if(e.shiftKey&&!S.shift&&/^s\d$/.test(a)){S.shift=true;press(a);S.shift=false;leds()}else press(a);e._a=a;downAct[c]=a});
+  actEl[a]&&actEl[a].classList.add('on');if(e.shiftKey&&!S.shift&&/^[st]\d$/.test(a)){S.shift=true;press(a);S.shift=false;leds()}else press(a);e._a=a;downAct[c]=a});
 const downAct={};
 addEventListener('keyup',e=>{const c=e.code;if(c in NOTEK){keyUp(NOTEK[c]);return}const a=downAct[c];if(a){delete downAct[c];actEl[a]&&actEl[a].classList.remove('on');release(a)}});
 addEventListener('blur',()=>{Object.keys(downNote).forEach(k=>keyUp(+k));S.shift=false;if(tape)tape.port.postMessage({t:'set',v:{scrub:0}});leds()});
@@ -929,12 +979,49 @@ function drawEnv(p){const [a,d,s,r]=p,x0=30,w=W-60,y0=92,y1=24,xa=x0+a*w*.25,xd=
   seg(COL.b,()=>{g.moveTo(x0,y0);g.lineTo(xa,y1)});seg(COL.g,()=>{g.moveTo(xa,y1);g.quadraticCurveTo(xa+(xd-xa)*.3,ys,xd,ys)});
   seg(COL.w,()=>{g.moveTo(xd,ys);g.lineTo(xs,ys)});seg(COL.o,()=>{g.moveTo(xs,ys);g.quadraticCurveTo(xs+(xr-xs)*.3,y0,xr,y0)});
   [[xa,y1],[xd,ys],[xs,ys],[xr,y0]].forEach(([x,y],i)=>circ(x,y,2.5,TC[i],true));ln(x0,y0+.5,W-30,y0+.5,COL.dim,.5)}
-function drawFx(t,P){const ty=P.fxType,p=P.fx[ty];
+function drawFx(t,P){const ty=P.fxType,p=P.fx[ty];if(ty>=4){FXDRAW[ty-4](t,p);return}
   if(ty===0){for(let k=0;k<9;k++){const x=40+k*(8+p[0]*28),a=Math.pow(p[1]*.93,k)*(k?p[3]+.15:1);if(x>W-20)break;g.globalAlpha=clamp(a,0,1);ln(x,CY-26*(1-k*.04*(1-p[2])),x,CY+26*(1-k*.04*(1-p[2])),k?COL.b:COL.w,3)}g.globalAlpha=1}
   else if(ty===1){for(let k=1;k<=6;k++){g.globalAlpha=clamp((1-k/7*(.4+p[1]*.6))*(.3+p[3]),0,1);g.strokeStyle=k%2?COL.b:COL.g;g.lineWidth=1;g.beginPath();g.arc(60+p[2]*40,CY,k*(6+p[0]*18)+((t*10)%6),-1,1);g.stroke()}g.globalAlpha=1;circ(60,CY,4,COL.w,true)}
   else if(ty===2){const st=2**(12-Math.round(p[0]*10))/2,qs=Math.min(st,12);plot(u=>CY-Math.round(Math.tanh(Math.sin(u*6.283*2+t)*(1+p[1]*3))*qs)/qs*28,24,W-24,COL.b,1.5,300);plot(u=>CY-Math.sin(u*6.283*2+t)*28,24,W-24,'rgba(255,255,255,.2)')}
   else{for(let k=0;k<4;k++)plot(u=>CY+Math.sin(u*6.283*(1+k*.5)+t*(.3+p[0]*6)+k)*(8+p[1]*22)*(1-k*.15),24,W-24,TC[k],1)}
   txt('T3 ▸ NEXT EFFECT',W-8,26,COL.dim,6,'right')}
+const bigN=(s,x,y,c,size,al='left')=>{g.fillStyle=c;g.font=`200 ${size}px ${FONT}`;g.textAlign=al;g.fillText(s,x,y)};
+const fxSide=(a,b)=>[a,b].forEach(([n,v,c],k)=>{const y=k?60:17;txt(n,326,y+9,c,7,'right');bigN(''+Math.round(v*100),326,y+35,c,28,'right')});
+const FXDRAW=[
+ // BOUNCE: a ball bouncing between the left and right walls, losing height with each repeat
+ (t,p)=>{const x0=26,x1=228,gy=92,L=S.lvl,fb=Math.max(.05,p[2]*.88),n=7,T=.025+Math.pow(p[0],1.6)*.75,wob=p[1],H=k=>60*Math.pow(fb,k*.6);
+  ln(x0,22,x0,gy,COL.b,1.2);ln(x1,22,x1,gy,COL.b,1.2);txt('L',x0+4,28,COL.b,7);txt('R',x1-4,28,COL.b,7,'right');ln(x0,gy+.5,x1,gy+.5,COL.dim,.6);
+  const arc=(k,u)=>{const a=k%2?x1:x0,b=k%2?x0:x1;return[a+(b-a)*u,gy-4*H(k)*u*(1-u)+Math.sin(u*24+t*(2+wob*8)+k)*wob*3.5*Math.sin(Math.PI*u)]};
+  for(let k=0;k<n;k++){g.globalAlpha=clamp(1-k/n*.9);g.strokeStyle=k?COL.b:COL.w;g.lineWidth=1.1;g.beginPath();for(let s=0;s<=48;s++){const[x,y]=arc(k,s/48);s?g.lineTo(x,y):g.moveTo(x,y)}g.stroke()}
+  const ph=(t/(.3+T*1.6))%n,k=Math.floor(ph),[bx,by]=arc(k,ph-k);g.globalAlpha=clamp(1-k/n*.9);circ(bx,by,2.5+L*4,COL.w,true);g.globalAlpha=1;
+  fxSide(['WOBBLE',p[1],COL.g],['FEEDBK',p[2],COL.w])},
+ // COIL: a spring in perspective; a ripple runs along it when you play
+ (t,p)=>{const x0=40,x1=226,L=S.lvl,turns=7+Math.round(p[1]*11),R=13,N=turns*24;
+  g.fillStyle=COL.b;g.fillRect(x0-14,CY-15,5,30);g.fillStyle=COL.o;g.fillRect(x1+9,CY-15,5,30);ln(x0-9,CY,x0,CY,COL.b,1.2);ln(x1,CY,x1+9,CY,COL.o,1.2);
+  for(let pass=0;pass<2;pass++){g.strokeStyle=pass?COL.w:COL.dim;g.lineWidth=pass?1.3:1;g.beginPath();let pen=false;
+    for(let s=0;s<=N;s++){const u=s/N,th=u*turns*6.2832,front=Math.cos(th)>0,
+      rip=1+L*1.5*Math.sin(u*14-t*16)*Math.exp(-u*(1.2+p[2]*4))+.05*Math.sin(u*9-t*3),x=x0+6+u*(x1-x0-12)+Math.cos(th)*R*.5,y=CY+Math.sin(th)*R*rip;
+      if(front===!!pass){pen?g.lineTo(x,y):g.moveTo(x,y);pen=true}else pen=false}g.stroke()}
+  txt('TONE',x0-14,26,COL.b,7);ln(x0+10,23.5,x0+10+p[0]*40,23.5,COL.b,1.5);ln(x0+10,23.5,x0+50,23.5,COL.dim,.5);
+  fxSide(['TENSION',p[1],COL.g],['DAMP',p[2],COL.w])},
+ // CUBE: a turning wireframe room, with a reflection tracing a trail inside it
+ (t,p)=>{const L=S.lvl,cx=122,cy=CY+2,a=17+p[0]*15,ry=t*.35,rx=.45,
+  P3=(x,y,z)=>{const c=Math.cos(ry),s=Math.sin(ry),X=x*c+z*s,Z=-x*s+z*c,cc=Math.cos(rx),ss=Math.sin(rx),Y=y*cc-Z*ss,Z2=y*ss+Z*cc,f=170/(170+Z2);return[cx+X*f,cy+Y*f]};
+  const A=a*(1+p[1]*.75)*(1+L*.12),B=a*(1-p[1]*.35)*(1+L*.12),C=a*(1-p[1]*.1)*(1+L*.12),V=[];for(let i=0;i<8;i++)V.push(P3(i&1?A:-A,i&2?B:-B,i&4?C:-C));
+  [[0,1],[2,3],[4,5],[6,7],[0,2],[1,3],[4,6],[5,7],[0,4],[1,5],[2,6],[3,7]].forEach(([i,j])=>ln(V[i][0],V[i][1],V[j][0],V[j][1],COL.b,1));
+  const tri=v=>{v=((v%2)+2)%2;return v<1?v*2-1:3-v*2},sp=1.6/(.5+p[0]),pos=u=>P3(A*.92*tri(u*.9),B*.92*tri(u*1.3+.4),C*.92*tri(u*1.1+.9)),M=Math.round(8+p[2]*40);
+  for(let k=M;k>0;k--){const[x1,y1]=pos(t*sp-k*.03),[x2,y2]=pos(t*sp-(k-1)*.03);g.globalAlpha=clamp(1-k/M);ln(x1,y1,x2,y2,COL.g,1.2)}g.globalAlpha=1;
+  const[hx,hy]=pos(t*sp);circ(hx,hy,2+L*3,COL.w,true);
+  fxSide(['SIZE',p[0],COL.b],['FEEDBK',p[2],COL.w])},
+ // RADIO: a tuning dial with a needle, and the crushed, crackling signal above it
+ (t,p)=>{const L=S.lvl,x0=22,x1=238,y0=66,y1=94,w=x1-x0-16,nd=x0+8+p[0]*w,q=Math.max(2,Math.round(2**(8-p[1]*6))),stw=Math.max(1,1+p[1]*p[1]*16),nz=p[2];
+  g.strokeStyle=COL.dim;g.lineWidth=.8;g.strokeRect(x0,y0,x1-x0,y1-y0);
+  for(let i=0;i<=40;i++){const x=x0+8+i*w/40;ln(x,y1-3,x,y1-(i%5?6:10),i%5?COL.dim:COL.w,.6)}
+  ['LW','MW','SW','FM'].forEach((s,i)=>txt(s,x0+8+(i+.5)*w/4,y0+9,COL.b,6,'center'));ln(nd,y0-3,nd,y1+3,COL.red,1.5);
+  plot(u=>38-Math.sin(u*6.283*3+t*2)*14,x0,x1,'rgba(255,255,255,.15)');
+  g.strokeStyle=COL.g;g.lineWidth=1.3;g.beginPath();for(let x=x0;x<=x1;x+=stw){const u=(x-x0)/(x1-x0),v=Math.round(Math.sin(u*6.283*3+t*2)*q)/q,drop=Math.sin(u*7+t*5)>1-nz*.6?.2:1,y=38-v*14*drop*(.6+L*.8)+(Math.random()*2-1)*nz*3;x===x0?g.moveTo(x,y):g.lineTo(x,y);g.lineTo(x+stw,y)}g.stroke();
+  for(let i=0;i<nz*40;i++)circ(x0+Math.random()*(x1-x0),20+Math.random()*36,.5,COL.w,true);
+  fxSide(['CRUSH',p[1],COL.g],['STATIC',p[2],COL.w])}];
 function drawLfo(t,p){const sh=idx(p[3],4),f=.05*2**(p[0]*8.6),A=4+p[1]*30;
   const fn=x=>{const ph=(x%1+1)%1;return sh===0?Math.sin(ph*6.283):sh===1?1-4*Math.abs(ph-.5):sh===2?(ph<.5?1:-1):ph*2-1};
   plot(u=>CY-fn(u*3+t*Math.min(f,6)*.5)*A,24,W-24,COL.b,1.5,240);circ(CX,CY-fn(1.5+t*Math.min(f,6)*.5)*A,3,COL.o,true);txt('→ '+LFD[idx(p[2],4)],W-8,26,COL.w,7,'right')}
