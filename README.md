@@ -48,7 +48,7 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 | **Sampler** | Load, drop or record a sound into any synth slot and play it across the keys |
 | **Tape** | 4 tracks × 60 s, overdub, loop, lift and drop, variable speed, reverse, brake and stutter tricks |
 | **Sequencers** | ENDLESS · PATTERN · ARP |
-| **FX** | A per-sound effect (ECHO · ROOM · CRUSH · SWIRL) plus a master rack (DRIVE → CHORUS → DELAY → REVERB) |
+| **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T1–T4) and a master rack (DRIVE → CHORUS → DELAY → REVERB) |
 | **Mixer** | Level and pan per track, master EQ and drive, output, compressor and live-instrument level |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
 | **Looks** | Light and dark case, and an OLED glow option for the screen |
