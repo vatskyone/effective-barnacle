@@ -27,6 +27,17 @@ python3 -m http.server 8000
 
 Then open <http://localhost:8000>.
 
+## OS-1: the iPhone version
+
+Open the same link on an iPhone and WEB-1 becomes **OS-1**: the same instrument re-laid out for touch in landscape, sized to fill the phone's screen: the display and the four knobs on top, two rows of keys, and two octaves along the bottom. Hold the phone sideways (with rotation lock on it still fills the screen, drawn turned).
+
+- Tap **?** on the device for the controls card and the tools (export, samples, dark mode, OLED, reset).
+- Drag the knobs up or down; double-tap one to reset it. Hold **shift** with one finger and tap with another.
+- For full screen, tap Share in Safari and choose **Add to Home Screen**. OS-1 then opens like an app.
+- If you hear nothing, turn the volume up and switch silent mode off.
+
+OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it in a desktop browser, or `?web1` to get the desktop device on a phone. It shares its saved sounds and tape with WEB-1 in the same browser.
+
 ## What's inside
 
 | Section | What it does |
@@ -61,7 +72,7 @@ Read **[GUIDE.md](GUIDE.md)** for the full manual: every mode, key and knob, plu
 
 ## Browser support
 
-WEB-1 works best in a recent Chromium-based browser (Chrome, Edge, Arc, Brave). Firefox and Safari work too. Web MIDI needs Chrome or Edge, and the microphone needs `localhost` or HTTPS. It is built for a desktop keyboard; touch and mouse also work on the on-screen keys.
+WEB-1 works best in a recent Chromium-based browser (Chrome, Edge, Arc, Brave). Firefox and Safari work too. Web MIDI needs Chrome or Edge, and the microphone needs `localhost` or HTTPS. The desktop device is built for a computer keyboard; on a phone it turns into OS-1, the touch layout (a recent iOS and Safari recommended).
 
 ## Credits
 

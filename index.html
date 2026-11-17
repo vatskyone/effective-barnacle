@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="os1-icon.png">
 <title>WEB-1 Portable Synth</title>
 <style>
 :root{--bg:#cdcec9;--ink:#3a3b3d;--hint:#6c6d6a;--b:#3f7fe8;--g:#2fb673;--w:#f4f4ef;--o:#ff6427}
@@ -92,15 +96,74 @@ html.dark .sig{color:#b9bcbe;text-shadow:0 -1px 0 rgba(0,0,0,.55),0 0 3px rgba(2
 html.dark .scr{background:#f4f4ef;box-shadow:0 0 0 5px #2b2d30,0 0 0 6px #1a1b1d,inset 0 0 0 1px #9a9c9e}
 html.dark .scr canvas{filter:invert(1) hue-rotate(180deg) saturate(1.4)}
 html.dark .scr .glow{filter:invert(1) hue-rotate(180deg) saturate(1.4) blur(5px);mix-blend-mode:multiply;opacity:.45}
+/* OS-1: the portrait, touch-first layout for phones */
+.h-os1{display:none}
+html.os1 .h-os1{display:block}
+html.os1 .h-web1{display:none}
+html.os1{touch-action:manipulation;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
+html.os1,html.os1 body{position:fixed;inset:0;width:100%;height:auto;overscroll-behavior:none}
+html.os1 body{gap:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+html.os1 .dev{width:906px;padding:14px;grid-template-columns:repeat(34,20px);grid-template-rows:146px 58px 58px;grid-auto-rows:auto;touch-action:none}
+html.os1 .spk,html.os1 .mic{display:none}
+html.os1 .scr{grid-column:1/span 14;grid-row:1}
+html.os1 .enc{grid-row:1}
+html.os1 .vol{grid-column:27/span 2;grid-row:3}
+html.os1 .vol .cap{width:34px;height:34px;box-shadow:0 3px 5px rgba(0,0,0,.3),0 0 0 3px #eceded,0 0 0 4px #b4b6b7}
+html.os1.dark .vol .cap{box-shadow:0 3px 5px rgba(0,0,0,.5),0 0 0 3px #3b3d40,0 0 0 4px #252628}
+html.os1 .vol .cap::after{top:4px;width:6px;height:6px;margin-left:-3px}
+html.os1 .tag{position:static;grid-column:29/span 6;grid-row:3;writing-mode:horizontal-tb;transform:none;font-size:26px;align-self:start;justify-self:start;margin:7px 0 0 16px}
+html.os1 .rail{position:static;grid-column:29/span 6;grid-row:3;flex-direction:row-reverse;align-self:start;justify-self:end;gap:6px;margin:18px 8px 0 0}
+html.os1 .sig{position:static;grid-column:29/span 6;grid-row:3;writing-mode:horizontal-tb;transform:none;align-self:end;justify-self:start;margin:0 0 9px 17px}
+html.os1 .okb{grid-column:1/-1;grid-row:4;display:flex;flex-direction:column;gap:5px}
+html.os1 .obk{position:relative;height:48px}
+html.os1 .owk{display:flex;gap:6px;height:96px}
+html.os1 .owk .wk{flex:1;min-width:0}
+html.os1 .wk::before{inset:9px 12px 11px}
+html.os1 .bk{width:48px;height:48px}
+html.os1 .bk::after{inset:9px}
+html.os1 #hint{position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 8px);transform:translateX(-50%);z-index:4;max-width:92vw;padding:6px 14px;border-radius:999px;background:rgba(20,20,22,.88);color:#fff;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+html.os1 #hint:empty{display:none}
+html.os1 #help{padding:calc(env(safe-area-inset-top) + 10px) calc(env(safe-area-inset-right) + 12px) calc(env(safe-area-inset-bottom) + 10px) calc(env(safe-area-inset-left) + 12px)}
+html.os1 #help .card{padding:18px;max-height:100%;font-size:13px;touch-action:pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;-webkit-user-select:none;user-select:none}
+html.os1 #help td:first-child{white-space:normal;min-width:74px}
+html.os1 #bar{padding:0 0 14px;margin-bottom:14px;justify-content:flex-start;border-bottom:1px solid #dddeda}
+:where(html.os1) #bar button{font-size:13px;padding:9px 14px;color:#2b2c2e;border-color:#b9bab6}
+html.os1 #bar .nomob{display:none}
 </style>
 </head>
 <body>
-<script>try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentElement.classList.toggle('dark',!!u.dark);document.documentElement.classList.toggle('oled',!!u.oled)}catch(_){}</script>
+<script>/* OS-1 is the phone layout: automatic on touch phones, or forced with ?os1 (and ?web1 forces the desktop device) */
+window.OS1=/[?&]os1\b/.test(location.search)||(!/[?&]web1\b/.test(location.search)&&matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<600);
+window.NAME=OS1?'OS-1':'WEB-1';document.documentElement.classList.toggle('os1',OS1);if(OS1)document.title='OS-1 Pocket Synth';
+try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentElement.classList.toggle('dark',!!u.dark);document.documentElement.classList.toggle('oled',!!u.oled)}catch(_){}</script>
 <div class="wrap" id="wrap"><div class="dev" id="dev"></div></div>
 <div id="hint">click the synth or press a key to switch it on &nbsp;·&nbsp; play with A W S E D F T G Y H U J K &nbsp;·&nbsp; press / for help</div>
-<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="midi" id="midi">connect midi</button><button data-b="dark" class="tg">dark mode</button><button data-b="oled" class="tg">oled</button><button data-b="reset">reset all</button></div>
+<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="midi" id="midi" class="nomob">connect midi</button><button data-b="dark" class="tg">dark mode</button><button data-b="oled" class="tg">oled</button><button data-b="reset">reset all</button></div>
 <input type="file" id="file" accept="audio/*" hidden><canvas id="probe" width="640" height="230"></canvas>
 <div id="help"><div class="card">
+<div class="h-os1">
+<h2>OS-1 · CONTROLS</h2>
+<table>
+<tr><td>Knobs</td><td>Drag up or down on the four coloured knobs. Each matches the same-coloured value on the screen. Double-tap resets. The small white knob is the volume.</td></tr>
+<tr><td>Modes</td><td>The first four keys under the screen: SYNTH · DRUM · TAPE · MIXER. FX is at the end of that row, SEQ (green steps) in the row below.</td></tr>
+<tr><td>T1 – T4</td><td>In synth/drum: ENGINE · ENVELOPE · FX · LFO (tap T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL · PAN · EQ · MASTER.</td></tr>
+<tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. Hold SHIFT and tap 1–8 for synth bank B (orange light).</td></tr>
+<tr><td>Keys</td><td>Two octaves, low to high from left to right. Hold SHIFT and tap ← or → to change octave.</td></tr>
+<tr><td>● ▶ ■</td><td>REC · PLAY · STOP. REC starts the tape and overdubs what you play onto the selected track. STOP twice rewinds. SHIFT + PLAY plays in reverse.</td></tr>
+<tr><td>← →</td><td>Hold to wind the tape.</td></tr>
+<tr><td>Loop</td><td>The orange loop key switches LOOP on/off from the current position (length = green knob in tape mode). ↑ LIFT cuts the loop or bar from the track, ↓ DROP pastes it at the tape head. SHIFT + LIFT erases the track.</td></tr>
+<tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse.</td></tr>
+<tr><td>SEQ</td><td>Sequencers. With the screen open, T1/T2/T3 pick the type. ENDLESS: hold SHIFT and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops. ARP: hold a chord. SHIFT + SEQ clears.</td></tr>
+<tr><td>FX</td><td>Master rack: DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, tap the same T again to switch it on/off. SHIFT + FX switches all off.</td></tr>
+<tr><td>Tempo</td><td>The metronome-shaped key opens TEMPO: count-in (green), quantize (white); hold SHIFT for swing, beats and snap. The clock key switches the metronome on/off.</td></tr>
+<tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. “clear sample” brings the engine back.</td></tr>
+<tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved on this phone automatically. “export tape as wav” shares the mix.</td></tr>
+<tr><td>No sound?</td><td>Turn the volume up and switch the phone's silent mode off.</td></tr>
+<tr><td>Full screen</td><td>Hold the phone sideways. In Safari tap Share, then “Add to Home Screen”: OS-1 then opens like an app and fills the screen.</td></tr>
+</table>
+<p>Tap outside the buttons to close.</p>
+</div>
+<div class="h-web1">
 <h2>WEB-1 · CONTROLS</h2>
 <table>
 <tr><td>Encoders</td><td>Drag up/down or scroll over the four coloured knobs. Each matches the same-coloured value on the screen. Double-click resets.</td></tr>
@@ -125,6 +188,7 @@ html.dark .scr .glow{filter:invert(1) hue-rotate(180deg) saturate(1.4) blur(5px)
 </table>
 <p>Tape: 4 tracks × 60 seconds, variable speed (orange knob in tape mode) — recording at one speed and playing at another shifts pitch, like real tape.</p>
 <p>Click anywhere to close.</p>
+</div>
 </div></div>
 
 <script>
@@ -185,7 +249,8 @@ const idb=(()=>{let dbp;const open=()=>dbp||(dbp=new Promise((res,rej)=>{const r
 const dumpQ=[];const dumpTape=()=>new Promise(r=>{dumpQ.push(r);tape.port.postMessage({t:'dump'})});
 async function saveTape(){const d=await dumpTape(),tr=d.dump.map(a=>{let e=a.length-1;while(e>=0&&a[e]===0)e--;return e<0?null:a.slice(0,e+1)});
   try{await idb.set('tape',{sr:d.sr,tr,ov:ov.map(a=>a.slice())})}catch(e){console.warn('tape save failed',e)}}
-function status(m){const h=$('#hint');h.textContent=m;clearTimeout(status.t);status.t=setTimeout(()=>h.textContent='press / for help',4000)}
+const IDLE=OS1?'':'press / for help';if(OS1)$('#hint').textContent='';
+function status(m){const h=$('#hint');h.textContent=m;clearTimeout(status.t);status.t=setTimeout(()=>h.textContent=IDLE,4000)}
 
 /* ───────────── audio ───────────── */
 let AC=null,tape=null,N={},noiseBuf,scopeBuf=new Float32Array(1024),mBuf=new Float32Array(256);
@@ -281,7 +346,7 @@ registerProcessor('wt',Wt);`;
 async function initAudio(){
   if(AC){if(AC.state==='suspended')AC.resume();return}
   AC=new (window.AudioContext||window.webkitAudioContext)({latencyHint:'interactive'});
-  $('#hint').textContent='press / for help';
+  $('#hint').textContent=IDLE;
   const sr=AC.sampleRate;
   noiseBuf=AC.createBuffer(1,sr*2,sr);{const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
   const n=N;
@@ -471,11 +536,12 @@ async function decodeToSample(ab){const b=await AC.decodeAudioData(ab),n=b.lengt
   for(let c=0;c<b.numberOfChannels;c++){const x=b.getChannelData(c);for(let i=0;i<n;i++)d[i]+=x[i]/b.numberOfChannels}
   if(S.inst!=='synth'){S.inst='synth'}S.mode='synth';S.page=0;S.overlay=null;setSample(S.slot,d,b.sampleRate);leds()}
 let micRec=null;
+const aSess=t=>{try{if(OS1&&navigator.audioSession)navigator.audioSession.type=t}catch(_){}};
 async function micSample(btn){if(micRec){micRec.stop();return}
-  try{const st=await navigator.mediaDevices.getUserMedia({audio:true}),mr=new MediaRecorder(st),ch=[];micRec=mr;btn.classList.add('rec');btn.textContent='stop recording';
+  try{aSess('play-and-record');const st=await navigator.mediaDevices.getUserMedia({audio:true}),mr=new MediaRecorder(st),ch=[];micRec=mr;btn.classList.add('rec');btn.textContent='stop recording';
     mr.ondataavailable=e=>ch.push(e.data);
-    mr.onstop=async()=>{micRec=null;btn.classList.remove('rec');btn.textContent='record sample';st.getTracks().forEach(t=>t.stop());try{await decodeToSample(await new Blob(ch).arrayBuffer())}catch(_){status('could not read that recording')}};
-    mr.start();setTimeout(()=>{if(micRec===mr)mr.stop()},6000);status('recording from the microphone… (6 seconds max)')}catch(_){status('microphone not available')}}
+    mr.onstop=async()=>{micRec=null;aSess('playback');btn.classList.remove('rec');btn.textContent='record sample';st.getTracks().forEach(t=>t.stop());try{await decodeToSample(await new Blob(ch).arrayBuffer())}catch(_){status('could not read that recording')}};
+    mr.start();setTimeout(()=>{if(micRec===mr)mr.stop()},6000);status('recording from the microphone… (6 seconds max)')}catch(_){aSess('playback');status('microphone not available')}}
 async function buildWav(){const d=await dumpTape(),sr=d.sr;let end=-1;d.dump.forEach(a=>{let e=a.length-1;while(e>end&&a[e]===0)e--;if(e>end)end=e});if(end<0)return null;
   const tail=S.rkOn[2]||S.rkOn[3]?Math.floor(sr*6):0,oc=new OfflineAudioContext(2,end+1+tail,sr),rk=buildRack(oc);rk.out.connect(oc.destination);
   for(let t=0;t<4;t++){const b=oc.createBuffer(1,end+1,sr);b.copyToChannel(d.dump[t].subarray(0,end+1),0);
@@ -486,7 +552,9 @@ async function buildWav(){const d=await dumpTape(),sr=d.sr;let end=-1;d.dump.for
   for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.tanh(L[i])*32767,true);dv.setInt16(46+i*4,Math.tanh(R[i])*32767,true)}
   return new Blob([dv],{type:'audio/wav'})}
 async function exportWav(){if(!tape)return;const b=await buildWav();if(!b){status('the tape is empty — record something first');return}
-  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='web1-tape.wav';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);status('exported web1-tape.wav')}
+  const nm=OS1?'os1-tape.wav':'web1-tape.wav';
+  if(OS1&&navigator.canShare){const f=new File([b],nm,{type:'audio/wav'});if(navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});status('exported '+nm);return}catch(e){if(e.name==='AbortError')return}}}
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=nm;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);status('exported '+nm)}
 const envVals=e=>[.002+e[0]*e[0]*2,.02+e[1]*e[1]*3,e[2],.02+e[3]*e[3]*4];
 function voiceOn(note,t,vel=1){
   const P=synthP[S.slot],E=engOf(),f=440*2**((note-69)/12),e=E.build(f,E===SMP?P.smp:P.eng,t),vg=gn(0),[a,d,s,r]=envVals(P.env),pk=.26*(.2+.8*vel);
@@ -645,13 +713,16 @@ const ICON={fx:'FX',synth:svg('<path d="M2 12c3-9 6-9 9 0s6 9 9 0"/>'),drum:svg(
   left:svg('<path d="M14 6l-6 6 6 6"/>'),right:svg('<path d="M10 6l6 6-6 6"/>'),loop:svg('<path d="M5 13a7 5 0 1 0 7-6M12 4l-3 3 3 3"/>'),
   lift:svg('<path d="M12 19V6M7 11l5-5 5 5"/>'),drop:svg('<path d="M12 5v13M7 13l5 5 5-5"/>'),
   seq:svg('<path d="M3 18h4v-4h4v-4h4V6h6"/>'),tempo:svg('<path d="M8 20l3-16h2l3 16zM12 16l4-6"/>'),help:'<span class="num" style="font-size:13px">?</span>',shift:'shift',metro:svg('<circle cx="12" cy="12" r="7"/><path d="M12 8v4l3 2"/>')};
-function addKey(col,row,act,html,color){const b=document.createElement('button');b.className='k';b.style.gridColumn=col;b.style.gridRow=row;b.innerHTML='<span class="ring">'+(html||ICON[act]||act)+'</span><i class="led"></i>';
+const POS={};if(OS1)[['synth','drum','tape','mixer','t0','t1','t2','t3','s0','s1','s2','s3','s4','s5','s6','s7','fx'],['lift','drop','loop','rec','play','stop','left','right','shift','seq','metro','tempo','help']].forEach((r,j)=>r.forEach((a,i)=>POS[a]=[1+i*2,2+j,2]));
+function addKey(col,row,act,html,color){if(OS1){const p=POS[act];col=p[0]+'/span '+p[2];row=p[1]}const b=document.createElement('button');b.className='k';b.style.gridColumn=col;b.style.gridRow=row;b.innerHTML='<span class="ring">'+(html||ICON[act]||act)+'</span><i class="led"></i>';
   if(color)b.style.setProperty('--c',color);b.dataset.a=act;dev.appendChild(b);actEl[act]=b;bindPress(b,()=>press(act),()=>release(act));return b}
 function bindPress(el,dn,up){let down=false;el.addEventListener('pointerdown',e=>{e.preventDefault();down=true;try{el.setPointerCapture(e.pointerId)}catch(_){}el.classList.add('on');dn()});
   const u=()=>{if(!down)return;down=false;el.classList.remove('on');up&&up()};el.addEventListener('pointerup',u);el.addEventListener('pointercancel',u)}
-function bindTurn(el,turn,reset){let y=null;el.addEventListener('pointerdown',e=>{e.preventDefault();initAudio();y=e.clientY;el.setPointerCapture(e.pointerId)});
-  el.addEventListener('pointermove',e=>{if(y===null)return;turn((y-e.clientY)/(e.shiftKey?900:220));y=e.clientY});
-  const u=()=>y=null;el.addEventListener('pointerup',u);el.addEventListener('pointercancel',u);
+let ROT=false;const dragY=e=>ROT?-e.clientX:e.clientY;
+function bindTurn(el,turn,reset){let y=null,tap=0,mv=0;el.addEventListener('pointerdown',e=>{e.preventDefault();initAudio();y=dragY(e);mv=0;el.setPointerCapture(e.pointerId);
+    if(reset&&e.pointerType!=='mouse'&&e.timeStamp-tap<320){tap=0;reset()}});
+  el.addEventListener('pointermove',e=>{if(y===null)return;const n=dragY(e);mv+=Math.abs(y-n);turn((y-n)/(e.shiftKey?900:220));y=n});
+  const u=e=>{if(y!==null)tap=mv<6?e.timeStamp:0;y=null};el.addEventListener('pointerup',u);el.addEventListener('pointercancel',u);
   el.addEventListener('wheel',e=>{e.preventDefault();initAudio();turn(-e.deltaY/1500)},{passive:false});
   if(reset)el.addEventListener('dblclick',reset)}
 (function build(){
@@ -659,27 +730,41 @@ function bindTurn(el,turn,reset){let y=null;el.addEventListener('pointerdown',e=
   volEl=document.createElement('div');volEl.className='vol';volEl.innerHTML='<div class="cap"></div>';dev.appendChild(volEl);
   bindTurn(volEl,d=>{S.ms[0]=clamp(S.ms[0]+d);applyMix();volEl.style.setProperty('--a',(S.ms[0]*270-135)+'deg')});
   volEl.style.setProperty('--a',(S.ms[0]*270-135)+'deg');
-  const pr=document.createElement('div');pr.className='pair';dev.appendChild(pr);pr.append(...[addKey(3,2,'help'),addKey(3,2,'tempo')].map(b=>{b.style.gridColumn=b.style.gridRow='';return b}));
+  const pr=document.createElement('div');pr.className='pair';dev.appendChild(pr);if(OS1){addKey(0,0,'help');addKey(0,0,'tempo');pr.remove()}else pr.append(...[addKey(3,2,'help'),addKey(3,2,'tempo')].map(b=>{b.style.gridColumn=b.style.gridRow='';return b}));
   const sc=document.createElement('div');sc.className='scr';sc.innerHTML='<canvas id="scr"></canvas><canvas class="glow" id="glow"></canvas>';dev.appendChild(sc);
-  ['b','g','w','o'].forEach((c,i)=>{const e=document.createElement('div');e.className='enc';e.style.gridColumn=(9+i*2)+'/'+(11+i*2);e.style.setProperty('--c',`var(--${c})`);
+  ['b','g','w','o'].forEach((c,i)=>{const e=document.createElement('div');e.className='enc';e.style.gridColumn=OS1?(15+i*5)+'/span 5':(9+i*2)+'/'+(11+i*2);e.style.setProperty('--c',`var(--${c})`);
     e.innerHTML='<div class="base"><div class="cap"></div></div>';dev.appendChild(e);encEl.push(e);let ang=0,defs=new Map();
     bindTurn(e,d=>{const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel;if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
       ()=>{const p=params()[i];if(p&&p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel;if(defs.has(k))p.turn(defs.get(k)-p.arr[p.i])}})});
   addKey(17,1,'fx','FX<span class="dots">'+TC.map(c=>`<i style="--c:${c}"></i>`).join('')+'</span>',COL.o);addKey(17,2,'metro');addKey(17,3,'seq',null,COL.g).style.color='#2fb673';
   ['synth','drum','tape','mixer'].forEach((m,i)=>addKey(i+1,3,m,null,TC[i]).style.color=['#3f7fe8','#2fb673','#ff6427',''][i]);
   for(let i=0;i<4;i++)addKey(5+i,3,'t'+i,'T'+(i+1),TC[i]);
-  const TRK=['brake','stutter','reverse'];for(let i=0;i<8;i++)addKey(9+i,3,'s'+i,`<span class="num">${i+1}</span>`+(TRK[i]?`<span class="sub">${TRK[i]}</span>`:''),'#3a3b3d');
+  const TRK=['brake','stutter','reverse'];for(let i=0;i<8;i++)addKey(9+i,3,'s'+i,`<span class="num">${i+1}</span>`+(TRK[i]?`<span class="sub">${TRK[i]}</span>`:''),'#3a3b3d').classList.add('sl');
   [['lift','drop','loop'],['rec','play','stop'],['left','right','shift']].forEach((r,j)=>r.forEach((a,i)=>{const b=addKey(i+1,4+j,a,null,a==='rec'?'#e5352b':a==='play'?COL.g:COL.b);if(j===0)b.style.color='#ff6427'}));
-  const row=document.createElement('div');row.className='bkrow';dev.appendChild(row);
+  const row=document.createElement('div');row.className='bkrow';if(!OS1)dev.appendChild(row);
   const WS=[0,2,4,5,7,9,11];
-  for(let w=0;w<14;w++){const ki=12*Math.floor(w/7)+WS[w%7],b=document.createElement('button');b.className='k wk';b.style.gridColumn=4+w;dev.appendChild(b);keyEl[ki]=b;bindPress(b,()=>keyDown(ki),()=>keyUp(ki));
+  if(OS1){const kb=document.createElement('div'),br=document.createElement('div'),wr=document.createElement('div');kb.className='okb';br.className='obk';wr.className='owk';kb.append(br,wr);dev.appendChild(kb);
+    for(let w=0;w<14;w++){const ki=12*Math.floor(w/7)+WS[w%7],b=document.createElement('button');b.className='k wk';wr.appendChild(b);keyEl[ki]=b;bindPress(b,()=>keyDown(ki),()=>keyUp(ki));
+      if([0,1,3,4,5].includes(w%7)){const k=document.createElement('div');k.className='bk';k.style.left=`calc((100% + 6px)/14*${w+1} - 27px)`;br.appendChild(k);keyEl[ki+1]=k;bindPress(k,()=>keyDown(ki+1),()=>keyUp(ki+1))}}}
+  else for(let w=0;w<14;w++){const ki=12*Math.floor(w/7)+WS[w%7],b=document.createElement('button');b.className='k wk';b.style.gridColumn=4+w;dev.appendChild(b);keyEl[ki]=b;bindPress(b,()=>keyDown(ki),()=>keyUp(ki));
     if([0,1,3,4,5].includes(w%7)){const k=document.createElement('div');k.className='bk';k.style.left=((w+1)*68-3-31)+'px';row.appendChild(k);keyEl[ki+1]=k;bindPress(k,()=>keyDown(ki+1),()=>keyUp(ki+1))}}
-  const tg=document.createElement('div');tg.className='tag';tg.textContent='WEB-1';dev.appendChild(tg);
+  const tg=document.createElement('div');tg.className='tag';tg.textContent=NAME;dev.appendChild(tg);
   const sg=document.createElement('div');sg.className='sig';sg.textContent='by Snow Bayles - 2026';dev.appendChild(sg);
   const rl=document.createElement('div');rl.className='rail';rl.innerHTML='<div class="mic"><i></i><i></i><i></i><i></i></div>'+[0,1,2,3,4].map(i=>`<i class="vu${i===0?' r':''}"></i>`).join('');dev.appendChild(rl);
 })();
-function fit(){const DW=1232,DH=dev.offsetHeight||452,s=Math.min((innerWidth-24)/DW,(innerHeight-110)/DH,1.5);dev.style.transform=`scale(${s})`;const w=$('#wrap');w.style.width=DW*s+'px';w.style.height=DH*s+'px'}
+function fit(){const DW=OS1?906:1232,DH=dev.offsetHeight||452,cs=getComputedStyle(document.body),pad=(a,b)=>(parseFloat(cs[a])||0)+(parseFloat(cs[b])||0),w=$('#wrap');
+  let aw=innerWidth-(OS1?pad('paddingLeft','paddingRight')+6:24),ah=innerHeight-(OS1?pad('paddingTop','paddingBottom')+6:110);
+  ROT=OS1&&innerHeight>innerWidth;/* OS-1 is a landscape device: on an upright phone it is drawn turned, so it still fills the screen */
+  if(ROT){const s=Math.min(ah/DW,aw/DH,1.5);dev.style.transform=`translate(${DH*s}px,0) rotate(90deg) scale(${s})`;w.style.width=DH*s+'px';w.style.height=DW*s+'px';return}
+  const s=Math.min(aw/DW,ah/DH,1.5);dev.style.transform=`scale(${s})`;w.style.width=DW*s+'px';w.style.height=DH*s+'px'}
 addEventListener('resize',fit);fit();
+if(OS1){/* phone plumbing: tools live in the help sheet, iOS audio unlock, no page zoom or scroll */
+  $('#help .card').prepend($('#bar'));aSess('playback');
+  const unlock=()=>{initAudio();if(AC&&AC.state!=='running')AC.resume()};['touchend','pointerup','click'].forEach(t=>addEventListener(t,unlock,true));
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&AC&&AC.state!=='running')AC.resume()});
+  ['gesturestart','gesturechange','dblclick'].forEach(t=>addEventListener(t,e=>e.preventDefault(),{passive:false}));
+  addEventListener('touchmove',e=>{if(!e.target.closest('#help .card'))e.preventDefault()},{passive:false});
+  addEventListener('orientationchange',()=>setTimeout(fit,250))}
 function leds(){const L=(a,on)=>actEl[a].classList.toggle('lit',!!on);
   ['synth','drum','tape','mixer'].forEach(m=>L(m,S.mode===m));
   for(let i=0;i<4;i++)L('t'+i,S.overlay==='seq'?seq.type===i:S.overlay==='fx'?S.rkOn[i]:!S.overlay&&(S.mode==='tape'?S.track===i:S.page===i));
@@ -1003,8 +1088,8 @@ function drawSeq(){txt('T1 T2 T3 ▸ TYPE',W-8,26,COL.dim,6,'right');
 function drawSmp(p){const pk=slotSmp[S.slot].pk,x0=20,w=(W-40)/160,a=p[0],b=Math.max(a+.01,p[1]);
   for(let i=0;i<160;i++){const u=i/160,h=1+pk[i]*30;g.fillStyle=u>=a&&u<=b?COL.w:'#3a3d44';g.fillRect(x0+i*w,CY-h,w-.4,h*2)}
   ln(x0+a*(W-40),20,x0+a*(W-40),94,COL.b,1.5);ln(x0+Math.min(1,b)*(W-40),20,x0+Math.min(1,b)*(W-40),94,COL.g,1.5);if(p[2]>.5)txt('LOOP',W-8,26,COL.w,6,'right')}
-function boot(t){for(let i=0;i<5;i++)plot(u=>65+Math.sin(u*9+t*1.4+i*.9)*(8+i*4)*Math.sin(u*3.14),20,W-20,i===4?COL.w:TC[i%4],1);txt('WEB-1',CX,34,COL.w,13,'center');txt('PRESS ANY KEY',CX,118,Math.sin(t*4)>0?COL.o:COL.dim,7,'center')}
-function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.fillStyle='#07080a';g.fillRect(0,0,W,H);
+function boot(t){for(let i=0;i<5;i++)plot(u=>65+Math.sin(u*9+t*1.4+i*.9)*(8+i*4)*Math.sin(u*3.14),20,W-20,i===4?COL.w:TC[i%4],1);txt(NAME,CX,34,COL.w,13,'center');txt(OS1?'TAP ANY KEY':'PRESS ANY KEY',CX,118,Math.sin(t*4)>0?COL.o:COL.dim,7,'center')}
+function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);
   if(!AC){boot(t);return}
   readScope();const P=cur();let title;
   g.save();g.beginPath();g.rect(0,14,W,86);g.clip();
