@@ -66,12 +66,39 @@ body{background:radial-gradient(ellipse at 50% 30%,color-mix(in srgb,var(--bg) 8
 #help td{padding:3px 10px 3px 0;vertical-align:top;border-top:1px solid #dddeda}
 #help td:first-child{white-space:nowrap;font-weight:700}
 #help p{margin:10px 0 0}
+
+.sig{position:absolute;right:47px;bottom:23px;writing-mode:vertical-rl;transform:rotate(180deg);font:400 7.5px/1 "Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;letter-spacing:.16em;color:#9a9d9f;text-shadow:0 -1px 0 rgba(255,255,255,.7),0 1px 0 rgba(0,0,0,.18);white-space:nowrap}
+.scr .glow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none;filter:blur(5px) brightness(1.7) saturate(1.3);mix-blend-mode:screen;opacity:.85}
+html.oled .scr .glow{display:block}
+#bar button.tg.on{color:var(--o);border-color:var(--o)}
+/* dark case, paper-white screen */
+html.dark{--bg:#151618;--hint:#8b8c88;--ink:#e4e5e1}
+html.dark .dev{background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,rgba(0,0,0,.05) 1px 2px,transparent 2px 3px),linear-gradient(#45484b,#323437);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 -2px 0 rgba(0,0,0,.35) inset,0 0 0 1px #1d1e20,0 40px 70px -28px rgba(0,0,0,.8),0 6px 14px rgba(0,0,0,.45)}
+html.dark .k,html.dark .bk,html.dark .enc{background:linear-gradient(#55585c,#46494c);box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 -1px 0 rgba(0,0,0,.2) inset,0 1px 1px rgba(0,0,0,.6),0 2px 4px rgba(0,0,0,.35)}
+html.dark .k.on{background:linear-gradient(#45474a,#3d3f42);box-shadow:inset 0 1px 3px rgba(0,0,0,.5)}
+html.dark .bk.on{box-shadow:inset 0 1px 3px rgba(0,0,0,.5)}
+html.dark .bk::after{background:radial-gradient(circle at 50% 30%,#2a2b2d,#0b0b0c 72%);box-shadow:0 1px 0 rgba(255,255,255,.12),inset 0 -1px 2px rgba(0,0,0,.6)}
+html.dark .k .ring{border-color:#7a7d81}
+html.dark .wk::before{background:linear-gradient(#3e4044,#4a4d51);box-shadow:inset 0 1px 2px rgba(0,0,0,.5),0 1px 0 rgba(255,255,255,.1)}
+html.dark .enc .base{background:radial-gradient(circle,rgba(90,94,98,.6) 58%,rgba(60,63,66,.6) 62%,rgba(35,37,39,.7) 100%);box-shadow:inset 0 2px 5px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.1)}
+html.dark .vol .cap{background:radial-gradient(circle at 50% 28%,#6a6d71,#4b4e52 60%,#3a3c3f);box-shadow:0 3px 5px rgba(0,0,0,.5),0 0 0 4px #3b3d40,0 0 0 5px #252628}
+html.dark .vol .cap::after{background:#e4e5e1}
+html.dark .spk{background:radial-gradient(circle,#141516 1.5px,transparent 2px) 3px 3px/9.4px 9.4px}
+html.dark .mic i{background:#141516}
+html.dark .dots i{background:#55585c}
+html.dark .vu{background:#55585c;box-shadow:inset 0 1px 1px rgba(0,0,0,.5)}
+html.dark .tag{color:#8d9093}
+html.dark .sig{color:#b9bcbe;text-shadow:0 -1px 0 rgba(0,0,0,.55),0 0 3px rgba(255,255,255,.12)}
+html.dark .scr{background:#f4f4ef;box-shadow:0 0 0 5px #2b2d30,0 0 0 6px #1a1b1d,inset 0 0 0 1px #9a9c9e}
+html.dark .scr canvas{filter:invert(1) hue-rotate(180deg) saturate(1.4)}
+html.dark .scr .glow{filter:invert(1) hue-rotate(180deg) saturate(1.4) blur(5px);mix-blend-mode:multiply;opacity:.45}
 </style>
 </head>
 <body>
+<script>try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentElement.classList.toggle('dark',!!u.dark);document.documentElement.classList.toggle('oled',!!u.oled)}catch(_){}</script>
 <div class="wrap" id="wrap"><div class="dev" id="dev"></div></div>
 <div id="hint">click the synth or press a key to switch it on &nbsp;·&nbsp; play with A W S E D F T G Y H U J K &nbsp;·&nbsp; press / for help</div>
-<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="midi" id="midi">connect midi</button><button data-b="reset">reset all</button></div>
+<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="midi" id="midi">connect midi</button><button data-b="dark" class="tg">dark mode</button><button data-b="oled" class="tg">oled</button><button data-b="reset">reset all</button></div>
 <input type="file" id="file" accept="audio/*" hidden><canvas id="probe" width="640" height="230"></canvas>
 <div id="help"><div class="card">
 <h2>WEB-1 · CONTROLS</h2>
@@ -633,7 +660,7 @@ function bindTurn(el,turn,reset){let y=null;el.addEventListener('pointerdown',e=
   bindTurn(volEl,d=>{S.ms[0]=clamp(S.ms[0]+d);applyMix();volEl.style.setProperty('--a',(S.ms[0]*270-135)+'deg')});
   volEl.style.setProperty('--a',(S.ms[0]*270-135)+'deg');
   const pr=document.createElement('div');pr.className='pair';dev.appendChild(pr);pr.append(...[addKey(3,2,'help'),addKey(3,2,'tempo')].map(b=>{b.style.gridColumn=b.style.gridRow='';return b}));
-  const sc=document.createElement('div');sc.className='scr';sc.innerHTML='<canvas id="scr"></canvas>';dev.appendChild(sc);
+  const sc=document.createElement('div');sc.className='scr';sc.innerHTML='<canvas id="scr"></canvas><canvas class="glow" id="glow"></canvas>';dev.appendChild(sc);
   ['b','g','w','o'].forEach((c,i)=>{const e=document.createElement('div');e.className='enc';e.style.gridColumn=(9+i*2)+'/'+(11+i*2);e.style.setProperty('--c',`var(--${c})`);
     e.innerHTML='<div class="base"><div class="cap"></div></div>';dev.appendChild(e);encEl.push(e);let ang=0,defs=new Map();
     bindTurn(e,d=>{const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel;if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
@@ -648,6 +675,7 @@ function bindTurn(el,turn,reset){let y=null;el.addEventListener('pointerdown',e=
   for(let w=0;w<14;w++){const ki=12*Math.floor(w/7)+WS[w%7],b=document.createElement('button');b.className='k wk';b.style.gridColumn=4+w;dev.appendChild(b);keyEl[ki]=b;bindPress(b,()=>keyDown(ki),()=>keyUp(ki));
     if([0,1,3,4,5].includes(w%7)){const k=document.createElement('div');k.className='bk';k.style.left=((w+1)*68-3-31)+'px';row.appendChild(k);keyEl[ki+1]=k;bindPress(k,()=>keyDown(ki+1),()=>keyUp(ki+1))}}
   const tg=document.createElement('div');tg.className='tag';tg.textContent='WEB-1';dev.appendChild(tg);
+  const sg=document.createElement('div');sg.className='sig';sg.textContent='by Snow Bayles - 2026';dev.appendChild(sg);
   const rl=document.createElement('div');rl.className='rail';rl.innerHTML='<div class="mic"><i></i><i></i><i></i><i></i></div>'+[0,1,2,3,4].map(i=>`<i class="vu${i===0?' r':''}"></i>`).join('');dev.appendChild(rl);
 })();
 function fit(){const DW=1232,DH=dev.offsetHeight||452,s=Math.min((innerWidth-24)/DW,(innerHeight-110)/DH,1.5);dev.style.transform=`scale(${s})`;const w=$('#wrap');w.style.width=DW*s+'px';w.style.height=DH*s+'px'}
@@ -716,7 +744,9 @@ function press(a){initAudio();
   leds()}
 function release(a){if(a[0]==='s'&&a.length===2&&S.trick===+a[1])trick(S.trick,false);if(a==='shift'){S.shift=false;leds()}else if((a==='left'||a==='right')&&tape)tape.port.postMessage({t:'set',v:{scrub:0}})}
 $('#help').addEventListener('click',()=>$('#help').classList.remove('show'));
-$('#bar').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;b.blur();await initAudio();const a=b.dataset.b;
+const UIK='web1.ui',uiSet=(k,v)=>{document.documentElement.classList.toggle(k,v);document.querySelector(`#bar [data-b=${k}]`).classList.toggle('on',v);try{const u=JSON.parse(localStorage.getItem(UIK)||'{}');u[k]=v;localStorage.setItem(UIK,JSON.stringify(u))}catch(_){}};
+['dark','oled'].forEach(k=>uiSet(k,document.documentElement.classList.contains(k)));
+$('#bar').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;b.blur();if(b.classList.contains('tg')){const k=b.dataset.b;uiSet(k,!document.documentElement.classList.contains(k));return}await initAudio();const a=b.dataset.b;
   if(a==='wav')exportWav();else if(a==='file')$('#file').click();else if(a==='mic')micSample(b);else if(a==='midi')initMidi();
   else if(a==='clr'){if(slotSmp[S.slot]){slotSmp[S.slot]=null;idb.del('smp'+S.slot).catch(()=>{});status('sample cleared from slot '+slotNm(S.slot))}else status('slot '+slotNm(S.slot)+' has no sample')}
   else if(a==='reset'&&confirm('Erase all saved sounds, sequences, samples and the tape?')){clearInterval(saveTimer);localStorage.removeItem(LSK);await Promise.all([idb.del('tape'),...slotSmp.map((_,i)=>idb.del('smp'+i))]).catch(()=>{});location.reload()}});
@@ -869,7 +899,7 @@ const ENGDRAW=[
    plot(u=>{const ph=(u*2.5)%1;return CY-fold(2*((ph*r)%1)-1)*A},x0,x1,COL.b,1.4,700);
    txt('×'+r.toFixed(2),W-8,26,COL.o,7,'right');txt('MASTER',x0,98,COL.dim,5.5)},
  // WAVES: waterfall of the 16 frames, the playing frame lit
- (t,p,l)=>{const V=wtv(),pos=clamp(wtPos(p,since()),0,1)*15,lev=p[3]>.02?Math.pow(2,5-p[3]*3.5):0;
+ (t,p,l)=>{const V=wtv(),pos=(clamp(wtPos(p,since()),0,1)||0)*15,lev=p[3]>.02?Math.pow(2,5-p[3]*3.5):0;
    const wave=(a,ox,oy,c,lw,fill)=>{g.beginPath();for(let i=0;i<=64;i++){const x=ox+i*2.3,y=oy-a[i]*9;i?g.lineTo(x,y):g.moveTo(x,y)}
      if(fill){g.lineTo(ox+147,oy+3);g.lineTo(ox,oy+3);g.closePath();g.fillStyle='#07080a';g.fill()}g.strokeStyle=c;g.lineWidth=lw;g.stroke()};
    for(let j=15;j>=0;j--)wave(V[j],34+j*8,90-j*3.9,Math.abs(j-pos)<1.5?'#5a6070':'#2c3038',.8,true);
@@ -919,7 +949,7 @@ function drawTape(){const sr=AC.sampleRate,pos=S.tpos/sr;S.reel+=S.tspd*.13;
   const pps=W/10;for(let i=0;i<4;i++){const y=62+i*9;g.fillStyle=i===S.track?'#1a1c20':'#101114';g.fillRect(0,y,W,7);
     const b0=Math.max(0,Math.floor((pos-5)*10)),b1=Math.min(BINS-1,Math.ceil((pos+5)*10));g.fillStyle=TC[i];g.globalAlpha=i===S.track?1:.55;
     for(let b=b0;b<=b1;b++){const v=ov[i][b];if(v>0){const h=1+v*5.5;g.fillRect(CX+(b/10-pos)*pps,y+3.5-h/2,pps/10-.4,h)}}g.globalAlpha=1;
-    txt(''+(i+1),3,y+6,i===S.track?TC[i]:COL.dim,6)}
+    if(i===S.track){g.fillStyle=TC[i];g.fillRect(0,y,1.5,7);g.shadowColor=TC[i];g.shadowBlur=6;txt(''+(i+1),3.5,y+6.3,TC[i],7.5);g.shadowBlur=0}else{g.globalAlpha=.55;txt(''+(i+1),3.5,y+6,TC[i],6);g.globalAlpha=1}}
   const xe0=CX-pos*pps,xe1=CX+(TAPE_SECS-pos)*pps;g.fillStyle='rgba(0,0,0,.6)';if(xe0>0)g.fillRect(0,62,xe0,34);if(xe1<W)g.fillRect(xe1,62,W-xe1,34);
   if(S.loop){const a=CX+(S.li/sr-pos)*pps,b=CX+(S.lo/sr-pos)*pps;g.strokeStyle=COL.g;g.lineWidth=1;g.strokeRect(a,60.5,b-a,37)}
   ln(CX,59,CX,99,COL.red,1)}
@@ -997,6 +1027,7 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.fillStyle='#0708
   ln(0,14,W,14,'#1c1e22',.6);ln(0,100,W,100,'#1c1e22',.6);
   params().forEach((p,i)=>{if(!p)return;const x=i*W/4+W/8;txt(p.n,x,111,COL.dim,6.5,'center');txt(p.val(),x,123,TC[i],9.5,'center')})}
 requestAnimationFrame(draw);
+{const gc=$('#glow'),gx=gc.getContext('2d');gc.width=W;gc.height=H;const gl=()=>{requestAnimationFrame(gl);if(document.documentElement.classList.contains('oled')){gx.clearRect(0,0,W,H);gx.drawImage(cv,0,0,W,H)}};requestAnimationFrame(gl)}
 setInterval(()=>{if(S.count&&actEl.rec)actEl.rec.classList.toggle('lit',Math.floor(performance.now()/180)%2===0)},60);
 const vuEl=[...document.querySelectorAll('.vu')].reverse();let vuLv=0;
 setInterval(()=>{if(!AC)return;vuLv=Math.max(peak(N.outAn),vuLv*.82);const n=vuLv<.01?0:Math.min(5,1+Math.floor((20*Math.log10(vuLv)+42)/8));vuEl.forEach((e,i)=>e.classList.toggle('on',i<n))},50);
