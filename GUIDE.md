@@ -30,7 +30,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 - **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
 - **Mode keys:** SYNTH, DRUM, TAPE and MIXER.
 - **T1–T4:** pick the page inside a mode.
-- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange.
+- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the drum-mode sample editor (Shift + 4).
 - **Transport:** REC, PLAY and STOP, plus the arrows for winding the tape.
 - **Musical keys:** the keyboard along the bottom, with white and black keys.
 - **Lights on the right edge:** the output level meter. The red light at the top means you are near the maximum level.
@@ -50,7 +50,8 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **Shift + X** | Drum machine (Shift + DRUM) |
 | **B N M ,** | T1 · T2 · T3 · T4 |
 | **1 – 8** | Sound slot (synth bank A, or drum kit) |
-| **Shift + 1 – 8** | Synth bank B |
+| **Shift + 1 – 8** | Synth bank B (in synth mode) |
+| **Shift + 4** | Pad sample editor (in drum mode) |
 | **Shift + M** | Shift + T3: effect bank B (BOUNCE · COIL · CUBE · RADIO) |
 | **R** | REC |
 | **Space** | PLAY (Shift + PLAY plays in reverse) |
@@ -123,7 +124,7 @@ Every synth slot and drum kit has one effect, chosen on the T3 page. There are 8
 | ⇧7 | **ACID** | Squelchy bassline; overlap notes to make them slide | CUTOFF · RESO · ENV MOD · DECAY |
 | ⇧8 | **HOOVER** | 90s rave lead that dives into each note | DIVE · DETUNE · CHORUS · TONE |
 
-Tip: Shift + 1–8 works from any mode, and jumps straight to that synth.
+Bank B is reached from synth mode only: press **SYNTH** (Z) first, then Shift + 1–8. In drum mode Shift + 4 opens the pad sample editor instead, and in the other modes Shift + 1–8 does nothing.
 
 ## 4. Drum mode
 
@@ -147,6 +148,19 @@ Each kit can have your own sample on any pad, so you could put kick.wav on KICK 
 3. The sample now plays on that pad only, in that kit. A small square on the pad and the file name at the top of the screen show it.
 
 The kit's knobs still shape it: TUNE changes its pitch, DECAY how long it rings, TONE how bright it is, and DRIVE adds grit. On the upper row of keys it plays higher, like the built-in sounds. **clear sample** puts the built-in sound back on the selected pad. Pad samples are saved, and **reset all** erases them.
+
+#### Editing a pad sample: Shift + 4
+
+Key 4 is labelled **SAMPLE** in orange. In drum mode, hold **Shift** and press **4** to open the sample editor for the selected pad, as you would edit a sample in synth mode. Key 4 lights orange while it is open, and the screen shows the sample's waveform with the part that plays in white.
+
+| Knob | What it does |
+|---|---|
+| **Blue: START** | Where the sample starts playing |
+| **Green: END** | Where it stops |
+| **White: TUNE** | Pitch, ±12 semitones |
+| **Orange: REVERSE** | Plays the sample backwards |
+
+Hit another pad to edit that pad's sample; pads without a sample show a reminder to load one. Loading a sample while the editor is open puts it on the selected pad. Press **Shift + 4** again, or any T key, to close the editor. The settings are saved with the pad, and loading a new sample on a pad resets them.
 
 ### Drum machine
 
@@ -300,9 +314,9 @@ Your work lives in the browser you made it in. Clearing that site's data, or usi
 2. Press **X** for drums and pick a kit with **1**. Press **C** for tape and **B** to select track 1.
 3. Press **R**. After the count-in, play a beat on the keys for a few bars, then press **Enter**.
 4. Press **Enter** twice to rewind, then press **Q** to loop the first bars.
-5. Press **N** to select track 2. Press **Shift + 7** for ACID and play a bassline while recording with **R**. Overlap notes to make them slide.
-6. Select track 3 with **M**. Press **Shift + 6** for AURORA and record some long chords.
-7. Select track 4 with **,**. Press **Shift + 1** for NEON and record a lead.
+5. Press **N** to select track 2. Press **Z** for synth, then **Shift + 7** for ACID and play a bassline while recording with **R**. Overlap notes to make them slide.
+6. Press **C** and select track 3 with **M**. Press **Z**, then **Shift + 6** for AURORA and record some long chords.
+7. Press **C** and select track 4 with **,**. Press **Z**, then **Shift + 1** for NEON and record a lead.
 8. Press **V** for the mixer and balance the four tracks with the knobs.
 9. Press **I**, then switch on DELAY (T3) and REVERB (T4) for space.
 10. Click **export tape as wav** to download your song.

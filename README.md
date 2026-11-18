@@ -43,8 +43,8 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 | Section | What it does |
 |---|---|
 | **Synth: bank A** (keys 1–8) | CLUSTER · FM · STRING · PULSE · ORGAN · FOLD · VOX · STORM |
-| **Synth: bank B** (Shift + 1–8) | NEON · LADDER · ORBIT · SYNC · WAVES · AURORA · ACID · HOOVER: 80s and 90s synthwave, mono bass, poly brass, rave leads |
-| **Drums** | 8 kits: BOX · DEEP · TINY · DIRT · TAPE · CLICK · AIR · ROOM, with your own sample on any pad |
+| **Synth: bank B** (Shift + 1–8 in synth mode) | NEON · LADDER · ORBIT · SYNC · WAVES · AURORA · ACID · HOOVER: 80s and 90s synthwave, mono bass, poly brass, rave leads |
+| **Drums** | 8 kits: BOX · DEEP · TINY · DIRT · TAPE · CLICK · AIR · ROOM, with your own sample on any pad, trimmed, tuned or reversed in the pad sample editor (Shift + 4) |
 | **Drum machine** (Shift + DRUM) | 12 pads built from 2 synth voices and a filter each, plus a 16-step pattern |
 | **Sampler** | Load, drop or record a sound into any synth slot and play it across the keys |
 | **Tape** | 4 tracks × 60 s, overdub, loop, lift and drop, variable speed, reverse, brake and stutter tricks |
