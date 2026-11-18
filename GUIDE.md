@@ -47,6 +47,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **A W S E D F T G Y H U J K O L P ; '** | Musical keys (W E T Y U O P are the black keys) |
 | **Shift + ← / →** | Octave down / up |
 | **Z X C V** | Mode: SYNTH · DRUM · TAPE · MIXER |
+| **Shift + X** | Drum machine (Shift + DRUM) |
 | **B N M ,** | T1 · T2 · T3 · T4 |
 | **1 – 8** | Sound slot (synth bank A, or drum kit) |
 | **Shift + 1 – 8** | Synth bank B |
@@ -136,6 +137,31 @@ Every musical key plays a different drum sound, and the screen flashes the pad y
 | **T2 MIX** | KICK · SNARE · HATS · PERC levels |
 | **T3 FX** | The kit's effect (press T3 again to change it, or Shift + T3 for bank B) |
 | **T4 LFO** | Same as for synths |
+
+### Pad samples
+
+Each kit can have your own sample on any pad, so you could put kick.wav on KICK and keep the built-in sounds everywhere else.
+
+1. In drum mode, pick a kit and hit the pad you want to replace. The screen rings the selected pad.
+2. Click **load sample** (or drag an audio file onto the page), or **record sample** to record one from the microphone.
+3. The sample now plays on that pad only, in that kit. A small square on the pad and the file name at the top of the screen show it.
+
+The kit's knobs still shape it: TUNE changes its pitch, DECAY how long it rings, TONE how bright it is, and DRIVE adds grit. On the upper row of keys it plays higher, like the built-in sounds. **clear sample** puts the built-in sound back on the selected pad. Pad samples are saved, and **reset all** erases them.
+
+### Drum machine
+
+Press **Shift + DRUM** (Shift + X) to open the drum machine. The DRUM light turns orange. It has 12 pads (KICK to SHAKE), each built from **two synth voices and a filter**, plus a **16-step pattern**. Keys play the pads and select the one you edit. The left of the screen always shows the pad grid, the pad's name and a live waveform.
+
+| Page | Knobs | Screen |
+|---|---|---|
+| **T1 VOICE 1** | TUNE · WAVE (sine, triangle, square, noise) · DECAY · BEND (pitch drop) | Both voices side by side, with a tune dial, wave shape and decay and pitch curves |
+| **T2 VOICE 2** | Same, for the second voice | Same, with voice 2 highlighted |
+| **T3 FILTER** | MODE (off, low, high, band, notch, peak, ring, crush) · CUTOFF · RESO · MIX (voice 1 ↔ voice 2) | Mode dial and the filter's response curve |
+| **T4 STEPS** | PAD · LENGTH (1–16 steps) · LEVEL · RUN | A 16-step grid for all 12 pads, with the playhead |
+
+- On **STEPS**, the first 16 keys switch steps on and off for the selected pad. Hold Shift and press a key to pick a different pad.
+- The pattern follows the tempo and swing. It keeps playing after you close the drum machine, and it records onto the tape like anything else.
+- Press **Shift + DRUM** again to close it. Your pads and pattern are saved.
 
 ## 5. Sampler
 
