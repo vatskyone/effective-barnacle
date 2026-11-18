@@ -17,7 +17,7 @@ The fastest way is the **[live version](https://vatskyone.github.io/effective-ba
 1. Download or clone this repository.
 2. Open `index.html` in a recent desktop browser (Chrome, Edge, Firefox or Safari).
 3. Click the device or press any key to switch the sound on.
-4. Play notes with the **A W S E D F T G Y H U J K** keys, and press **/** for the controls card.
+4. Play notes with the **A W S E D F T G Y H U J K** keys, and press **/** (or click **guide**) for the controls card.
 
 To serve it locally instead, for example to use MIDI or the microphone:
 
@@ -31,7 +31,7 @@ Then open <http://localhost:8000>.
 
 Open the same link on an iPhone and WEB-1 becomes **OS-1**: the same instrument re-laid out for touch in landscape, sized to fill the phone's screen: the display and the four knobs on top, two rows of keys, and two octaves along the bottom. Hold the phone sideways (with rotation lock on it still fills the screen, drawn turned).
 
-- Tap **?** on the device for the controls card and the tools (export, samples, dark mode, OLED, reset).
+- Tap **?** on the device for the controls card and the tools (export, samples, dark mode, OLED, line art, reset).
 - Drag the knobs up or down; double-tap one to reset it. Hold **shift** with one finger and tap with another.
 - For full screen, tap Share in Safari and choose **Add to Home Screen**. OS-1 then opens like an app.
 - If you hear nothing, turn the volume up and switch silent mode off.
@@ -51,7 +51,7 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 | **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack (DRIVE → CHORUS → DELAY → REVERB) |
 | **Mixer** | Level and pan per track, master EQ and drive, output, compressor and live-instrument level |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
-| **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen, light or dark finish, and an OLED glow option |
+| **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen, light or dark finish, a flat line-art finish, and an OLED glow option |
 | **MIDI** | Velocity, pitch bend, mod wheel and sustain from any connected keyboard |
 
 Every sound has its own animated screen. The four coloured knobs always match the four coloured values on the screen.
