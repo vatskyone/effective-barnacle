@@ -202,7 +202,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Knobs</td><td>Drag up or down on the four coloured knobs. Each matches the same-coloured value on the screen. Double-tap resets. The small white knob is the volume.</td></tr>
 <tr><td>Modes</td><td>The first four keys under the screen: SYNTH · DRUM · TAPE · MIXER. FX is at the end of that row, SEQ (green steps) in the row below.</td></tr>
 <tr><td>T1 – T4</td><td>In synth/drum: ENGINE · ENVELOPE · FX · LFO (tap T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL · PAN · EQ · MASTER.</td></tr>
-<tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. Hold SHIFT and tap 1–8 for synth bank B (orange light).</td></tr>
+<tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. In synth mode, hold SHIFT and tap 1–8 for synth bank B (orange light). In drum mode, SHIFT + 4 (SAMPLE) edits the selected pad's sample.</td></tr>
 <tr><td>Keys</td><td>Two octaves, low to high from left to right. Hold SHIFT and tap ← or → to change octave.</td></tr>
 <tr><td>● ▶ ■</td><td>REC · PLAY · STOP. REC starts the tape and overdubs what you play onto the selected track. STOP twice rewinds. SHIFT + PLAY plays in reverse.</td></tr>
 <tr><td>← →</td><td>Hold to wind the tape.</td></tr>
@@ -227,7 +227,8 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode.</td></tr>
 <tr><td>Shift + DRUM</td><td>DRUM MACHINE (Shift + X): 12 pads built from 2 synth voices and a filter, plus a 16-step pattern. T1 VOICE 1 · T2 VOICE 2 (TUNE, WAVE, DECAY, BEND) · T3 FILTER (MODE, CUTOFF, RESO, MIX) · T4 STEPS (PAD, LENGTH, LEVEL, RUN). Keys play and pick pads; on STEPS the first 16 keys toggle steps (hold Shift to pick a pad instead). Shift + DRUM again closes it; the pattern keeps running.</td></tr>
 <tr><td>Pad samples</td><td>In drum mode, hit a pad, then “load sample” / “record sample” (or drop a file) to put a sound on that pad only, for the current kit. TUNE, DECAY, TONE and DRIVE still shape it. “clear sample” brings the built-in sound back.</td></tr>
-<tr><td>Shift + 1 – 8</td><td>Synth bank B (orange light): NEON supersaw · LADDER mono bass/lead with glide · ORBIT poly brass · SYNC hard-sync lead · WAVES digital wavetable · AURORA string ensemble · ACID squelch bass (overlap notes to slide) · HOOVER rave lead.</td></tr>
+<tr><td>Shift + 4</td><td>In drum mode: SAMPLE editor for the selected pad's sample (orange light on 4). START · END · TUNE (±12) · REVERSE. Hit pads to switch pad; Shift + 4 again or any T key closes it.</td></tr>
+<tr><td>Shift + 1 – 8</td><td>In synth mode: synth bank B (orange light): NEON supersaw · LADDER mono bass/lead with glide · ORBIT poly brass · SYNC hard-sync lead · WAVES digital wavetable · AURORA string ensemble · ACID squelch bass (overlap notes to slide) · HOOVER rave lead.</td></tr>
 <tr><td>Shift + M</td><td>Sound FX bank B (Shift + T3, orange light on T3): BOUNCE ping-pong tape delay · COIL spring reverb · CUBE feedback-box reverb · RADIO lo-fi radio. Shift + T3 again steps through them; plain T3 goes back to ECHO · ROOM · CRUSH · SWIRL.</td></tr>
 <tr><td>A…' row</td><td>Musical keys (W E T Y U O P are the black keys). Shift+← / → changes octave.</td></tr>
 <tr><td>R · Space · Enter</td><td>REC · PLAY · STOP. REC starts the tape and overdubs what you play onto the selected track. STOP twice rewinds. Shift+PLAY plays in reverse.</td></tr>
@@ -307,9 +308,10 @@ const base=()=>48+12*S.oct;
 const mod24=x=>((x%24)+24)%24;
 
 /* ───────────── saving ───────────── */
+const padP={}; // drum pad sample settings: padP['kit_pad'] = [START, END, TUNE, REVERSE]
 const LSK='web1.v1',SKEYS=['inst','slot','kit','oct','bpm','tm','sqp','tp','lv','pn','eq','ms','rk','rkOn','rkSel','tq'];
-const snapshot=()=>JSON.stringify({S:Object.fromEntries(SKEYS.map(k=>[k,S[k]])),synthP,drumP,seq:{type:seq.type,steps:seq.steps,pat:seq.pat},dm:{pads:DM.pads,pat:DM.pat,sq:DM.sq}});
-try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){Object.assign(S,d.S);d.synthP.forEach((p,i)=>Object.assign(synthP[i],p));d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));d.dm.pat.forEach((r,i)=>DM.pat[i]&&r.forEach((v,j)=>DM.pat[i][j]=v));DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12)}S.mode=S.inst}}catch(_){}
+const snapshot=()=>JSON.stringify({S:Object.fromEntries(SKEYS.map(k=>[k,S[k]])),synthP,drumP,seq:{type:seq.type,steps:seq.steps,pat:seq.pat},dm:{pads:DM.pads,pat:DM.pat,sq:DM.sq},pp:padP});
+try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){Object.assign(S,d.S);d.synthP.forEach((p,i)=>Object.assign(synthP[i],p));d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));d.dm.pat.forEach((r,i)=>DM.pat[i]&&r.forEach((v,j)=>DM.pat[i][j]=v));DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12)}if(d.pp)Object.assign(padP,d.pp);S.mode=S.inst}}catch(_){}
 [...synthP,...drumP].forEach(P=>{const f=fxDef(-1);for(let i=P.fx.length;i<f.length;i++)P.fx[i]=f[i];if(!(P.fxType<f.length))P.fxType=0});
 let lastSnap=snapshot(),tapeDirty=false;
 const saveTimer=setInterval(()=>{const s=snapshot();if(s!==lastSnap){lastSnap=s;try{localStorage.setItem(LSK,s)}catch(_){}}
@@ -624,7 +626,7 @@ ENG.push(
      if(fq.cancelAndHoldAtTime)fq.cancelAndHoldAtTime(tt);else{fq.cancelScheduledValues(tt);fq.setValueAtTime(f*R[i],tt)}fq.exponentialRampToValueAtTime(f*R[i]*2**(-.4-dv*.6),tt+r*1.3+.05)})}}}});
 const slotSmp=Array(16).fill(null);
 /* drum pad samples: padSmp[kit][pad], pad 0–23 = the 24 keys; saved in IndexedDB as pad<kit>_<pad> */
-const padSmp=Array.from({length:8},()=>Array(24).fill(null)),padK=(kt,p)=>'pad'+kt+'_'+p,padNm=p=>DN[p%12]+(p>=12?' (HIGH)':'');
+const padPar=(kt,p)=>padP[kt+'_'+p]||(padP[kt+'_'+p]=[0,1,.5,0]),padSmp=Array.from({length:8},()=>Array(24).fill(null)),padK=(kt,p)=>'pad'+kt+'_'+p,padNm=p=>DN[p%12]+(p>=12?' (HIGH)':'');
 const SMP={name:'SAMPLE',pn:['START','END','LOOP','TUNE'],fmt:[null,null,v=>v>.5?'ON':'OFF',v=>{const s=Math.round((v-.5)*24);return(s>=0?'+':'')+s}],build(f,p,t){
    const sm=slotSmp[S.slot],src=AC.createBufferSource(),D=sm.buf.duration,a=clamp(p[0],0,.98)*D,b=Math.max(a+.01,p[1]*D);src.buffer=sm.buf;
    src.playbackRate.value=f/261.63*2**(Math.round((p[3]-.5)*24)/12);
@@ -639,17 +641,20 @@ function setSample(slot,d,sr,quiet){let a=0,pk=0;for(let i=0;i<d.length;i++){con
 function setPadSample(kt,p,d,sr,quiet,name){let a=0,pk=0;for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>pk)pk=v}
   if(pk<1e-4){status('that sample is silent');return}
   while(a<d.length&&Math.abs(d[a])<pk*.02)a++;const n=Math.min(d.length-a,Math.floor(sr*6)),o=new Float32Array(n),g=.9/pk;for(let i=0;i<n;i++)o[i]=d[a+i]*g;
-  const buf=AC.createBuffer(1,n,sr);buf.copyToChannel(o,0);padSmp[kt][p]={buf,name:name||'sample'};
+  const buf=AC.createBuffer(1,n,sr);buf.copyToChannel(o,0);const pks=new Float32Array(160);for(let i=0;i<n;i++){const k=Math.floor(i/n*160),v=Math.abs(o[i]);if(v>pks[k])pks[k]=v}
+  padSmp[kt][p]={buf,pk:pks,name:name||'sample'};if(!quiet)padP[kt+'_'+p]=[0,1,.5,0];
   if(!quiet){idb.set(padK(kt,p),{sr,data:o,name}).catch(()=>{});status((name||'sample')+' loaded on '+padNm(p)+' · kit '+(kt+1)+' '+KITS[kt])}}
 function playPad(ps,k,t,vel){const kit=drumP[S.kit],[tu,de,to]=kit.eng,hi=k>=12,out=gn(kit.env[DG[k%12]]*1.1*(.25+.75*vel));out.connect(N.drumBus);
-  const src=AC.createBufferSource();src.buffer=ps.buf;src.playbackRate.value=2**((tu-.5)*2)*(hi?1.5:1);
-  const f=flt('lowpass',Math.min(20000,1000*2**(to*8.6)),.7),e=gn(1),len=Math.min(ps.buf.duration/src.playbackRate.value,.06+de*de*4);
+  const pp=padPar(S.kit,k),D=ps.buf.duration,a=clamp(pp[0],0,.98)*D,b=Math.max(a+.005,Math.min(1,pp[1])*D),rv=pp[3]>.5;
+  if(rv&&!ps.rev){const n=ps.buf.length,r=AC.createBuffer(1,n,ps.buf.sampleRate),x=ps.buf.getChannelData(0),y=r.getChannelData(0);for(let i=0;i<n;i++)y[i]=x[n-1-i];ps.rev=r}
+  const src=AC.createBufferSource();src.buffer=rv?ps.rev:ps.buf;src.playbackRate.value=2**((tu-.5)*2)*(hi?1.5:1)*2**(Math.round((pp[2]-.5)*24)/12);
+  const f=flt('lowpass',Math.min(20000,1000*2**(to*8.6)),.7),e=gn(1),len=Math.min((b-a)/src.playbackRate.value,.06+de*de*4);
   e.gain.setValueAtTime(1,t);e.gain.setValueAtTime(1,t+len*.7);e.gain.exponentialRampToValueAtTime(.0001,t+len);
-  src.connect(f);f.connect(e);e.connect(out);src.start(t);src.stop(t+len+.05);setTimeout(()=>out.disconnect(),(t-AC.currentTime+len)*1000+500);
+  src.connect(f);f.connect(e);e.connect(out);src.start(t,rv?D-b:a);src.stop(t+len+.05);setTimeout(()=>out.disconnect(),(t-AC.currentTime+len)*1000+500);
   setTimeout(()=>S.flash[k]=performance.now(),Math.max(0,(t-AC.currentTime)*1000))}
 async function decodeToSample(ab,name){const b=await AC.decodeAudioData(ab),n=b.length,d=new Float32Array(n);
   for(let c=0;c<b.numberOfChannels;c++){const x=b.getChannelData(c);for(let i=0;i<n;i++)d[i]+=x[i]/b.numberOfChannels}
-  if(S.inst==='drum'&&S.mode==='drum'&&!S.overlay){setPadSample(S.kit,S.pad|0,d,b.sampleRate,false,name);leds();return}
+  if(S.inst==='drum'&&S.mode==='drum'&&(!S.overlay||S.overlay==='pse')){setPadSample(S.kit,S.pad|0,d,b.sampleRate,false,name);leds();return}
   if(S.inst!=='synth'){S.inst='synth'}S.mode='synth';S.page=0;S.overlay=null;setSample(S.slot,d,b.sampleRate);leds()}
 let micRec=null;
 const aSess=t=>{try{if(OS1&&navigator.audioSession)navigator.audioSession.type=t}catch(_){}};
@@ -811,6 +816,8 @@ const LFD=['PITCH','AMP','PAN','TONE'],LFS=['SINE','TRI','SQR','SAW'],RATES=['1/
 const ARPM=['UP','DOWN','UPDN','RND'],SEQT=['ENDLESS','PATTERN','ARP'];const patStep=()=>idx(S.sqp[1][0],16),patLen=()=>1+idx(S.sqp[1][2],16);
 const fmtT=s=>{const m=Math.floor(s/60),x=s-m*60;return m+':'+(x<10?'0':'')+x.toFixed(1)};
 function params(){
+  if(S.overlay==='pse'){const k=S.pad|0;if(!padSmp[S.kit][k])return[null,null,null,null];const q=padPar(S.kit,k);
+    return[mk(q,0,'START'),mk(q,1,'END'),mk(q,2,'TUNE',v=>{const s=Math.round((v-.5)*24);return(s>=0?'+':'')+s}),mk(q,3,'REVERSE',v=>v>.5?'ON':'OFF')]}
   if(S.overlay==='dm'){const P=DM.pads[DM.pad];
     if(DM.page<2){const v=P.v[DM.page];return[mk(v,0,'TUNE',x=>Math.round(dmFr(x))+''),mk(v,1,'WAVE',x=>DMW[idx(x,4)]),mk(v,2,'DECAY',x=>{const d=dmDec(x);return d<1?Math.round(d*1000)+'ms':d.toFixed(1)+'s'}),mk(v,3,'BEND')]}
     if(DM.page===2)return[mk(P.f,0,'MODE',x=>DMF[idx(x,8)]),mk(P.f,1,'CUTOFF',x=>{const f=dmCut(x);return f<1000?Math.round(f)+'':(f/1000).toFixed(1)+'k'}),mk(P.f,2,'RESO'),mk(P.f,3,'MIX',x=>Math.round((1-x)*100)+'/'+Math.round(x*100))];
@@ -869,12 +876,12 @@ function bindTurn(el,turn,reset){let y=null,tap=0,mv=0;el.addEventListener('poin
   const sc=document.createElement('div');sc.className='scr';sc.innerHTML='<canvas id="scr"></canvas><canvas class="glow" id="glow"></canvas>';dev.appendChild(sc);
   ['b','g','w','o'].forEach((c,i)=>{const e=document.createElement('div');e.className='enc';e.style.gridColumn=OS1?(15+i*5)+'/span 5':(9+i*2)+'/'+(11+i*2);e.style.setProperty('--c',`var(--${c})`);
     e.innerHTML='<div class="base"><div class="cap"></div></div>';dev.appendChild(e);encEl.push(e);let ang=0,defs=new Map();
-    bindTurn(e,d=>{const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel;if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
-      ()=>{const p=params()[i];if(p&&p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel;if(defs.has(k))p.turn(defs.get(k)-p.arr[p.i])}})});
+    bindTurn(e,d=>{const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
+      ()=>{const p=params()[i];if(p&&p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(defs.has(k))p.turn(defs.get(k)-p.arr[p.i])}})});
   addKey(17,1,'fx','FX<span class="dots">'+TC.map(c=>`<i style="--c:${c}"></i>`).join('')+'</span>',COL.o);addKey(17,2,'metro');addKey(17,3,'seq',null,COL.g).style.color='#2fb673';
   ['synth','drum','tape','mixer'].forEach((m,i)=>addKey(i+1,3,m,null,TC[i]).style.color=['#3f7fe8','#2fb673','#ff6427',''][i]);
   for(let i=0;i<4;i++)addKey(5+i,3,'t'+i,'T'+(i+1),TC[i]);
-  const TRK=['brake','stutter','reverse'];for(let i=0;i<8;i++)addKey(9+i,3,'s'+i,`<span class="num">${i+1}</span>`+(TRK[i]?`<span class="sub">${TRK[i]}</span>`:''),'#3a3b3d').classList.add('sl');
+  const TRK=['brake','stutter','reverse','sample'];for(let i=0;i<8;i++)addKey(9+i,3,'s'+i,`<span class="num">${i+1}</span>`+(TRK[i]?`<span class="sub">${TRK[i]}</span>`:''),'#3a3b3d').classList.add('sl');
   [['lift','drop','loop'],['rec','play','stop'],['left','right','shift']].forEach((r,j)=>r.forEach((a,i)=>{const b=addKey(i+1,4+j,a,null,a==='rec'?'#e5352b':a==='play'?COL.g:COL.b);if(j===0)b.style.color='#ff6427'}));
   const row=document.createElement('div');row.className='bkrow';if(!OS1)dev.appendChild(row);
   const WS=[0,2,4,5,7,9,11];
@@ -905,7 +912,7 @@ function leds(){const L=(a,on)=>actEl[a].classList.toggle('lit',!!on);
   ['synth','drum','tape','mixer'].forEach(m=>L(m,S.mode===m));if(S.overlay==='dm')L('drum',1);actEl.drum.classList.toggle('alt',S.overlay==='dm');
   for(let i=0;i<4;i++)L('t'+i,S.overlay==='seq'?seq.type===i:S.overlay==='fx'?S.rkOn[i]:S.overlay==='dm'?DM.page===i:!S.overlay&&(S.mode==='tape'?S.track===i:S.page===i));
   actEl.t2.classList.toggle('alt',!S.overlay&&(S.mode==='synth'||S.mode==='drum')&&S.page===2&&cur().fxType>=4);
-  for(let i=0;i<8;i++){L('s'+i,(S.inst==='synth'?S.slot%8:S.kit)===i);actEl['s'+i].classList.toggle('alt',S.inst==='synth'&&S.slot>=8)}
+  for(let i=0;i<8;i++){const pe=S.overlay==='pse';L('s'+i,pe?i===3:(S.inst==='synth'?S.slot%8:S.kit)===i);actEl['s'+i].classList.toggle('alt',pe?i===3:S.inst==='synth'&&S.slot>=8)}
   L('fx',S.overlay==='fx');actEl.fx.querySelectorAll('.dots i').forEach((e,i)=>e.classList.toggle('on',S.rkOn[i]));L('metro',S.metro);L('seq',seq.on);L('tempo',S.overlay==='tempo');L('loop',S.loop);L('rec',S.rec&&!S.count);L('play',S.playing);L('shift',S.shift)}
 leds();
 
@@ -950,7 +957,9 @@ function press(a){initAudio();
       // T3 = effects ECHO ROOM CRUSH SWIRL · Shift+T3 = BOUNCE COIL CUBE RADIO; pressing again on the FX page steps through the bank
       if(S.page!==2){if(S.shift&&!b)P.fxType=ty+4}else if(S.shift)P.fxType=b?4+(ty-3)%4:ty+4;else P.fxType=b?ty-4:(ty+1)%4;if(P.fxType!==ty)applyFx();S.page=2}
     else S.page=i}
-  else if(a[0]==='s'&&a.length===2){const i=+a[1];if(S.shift){S.slot=8+i;if(S.inst!=='synth'){S.inst='synth';if(S.mode==='drum')S.mode='synth'}}
+  else if(a[0]==='s'&&a.length===2){const i=+a[1];if(S.shift&&S.mode==='synth'){S.slot=8+i}
+    else if(S.shift&&S.mode==='drum'){if(i===3)S.overlay=S.overlay==='pse'?null:'pse'}
+    else if(S.shift){}
     else if(S.mode==='tape'&&!S.overlay&&i<3)trick(i,true);else if(S.inst==='synth')S.slot=i;else S.kit=i;applyPatch()}
   else if(a==='fx'){if(S.shift){S.rkOn=[false,false,false,false];applyRack()}else S.overlay=S.overlay==='fx'?null:'fx'}
   else if(a==='tempo'){S.overlay=S.overlay==='tempo'?null:'tempo'}
@@ -1323,6 +1332,12 @@ function drawSeq(){txt('T1 T2 T3 ▸ TYPE',W-8,26,COL.dim,6,'right');
   let lo=Math.min(...seq.steps),hi=Math.max(...seq.steps);if(hi-lo<12)hi=lo+12;const w=Math.min(18,(W-40)/L);
   seq.steps.forEach((n,i)=>{const x=20+i*w,y=90-(n-lo)/(hi-lo)*64;g.fillStyle=i===seq.cur?COL.o:COL.b;g.fillRect(x,y-3,w-2,6);ln(x+(w-2)/2,y+3,x+(w-2)/2,94,i===seq.cur?COL.o:'#26303f',.6)});
   txt(L+' STEPS',W-8,36,COL.dim,6,'right')}
+function drawPadSmp(){const k=S.pad|0,ps=padSmp[S.kit][k];txt(padNm(k)+(ps?' · '+ps.name.slice(0,22):''),8,24,ps?COL.w:COL.dim,6);
+  if(!ps){txt('NO SAMPLE ON '+padNm(k),CX,52,COL.w,9,'center');txt('HIT A PAD, THEN LOAD SAMPLE',CX,66,COL.dim,7,'center');return}
+  const p=padPar(S.kit,k),pk=ps.pk,x0=20,w=(W-40)/160,rv=p[3]>.5,a=p[0],b=Math.max(a+.005,p[1]);
+  for(let i=0;i<160;i++){const u=i/160,h=1+pk[rv?159-i:i]*30,uu=rv?1-u:u;g.fillStyle=uu>=a&&uu<=b?COL.w:'#3a3d44';g.fillRect(x0+i*w,CY-h,w-.4,h*2)}
+  const xa=x0+(rv?1-a:a)*(W-40),xb=x0+(rv?1-Math.min(1,b):Math.min(1,b))*(W-40);ln(xa,30,xa,94,COL.b,1.5);ln(xb,30,xb,94,COL.g,1.5);
+  const f=S.flash[k]&&performance.now()-S.flash[k]<180;circ(W-14,24,3,COL.o,!!f);if(rv)txt('REVERSE',W-24,26,COL.w,6,'right')}
 function drawSmp(p){const pk=slotSmp[S.slot].pk,x0=20,w=(W-40)/160,a=p[0],b=Math.max(a+.01,p[1]);
   for(let i=0;i<160;i++){const u=i/160,h=1+pk[i]*30;g.fillStyle=u>=a&&u<=b?COL.w:'#3a3d44';g.fillRect(x0+i*w,CY-h,w-.4,h*2)}
   ln(x0+a*(W-40),20,x0+a*(W-40),94,COL.b,1.5);ln(x0+Math.min(1,b)*(W-40),20,x0+Math.min(1,b)*(W-40),94,COL.g,1.5);if(p[2]>.5)txt('LOOP',W-8,26,COL.w,6,'right')}
@@ -1332,6 +1347,7 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.setTransform(3,0
   readScope();const P=cur();let title;
   g.save();g.beginPath();g.rect(0,14,W,86);g.clip();
   if(S.overlay==='dm'){title='DRUM MACHINE · '+['VOICE 1','VOICE 2','FILTER','STEPS'][DM.page];drawDM(t)}
+  else if(S.overlay==='pse'){title=`DRUM ${S.kit+1} · SAMPLE`;drawPadSmp()}
   else if(S.overlay==='tempo'){title='TEMPO';drawTempo(t)}
   else if(S.overlay==='seq'){title='SEQ · '+SEQT[seq.type];drawSeq()}
   else if(S.overlay==='fx'){title='FX RACK · '+RKN[S.rkSel];drawRack(t)}
