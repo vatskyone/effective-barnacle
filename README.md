@@ -2,7 +2,7 @@
 
 **A portable synth, drum machine, sampler and 4-track tape recorder that runs in one web page.**
 
-WEB-1 is a small instrument for making music in the browser. It has 16 synth engines, 8 drum kits, a sampler, sequencers, a master FX rack and a 4-track tape that you record on, loop, cut and play backwards. It is one HTML file with no install, no build step and no dependencies.
+WEB-1 is a small instrument for making music in the browser. It has 16 synth engines, 8 drum kits (with your own samples on any pad), a drum machine with a 16-step pattern, a sampler, sequencers, 8 sound effects, a master FX rack and a 4-track tape that you record on, loop, cut and play backwards. It is one HTML file with no install, no build step and no dependencies.
 
 Designed and built by Snow Bayles, 2026.
 
