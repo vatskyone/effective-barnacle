@@ -1,6 +1,6 @@
 # WEB-1 Guide
 
-This is the full manual for WEB-1. In the app itself, press **/** at any time for a short controls card.
+This is the full manual for WEB-1. In the app itself, press **/** at any time, or click **guide** under the device, for a short controls card.
 
 **Contents**
 
@@ -15,7 +15,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time fo
 9. [FX rack](#9-fx-rack)
 10. [Tempo, count-in and quantize](#10-tempo-count-in-and-quantize)
 11. [MIDI](#11-midi)
-12. [Looks: dark mode and OLED](#12-looks-dark-mode-and-oled)
+12. [Looks: dark mode, OLED and line art](#12-looks-dark-mode-oled-and-line-art)
 13. [Saving and exporting](#13-saving-and-exporting)
 14. [Your first song in 10 steps](#14-your-first-song-in-10-steps)
 15. [Troubleshooting](#15-troubleshooting)
@@ -60,7 +60,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **I** | FX rack (Shift + I switches all effects off) |
 | **-** | Tempo screen |
 | **`** | Metronome on/off |
-| **/** | Help card |
+| **/** | Help card (also the **guide** button under the device) |
 
 ## 3. Synth mode
 
@@ -249,14 +249,15 @@ Click **connect midi** to use any connected MIDI keyboard. Supported:
 
 Web MIDI needs Chrome or Edge.
 
-## 12. Looks: dark mode and OLED
+## 12. Looks: dark mode, OLED and line art
 
 The buttons under the device change how WEB-1 looks (on OS-1 they are in the **?** card):
 
 - **dark mode:** a graphite case and keys with a paper-white screen. The black lines between the keys stay black. Switch it off for the light aluminium case with the black screen.
 - **oled:** adds a soft glow (halation) to the screen, like light spreading on an OLED panel.
+- **line art:** draws the whole device as flat outlines: thin lines for the keys, knob bases, keyboard and case edge, solid circles for the black keys, coloured knob caps and a white screen. Together with **dark mode** it becomes light lines on a dark-grey case with a black screen.
 
-Both settings are remembered, and **reset all** does not change them.
+All three settings are remembered, and **reset all** does not change them.
 
 ## 13. Saving and exporting
 
