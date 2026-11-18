@@ -24,20 +24,21 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 
 ## 1. The device at a glance
 
-- **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. The four coloured values along its bottom edge belong to the four knobs.
-- **Four coloured knobs** (blue, green, white, orange): each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click resets it.
+- **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge, the picture sits in the middle, and the four coloured values along the bottom edge belong to the four knobs. It is always a black display, whichever finish you choose.
+- **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click resets it.
 - **Volume knob** (small white knob, top left): the master output level.
+- **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
 - **Mode keys:** SYNTH, DRUM, TAPE and MIXER.
 - **T1–T4:** pick the page inside a mode.
 - **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange.
 - **Transport:** REC, PLAY and STOP, plus the arrows for winding the tape.
 - **Musical keys:** the keyboard along the bottom, with white and black keys.
 - **Lights on the right edge:** the output level meter. The red light at the top means you are near the maximum level.
-- **Speaker grille** (top left corner): decoration only; the sound comes from your computer.
+- **Speaker grille** (top left corner, a round grille of dots): decoration only; the sound comes from your computer.
 
-All the controls sit in one block, separated by thin black lines, so each key reads as its own button. The black keys' row is case-coloured, with a black line around each black key. The WEB-1 name and the "by Snow Bayles - 2026" engraving run up the right edge of the case.
+All the controls sit in one block, separated by thin black lines, so each key reads as its own button. Each key has a large ring with a bold icon or number. In the black keys' row, the outer key of each group widens out to the next white-key line, so the row has no gaps, while each round black cap stays centred over its note. The WEB-1 name and the "by Snow Bayles - 2026" engraving run up the right edge of the case.
 
-Everything on the device can be clicked or tapped, and almost everything also has a computer-keyboard shortcut.
+Everything on the device can be clicked or tapped, and almost everything also has a computer-keyboard shortcut. The controls card opens from the **guide** button under the device, or with **/**.
 
 ## 2. Keyboard map
 
@@ -253,9 +254,9 @@ Web MIDI needs Chrome or Edge.
 
 The buttons under the device change how WEB-1 looks (on OS-1 they are in the **?** card):
 
-- **dark mode:** a graphite case and keys with a paper-white screen. The black lines between the keys stay black. Switch it off for the light aluminium case with the black screen.
-- **oled:** adds a soft glow (halation) to the screen, like light spreading on an OLED panel.
-- **line art:** draws the whole device as flat outlines: thin lines for the keys, knob bases, keyboard and case edge, solid circles for the black keys, coloured knob caps and a white screen. Together with **dark mode** it becomes light lines on a dark-grey case with a black screen.
+- **dark mode:** a graphite case and keys, with the same black screen. The black lines between the keys stay black. Switch it off for the light aluminium case with the black screen.
+- **oled:** adds a subtle glow (halation) to the screen, like light spreading on an OLED panel.
+- **line art:** draws the whole device as flat outlines: thin lines for the keys, knob bases, keyboard and case edge, solid circles for the black keys, coloured knob caps and a black screen. Together with **dark mode** it becomes light lines on a dark-grey case, still with a black screen.
 
 All three settings are remembered, and **reset all** does not change them.
 
