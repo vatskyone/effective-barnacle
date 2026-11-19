@@ -42,13 +42,13 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 
 | Section | What it does |
 |---|---|
-| **Synth: bank A** (keys 1–8) | CLUSTER · FM · STRING · PULSE · ORGAN · FOLD · HERO · STORM |
+| **Synth: bank A** (keys 1–8, named A1–A8) | CLUSTER · FM · STRING · PULSE · ORGAN · FOLD · HERO · STORM |
 | **Synth: bank B** (Shift + 1–8 in synth mode) | NEON · LADDER · ORBIT · VELVET · BRASS · AURORA · ACID · HOOVER: 80s and 90s synthwave, mono bass, analog pads, poly brass, rave leads |
 | **Synths & presets menu** (Shift + SYNTH) | Every synth in one list with INIT plus 4 presets each; browse with the knobs and play while you browse |
 | **Drums** | 8 kits: BOX · DEEP · TINY · DIRT · TAPE · CLICK · AIR · ROOM, with your own sample on any pad, trimmed, tuned or reversed in the pad sample editor (Shift + 4) |
 | **Drum machine** (Shift + DRUM) | 12 pads built from 2 synth voices and a filter each, plus a 16-step pattern |
 | **Sampler** | Load, drop or record a sound into any synth slot and play it across the keys |
-| **Tape** | 4 tracks × 60 s, overdub, loop, lift and drop, variable speed, reverse, brake and stutter tricks |
+| **Tape** | 4 tracks × 60 s, overdub, loop, lift and drop, copy, crop, double and erase (Shift + T1–T4), variable speed, reverse, brake and stutter tricks |
 | **Sequencers** | ENDLESS · PATTERN · ARP · CHAIN (an endless step sequencer with chords, long notes and rests) |
 | **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX |
 | **Mixer** | Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
