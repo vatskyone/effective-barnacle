@@ -210,6 +210,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>← →</td><td>In synth mode: hold for pitch bend down / up. In the other modes: hold to wind the tape.</td></tr>
 <tr><td>Loop</td><td>The orange loop key switches LOOP on/off from the current position (length = green knob in tape mode). ↑ LIFT cuts the loop or bar from the track, ↓ DROP pastes it at the tape head. SHIFT + LIFT erases the track.</td></tr>
 <tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse.</td></tr>
+<tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
 <tr><td>SEQ</td><td>Sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold SHIFT and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops. ARP: hold a chord. SHIFT + SEQ clears.</td></tr>
 <tr><td>CHAIN</td><td>CHAIN (T4): an endless step sequencer. Hold SHIFT and press keys to add steps (keys pressed together make a chord); keep the keys held and press → to make the last note longer; SHIFT + → adds a rest; SHIFT + ← removes the last step. Then press any key to play the chain transposed (the low C plays it as written). Knobs: RATE · GATE · OCTAVE · HOLD.</td></tr>
 <tr><td>FX</td><td>Master rack: DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, tap the same T again to switch it on/off. SHIFT + FX switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). SHIFT + FX again goes back to bank A.</td></tr>
@@ -227,7 +228,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Encoders</td><td>Drag up/down or scroll over the four coloured knobs. Each matches the same-coloured value on the screen. Double-click resets.</td></tr>
 <tr><td>Z X C V</td><td>Modes: SYNTH · DRUM · TAPE · MIXER</td></tr>
 <tr><td>B N M ,</td><td>T1–T4. In synth/drum: ENGINE · ENVELOPE · FX · LFO (press T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
-<tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. Slot 7 is HERO, an 80s–90s solo lead with glide and delayed vibrato.</td></tr>
+<tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. The screen names them A1–A8 (bank B is B1–B8). A7 is HERO, an 80s–90s solo lead with glide and delayed vibrato.</td></tr>
 <tr><td>Mixer</td><td>T1 LEVEL &amp; PAN: knobs set track levels, SHIFT + knobs pan them. T2 MULTIBAND COMP: LOW · MID · HIGH amount · MAKEUP; SHIFT: LOW X · HIGH X crossovers · ATTACK · RELEASE. T3 EQ: 4 bands, knobs set the gain, SHIFT + knobs slide the frequency. T4 MASTER: OUT · COMP · INSTR · LIMIT; SHIFT: CEILING · LIM REL · COMP SPD · WIDTH.</td></tr>
 <tr><td>Shift + SYNTH</td><td>SYNTHS &amp; PRESETS menu (Shift + Z): every synth in one list (blue knob) and its presets (green knob); both load as you turn, and the keys still play so you can try them. Shift + SYNTH again or any T key closes it.</td></tr>
 <tr><td>Shift + DRUM</td><td>DRUM MACHINE (Shift + X): 12 pads built from 2 synth voices and a filter, plus a 16-step pattern. T1 VOICE 1 · T2 VOICE 2 (TUNE, WAVE, DECAY, BEND) · T3 FILTER (MODE, CUTOFF, RESO, MIX) · T4 STEPS (PAD, LENGTH, LEVEL, RUN). Keys play and pick pads; on STEPS the first 16 keys toggle steps (hold Shift to pick a pad instead). Shift + DRUM again closes it; the pattern keeps running.</td></tr>
@@ -243,6 +244,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>= </td><td>SEQ: sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold Shift and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops. ARP: hold a chord. Shift+SEQ clears.</td></tr>
 <tr><td>CHAIN</td><td>CHAIN (T4): an endless step sequencer. Hold SHIFT and press keys to add steps (keys pressed together make a chord); keep the keys held and press → to make the last note longer; SHIFT + → adds a rest; SHIFT + ← removes the last step. Then press any key to play the chain transposed (the low C plays it as written). Knobs: RATE · GATE · OCTAVE · HOLD.</td></tr>
 <tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse.</td></tr>
+<tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
 <tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. “clear sample” brings the engine back.</td></tr>
 <tr><td>MIDI</td><td>“connect midi” enables any attached keyboard: velocity, pitch bend, mod wheel (LFO amount), sustain pedal.</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved in this browser automatically. “export tape as wav” downloads the mix.</td></tr>
@@ -303,7 +305,7 @@ const synthP=[
   mkP([.4,.55,.4,.3],[.15,.5,.8,.4],1,.3),    mkP([.5,.55,.45,.6],[.45,.6,.9,.65],1,.35),
   mkP([.6,.3,.4,.45],[.04,.45,.75,.3],1,.2),  mkP([.6,.4,.5,.35],[.45,.5,.9,.6],1,.4),
   mkP([.25,.75,.6,.3],[0,.3,.6,.12],0,.25),   mkP([.5,.5,.6,.55],[.02,.5,.9,.4],1,.3)];
-const slotNm=i=>i<8?''+(i+1):'B'+(i-7);
+const slotNm=i=>i<8?'A'+(i+1):'B'+(i-7);
 /* factory presets per synth slot: [name, engine knobs, envelope (optional), [effect, mix] (optional)]; 'INIT' (the slot's default) comes first */
 const DEFP=synthP.map(P=>JSON.parse(JSON.stringify(P)));
 const PRESETS=[
@@ -381,7 +383,10 @@ class Tape extends AudioWorkletProcessor{
       else if(m.t==='seek')this.pos=Math.max(0,Math.min(this.len-1,m.pos));
       else if(m.t==='lift'){const a=Math.max(0,m.a|0),b=Math.min(this.len,m.b|0);this.clip=this.tr[m.track].slice(a,b);this.tr[m.track].fill(0,a,b);}
       else if(m.t==='drop'&&this.clip){const p=(m.at!=null?m.at:this.pos)|0,n=Math.min(this.clip.length,this.len-p);this.tr[m.track].set(this.clip.subarray(0,n),p);this.pos=Math.min(this.len-1,p+n);}
-      else if(m.t==='clear')this.tr[m.track].fill(0);};}
+      else if(m.t==='clear')this.tr[m.track].fill(0);
+      else if(m.t==='edit'){const T=this.tr[m.track],a=Math.max(0,m.a|0),b=Math.min(this.len,m.b|0);
+        if(m.op==='copy')this.clip=T.slice(a,b);else if(m.op==='crop'){T.fill(0,0,a);T.fill(0,b)}else if(m.op==='erase')T.fill(0,a,b);
+        else if(m.op==='double'){const c=T.slice(a,b),n=Math.min(c.length,this.len-b);T.set(c.subarray(0,n),b)}}};}
   process(inputs,outputs){
     const inp=inputs[0],L=inp[0],R=inp[1]||inp[0],n=outputs[0][0].length,tr=this.tr;
     let target=this.scrub?this.scrub:(this.playing&&!this.brake?this.speed:0);const k=this.scrub?.0006:this.brake?.00006:.0003;
@@ -1005,6 +1010,15 @@ function onMidi(e){if(!AC)return;const st=e.data[0],d1=e.data[1],d2=e.data[2],c=
   else if(c===0xe0)N.bend.offset.setTargetAtTime(((d2<<7|d1)-8192)/8192*200,AC.currentTime,.005);
   else if(c===0xb0){if(d1===1){cur().lfo[1]=d2/127;applyLfo()}else if(d1===7){S.ms[0]=d2/127;applyMix()}
     else if(d1===64){sus=d2>=64;if(!sus){susNotes.forEach(n=>noteOff(n));susNotes.clear()}}}}
+// SHIFT + T1–T4 in tape mode: COPY · CROP · DOUBLE · ERASE on the selected track, over the loop (or the bar at the tape head)
+const TEDN=['COPY','CROP','DOUBLE','ERASE'];
+function tapeEdit(i){const sr=AC.sampleRate,A=Math.floor(S.loop?S.li:snapTo(S.tpos,barS()/beats())),B=Math.floor(S.loop?S.lo:Math.min(A+barS(),TAPE_SECS*sr)),op=['copy','crop','double','erase'][i],
+    b0=Math.floor(A/sr*10),b1=Math.ceil(B/sr*10),o=ov[S.track];
+  tape.port.postMessage({t:'edit',op,a:A,b:B,track:S.track});
+  if(op==='copy'){clipOv=o.slice(b0,b1);S.clipLen=B-A}else if(op==='crop'){o.fill(0,0,b0);o.fill(0,b1)}else if(op==='erase')o.fill(0,b0,b1);
+  else{const c=o.slice(b0,b1);for(let k=0;k<c.length&&b1+k<o.length;k++)o[b1+k]=c[k]}
+  if(op!=='copy')tapeDirty=true;S.tedit={op:TEDN[i],at:performance.now()};
+  status(TEDN[i]+' · track '+(S.track+1)+' · '+(S.loop?'loop':'bar')+(op==='copy'?' — press DROP to paste it':''))}
 function trick(i,on){if(!tape)return;S.trick=on?i:-1;
   if(i===0)tape.port.postMessage({t:'set',v:{brake:on}});
   else if(i===1)tape.port.postMessage({t:'stut',on,len:AC.sampleRate*60/S.bpm/4});
@@ -1015,7 +1029,7 @@ function press(a){initAudio();
   else if(a==='synth'&&S.shift){S.mode='synth';S.inst='synth';applyPatch();S.overlay=S.overlay==='menu'?null:'menu';MENU.e=(S.slot+.5)/16;MENU.p=(S.pre[S.slot]+.5)/presetsOf(S.slot).length}
   else if(a==='drum'&&S.shift){S.overlay=S.overlay==='dm'?null:'dm'}
   else if(['synth','drum','tape','mixer'].includes(a)){S.mode=a;S.overlay=null;if(a==='synth'||a==='drum'){S.inst=a;applyPatch()}}
-  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='seq'){seq.type=i;seq.playing=false;seq.held.clear();seq.cur=-1}else if(S.overlay==='fx'){if(S.rkSel===i){rkO()[i]=!rkO()[i];applyRack()}else S.rkSel=i}else if(S.overlay==='dm')DM.page=i;else if(S.overlay)S.overlay=null;else if(S.mode==='tape'){S.track=i;tapeSet()}else if(i===2&&S.mode!=='mixer'){const P=cur(),ty=P.fxType,b=ty>=4;
+  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='seq'){seq.type=i;seq.playing=false;seq.held.clear();seq.cur=-1}else if(S.overlay==='fx'){if(S.rkSel===i){rkO()[i]=!rkO()[i];applyRack()}else S.rkSel=i}else if(S.overlay==='dm')DM.page=i;else if(S.overlay)S.overlay=null;else if(S.mode==='tape'&&S.shift&&tape)tapeEdit(i);else if(S.mode==='tape'){S.track=i;tapeSet()}else if(i===2&&S.mode!=='mixer'){const P=cur(),ty=P.fxType,b=ty>=4;
       // T3 = effects ECHO ROOM CRUSH SWIRL · Shift+T3 = BOUNCE COIL CUBE RADIO; pressing again on the FX page steps through the bank
       if(S.page!==2){if(S.shift&&!b)P.fxType=ty+4}else if(S.shift)P.fxType=b?4+(ty-3)%4:ty+4;else P.fxType=b?ty-4:(ty+1)%4;if(P.fxType!==ty)applyFx();S.page=2}
     else S.page=i}
@@ -1197,17 +1211,14 @@ const ENGDRAW=[
    g.textAlign='left';g.fillStyle=COL.o;g.fillText('1UP',8,25);for(let k=0;k<3;k++)spr(SHIP,28+k*14,20.5,.7,{b:COL.b,w:COL.w,o:COL.o})},
  (t,p,l)=>{const n=20+p[1]*120;for(let k=0;k<n;k++){const a=hash(k)*6.283+t*(.2+hash(k+3)),r=(hash(k+7)*60+t*30*(.3+p[3]))%80*(.5+l),x=CX+Math.cos(a)*r*1.9,y=CY+Math.sin(a)*r*.5;if(y>18&&y<96)circ(x,y,.9,k%5?COL.w:COL.b,true)}
    circ(CX,CY,10+p[0]*30,COL.o);circ(CX,CY,4+p[2]*12,COL.g,true)},
- // NEON: synthwave sunset over a scrolling grid
- (t,p,l)=>{const hz=68,R=18+p[3]*10+l*3,sy=hz-4;neonS=(neonS+.004+l*.05)%1;
-   let gr=g.createLinearGradient(0,14,0,hz);gr.addColorStop(0,'#07080a');gr.addColorStop(1,'#2b0d33');g.fillStyle=gr;g.fillRect(0,14,W,hz-14);
-   for(let k=0;k<24;k++)circ(hash(k)*W,16+hash(k+40)*36,.4+hash(k+9)*.5,'rgba(255,255,255,'+(.3+.3*Math.sin(t*2+k)).toFixed(2)+')',true);
-   g.save();g.beginPath();g.rect(0,14,W,hz-14);g.clip();gr=g.createLinearGradient(0,sy-R,0,sy+R);gr.addColorStop(0,'#ffe066');gr.addColorStop(.55,COL.o);gr.addColorStop(1,'#ff2a6d');
-   g.shadowColor='#ff2a6d';g.shadowBlur=6+l*22;circ(CX,sy,R,gr,true);g.shadowBlur=0;
-   const ns=2+Math.round(p[0]*6);g.fillStyle='#220b2a';for(let k=0;k<ns;k++){const u=(k+1)/(ns+1);g.fillRect(CX-R,sy-R*.15+u*R*1.1,R*2,.8+u*3.2)}
-   const mh=4+p[1]*12;g.fillStyle='#16081c';g.beginPath();g.moveTo(0,hz);for(let x=0;x<=W;x+=12)g.lineTo(x,hz-(Math.abs(x-CX)>R+8?mh*hash(x/12+3):0));g.lineTo(W,hz);g.fill();g.restore();
-   g.fillStyle='#0a0510';g.fillRect(0,hz,W,100-hz);g.strokeStyle='#d43cff';g.lineWidth=.8;g.shadowColor='#d43cff';g.shadowBlur=4;g.beginPath();
-   const sp=26+p[2]*40;for(let i=-12;i<=12;i++){g.moveTo(CX+i*4,hz);g.lineTo(CX+i*sp,100)}
-   for(let k=0;k<9;k++){const y=hz+(100-hz)*Math.pow((k+neonS)/9,2.2);g.moveTo(0,y);g.lineTo(W,y)}g.stroke();g.shadowBlur=0;ln(0,hz,W,hz,'#ff2a6d',1.2)},
+ // NEON: synthwave sunset over a scrolling grid, in the four flat knob colours
+ (t,p,l)=>{const hz=68,R=18+p[3]*10+l*4,sy=hz-4,bg='#07080a';neonS=(neonS+.004+l*.05)%1;
+   g.fillStyle=COL.w;for(let k=0;k<26;k++)if(Math.sin(t*2+k*2.3)>-.3)g.fillRect(Math.floor(hash(k)*W),Math.floor(16+hash(k+40)*36),1,1);
+   g.save();g.beginPath();g.rect(0,14,W,hz-14);g.clip();circ(CX,sy,R,COL.o,true);
+   const ns=2+Math.round(p[0]*6);g.fillStyle=bg;for(let k=0;k<ns;k++){const u=(k+1)/(ns+1);g.fillRect(CX-R,sy-R*.15+u*R*1.1,R*2,.8+u*3.2)}
+   const mh=4+p[1]*14;g.beginPath();g.moveTo(0,hz);for(let x=0;x<=W;x+=12)g.lineTo(x,hz-(Math.abs(x-CX)>R+8?mh*hash(x/12+3):0));g.lineTo(W,hz);g.closePath();g.fillStyle=bg;g.fill();g.strokeStyle=COL.g;g.lineWidth=1;g.stroke();g.restore();
+   g.strokeStyle=COL.b;g.lineWidth=.8;g.beginPath();const sp=26+p[2]*40;for(let i=-12;i<=12;i++){g.moveTo(CX+i*4,hz);g.lineTo(CX+i*sp,100)}
+   for(let k=0;k<9;k++){const y=hz+(100-hz)*Math.pow((k+neonS)/9,2.2);g.moveTo(0,y);g.lineTo(W,y)}g.stroke();ln(0,hz,W,hz,COL.o,1.2)},
  // LADDER: live 4-pole response with the contour envelope, glide dot on the pitch axis
  (t,p,l)=>{const s=since(),f=lastOn.f,base=40*2**(p[0]*8.5)*Math.sqrt(f/220),pk=Math.min(18000,base*2**(p[2]*5)),dec=.08+p[2]*.5,fc=Math.min(18000,base+(pk-base)*Math.exp(-s*3/dec)),y0=88;
    for(let k=0;k<4;k++)ln(24,24+k*16,W-24,24+k*16,'#15171b',.6);respCurve(fc,.6,.5+p[1]*p[1]*18,54,.9,y0,COL.o);
@@ -1266,13 +1277,12 @@ const ENGDRAW=[
    // envelope faders on the right (the slot's A D S R)
    synthP[S.slot].env.forEach((v,i)=>{const x=W-56+i*13,y0=26,y1=88,y=y1-v*(y1-y0);ln(x,y0,x,y1,'#2a2d33',1.5);g.fillStyle=TC[i];g.fillRect(x-4,y-2,8,4);txt('ADSR'[i],x,96,COL.dim,5.5,'center')});
    txt('ENV',P(dx0,0,dz1)[0],P(dx0,0,dz1)[1]-3,COL.g,5.5)},
- // AURORA: rippling curtains over stars
- (t,p,l)=>{for(let k=0;k<40;k++)circ(hash(k)*W,16+hash(k+70)*80,.6,'rgba(255,255,255,'+(.25+.5*Math.abs(Math.sin(t*(.5+hash(k)*2)+k))).toFixed(2)+')',true);
+ // AURORA: rippling curtains over stars and hills, in the four flat knob colours
+ (t,p,l)=>{g.fillStyle=COL.w;for(let k=0;k<40;k++)if(Math.sin(t*(.5+hash(k)*2)+k)>-.2)g.fillRect(Math.floor(hash(k)*W),Math.floor(16+hash(k+70)*70),1,1);
    const sp=.25*2**(p[3]*4.5),dep=4+p[0]*14;
-   [[COL.g,.9,0],['#8a5cff',p[1],1.7],[COL.b,.4+p[2]*.6,3.1]].forEach(([c,amt,ph],b)=>{if(amt<.05)return;const gr=g.createLinearGradient(0,18,0,96);
-     gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(.35,c);gr.addColorStop(1,'rgba(0,0,0,0)');g.strokeStyle=gr;g.globalAlpha=Math.min(1,amt*(.35+l*.9));g.lineWidth=2;g.beginPath();
-     for(let x=10;x<W-10;x+=3){const top=30+b*6+Math.sin(x*.025+t*sp*1.3+ph)*dep+Math.sin(x*.071-t*sp*.7)*dep*.4;g.moveTo(x,top);g.lineTo(x,top+24+18*Math.sin(x*.04+t*sp+ph*2)**2)}g.stroke()});
-   g.globalAlpha=1},
+   [[COL.g,.9,0,0],[COL.b,p[1],1.7,1.5],[COL.w,.4+p[2]*.6,3.1,3]].forEach(([c,amt,ph,ox],b)=>{if(amt<.05)return;g.strokeStyle=c;g.lineWidth=1.1;g.beginPath();
+     const len=(8+amt*20)*(.6+l*.8);for(let x=10+ox;x<W-10;x+=4.5){const top=28+b*6+Math.sin(x*.025+t*sp*1.3+ph)*dep+Math.sin(x*.071-t*sp*.7)*dep*.4;g.moveTo(x,top);g.lineTo(x,top+len*(.5+.5*Math.sin(x*.04+t*sp+ph*2)**2))}g.stroke()});
+   g.beginPath();g.moveTo(0,100);for(let x=0;x<=W;x+=6)g.lineTo(x,92-Math.abs(Math.sin(x*.021+1.3))*8-Math.sin(x*.07)*2);g.lineTo(W,100);g.closePath();g.fillStyle='#07080a';g.fill();g.strokeStyle=COL.o;g.lineWidth=1;g.stroke()},
  // ACID: resonant peak sweeping, sparks when it bites
  (t,p,l)=>{const s=since(),f=lastOn.f,base=60*2**(p[0]*7)*(f/110)**.3,pk=Math.min(18000,base*2**(1+p[2]*5.5)),dec=.04+p[3]*p[3]*1.2,fc=Math.min(18000,base+(pk-base)*Math.exp(-s*3/dec)),q=2+p[1]*p[1]*24,y0=90;
    g.shadowColor=COL.g;g.shadowBlur=6;respCurve(fc,.7,q,60,.75,y0,COL.g);g.shadowBlur=0;
@@ -1388,7 +1398,9 @@ function drawDM(t){const P=DM.pads[DM.pad],pg=DM.page,fl=DM.hit&&DM.hit[0]===DM.
 function drawPadInfo(){const k=S.pad|0,ps=padSmp[S.kit][k];txt(padNm(k)+(ps?' · '+ps.name.slice(0,22):' · BUILT-IN'),8,24,ps?COL.w:COL.dim,6);if(ps)txt('■ SAMPLE',W-8,24,COL.o,6,'right')}
 function drawTape(){const sr=AC.sampleRate,pos=S.tpos/sr;S.reel+=S.tspd*.13;
   [[46,36],[W-46,36]].forEach(([x,y],j)=>{const rr=12+(j?1-pos/TAPE_SECS:pos/TAPE_SECS)*8;circ(x,y,rr,COL.w);circ(x,y,5,COL.dim);for(let k=0;k<3;k++){const a=S.reel+k*2.094;ln(x+Math.cos(a)*5,y+Math.sin(a)*5,x+Math.cos(a)*(rr-2),y+Math.sin(a)*(rr-2),COL.w)}});
-  ['1 BRAKE','2 STUTTER','3 REVERSE'].forEach((s,i)=>txt(s,CX-62+i*62,58.5,S.trick===i?COL.o:'#4a4d54',5,'center'));
+  const te=S.tedit&&performance.now()-S.tedit.at<700?S.tedit.op:'';
+  if(S.shift||te)TEDN.forEach((n,i)=>txt('T'+(i+1)+' '+n,CX-93+i*62,58.5,te===n?COL.w:S.shift?COL.o:'#4a4d54',5,'center'));
+  else['1 BRAKE','2 STUTTER','3 REVERSE'].forEach((s,i)=>txt(s,CX-62+i*62,58.5,S.trick===i?COL.o:'#4a4d54',5,'center'));
   const m=Math.floor(pos/60),s=pos-m*60;txt(`${m}:${s<10?'0':''}${s.toFixed(2)}`,CX,38,COL.w,15,'center');
   const bt=pos*S.bpm/60;txt(`BAR ${Math.floor(bt/beats())+1}.${Math.floor(bt%beats())+1}`,CX,50,COL.dim,7,'center');
   if(S.rec&&S.playing)circ(CX-52,33,3.5,COL.red,true);if(S.rev)txt('REV',CX+46,36,COL.o,7);
@@ -1398,6 +1410,7 @@ function drawTape(){const sr=AC.sampleRate,pos=S.tpos/sr;S.reel+=S.tspd*.13;
     if(i===S.track){g.fillStyle=TC[i];g.fillRect(0,y,1.5,7);g.shadowColor=TC[i];g.shadowBlur=6;txt(''+(i+1),3.5,y+6.3,TC[i],7.5);g.shadowBlur=0}else{g.globalAlpha=.55;txt(''+(i+1),3.5,y+6,TC[i],6);g.globalAlpha=1}}
   const xe0=CX-pos*pps,xe1=CX+(TAPE_SECS-pos)*pps;g.fillStyle='rgba(0,0,0,.6)';if(xe0>0)g.fillRect(0,62,xe0,34);if(xe1<W)g.fillRect(xe1,62,W-xe1,34);
   if(S.loop){const a=CX+(S.li/sr-pos)*pps,b=CX+(S.lo/sr-pos)*pps;g.strokeStyle=COL.g;g.lineWidth=1;g.strokeRect(a,60.5,b-a,37)}
+  if(S.shift&&!S.loop){const A=snapTo(S.tpos,barS()/beats()),x=CX+(A/sr-pos)*pps,y=62+S.track*9;g.strokeStyle=COL.o;g.lineWidth=1;g.strokeRect(x,y-.5,barS()/sr*pps,8)}
   ln(CX,59,CX,99,COL.red,1)}
 function peak(an){an.getFloatTimeDomainData(mBuf);let p=0;for(let i=0;i<mBuf.length;i++){const a=Math.abs(mBuf[i]);if(a>p)p=a}return p}
 const mPk=[0,0,0,0,0];

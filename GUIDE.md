@@ -62,6 +62,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **← →** | In synth mode: pitch bend. In the other modes: hold to wind the tape |
 | **Q** | Loop on/off |
 | **[ ]** | LIFT · DROP (Shift + LIFT erases the track) |
+| **Shift + B N M ,** (tape mode) | Tape edits: COPY · CROP · DOUBLE · ERASE |
 | **=** | Sequencer screen (Shift + = clears it) |
 | **I** | FX rack (Shift + I switches between bank A and bank B) |
 | **-** | Tempo screen |
@@ -103,6 +104,8 @@ Every synth slot and drum kit has one effect, chosen on the T3 page. There are 8
 
 ### Bank A: keys 1–8
 
+On the screen and in the synths & presets menu, bank A slots are named **A1–A8** and bank B slots **B1–B8**.
+
 | Key | Engine | Character | Knobs |
 |---|---|---|---|
 | 1 | **CLUSTER** | Detuned stack with a sub and a resonant filter | SPREAD · SUB · CUTOFF · RESO |
@@ -118,12 +121,12 @@ Every synth slot and drum kit has one effect, chosen on the T3 page. There are 8
 
 | Keys | Engine | Character | Knobs |
 |---|---|---|---|
-| ⇧1 | **NEON** | Huge 7-voice supersaw, wide stereo, for synthwave leads and pads | DETUNE · MIX · WIDTH · CUTOFF |
+| ⇧1 | **NEON** | Huge 7-voice supersaw, wide stereo, for synthwave leads and pads. Screen: a synthwave sunset over a scrolling grid, in the four flat knob colours | DETUNE · MIX · WIDTH · CUTOFF |
 | ⇧2 | **LADDER** | Fat mono bass and lead, with glide from the previous note | CUTOFF · EMPHASIS · CONTOUR · GLIDE |
 | ⇧3 | **ORBIT** | Poly brass whose filter swells open on each note | SWELL · BITE · DETUNE · HPF |
 | ⇧4 | **VELVET** | Warm analog poly pad: drifting saws spread wide, a soft filter that swells open. Screen: a retro android whose LED visor lights up with your chord, between pumping speaker stacks | WARMTH · DETUNE · SWELL · SPREAD |
 | ⇧5 | **BRASS** | Punchy poly brass: saws that scoop into pitch, a filter that blooms then settles. Screen: a vintage polysynth in line art whose keys go down as you play, with a VU meter and envelope faders | BITE · SWELL · DETUNE · TONE |
-| ⇧6 | **AURORA** | 80s string ensemble, wide and shimmering | ENSEMBLE · OCTAVE · BRIGHT · SPEED |
+| ⇧6 | **AURORA** | 80s string ensemble, wide and shimmering. Screen: rippling curtains over stars and hills, in the four flat knob colours | ENSEMBLE · OCTAVE · BRIGHT · SPEED |
 | ⇧7 | **ACID** | Squelchy bassline; overlap notes to make them slide | CUTOFF · RESO · ENV MOD · DECAY |
 | ⇧8 | **HOOVER** | 90s rave lead that dives into each note | DIVE · DETUNE · CHORUS · TONE |
 
@@ -221,6 +224,15 @@ SPEED works like real tape: record at one speed and play back at another, and th
 - **LIFT** (`[`) cuts the loop, or the current bar, out of the selected track.
 - **DROP** (`]`) pastes it at the tape head.
 - **Shift + LIFT** erases the whole track.
+
+**More edits: Shift + T1–T4** work on the selected track, over the loop if LOOP is on, otherwise over the bar at the tape head. While you hold Shift, the tape screen shows the four edits and outlines the bar they will use.
+
+| Keys | Edit | What it does |
+|---|---|---|
+| **Shift + T1** | COPY | Copies the part without cutting it. Press **DROP** to paste it at the tape head. |
+| **Shift + T2** | CROP | Keeps only that part of the track and erases everything else. |
+| **Shift + T3** | DOUBLE | Pastes the part again right after itself, to repeat a bar or a loop. |
+| **Shift + T4** | ERASE | Clears only that part of the track. |
 
 **Tape tricks:** in tape mode, hold one of these keys while the tape plays:
 
@@ -346,7 +358,7 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **NEON, LADDER, ORBIT, AURORA, ACID, HOOVER:** sunset grid, live filter curve, ringed planet, aurora curtains, resonant peak and vortex tunnel.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
 - **Menus:** the synths & presets menu shows the slot number large on the left with two scrolling lists; the CHAIN sequencer shows its step count large above the chain of steps.
-- The VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
+- The NEON, AURORA, VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
 
 ## 13. Saving and exporting
 
