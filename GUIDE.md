@@ -351,11 +351,14 @@ All three settings are remembered, and **reset all** does not change them.
 
 Every picture is drawn to fill the screen, from edge to edge between the title and the four values.
 
-- **Bank A:** CLUSTER, FM (a round planet with a moon on a circular orbit), STRING, PULSE, ORGAN (four tall drawbars), FOLD and STORM each draw their sound large across the screen.
-- **HERO (7):** an arcade space shooter. A pixel ship follows your pitch and glides with GLIDE, every note fires a laser, and aliens burst into pixels with a running score.
+- **Bank A (A1–A8):** CLUSTER, FM (a round planet with a moon on a circular orbit), STRING, PULSE, ORGAN (four tall drawbars), FOLD and STORM each draw their sound large across the screen.
+- **HERO (A7):** an arcade space shooter. A pixel ship follows your pitch and glides with GLIDE, every note fires a laser, and aliens burst into pixels with a running score.
 - **VELVET (B4):** a retro android in thin flat lines. Its LED visor lights up like an equaliser for your chord, its ear discs and the two speaker stacks pump with the level.
 - **BRASS (B5):** a vintage polysynth in isometric line art. Its keys go down in orange as you play, its four panel knobs follow the four encoders, and a raised display traces the filter envelope, with a needle VU meter and A·D·S·R faders beside it.
-- **NEON, LADDER, ORBIT, AURORA, ACID, HOOVER:** sunset grid, live filter curve, ringed planet, aurora curtains, resonant peak and vortex tunnel.
+- **NEON (B1):** a synthwave sunset in flat colour bands: a striped sun over a perspective grid that scrolls faster as you play.
+- **AURORA (B6):** flat aurora curtains rippling at the ensemble speed, over stars and layered hills.
+- **LADDER, ORBIT, ACID, HOOVER:** live filter curve, ringed planet, resonant peak and vortex tunnel.
+- **Tape:** the four tracks and the tape head. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
 - **Menus:** the synths & presets menu shows the slot number large on the left with two scrolling lists; the CHAIN sequencer shows its step count large above the chain of steps.
 - The NEON, AURORA, VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
