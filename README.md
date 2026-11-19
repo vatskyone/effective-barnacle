@@ -42,20 +42,21 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 
 | Section | What it does |
 |---|---|
-| **Synth: bank A** (keys 1–8) | CLUSTER · FM · STRING · PULSE · ORGAN · FOLD · VOX · STORM |
-| **Synth: bank B** (Shift + 1–8 in synth mode) | NEON · LADDER · ORBIT · SYNC · WAVES · AURORA · ACID · HOOVER: 80s and 90s synthwave, mono bass, poly brass, rave leads |
+| **Synth: bank A** (keys 1–8) | CLUSTER · FM · STRING · PULSE · ORGAN · FOLD · HERO · STORM |
+| **Synth: bank B** (Shift + 1–8 in synth mode) | NEON · LADDER · ORBIT · VELVET · BRASS · AURORA · ACID · HOOVER: 80s and 90s synthwave, mono bass, analog pads, poly brass, rave leads |
+| **Synths & presets menu** (Shift + SYNTH) | Every synth in one list with INIT plus 4 presets each; browse with the knobs and play while you browse |
 | **Drums** | 8 kits: BOX · DEEP · TINY · DIRT · TAPE · CLICK · AIR · ROOM, with your own sample on any pad, trimmed, tuned or reversed in the pad sample editor (Shift + 4) |
 | **Drum machine** (Shift + DRUM) | 12 pads built from 2 synth voices and a filter each, plus a 16-step pattern |
 | **Sampler** | Load, drop or record a sound into any synth slot and play it across the keys |
 | **Tape** | 4 tracks × 60 s, overdub, loop, lift and drop, variable speed, reverse, brake and stutter tricks |
-| **Sequencers** | ENDLESS · PATTERN · ARP |
-| **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack (DRIVE → CHORUS → DELAY → REVERB) |
-| **Mixer** | Level and pan per track, master EQ and drive, output, compressor and live-instrument level |
+| **Sequencers** | ENDLESS · PATTERN · ARP · CHAIN (an endless step sequencer with chords, long notes and rests) |
+| **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX |
+| **Mixer** | Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
 | **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen, light or dark finish, a flat line-art finish, and a subtle OLED glow option |
 | **MIDI** | Velocity, pitch bend, mod wheel and sustain from any connected keyboard |
 
-Every sound has its own animated screen. The four coloured knobs always match the four coloured values on the screen.
+Every sound has its own animated screen, drawn to fill the display. The four coloured knobs always match the four coloured values on the screen.
 
 On the desktop, WEB-1 is drawn as a piece of hardware: every key, knob panel and keyboard key sits on a black plate, so a thin black line runs between and around the controls. Keys have large rings with bold icons, the knobs sit in rings, the black keys' row has no gaps, and the speaker is a round grille. The screen is set flush into that grid with no bezel, fills its whole tile, and stays a black display in every finish. "by Snow Bayles - 2026" is engraved into the case beside the WEB-1 name, and the controls card opens from the **guide** button under the device.
 

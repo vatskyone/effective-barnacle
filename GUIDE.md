@@ -46,7 +46,9 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 |---|---|
 | **A W S E D F T G Y H U J K O L P ; '** | Musical keys (W E T Y U O P are the black keys) |
 | **Shift + ← / →** | Octave down / up |
+| **← / →** (synth mode) | Hold for pitch bend down / up (2 semitones) |
 | **Z X C V** | Mode: SYNTH · DRUM · TAPE · MIXER |
+| **Shift + Z** | Synths & presets menu (Shift + SYNTH) |
 | **Shift + X** | Drum machine (Shift + DRUM) |
 | **B N M ,** | T1 · T2 · T3 · T4 |
 | **1 – 8** | Sound slot (synth bank A, or drum kit) |
@@ -56,11 +58,11 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **R** | REC |
 | **Space** | PLAY (Shift + PLAY plays in reverse) |
 | **Enter** | STOP (press twice to rewind) |
-| **← →** | Hold to wind the tape |
+| **← →** | In synth mode: pitch bend. In the other modes: hold to wind the tape |
 | **Q** | Loop on/off |
 | **[ ]** | LIFT · DROP (Shift + LIFT erases the track) |
 | **=** | Sequencer screen (Shift + = clears it) |
-| **I** | FX rack (Shift + I switches all effects off) |
+| **I** | FX rack (Shift + I switches between bank A and bank B) |
 | **-** | Tempo screen |
 | **`** | Metronome on/off |
 | **/** | Help card (also the **guide** button under the device) |
@@ -108,7 +110,7 @@ Every synth slot and drum kit has one effect, chosen on the T3 page. There are 8
 | 4 | **PULSE** | Pulse-width wave, from thin to hollow | WIDTH · PWM · RATE · SUB |
 | 5 | **ORGAN** | Drawbar organ | 16' · 8' · 4' · BRIGHT |
 | 6 | **FOLD** | Wavefolder, from soft to gnarly | FOLD · BIAS · OCTAVE · TONE |
-| 7 | **VOX** | Vowel and formant voice | VOWEL · FORMANT · BREATH · VIBRATO |
+| 7 | **HERO** | 80s–90s solo lead: two detuned saws and a square, warm drive, glide and delayed vibrato. Its screen is an arcade space shooter: the ship follows your pitch and every note fires | DETUNE · BRIGHT · GLIDE · VIBRATO |
 | 8 | **STORM** | Pitched noise and resonance | RESO · COLOR · TONE · SWEEP |
 
 ### Bank B: Shift + 1–8 (orange light)
@@ -118,11 +120,21 @@ Every synth slot and drum kit has one effect, chosen on the T3 page. There are 8
 | ⇧1 | **NEON** | Huge 7-voice supersaw, wide stereo, for synthwave leads and pads | DETUNE · MIX · WIDTH · CUTOFF |
 | ⇧2 | **LADDER** | Fat mono bass and lead, with glide from the previous note | CUTOFF · EMPHASIS · CONTOUR · GLIDE |
 | ⇧3 | **ORBIT** | Poly brass whose filter swells open on each note | SWELL · BITE · DETUNE · HPF |
-| ⇧4 | **SYNC** | Hard-sync lead with a sweep on every note | SYNC · SWEEP · DECAY · METAL |
-| ⇧5 | **WAVES** | Digital wavetable scan with optional bit crush | WAVE · SCAN · TIME · BITS |
+| ⇧4 | **VELVET** | Warm analog poly pad: drifting saws spread wide, a soft filter that swells open. Screen: a retro android whose LED visor lights up with your chord, between pumping speaker stacks | WARMTH · DETUNE · SWELL · SPREAD |
+| ⇧5 | **BRASS** | Punchy poly brass: saws that scoop into pitch, a filter that blooms then settles. Screen: a vintage polysynth in line art whose keys go down as you play, with a VU meter and envelope faders | BITE · SWELL · DETUNE · TONE |
 | ⇧6 | **AURORA** | 80s string ensemble, wide and shimmering | ENSEMBLE · OCTAVE · BRIGHT · SPEED |
 | ⇧7 | **ACID** | Squelchy bassline; overlap notes to make them slide | CUTOFF · RESO · ENV MOD · DECAY |
 | ⇧8 | **HOOVER** | 90s rave lead that dives into each note | DIVE · DETUNE · CHORUS · TONE |
+
+### Synths & presets menu: Shift + SYNTH
+
+Hold **Shift** and press **SYNTH** (Shift + Z) to open a menu of every synth with its presets. The SYNTH key lights orange while it is open.
+
+- **Blue knob:** scroll through all 16 synths, bank A and bank B. The synth loads as soon as it is highlighted.
+- **Green knob:** scroll through that synth's presets. Each one loads as you turn, so play the keys while you browse. **INIT** brings back the synth's default sound.
+- Each synth has INIT plus 4 presets, for example E.PIANO, BELL, SLAP BASS and METAL on FM, or FANFARE, MELLOW, SFORZANDO and SECTION on BRASS.
+- A preset sets the synth's four knobs, its envelope and its effect. You can tweak any of them afterwards; your changes are saved as usual.
+- Press **Shift + SYNTH** again, or any T key, to close the menu.
 
 Bank B is reached from synth mode only: press **SYNTH** (Z) first, then Shift + 1–8. In drum mode Shift + 4 opens the pad sample editor instead, and in the other modes Shift + 1–8 does nothing.
 
@@ -217,18 +229,23 @@ SPEED works like real tape: record at one speed and play back at another, and th
 
 ## 7. Mixer mode
 
-Press **MIXER** (V). Each T page gives the four knobs a different job:
+Press **MIXER** (V). Each T page gives the four knobs a different job, and holding **Shift** while you turn a knob reaches a second set of settings on every page. The title bar shows what Shift does on the page.
 
-| Page | Blue | Green | White | Orange |
-|---|---|---|---|---|
-| **T1 LEVEL** | Track 1 | Track 2 | Track 3 | Track 4 |
-| **T2 PAN** | Pan 1 | Pan 2 | Pan 3 | Pan 4 |
-| **T3 EQ** | LOW | MID | HIGH | DRIVE (master) |
-| **T4 MASTER** | OUT | COMP | INSTR (live-playing level) | – |
+| Page | Knobs | Shift + knobs |
+|---|---|---|
+| **T1 LEVEL & PAN** | Track 1–4 level | Track 1–4 pan, left or right |
+| **T2 MULTIBAND COMP** | LOW · MID · HIGH compression amount · MAKEUP gain | LOW X and HIGH X crossover frequencies · ATTACK · RELEASE |
+| **T3 EQ** | Gain of the 4 bands: LOW · LO MID · HI MID · HIGH (±12 dB) | Slide each band's frequency |
+| **T4 MASTER** | OUT · COMP · INSTR (live-playing level) · LIMIT | CEILING · LIM REL (limiter release) · COMP SPD · WIDTH (0–200%) |
+
+- **T1** shows four channel strips: a fader and level meter for each track, with its pan underneath.
+- **T2** splits the sound into three bands. The screen shows each band's level, its threshold line and how much it is being turned down (in orange). With LOW, MID and HIGH at 0 the compressor is off and the sound passes untouched.
+- **T3** draws the real EQ curve; each coloured dot is a band, and holding Shift shows rings around the dots while you slide them.
+- **T4**: LIMIT pushes the mix into a limiter that never goes above the CEILING, so the mix gets louder without clipping. At 0 it is off. WIDTH narrows the stereo image (0% is mono) or widens it (up to 200%). The screen shows the output meter with the ceiling, and how much the compressor and limiter are turning the sound down.
 
 ## 8. Sequencers
 
-Press **=** to open the sequencer screen, then choose a type with T1, T2 or T3. **Shift + =** clears the sequence.
+Press **=** to open the sequencer screen, then choose a type with T1, T2, T3 or T4. **Shift + =** clears the sequence.
 
 - **ENDLESS (T1):**
   - Hold Shift and tap notes to add steps.
@@ -241,6 +258,14 @@ Press **=** to open the sequencer screen, then choose a type with T1, T2 or T3. 
 - **ARP (T3):**
   - Hold a chord and it is played as an arpeggio.
   - Knobs: RATE · GATE · MODE (UP, DOWN, UPDN, RND) · RANGE (1–3 octaves).
+- **CHAIN (T4):** an endless step sequencer you write note by note, with chords, long notes and rests.
+  - **Add notes:** hold **Shift** and press keys. Keys pressed together become one chord step. Keep Shift held until you have added all the notes you want.
+  - **Long notes:** add a note with Shift, keep the key held and press **→**; each press makes that step one step longer.
+  - **Rest:** **Shift + →** adds an empty step.
+  - **Undo:** **Shift + ←** removes the last step.
+  - **Play:** press any key and the chain plays transposed to it; the low C on the keyboard plays it as written. With HOLD on it keeps playing after you let go.
+  - The screen shows the number of steps, the rate and gate, and the chain itself: chord notes stacked in each step, long steps wider (underlined in green) and rests dashed.
+  - Knobs: RATE · GATE · OCTAVE (±2) · HOLD.
 
 Sequencers follow the tempo, and they record onto the tape like anything else you play.
 
@@ -251,8 +276,8 @@ Press **I** for the master rack. It has four effects in a chain:
 **DRIVE → CHORUS → DELAY → REVERB**
 
 - T1–T4 select an effect. Press the same T again to switch it on or off.
-- **Shift + I** switches every effect off.
-- The four lights on the FX key show which effects are on.
+- **Shift + FX** (Shift + I) switches to **bank B**, a second chain of four effects; the FX key lights orange while bank B is on screen. Shift + FX again goes back to bank A. Effects in both banks can be on at the same time.
+- The four lights on the FX key show which effects are on, in either bank.
 
 | Effect | Knobs |
 |---|---|
@@ -261,7 +286,16 @@ Press **I** for the master rack. It has four effects in a chain:
 | **DELAY** | TIME (synced to tempo) · FEEDBK · AGE · MIX |
 | **REVERB** | DECAY · TONE · SPRING (PLATE at zero) · MIX |
 
-Delay and reverb tails ring out when you switch them off. The rack is included in the WAV export.
+**Bank B** (Shift + FX), after bank A in the chain: **FILTER → GATE → FLANGER → LO-FI**
+
+| Effect | Knobs |
+|---|---|
+| **FILTER** | FREQ (turn left for low-pass, right for high-pass, centre is open) · RESO · WOBBLE (sweeps with the beat) · MIX |
+| **GATE** | RATE (1/4 to 1/32, synced to tempo) · DEPTH · SMOOTH · MIX |
+| **FLANGER** | RATE · DEPTH · FEEDBK · MIX |
+| **LO-FI** | CRUSH (12 down to 3 bits, with hiss) · TONE · WOW · MIX |
+
+Delay and reverb tails ring out when you switch them off. Both banks are included in the WAV export.
 
 ## 10. Tempo, count-in and quantize
 
