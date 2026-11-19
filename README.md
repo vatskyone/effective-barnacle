@@ -53,12 +53,12 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 | **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX |
 | **Mixer** | Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
-| **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen, light or dark finish, a flat line-art finish, and a subtle OLED glow option |
+| **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen with full-screen animated pictures, light or dark finish, a flat line-art finish, and a subtle OLED glow option |
 | **MIDI** | Velocity, pitch bend, mod wheel and sustain from any connected keyboard |
 
-Every sound has its own animated screen, drawn to fill the display. The four coloured knobs always match the four coloured values on the screen.
+Every sound has its own animated screen, drawn to fill the display: an arcade space shooter for HERO, a retro android with an LED visor for VELVET, a line-art vintage polysynth for BRASS, a synthwave sunset for NEON, and more. The four coloured knobs always match the four coloured values on the screen.
 
-On the desktop, WEB-1 is drawn as a piece of hardware: every key, knob panel and keyboard key sits on a black plate, so a thin black line runs between and around the controls. Keys have large rings with bold icons, the knobs sit in rings, the black keys' row has no gaps, and the speaker is a round grille. The screen is set flush into that grid with no bezel, fills its whole tile, and stays a black display in every finish. "by Snow Bayles - 2026" is engraved into the case beside the WEB-1 name, and the controls card opens from the **guide** button under the device.
+On the desktop, WEB-1 is drawn as a piece of hardware: every key, knob panel and keyboard key sits on a black plate, so a thin black line runs between and around the controls. Keys have large rings with bold icons and numbers that all line up, the knobs sit in rings, the black keys' row has no gaps and sits on clean black lines, and the speaker is a round grille. The SYNTH, DRUM, FX and number keys light orange when their second layer (menu, drum machine, FX bank B, synth bank B) is in use. The screen is set flush into that grid with no bezel, fills its whole tile, and stays a black display in every finish. "by Snow Bayles - 2026" is engraved into the case beside the WEB-1 name, and the controls card opens from the **guide** button under the device.
 
 Your sounds, sequences, samples and tape are saved automatically in your browser. **export tape as wav** downloads your mix.
 

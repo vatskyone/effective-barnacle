@@ -28,15 +28,16 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 - **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click resets it.
 - **Volume knob** (small white knob, top left): the master output level.
 - **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
-- **Mode keys:** SYNTH, DRUM, TAPE and MIXER.
+- **Mode keys:** SYNTH, DRUM, TAPE and MIXER. SYNTH lights orange while the synths & presets menu is open (Shift + SYNTH), DRUM while the drum machine is open (Shift + DRUM).
 - **T1–T4:** pick the page inside a mode.
-- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the drum-mode sample editor (Shift + 4).
-- **Transport:** REC, PLAY and STOP, plus the arrows for winding the tape.
+- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the drum-mode sample editor (Shift + 4). All eight numbers sit at the same height in their rings, labelled or not.
+- **Transport:** REC, PLAY and STOP, plus the ← → arrows: pitch bend in synth mode, tape winding in the other modes.
 - **Musical keys:** the keyboard along the bottom, with white and black keys.
 - **Lights on the right edge:** the output level meter. The red light at the top means you are near the maximum level.
 - **Speaker grille** (top left corner, a round grille of dots): decoration only; the sound comes from your computer.
+- **FX key:** its four dots show which master effects are on, in either bank; it lights orange while FX bank B is on screen.
 
-All the controls sit in one block, separated by thin black lines, so each key reads as its own button. Each key has a large ring with a bold icon or number. In the black keys' row, the outer key of each group widens out to the next white-key line, so the row has no gaps, while each round black cap stays centred over its note. The WEB-1 name and the "by Snow Bayles - 2026" engraving run up the right edge of the case.
+All the controls sit in one block, separated by thin black lines, so each key reads as its own button. Each key has a large ring with a bold icon or number. In the black keys' row, the outer key of each group widens out to the next white-key line, so the row has no gaps, while each round black cap stays centred over its note. The row sits on the same black plate as everything else, so the rounded corners of the black keys meet clean black lines with no light specks. The WEB-1 name and the "by Snow Bayles - 2026" engraving run up the right edge of the case.
 
 Everything on the device can be clicked or tapped, and almost everything also has a computer-keyboard shortcut. The controls card opens from the **guide** button under the device, or with **/**.
 
@@ -333,6 +334,19 @@ The buttons under the device change how WEB-1 looks (on OS-1 they are in the **?
 - **line art:** draws the whole device as flat outlines: thin lines for the keys, knob bases, keyboard and case edge, solid circles for the black keys, coloured knob caps and a black screen. Together with **dark mode** it becomes light lines on a dark-grey case, still with a black screen.
 
 All three settings are remembered, and **reset all** does not change them.
+
+### The screens
+
+Every picture is drawn to fill the screen, from edge to edge between the title and the four values.
+
+- **Bank A:** CLUSTER, FM (a round planet with a moon on a circular orbit), STRING, PULSE, ORGAN (four tall drawbars), FOLD and STORM each draw their sound large across the screen.
+- **HERO (7):** an arcade space shooter. A pixel ship follows your pitch and glides with GLIDE, every note fires a laser, and aliens burst into pixels with a running score.
+- **VELVET (B4):** a retro android in thin flat lines. Its LED visor lights up like an equaliser for your chord, its ear discs and the two speaker stacks pump with the level.
+- **BRASS (B5):** a vintage polysynth in isometric line art. Its keys go down in orange as you play, its four panel knobs follow the four encoders, and a raised display traces the filter envelope, with a needle VU meter and A·D·S·R faders beside it.
+- **NEON, LADDER, ORBIT, AURORA, ACID, HOOVER:** sunset grid, live filter curve, ringed planet, aurora curtains, resonant peak and vortex tunnel.
+- **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
+- **Menus:** the synths & presets menu shows the slot number large on the left with two scrolling lists; the CHAIN sequencer shows its step count large above the chain of steps.
+- The VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
 
 ## 13. Saving and exporting
 
