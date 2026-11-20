@@ -50,7 +50,7 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 | **Sampler** | Load, drop or record a sound into any synth slot and play it across the keys, as one shot, gated or looped, forwards or reversed, with fades and a playhead that follows each note |
 | **Tape** | 4 tracks × 60 s with bar lines, overdub, loop, lift and drop, copy, crop, double and erase (Shift + T1–T4), variable speed, reverse, brake and stutter tricks |
 | **Sequencers** | ENDLESS · PATTERN · ARP · CHAIN (an endless step sequencer with chords, long notes and rests) |
-| **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX |
+| **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX. Each of the 8 per-sound effects has its own animated screen with its two main values in big numbers |
 | **Mixer** | Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
 | **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen with full-screen animated pictures, light or dark finish, a flat line-art finish, and a subtle OLED glow option |

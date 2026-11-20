@@ -409,7 +409,7 @@ Your work lives in the browser you made it in. Clearing that site's data, or usi
 3. Press **R**. After the count-in, play a beat on the keys for a few bars, then press **Enter**.
 4. Press **Enter** twice to rewind, then press **Q** to loop the first bars.
 5. Press **N** to select track 2. Press **Z** for synth, then **Shift + 7** for ACID and play a bassline while recording with **R**. Overlap notes to make them slide.
-6. Press **C** and select track 3 with **M**. Press **Z**, then **Shift + 6** for AURORA and record some long chords.
+6. Press **C** and select track 3 with **M**. Press **Z**, then **Shift + 6** for AURORA and record some long chords. If you shaped a sound you like, press **Shift + B** to save it as a preset, type a name and press **Enter**.
 7. Press **C** and select track 4 with **,**. Press **Z**, then **Shift + 1** for NEON and record a lead.
 8. Press **V** for the mixer and balance the four tracks with the knobs.
 9. Press **I**, then switch on DELAY (T3) and REVERB (T4) for space.
@@ -423,5 +423,6 @@ Your work lives in the browser you made it in. Clearing that site's data, or usi
 | Keys don't play | Click the page so it has keyboard focus, and make sure no text field is selected. |
 | Recording is silent | Check REC LVL (tape mode) and that the right track is selected. With count-in on, recording starts after the clicks. |
 | Microphone or MIDI doesn't work | Serve the page from `localhost` or HTTPS, and use Chrome or Edge for MIDI. |
+| The letter keys type instead of playing notes | The SAVE PRESET screen is open. Press **Esc** to close it, or **Enter** to save. |
 | Crackles | Close other heavy tabs. Very big chords on NEON or HOOVER use the most CPU. |
 | I want a fresh start | Click **reset all**. |
