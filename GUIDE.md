@@ -59,7 +59,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **Shift + M** | Shift + T3: effect bank B (BOUNCE · COIL · CUBE · RADIO) |
 | **R** | REC |
 | **Shift + R** | Advanced REC (Shift + REC) |
-| **Shift + C** | Erase tape (Shift + TAPE): then press all four T keys |
+| **Shift + C** | Erase tape (Shift + TAPE): then hold B N M , together |
 | **Shift + 8** (tape mode) | System menu |
 | **Space** | PLAY (Shift + PLAY plays in reverse) |
 | **Enter** | STOP (press twice to rewind) |
@@ -264,7 +264,7 @@ Press **REC** again while it waits to cancel, or **STOP**. The settings are save
 
 ### Erasing the whole tape: Shift + TAPE
 
-Hold **Shift** and press **TAPE** (Shift + C) to open **ERASE TAPE?**. The TAPE key lights orange. To go ahead, press **T1, T2, T3 and T4**: each box lights in its track colour as you press it, and when the fourth is pressed the tape is wiped, with a progress bar. There is no undo. Until you press the fourth key, **Shift + TAPE** again or any mode key cancels. Musical keys don't play while the prompt is open.
+Hold **Shift** and press **TAPE** (Shift + C) to open **ERASE TAPE?**. The TAPE key lights orange. To go ahead, **hold T1, T2, T3 and T4 down together** (on a computer, hold **B N M ,**). Each box lights in its track colour while its key is held and goes out again when you let go, so tapping the keys one by one does nothing. As soon as all four are held at once, the tape is wiped, with a progress bar. There is no undo. Until all four are held, **Shift + TAPE** again or any mode key cancels. Musical keys don't play while the prompt is open.
 
 ### System menu: Shift + 8
 
