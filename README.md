@@ -54,14 +54,14 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 | **Mixer** | Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
 | **System menu** (Shift + 8 in tape mode) | Battery, time and timezone, storage (erase samples, presets, the tape or everything), display brightness and sleep, and about. Built now to try out the hardware version's settings |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
-| **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen with full-screen animated pictures, light or dark finish, a flat line-art finish, and a subtle OLED glow option |
+| **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen with full-screen animated pictures, light or dark finish, a flat line-art finish, and a subtle OLED glow option. The REC key is a red disc set inside its ring |
 | **MIDI** | Velocity, pitch bend, mod wheel and sustain from any connected keyboard |
 
 Synths are named A1–A8 and B1–B8 on the screen and in the menu. Every sound has its own animated screen, drawn to fill the display: a vintage string-machine panel for STRINGS, an arcade space shooter for HERO, swirling saw waves for HOOVER, a retro android with an LED visor for VELVET, a line-art vintage polysynth for BRASS, a synthwave sunset for NEON and aurora curtains for AURORA (both in the four flat knob colours), and more. The four coloured knobs always match the four coloured values on the screen.
 
 On the desktop, WEB-1 is drawn as a piece of hardware: every key, knob panel and keyboard key sits on a black plate, so a thin black line runs between and around the controls. Keys have large rings with bold icons and numbers that all line up, the knobs sit in rings, the black keys' row has no gaps and sits on clean black lines, and the speaker is a round grille. The SYNTH, DRUM, FX and number keys light orange when their second layer (menu, drum machine, FX bank B, synth bank B) is in use. The screen is set flush into that grid with no bezel, fills its whole tile, and stays a black display in every finish. "by Snow Bayles - 2026" is engraved into the case beside the WEB-1 name, and the controls card opens from the **guide** button under the device.
 
-Your sounds, sequences, samples and tape are saved automatically in your browser. **export tape as wav** downloads your mix.
+Your sounds, sequences, samples and tape are saved automatically in your browser, and the system menu shows how much space they use and can erase them. **export tape as wav** downloads your mix.
 
 ## Guide
 

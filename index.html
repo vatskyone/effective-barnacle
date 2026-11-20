@@ -1627,7 +1627,7 @@ function drawTape(){const sr=AC.sampleRate,pos=S.tpos/sr,u=pos/TAPE_SECS;S.reel+
   RL.forEach(([x,y,f])=>{circ(x,y,R,COL.w);const pk=7+f*13;g.globalAlpha=.35;circ(x,y,pk,COL.dim);g.globalAlpha=1;circ(x,y,5.5,COL.w);circ(x,y,1.6,COL.w,true);
     for(let k=0;k<3;k++){const a=S.reel+k*2.094;ln(x+Math.cos(a)*9,y+Math.sin(a)*9,x+Math.cos(a)*(R-4),y+Math.sin(a)*(R-4),COL.w,1.1)}});
   // the tape: from the bottom of the left reel, over two rollers and the head, to the right reel; its marks move as it plays
-  const P=[[CX-74-R+2,51],[CX-36,66],[CX-10,62],[CX+10,62],[CX+36,66],[CX+74+R-2,51]];
+  const P=[[CX-74,44+R],[CX-36,66],[CX-10,62],[CX+10,62],[CX+36,66],[CX+74,44+R]];
   g.strokeStyle=COL.dim;g.lineWidth=1;g.beginPath();P.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.stroke();
   g.strokeStyle=COL.w;g.setLineDash([1.2,5]);g.lineDashOffset=-pos*28;g.beginPath();P.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.stroke();g.setLineDash([]);
   [P[1],P[4]].forEach(([x,y])=>{circ(x,y,3.2,COL.w);circ(x,y,.9,COL.w,true)});g.strokeStyle=COL.w;g.lineWidth=1;g.strokeRect(CX-5.5,58.5,11,7);
