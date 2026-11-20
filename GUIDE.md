@@ -247,7 +247,7 @@ Press **TAPE** (C). The tape has **4 tracks × 60 seconds**.
 
 SPEED works like real tape: record at one speed and play back at another, and the pitch changes.
 
-**The tape screen:** the time runs along the top with the bar and beat under it. Two big reels turn as the tape moves, and the tape itself runs from reel to reel over two rollers and the head, its marks sliding along as it plays: the left reel empties and the right one fills as you go. The big number in the top-left corner is the selected track, in its colour, and the **FX** box under it lights orange while any master effect is on. The orange line on the right edge shows the SPEED. The four tracks run along the bottom as slim lanes with bar and beat lines, and the red line is the tape head.
+**The tape screen:** the time runs along the top with the bar and beat under it. Two big reels turn as the tape moves, and the tape itself leaves from the bottom of each reel and runs over two rollers and the head, its marks sliding along as it plays: the left reel empties and the right one fills as you go. The big number in the top-left corner is the selected track, in its colour, and under it an **FX** box: a hollow rectangle whose outline and letters turn orange while any master effect is on, and stay dim grey when they are all off. The orange line on the right edge shows the SPEED. The four tracks run along the bottom as slim lanes with bar and beat lines, and the red line is the tape head.
 
 ### Advanced REC: Shift + REC
 
@@ -434,7 +434,7 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **LADDER, ORBIT, ACID:** live filter curve, ringed planet and resonant peak.
 - **Sampler and pad sample editor:** both use the same screen: the waveform with START and END markers, fade ramps, a green loop mark, the play mode, and an orange playhead for each note or hit that is still sounding.
 - **Effects (T3):** all eight effects draw their picture on the left with two big numbers on the right.
-- **Tape:** big turning reels with the tape running between them, the time at the top, the track number large in its colour with an FX light, the speed on the right edge, and four slim tracks with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
+- **Tape:** big turning reels with the tape running between them, the time at the top, the track number large in its colour with a hollow FX box that turns orange while effects are on, the speed on the right edge, and four slim tracks with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
 - **Menus:** the synths & presets menu shows the slot number large on the left with two scrolling lists; the CHAIN sequencer shows its step count large above the chain of steps.
 - The NEON, AURORA, VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
