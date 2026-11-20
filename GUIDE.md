@@ -55,7 +55,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **B N M ,** | T1 · T2 · T3 · T4 |
 | **1 – 8** | Sound slot (synth bank A, or drum kit) |
 | **Shift + 1 – 8** | Synth bank B (in synth mode) |
-| **Shift + 4** | Pad sample editor (in drum mode) |
+| **Shift + 4** | Pad sample editor (in drum mode); hold Shift on its knobs for PLAY · FADE IN · FADE OUT · LEVEL |
 | **Shift + M** | Shift + T3: effect bank B (BOUNCE · COIL · CUBE · RADIO) |
 | **R** | REC |
 | **Space** | PLAY (Shift + PLAY plays in reverse) |
@@ -179,7 +179,7 @@ Each kit can have your own sample on any pad, so you could put kick.wav on KICK 
 2. Click **load sample** (or drag an audio file onto the page), or **record sample** to record one from the microphone.
 3. The sample now plays on that pad only, in that kit. A small square on the pad and the file name at the top of the screen show it.
 
-The kit's knobs still shape it: TUNE changes its pitch, DECAY how long it rings, TONE how bright it is, and DRIVE adds grit. On the upper row of keys it plays higher, like the built-in sounds. **clear sample** puts the built-in sound back on the selected pad. Pad samples are saved, and **reset all** erases them.
+The kit's TUNE changes its pitch and TONE how bright it is. How long it plays is set in the pad sample editor (Shift + 4), with START, END and the play mode. On the upper row of keys it plays higher, like the built-in sounds. **clear sample** puts the built-in sound back on the selected pad. Pad samples are saved, and **reset all** erases them.
 
 #### Editing a pad sample: Shift + 4
 
@@ -389,7 +389,7 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **AURORA (B6):** flat aurora curtains rippling at the ensemble speed, over stars and layered hills.
 - **HOOVER (B8):** three thick saw waves in blue, green and white swirling over each other. At each note they bend up from a lower pitch (DIVE, also shown as a small bar), DETUNE pulls them apart, CHORUS makes them sway and the orange bar shows TONE.
 - **LADDER, ORBIT, ACID:** live filter curve, ringed planet and resonant peak.
-- **Sampler:** the waveform with START and END markers, fade ramps and an orange playhead for each note.
+- **Sampler and pad sample editor:** the waveform with START and END markers, fade ramps, a green loop mark, the play mode, and an orange playhead for each note or hit that is still sounding.
 - **Effects (T3):** all eight effects draw their picture on the left with two big numbers on the right.
 - **Tape:** the four tracks and the tape head, with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
