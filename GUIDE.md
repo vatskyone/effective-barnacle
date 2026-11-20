@@ -183,14 +183,16 @@ The kit's knobs still shape it: TUNE changes its pitch, DECAY how long it rings,
 
 #### Editing a pad sample: Shift + 4
 
-Key 4 is labelled **SAMPLE** in orange. In drum mode, hold **Shift** and press **4** to open the sample editor for the selected pad, as you would edit a sample in synth mode. Key 4 lights orange while it is open, and the screen shows the sample's waveform with the part that plays in white.
+Key 4 is labelled **SAMPLE** in orange. In drum mode, hold **Shift** and press **4** to open the sample editor for the selected pad, as you would edit a sample in synth mode. Key 4 lights orange while it is open, and the screen shows the sample's waveform with the part that plays in white. While the pad plays, an orange line runs through the waveform, one for each hit that is still sounding. The play mode is shown in the top corner, fades are drawn as orange ramps, and a green line under the waveform marks a loop.
 
-| Knob | What it does |
-|---|---|
-| **Blue: START** | Where the sample starts playing |
-| **Green: END** | Where it stops |
-| **White: TUNE** | Pitch, ±12 semitones |
-| **Orange: REVERSE** | Plays the sample backwards |
+| Knob | What it does | Shift + knob | What it does |
+|---|---|---|---|
+| **Blue: START** | Where the sample starts playing | **PLAY** | **ONE SHOT** plays the whole part from one hit · **GATE** plays only while the key is held · **LOOP** loops the part while the key is held |
+| **Green: END** | Where it stops | **FADE IN** | Fades the start in, up to 2 s |
+| **White: TUNE** | Pitch, ±12 semitones | **FADE OUT** | Fades the end out, up to 2 s (ONE SHOT and GATE) |
+| **Orange: REVERSE** | Plays the sample backwards | **LEVEL** | The pad's volume |
+
+The kit's TUNE, TONE and level still shape a sampled pad. Its length now comes from START, END and the play mode, so the kit's DECAY knob no longer cuts samples short. When a sequencer plays a GATE or LOOP pad, the pad stops at the end of each step.
 
 Hit another pad to edit that pad's sample; pads without a sample show a reminder to load one. Loading a sample while the editor is open puts it on the selected pad. Press **Shift + 4** again, or any T key, to close the editor. The settings are saved with the pad, and loading a new sample on a pad resets them.
 
