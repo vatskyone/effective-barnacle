@@ -468,6 +468,11 @@ Your work lives in the browser you made it in. Clearing that site's data, or usi
 | No sound | Click the device or press a key first, since browsers need a click before audio can play. Check the volume knob and the MIXER levels. |
 | Keys don't play | Click the page so it has keyboard focus, and make sure no text field is selected. |
 | Recording is silent | Check REC LVL (tape mode) and that the right track is selected. With count-in on, recording starts after the clicks. |
+| The screen goes black after a while | SCREEN SLEEP is on in the system menu (Shift + 8 in tape mode, DISPLAY). Any key or knob wakes it. |
+| The screen looks dim | Turn BRIGHTNESS up in the system menu (DISPLAY). |
+| REC blinks but nothing records | ADVANCED REC (Shift + REC) is set to start ON SOUND or on the NEXT BAR. Play louder or lower the THRESHOLD, wait for the bar, or set START back to KEY. |
+| Recording wipes what was already on the track | KEEP OLD in ADVANCED REC is below 100%. Turn it back up to overdub. |
+| Recording stops by itself | AUTO STOP is on in ADVANCED REC. Set it to OFF. |
 | Microphone or MIDI doesn't work | Serve the page from `localhost` or HTTPS, and use Chrome or Edge for MIDI. |
 | The letter keys type instead of playing notes | The SAVE PRESET screen is open. Press **Esc** to close it, or **Enter** to save. |
 | Crackles | Close other heavy tabs. Very big chords on NEON or HOOVER use the most CPU. |
