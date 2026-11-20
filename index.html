@@ -225,7 +225,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>CHAIN</td><td>CHAIN (T4): an endless step sequencer. Hold SHIFT and press keys to add steps (keys pressed together make a chord); keep the keys held and press → to make the last note longer; SHIFT + → adds a rest; SHIFT + ← removes the last step. Then press any key to play the chain transposed (the low C plays it as written). Knobs: RATE · GATE · OCTAVE · HOLD.</td></tr>
 <tr><td>FX</td><td>Master rack: DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, tap the same T again to switch it on/off. SHIFT + FX switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). SHIFT + FX again goes back to bank A.</td></tr>
 <tr><td>Tempo</td><td>The metronome-shaped key opens TEMPO: count-in (green), quantize (white); hold SHIFT for swing, beats and snap. The clock key switches the metronome on/off.</td></tr>
-<tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · LEVEL; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · REVERSE · FADE IN · FADE OUT. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
+<tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved on this phone automatically. “export tape as wav” shares the mix.</td></tr>
 <tr><td>No sound?</td><td>Turn the volume up and switch the phone's silent mode off.</td></tr>
 <tr><td>Full screen</td><td>Hold the phone sideways. In Safari tap Share, then “Add to Home Screen”: OS-1 then opens like an app and fills the screen.</td></tr>
@@ -259,7 +259,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Shift + TAPE</td><td>ERASE TAPE: press T1, T2, T3 and T4 to wipe all four tracks (there is no undo). Shift + TAPE again, or any mode key, cancels before the fourth key.</td></tr>
 <tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything, turning white all the way to YES to confirm) · DISPLAY (brightness, screen sleep, clock in the title bar) · ABOUT.</td></tr>
 <tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
-<tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · LEVEL; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · REVERSE · FADE IN · FADE OUT. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
+<tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
 <tr><td>MIDI</td><td>“connect midi” enables any attached keyboard: velocity, pitch bend, mod wheel (LFO amount), sustain pedal.</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved in this browser automatically. “export tape as wav” downloads the mix.</td></tr>
 <tr><td>I</td><td>FX RACK: four master effects in a chain, DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, press the same T again to switch it on/off. Shift+FX (Shift+I) switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). Shift+FX (Shift+I) again goes back to bank A. The four lights on the FX key show which are on. Delay is synced to the tempo; delay and reverb tails ring out when switched off. The rack is included in the WAV export.</td></tr>
@@ -681,7 +681,7 @@ const slotSmp=Array(16).fill(null);
 /* drum pad samples: padSmp[kit][pad], pad 0–23 = the 24 keys; saved in IndexedDB as pad<kit>_<pad> */
 const PADDEF=[0,1,.5,0,0,0,0,.5],padPar=(kt,p)=>{const q=padP[kt+'_'+p]||(padP[kt+'_'+p]=[...PADDEF]);while(q.length<8)q.push(PADDEF[q.length]);return q},padSmp=Array.from({length:8},()=>Array(24).fill(null)),padK=(kt,p)=>'pad'+kt+'_'+p,padNm=p=>DN[p%12]+(p>=12?' (HIGH)':'');
 const SMODE=['ONE SHOT','GATE','LOOP'],tuneF=v=>{const s=Math.round((v-.5)*24);return(s>=0?'+':'')+s},fadeS=v=>v*v*2,fadeF=v=>{const x=fadeS(v);return x<.003?'OFF':x<1?Math.round(x*1000)+'ms':x.toFixed(1)+'s'};
-const SMP={name:'SAMPLE',pn:['START','END','TUNE','LEVEL'],fmt:[null,null,tuneF,null],pn2:['PLAY','REVERSE','FADE IN','FADE OUT'],fmt2:[v=>SMODE[idx(v,3)],v=>v>.5?'ON':'OFF',fadeF,fadeF],build(f,p,t){
+const SMP={name:'SAMPLE',pn:['START','END','TUNE','REVERSE'],build(f,p,t){
    // P.smp = START END TUNE LEVEL · PLAY (one shot / gate / loop) REVERSE FADE-IN FADE-OUT
    const sm=slotSmp[S.slot],D=sm.buf.duration,a=clamp(p[0],0,.98)*D,b=Math.max(a+.01,Math.min(1,p[1])*D),md=idx(p[4],3),rv=p[5]>.5;
    if(rv&&!sm.rev){const n=sm.buf.length,r=AC.createBuffer(1,n,sm.buf.sampleRate),x=sm.buf.getChannelData(0),y=r.getChannelData(0);for(let i=0;i<n;i++)y[i]=x[n-1-i];sm.rev=r}
@@ -1086,7 +1086,8 @@ function params(){
     return sh?[mk(S.ms2,0,'CEILING',v=>limCeil(v).toFixed(1),A),mk(S.ms2,1,'LIM REL',v=>msf(limRel(v)),A),mk(S.ms2,2,'COMP SPD',v=>msf(mbA(v)),A),mk(S.ms2,3,'WIDTH',v=>Math.round(v*200)+'%',A)]
       :[mk(S.ms,0,'OUT',pct,A),mk(S.ms,1,'COMP',pct,A),mk(S.ms,2,'INSTR',pct,A),mk(S.ms,3,'LIMIT',v=>v<.01?'OFF':'+'+(v*18).toFixed(1),A)]}
   const P=cur();
-  if(S.page===0){if(S.inst==='drum')return['TUNE','DECAY','TONE','DRIVE'].map((n,i)=>mk(P.eng,i,n,pct,applyDrum));const E=engOf();if(E===SMP&&S.shift)return E.pn2.map((n,i)=>mk(P.smp,i+4,n,E.fmt2[i]));return E.pn.map((n,i)=>mk(E===SMP?P.smp:P.eng,i,n,E.fmt&&E.fmt[i]))}
+  if(S.page===0){if(S.inst==='drum')return['TUNE','DECAY','TONE','DRIVE'].map((n,i)=>mk(P.eng,i,n,pct,applyDrum));const E=engOf();if(E===SMP)return S.shift?[mk(P.smp,4,'PLAY',v=>SMODE[idx(v,3)]),mk(P.smp,6,'FADE IN',fadeF),mk(P.smp,7,'FADE OUT',fadeF),mk(P.smp,3,'LEVEL')]
+    :[mk(P.smp,0,'START'),mk(P.smp,1,'END'),mk(P.smp,2,'TUNE',tuneF),mk(P.smp,5,'REVERSE',v=>v>.5?'ON':'OFF')];return E.pn.map((n,i)=>mk(E===SMP?P.smp:P.eng,i,n,E.fmt&&E.fmt[i]))}
   if(S.page===1)return(S.inst==='drum'?['KICK','SNARE','HATS','PERC']:['ATTACK','DECAY','SUSTAIN','RELEASE']).map((n,i)=>mk(P.env,i,n));
   if(S.page===2)return FXP[P.fxType].map((n,i)=>mk(P.fx[P.fxType],i,n,pct,applyFx));
   return[mk(P.lfo,0,'RATE',v=>(.05*2**(v*8.6)).toFixed(v<.5?2:1)+'Hz',applyLfo),mk(P.lfo,1,'AMOUNT',pct,applyLfo),mk(P.lfo,2,'DEST',v=>LFD[idx(v,4)],applyLfo),mk(P.lfo,3,'SHAPE',v=>LFS[idx(v,4)],applyLfo)]}
@@ -1621,7 +1622,8 @@ function drawPadInfo(){const k=S.pad|0,ps=padSmp[S.kit][k];txt(padNm(k)+(ps?' ·
 function drawTape(){const sr=AC.sampleRate,pos=S.tpos/sr,u=pos/TAPE_SECS;S.reel+=S.tspd*.13;const tc=TC[S.track],ty=74,th=4,tg=6;
   // big track number top left, FX light under it (lit while any master FX is on)
   bigN(''+(S.track+1),8,46,tc,32);const fx=S.rkOn.some(x=>x)||S.rkOn2.some(x=>x);
-  if(fx){g.fillStyle=COL.o;g.fillRect(8,52,19,11)}else{g.strokeStyle='#4a4d54';g.lineWidth=.9;g.strokeRect(8.5,52.5,18,10)}txt('FX',17.5,60.5,fx?'#07080a':'#4a4d54',6.5,'center');
+  // FX light: a hollow box, outline and text in orange while any master FX is on, dim when all are off
+  {const c=fx?COL.o:'#4a4d54';g.strokeStyle=c;g.lineWidth=1;g.strokeRect(8.5,51.5,22,13);g.font=`500 8.5px ${FONT}`;g.fillStyle=c;g.textAlign='center';g.textBaseline='middle';g.fillText('FX',19.5,58.3);g.textBaseline='alphabetic'}
   // two big reels: the tape pack grows on the right as the tape plays, spokes turn with the tape
   const RL=[[CX-74,44,1-u],[CX+74,44,u]],R=23;
   RL.forEach(([x,y,f])=>{circ(x,y,R,COL.w);const pk=7+f*13;g.globalAlpha=.35;circ(x,y,pk,COL.dim);g.globalAlpha=1;circ(x,y,5.5,COL.w);circ(x,y,1.6,COL.w,true);
@@ -1761,20 +1763,23 @@ function drawSeq(){if(seq.type===3){drawChain();return}txt('T1–T4 ▸ TYPE',W-
   let lo=Math.min(...seq.steps),hi=Math.max(...seq.steps);if(hi-lo<12)hi=lo+12;const w=Math.min(18,(W-40)/L);
   seq.steps.forEach((n,i)=>{const x=20+i*w,y=90-(n-lo)/(hi-lo)*64;g.fillStyle=i===seq.cur?COL.o:COL.b;g.fillRect(x,y-3,w-2,6);ln(x+(w-2)/2,y+3,x+(w-2)/2,94,i===seq.cur?COL.o:'#26303f',.6)});
   txt(L+' STEPS',W-8,36,COL.dim,6,'right')}
-function drawPadSmp(){const k=S.pad|0,ps=padSmp[S.kit][k];txt(padNm(k)+(ps?' · '+ps.name.slice(0,22):''),8,24,ps?COL.w:COL.dim,6);
-  if(!ps){txt('NO SAMPLE ON '+padNm(k),CX,52,COL.w,9,'center');txt('HIT A PAD, THEN LOAD SAMPLE',CX,66,COL.dim,7,'center');return}
-  const p=padPar(S.kit,k),pk=ps.pk,x0=20,w=(W-40)/160,rv=p[3]>.5,a=p[0],b=Math.max(a+.005,p[1]);
+/* the sample view, shared by the synth sampler and the drum pad editor:
+   q = {a,b (0–1), rv, md, fi, fo (seconds), D}, heads = sounding voices {t0,rate,a,b (s),rv,md,D}, flash = a hit just now */
+function drawSampleView(label,lit,pk,q,heads,flash){const x0=20,ww=W-40,w=ww/160,{rv,md,D}=q,a=q.a,b=Math.max(a+.005,Math.min(1,q.b));txt(label,8,24,lit?COL.w:COL.dim,6);
   for(let i=0;i<160;i++){const u=i/160,h=1+pk[rv?159-i:i]*30,uu=rv?1-u:u;g.fillStyle=uu>=a&&uu<=b?COL.w:'#3a3d44';g.fillRect(x0+i*w,CY-h,w-.4,h*2)}
-  const xa=x0+(rv?1-a:a)*(W-40),xb=x0+(rv?1-Math.min(1,b):Math.min(1,b))*(W-40);ln(xa,30,xa,94,COL.b,1.5);ln(xb,30,xb,94,COL.g,1.5);
-  const md=idx(p[4],3),D=ps.buf.duration,ww=W-40,X=u=>x0+(rv?1-u:u)*ww,bb=Math.min(1,b),fi=Math.min(bb-a,fadeS(p[5])/D),fo=Math.min(bb-a,fadeS(p[6])/D);
+  const X=u=>x0+(rv?1-u:u)*ww,xa=X(a),xb=X(b),fi=Math.min(b-a,q.fi/D),fo=Math.min(b-a,q.fo/D);ln(xa,30,xa,94,COL.b,1.5);ln(xb,30,xb,94,COL.g,1.5);
   g.strokeStyle=COL.o;g.lineWidth=1;if(fi*ww>1){g.beginPath();g.moveTo(X(a),CY+31);g.lineTo(X(a+fi),CY-31);g.stroke()}
-  if(fo*ww>1&&md<2){g.beginPath();g.moveTo(X(bb-fo),CY-31);g.lineTo(X(bb),CY+31);g.stroke()}
+  if(fo*ww>1&&md<2){g.beginPath();g.moveTo(X(b-fo),CY-31);g.lineTo(X(b),CY+31);g.stroke()}
   if(md===2){g.fillStyle=COL.g;g.fillRect(Math.min(xa,xb),92,Math.abs(xb-xa),1.2)}
-  const now=AC.currentTime;padPlay.forEach(v=>{if(v.k!==k||v.kit!==S.kit||now<v.t0||now>v.end)return;const el=(now-v.t0)*v.rate,L=v.b-v.a;let o;
+  const now=AC.currentTime;heads.forEach(v=>{if(now<v.t0||(v.end!==undefined&&now>v.end))return;const el=(now-v.t0)*v.rate,L=v.b-v.a;let o;
     if(v.md===2)o=el%L;else if(el<=L)o=el;else return;const x=X((v.rv?v.b-o:v.a+o)/v.D);
     g.shadowColor=COL.o;g.shadowBlur=5;ln(x,30,x,96,COL.o,1.4);g.shadowBlur=0;circ(x,30,2,COL.o,true)});
-  const f=S.flash[k]&&performance.now()-S.flash[k]<180;circ(W-14,24,3,COL.o,!!f);txt(SMODE[md]+(rv?' · REVERSE':''),W-24,26,COL.w,6,'right');
+  circ(W-14,24,3,COL.o,!!flash);txt(SMODE[md]+(rv?' · REVERSE':''),W-24,26,COL.w,6,'right');
   txt(S.shift?'SHIFT ▸ PLAY · FADES · LEVEL':'SHIFT ▸ PLAY MODE',W-8,99,S.shift?COL.o:'#4a4d54',5.5,'right')}
+function drawPadSmp(){const k=S.pad|0,ps=padSmp[S.kit][k];
+  if(!ps){txt(padNm(k),8,24,COL.dim,6);txt('NO SAMPLE ON '+padNm(k),CX,52,COL.w,9,'center');txt('HIT A PAD, THEN LOAD SAMPLE',CX,66,COL.dim,7,'center');return}
+  const p=padPar(S.kit,k);drawSampleView(padNm(k)+' · '+ps.name.slice(0,22),1,ps.pk,{a:p[0],b:p[1],rv:p[3]>.5,md:idx(p[4],3),fi:fadeS(p[5]),fo:fadeS(p[6]),D:ps.buf.duration},
+    padPlay.filter(v=>v.k===k&&v.kit===S.kit),S.flash[k]&&performance.now()-S.flash[k]<180)}
 function drawSave(t){const sl=S.slot,U=S.up[sl],hit=svHit(),now=performance.now(),fl=SAVE.msg&&now-SAVE.at<1400;
   bigN(slotNm(sl),40,58,COL.w,32,'center');txt(engOf().name,40,72,COL.dim,6.5,'center');txt('SAVE',40,88,COL.o,8,'center');
   const x0=84,bw=23;for(let i=0;i<SVL;i++){const x=x0+i*bw,on=i===SAVE.cur,c=SAVE.name[i];
@@ -1787,19 +1792,9 @@ function drawSave(t){const sl=S.slot,U=S.up[sl],hit=svHit(),now=performance.now(
     if(ok){g.fillStyle=c;g.fillRect(bx+1.5,y+1.5,(w-2)*v,6);txt(v>.02?'YES':'NO',bx+w-3,y+6.8,v>.6?'#07080a':c,5.5,'right')}};
   bar(76,'SAVE',SAVE.arm,COL.w,true);bar(88,'DELETE',SAVE.del,COL.o,hit>=0);
   if(fl){g.fillStyle='rgba(7,8,10,.86)';g.fillRect(x0-4,17,W-x0,34);bigN(SAVE.msg,x0+(W-x0)/2-4,42,SAVE.msg==='DELETED'?COL.o:COL.g,SAVE.msg.length>12?11:19,'center')}}
-function drawSmp(p){const sm=slotSmp[S.slot],pk=sm.pk,x0=20,ww=W-40,w=ww/160,a=p[0],b=Math.max(a+.01,Math.min(1,p[1])),md=idx(p[4],3),rv=p[5]>.5,D=sm.buf.duration;
-  for(let i=0;i<160;i++){const u=i/160,h=1+pk[i]*30;g.fillStyle=u>=a&&u<=b?COL.w:'#3a3d44';g.fillRect(x0+i*w,CY-h,w-.4,h*2)}
-  const xa=x0+a*ww,xb=x0+b*ww,fi=Math.min(b-a,fadeS(p[6])/D)*ww,fo=Math.min(b-a,fadeS(p[7])/D)*ww;
-  // fades drawn as ramps from the start / end markers (in the play direction)
-  g.strokeStyle=COL.o;g.lineWidth=1;if(fi>1){const[s0,s1]=rv?[xb,xb-fi]:[xa,xa+fi];g.beginPath();g.moveTo(s0,CY+31);g.lineTo(s1,CY-31);g.stroke()}
-  if(fo>1&&md<2){const[s0,s1]=rv?[xa+fo,xa]:[xb-fo,xb];g.beginPath();g.moveTo(s0,CY-31);g.lineTo(s1,CY+31);g.stroke()}
-  ln(xa,20,xa,94,COL.b,1.5);ln(xb,20,xb,94,COL.g,1.5);
-  if(md===2){g.fillStyle=COL.g;g.fillRect(xa,92,xb-xa,1.2)}
-  // playheads: one line per sounding voice, moving through the sample as it plays
-  const now=AC.currentTime;voices.forEach(v=>{const q=v.e.sp;if(!q)return;const el=(now-q.t0)*q.rate;if(el<0)return;const L=q.b-q.a;let o;
-    if(q.md===2)o=el%L;else if(el<=L)o=el;else return;const tt=q.rv?q.b-o:q.a+o,x=x0+tt/q.D*ww;
-    g.globalAlpha=v.off&&q.md!==0?.45:1;g.shadowColor=COL.o;g.shadowBlur=5;ln(x,18,x,96,COL.o,1.4);g.shadowBlur=0;circ(x,18,2,COL.o,true);g.globalAlpha=1});
-  txt(SMODE[md]+(rv?' · REVERSE':''),W-8,26,COL.w,6,'right');txt(S.shift?'SHIFT ▸ PLAY · REVERSE · FADES':'SHIFT ▸ PLAY MODE',8,26,S.shift?COL.o:'#4a4d54',5.5)}
+function drawSmp(p){const sm=slotSmp[S.slot],D=sm.buf.duration;
+  drawSampleView(slotNm(S.slot)+' · SAMPLE · '+D.toFixed(1)+' S',1,sm.pk,{a:p[0],b:p[1],rv:p[5]>.5,md:idx(p[4],3),fi:fadeS(p[6]),fo:fadeS(p[7]),D},
+    voices.map(v=>v.e.sp).filter(Boolean),AC.currentTime-lastOn.t<.18&&AC.currentTime>=lastOn.t)}
 function boot(t){for(let i=0;i<5;i++)plot(u=>65+Math.sin(u*9+t*1.4+i*.9)*(8+i*4)*Math.sin(u*3.14),20,W-20,i===4?COL.w:TC[i%4],1);txt(NAME,CX,34,COL.w,13,'center');txt(OS1?'TAP ANY KEY':'PRESS ANY KEY',CX,118,Math.sin(t*4)>0?COL.o:COL.dim,7,'center')}
 function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);
   if(!AC){boot(t);return}
@@ -1819,7 +1814,7 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.setTransform(3,0
   else if(S.mode==='tape'){title='TAPE · TRACK '+(S.track+1);drawTape()}
   else if(S.mode==='mixer'){title='MIXER · '+['LEVEL & PAN','MULTIBAND COMP','EQ','MASTER'][S.page]+(S.shift?' ▸ '+['PAN','X-OVER & SPEED','FREQUENCY','LIMITER & WIDTH'][S.page]:'  ·  SHIFT ▸ '+['PAN','X-OVER','FREQ','MORE'][S.page]);drawMixer()}
   else{const nm=S.inst==='synth'?`SYNTH ${slotNm(S.slot)} · ${engOf().name}`:`DRUM ${S.kit+1} · ${KITS[S.kit]}`;
-    if(S.page===0){title=nm;if(S.inst==='drum'){drawDrum();drawPadInfo()}else if(slotSmp[S.slot]){drawSmp(P.smp);scope(20,W-20,92,6,'rgba(255,255,255,.28)')}else{ENGDRAW[S.slot](t,P.eng,S.lvl);if(!NOSCOPE.has(S.slot))scope(20,W-20,92,6,'rgba(255,255,255,.28)')}}
+    if(S.page===0){title=nm;if(S.inst==='drum'){drawDrum();drawPadInfo()}else if(slotSmp[S.slot]){drawSmp(P.smp)}else{ENGDRAW[S.slot](t,P.eng,S.lvl);if(!NOSCOPE.has(S.slot))scope(20,W-20,92,6,'rgba(255,255,255,.28)')}}
     else if(S.page===1){title=nm+(S.inst==='drum'?' · MIX':' · ENVELOPE');if(S.inst==='drum'){P.env.forEach((v,i)=>{const x=60+i*72;g.strokeStyle=COL.dim;g.lineWidth=.6;g.strokeRect(x-10,22,20,70);g.fillStyle=TC[i];g.fillRect(x-8,90-v*66,16,v*66)})}else drawEnv(P.env)}
     else if(S.page===2){title='FX · '+FXN[P.fxType];drawFx(t,P)}
     else{title='LFO';drawLfo(t,P.lfo)}}
