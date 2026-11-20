@@ -31,7 +31,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 - **Mode keys:** SYNTH, DRUM, TAPE and MIXER. SYNTH lights orange while the synths & presets menu is open (Shift + SYNTH), DRUM while the drum machine is open (Shift + DRUM).
 - **T1–T4:** pick the page inside a mode.
 - **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the drum-mode sample editor (Shift + 4). All eight numbers sit at the same height in their rings, labelled or not.
-- **Transport:** REC, PLAY and STOP, plus the ← → arrows: pitch bend in synth mode, tape winding in the other modes.
+- **Transport:** REC (a red disc inside the key's ring, Shift + REC for advanced recording), PLAY and STOP, plus the ← → arrows: pitch bend in synth mode, tape winding in the other modes.
 - **Musical keys:** the keyboard along the bottom, with white and black keys.
 - **Lights on the right edge:** the output level meter. The red light at the top means you are near the maximum level.
 - **Speaker grille** (top left corner, a round grille of dots): decoration only; the sound comes from your computer.
@@ -58,6 +58,9 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **Shift + 4** | Pad sample editor (in drum mode); hold Shift on its knobs for PLAY · FADE IN · FADE OUT · LEVEL |
 | **Shift + M** | Shift + T3: effect bank B (BOUNCE · COIL · CUBE · RADIO) |
 | **R** | REC |
+| **Shift + R** | Advanced REC (Shift + REC) |
+| **Shift + C** | Erase tape (Shift + TAPE): then press all four T keys |
+| **Shift + 8** (tape mode) | System menu |
 | **Space** | PLAY (Shift + PLAY plays in reverse) |
 | **Enter** | STOP (press twice to rewind) |
 | **← →** | In synth mode: pitch bend. In the other modes: hold to wind the tape |
@@ -234,7 +237,7 @@ The screen shows the play mode in the top corner and draws the fades as orange r
 
 Press **TAPE** (C). The tape has **4 tracks × 60 seconds**.
 
-- **T1–T4** pick the track to record on. The selected track's number lights up in its colour.
+- **T1–T4** pick the track to record on. The selected track's number is shown large in the top-left corner, in its colour.
 - **REC** arms the tape and starts it. Whatever you play is recorded onto the selected track, on top of what is already there.
 - **PLAY** plays the tape. **Shift + PLAY** plays it backwards.
 - **STOP** stops it; press STOP twice to go back to the start.
@@ -243,6 +246,46 @@ Press **TAPE** (C). The tape has **4 tracks × 60 seconds**.
 **Knobs:** JOG (move the tape head) · LOOP (loop length in bars) · REC LVL · SPEED.
 
 SPEED works like real tape: record at one speed and play back at another, and the pitch changes.
+
+**The tape screen:** the time runs along the top with the bar and beat under it. Two big reels turn as the tape moves, and the tape itself runs from reel to reel over two rollers and the head, its marks sliding along as it plays: the left reel empties and the right one fills as you go. The big number in the top-left corner is the selected track, in its colour, and the **FX** box under it lights orange while any master effect is on. The orange line on the right edge shows the SPEED. The four tracks run along the bottom as slim lanes with bar and beat lines, and the red line is the tape head.
+
+### Advanced REC: Shift + REC
+
+Hold **Shift** and press **REC** (Shift + R) to open **ADVANCED REC**. The REC light turns orange. The screen shows the REC disc and the selected track on the left (READY, RECORDING, or blinking while it waits), and one panel per knob.
+
+| Knob | Job | Shift + knob | Job |
+|---|---|---|---|
+| **Blue: SOURCE** | What is recorded: INSTRUMENT (what you play), MIC, or BOTH. The panel shows the input level | **THRESHOLD** | How loud the input must get to start an ON SOUND recording (the white line on the level meter) |
+| **Green: KEEP OLD** | What happens to what is already on the track where you record: 100% overdubs (the default), 0% replaces it, in between fades it a little more with each pass | **MONITOR** | How loud you hear the microphone while you record |
+| **White: START** | KEY starts as soon as you press REC · ON SOUND rolls the tape and starts recording when the input passes the threshold · NEXT BAR rolls the tape and starts on the next bar line | **PUNCH** | LOOP AREA records only between the loop markers, even with LOOP off |
+| **Orange: AUTO STOP** | OFF, or stop recording after 1, 2, 4 or 8 bars; the tape keeps playing | **COUNT-IN** | The same count-in as on the tempo screen |
+
+Press **REC** again while it waits to cancel, or **STOP**. The settings are saved, and any that are not the usual ones are listed in small text at the top right of the tape screen, for example REPLACE, MIC or STOP 2 BAR. The microphone needs your permission and works on `localhost` or HTTPS.
+
+### Erasing the whole tape: Shift + TAPE
+
+Hold **Shift** and press **TAPE** (Shift + C) to open **ERASE TAPE?**. The TAPE key lights orange. To go ahead, press **T1, T2, T3 and T4**: each box lights in its track colour as you press it, and when the fourth is pressed the tape is wiped, with a progress bar. There is no undo. Until you press the fourth key, **Shift + TAPE** again or any mode key cancels. Musical keys don't play while the prompt is open.
+
+### System menu: Shift + 8
+
+In tape mode, hold **Shift** and press **8** (labelled **MENU**) to open the system menu. Key 8 lights orange. It is laid out like the synths & presets menu: a picture of the section on the left, the sections in blue, the items and their values in green.
+
+| Knob | Job |
+|---|---|
+| **Blue: SECTION** | BATTERY · TIME · TIMEZONE · STORAGE · DISPLAY · ABOUT |
+| **Green: ITEM** | The setting inside the section |
+| **White: SET / CONFIRM / OPEN** | Changes the setting; for an erase, turn it all the way to YES to confirm |
+
+| Section | Items |
+|---|---|
+| **BATTERY** | Level, charging or on battery, time left (shown where the browser reports a battery) |
+| **TIME** | Hour, minute, 12 or 24 hour clock, date, and USE DEVICE TIME to go back to the real clock |
+| **TIMEZONE** | AUTO (this device) or a city from UTC−10 to UTC+12, with the local time |
+| **STORAGE** | Space used, number of samples and user presets, ERASE SAMPLES, ERASE PRESETS, ERASE TAPE (opens the erase prompt) and ERASE EVERYTHING |
+| **DISPLAY** | Brightness (20–100%), screen sleep after 1, 5, 10 or 30 minutes (any key or knob wakes it), and a clock in the title bar |
+| **ABOUT** | Device, version, engines, tape size and MIDI status |
+
+The settings are saved. The menu is built for the hardware version to come: in the browser, battery and storage show what the browser can see, and the timezones are fixed offsets without summer time.
 
 **Looping:** **Q** sets a loop starting at the tape head, with the length set by the green knob.
 
@@ -391,7 +434,7 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **LADDER, ORBIT, ACID:** live filter curve, ringed planet and resonant peak.
 - **Sampler and pad sample editor:** the waveform with START and END markers, fade ramps, a green loop mark, the play mode, and an orange playhead for each note or hit that is still sounding.
 - **Effects (T3):** all eight effects draw their picture on the left with two big numbers on the right.
-- **Tape:** the four tracks and the tape head, with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
+- **Tape:** big turning reels with the tape running between them, the time at the top, the track number large in its colour with an FX light, the speed on the right edge, and four slim tracks with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
 - **Menus:** the synths & presets menu shows the slot number large on the left with two scrolling lists; the CHAIN sequencer shows its step count large above the chain of steps.
 - The NEON, AURORA, VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
@@ -401,6 +444,7 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - Everything saves automatically in your browser: sounds, slot settings, sequences, the mixer, the FX rack, samples and the tape.
 - **export tape as wav** downloads the full tape mix, including the master FX.
 - **reset all** erases every saved sound, sequence, sample and the tape. You are asked to confirm first.
+- The **system menu** (Shift + 8 in tape mode) can erase just the samples, just your presets, just the tape, or everything, and shows how much space is used.
 
 Your work lives in the browser you made it in. Clearing that site's data, or using a private window, starts fresh. Export WAVs of anything you want to keep.
 
