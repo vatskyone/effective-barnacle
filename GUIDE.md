@@ -227,11 +227,11 @@ The sample plays across the keys at different pitches. While it plays, an orange
 | Knob | Job | Shift + knob | Job |
 |---|---|---|---|
 | **Blue: START** | Where it starts | **PLAY** | **ONE SHOT** plays the whole part from one tap · **GATE** plays only while the key is held · **LOOP** loops the part while the key is held |
-| **Green: END** | Where it ends | **REVERSE** | Plays backwards |
-| **White: TUNE** | ±12 semitones | **FADE IN** | Fades the start in, up to 2 s |
-| **Orange: LEVEL** | Volume | **FADE OUT** | Fades the end out, up to 2 s (ONE SHOT and GATE) |
+| **Green: END** | Where it ends | **FADE IN** | Fades the start in, up to 2 s |
+| **White: TUNE** | ±12 semitones | **FADE OUT** | Fades the end out, up to 2 s (ONE SHOT and GATE) |
+| **Orange: REVERSE** | Plays backwards | **LEVEL** | Volume |
 
-The screen shows the play mode in the top corner and draws the fades as orange ramps. A green line under the waveform marks the loop.
+The screen and knobs work exactly like the drum pad editor (Shift + 4 in drum mode): the slot and the sample's length at the top left, the play mode and a light that blinks on each note at the top right, fades as orange ramps, a green line under the waveform for a loop, and the waveform flipped when REVERSE is on, so the part that plays always reads from left to right.
 
 ## 6. Tape mode
 
@@ -432,7 +432,7 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **AURORA (B6):** flat aurora curtains rippling at the ensemble speed, over stars and layered hills.
 - **HOOVER (B8):** three thick saw waves in blue, green and white swirling over each other. At each note they bend up from a lower pitch (DIVE, also shown as a small bar), DETUNE pulls them apart, CHORUS makes them sway and the orange bar shows TONE.
 - **LADDER, ORBIT, ACID:** live filter curve, ringed planet and resonant peak.
-- **Sampler and pad sample editor:** the waveform with START and END markers, fade ramps, a green loop mark, the play mode, and an orange playhead for each note or hit that is still sounding.
+- **Sampler and pad sample editor:** both use the same screen: the waveform with START and END markers, fade ramps, a green loop mark, the play mode, and an orange playhead for each note or hit that is still sounding.
 - **Effects (T3):** all eight effects draw their picture on the left with two big numbers on the right.
 - **Tape:** big turning reels with the tape running between them, the time at the top, the track number large in its colour with an FX light, the speed on the right edge, and four slim tracks with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
