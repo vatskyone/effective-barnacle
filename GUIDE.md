@@ -50,6 +50,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **← / →** (synth mode) | Hold for pitch bend down / up (2 semitones) |
 | **Z X C V** | Mode: SYNTH · DRUM · TAPE · MIXER |
 | **Shift + Z** | Synths & presets menu (Shift + SYNTH) |
+| **Shift + B** (synth mode) | Save preset (Shift + T1) |
 | **Shift + X** | Drum machine (Shift + DRUM) |
 | **B N M ,** | T1 · T2 · T3 · T4 |
 | **1 – 8** | Sound slot (synth bank A, or drum kit) |
@@ -100,6 +101,7 @@ Every synth slot and drum kit has one effect, chosen on the T3 page. There are 8
 - **T3** opens the effect page. Press T3 again to step through ECHO, ROOM, CRUSH and SWIRL.
 - **Shift + T3** (Shift + M) switches to bank B; the T3 light turns orange. Press Shift + T3 again to step through BOUNCE, COIL, CUBE and RADIO.
 - Opening the effect page with T3 from another page keeps the sound's current effect, whichever bank it is in.
+- Every effect screen shows its picture on the left and its two main values as big numbers on the right, in the colours of their knobs.
 - Switching banks moves to the effect in the same position: ECHO ↔ BOUNCE, ROOM ↔ COIL, CRUSH ↔ CUBE, SWIRL ↔ RADIO.
 
 ### Bank A: keys 1–8
@@ -110,7 +112,7 @@ On the screen and in the synths & presets menu, bank A slots are named **A1–A8
 |---|---|---|---|
 | 1 | **CLUSTER** | Detuned stack with a sub and a resonant filter | SPREAD · SUB · CUTOFF · RESO |
 | 2 | **FM** | Bells, keys and metallic tones | RATIO · INDEX · STACK · DECAY |
-| 3 | **STRING** | Plucked string | DAMP · BRIGHT · SUSTAIN · PICK |
+| 3 | **STRINGS** | Vintage string machine: detuned saws with an octave sparkle, a cello layer an octave down, a body tone, a slow phaser and delayed vibrato. Its screen is a flat vintage string-machine panel: four sliders follow the knobs, a phaser light pulses, and a level meter and small keyboard light up with the notes you hold | TONE · PHASER · CELLO · VIBRATO |
 | 4 | **PULSE** | Pulse-width wave, from thin to hollow | WIDTH · PWM · RATE · SUB |
 | 5 | **ORGAN** | Drawbar organ | 16' · 8' · 4' · BRIGHT |
 | 6 | **FOLD** | Wavefolder, from soft to gnarly | FOLD · BIAS · OCTAVE · TONE |
@@ -128,7 +130,7 @@ On the screen and in the synths & presets menu, bank A slots are named **A1–A8
 | ⇧5 | **BRASS** | Punchy poly brass: saws that scoop into pitch, a filter that blooms then settles. Screen: a vintage polysynth in line art whose keys go down as you play, with a VU meter and envelope faders | BITE · SWELL · DETUNE · TONE |
 | ⇧6 | **AURORA** | 80s string ensemble, wide and shimmering. Screen: rippling curtains over stars and hills, in the four flat knob colours | ENSEMBLE · OCTAVE · BRIGHT · SPEED |
 | ⇧7 | **ACID** | Squelchy bassline; overlap notes to make them slide | CUTOFF · RESO · ENV MOD · DECAY |
-| ⇧8 | **HOOVER** | 90s rave lead that dives into each note | DIVE · DETUNE · CHORUS · TONE |
+| ⇧8 | **HOOVER** | 90s rave lead that dives into each note. Screen: three thick saw waves that bend up from a lower pitch at each note, pull apart with DETUNE and sway with CHORUS | DIVE · DETUNE · CHORUS · TONE |
 
 ### Synths & presets menu: Shift + SYNTH
 
@@ -138,7 +140,21 @@ Hold **Shift** and press **SYNTH** (Shift + Z) to open a menu of every synth wit
 - **Green knob:** scroll through that synth's presets. Each one loads as you turn, so play the keys while you browse. **INIT** brings back the synth's default sound.
 - Each synth has INIT plus 4 presets, for example E.PIANO, BELL, SLAP BASS and METAL on FM, or FANFARE, MELLOW, SFORZANDO and SECTION on BRASS.
 - A preset sets the synth's four knobs, its envelope and its effect. You can tweak any of them afterwards; your changes are saved as usual.
+- Your own presets appear at the end of each synth's list, marked with a dot.
 - Press **Shift + SYNTH** again, or any T key, to close the menu.
+
+### Saving your own presets: Shift + T1
+
+In synth mode, hold **Shift** and press **T1** (Shift + B) to open **SAVE PRESET** for the synth you are on. It works from the synths & presets menu too. T1 lights orange while it is open. The preset is saved on that synth, in its bank, with its four knobs, envelope, effect and LFO.
+
+| Knob | Job |
+|---|---|
+| **Blue: LETTER** | Picks the letter at the cursor: A–Z, 0–9, - or a space |
+| **Green: CURSOR** | Moves along the name (10 characters) |
+| **White: SAVE** | Turn it all the way right (from NO to YES) to save. A preset with the same name is overwritten |
+| **Orange: DELETE** | When the name matches one of your presets, turn it all the way right to delete that preset |
+
+On a computer you can also type the name on the keyboard (Backspace and ← → work too). **Enter** saves and closes, **Esc** closes without saving. While the screen is open the letter keys type instead of playing. If the current sound is one of your presets, its name is already filled in, so you can overwrite or delete it straight away. Each synth holds up to 16 of your presets.
 
 Bank B is reached from synth mode only: press **SYNTH** (Z) first, then Shift + 1–8. In drum mode Shift + 4 opens the pad sample editor instead, and in the other modes Shift + 1–8 does nothing.
 
@@ -201,7 +217,16 @@ Any synth slot can hold a sample instead of its engine.
 - **record sample:** record from the microphone.
 - **clear sample:** removes the sample and brings the slot's engine back.
 
-The sample plays across the keys at different pitches. Its knobs are START · END · LOOP · TUNE.
+The sample plays across the keys at different pitches. While it plays, an orange line runs through the waveform, one for each note that sounds.
+
+| Knob | Job | Shift + knob | Job |
+|---|---|---|---|
+| **Blue: START** | Where it starts | **PLAY** | **ONE SHOT** plays the whole part from one tap · **GATE** plays only while the key is held · **LOOP** loops the part while the key is held |
+| **Green: END** | Where it ends | **REVERSE** | Plays backwards |
+| **White: TUNE** | ±12 semitones | **FADE IN** | Fades the start in, up to 2 s |
+| **Orange: LEVEL** | Volume | **FADE OUT** | Fades the end out, up to 2 s (ONE SHOT and GATE) |
+
+The screen shows the play mode in the top corner and draws the fades as orange ramps. A green line under the waveform marks the loop.
 
 ## 6. Tape mode
 
@@ -226,6 +251,8 @@ SPEED works like real tape: record at one speed and play back at another, and th
 - **Shift + LIFT** erases the whole track.
 
 **More edits: Shift + T1–T4** work on the selected track, over the loop if LOOP is on, otherwise over the bar at the tape head. While you hold Shift, the tape screen shows the four edits and outlines the bar they will use.
+
+Thin vertical lines on the tracks mark every bar (every fourth bar is brighter), with fainter lines for the beats, so you can see where to cut and loop.
 
 | Keys | Edit | What it does |
 |---|---|---|
@@ -351,14 +378,18 @@ All three settings are remembered, and **reset all** does not change them.
 
 Every picture is drawn to fill the screen, from edge to edge between the title and the four values.
 
-- **Bank A (A1–A8):** CLUSTER, FM (a round planet with a moon on a circular orbit), STRING, PULSE, ORGAN (four tall drawbars), FOLD and STORM each draw their sound large across the screen.
+- **Bank A (A1–A8):** CLUSTER, FM (a round planet with a moon on a circular orbit), PULSE, ORGAN (four tall drawbars), FOLD and STORM each draw their sound large across the screen.
+- **STRINGS (A3):** a vintage string-machine panel in flat lines. Its four sliders (TONE, PHASE, CELLO, VIB) follow the four knobs in their colours, the PHASER light pulses at the phaser's speed, and the level meter and two-octave keyboard light up as you play.
 - **HERO (A7):** an arcade space shooter. A pixel ship follows your pitch and glides with GLIDE, every note fires a laser, and aliens burst into pixels with a running score.
 - **VELVET (B4):** a retro android in thin flat lines. Its LED visor lights up like an equaliser for your chord, its ear discs and the two speaker stacks pump with the level.
 - **BRASS (B5):** a vintage polysynth in isometric line art. Its keys go down in orange as you play, its four panel knobs follow the four encoders, and a raised display traces the filter envelope, with a needle VU meter and A·D·S·R faders beside it.
 - **NEON (B1):** a synthwave sunset in flat colour bands: a striped sun over a perspective grid that scrolls faster as you play.
 - **AURORA (B6):** flat aurora curtains rippling at the ensemble speed, over stars and layered hills.
-- **LADDER, ORBIT, ACID, HOOVER:** live filter curve, ringed planet, resonant peak and vortex tunnel.
-- **Tape:** the four tracks and the tape head. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
+- **HOOVER (B8):** three thick saw waves in blue, green and white swirling over each other. At each note they bend up from a lower pitch (DIVE, also shown as a small bar), DETUNE pulls them apart, CHORUS makes them sway and the orange bar shows TONE.
+- **LADDER, ORBIT, ACID:** live filter curve, ringed planet and resonant peak.
+- **Sampler:** the waveform with START and END markers, fade ramps and an orange playhead for each note.
+- **Effects (T3):** all eight effects draw their picture on the left with two big numbers on the right.
+- **Tape:** the four tracks and the tape head, with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
 - **Menus:** the synths & presets menu shows the slot number large on the left with two scrolling lists; the CHAIN sequencer shows its step count large above the chain of steps.
 - The NEON, AURORA, VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
