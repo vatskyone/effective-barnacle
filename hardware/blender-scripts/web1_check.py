@@ -37,7 +37,7 @@ PAIRS = [('cables', 'printed'), ('cables', 'switches'), ('cables', 'elec'), ('ca
          ('elec', 'pcbparts'), ('elec', 'fast'), ('elec', 'elec'), ('pcbparts', 'printed'), ('pcbparts', 'switches'), ('switches', 'printed'), ('fast', 'switches'), ('fast', 'printed'), ('pcbparts', 'pods'),
          ('pcbparts', 'knobs'), ('fast', 'knobs'), ('fast', 'pods'), ('switches', 'plate'), ('switches', 'keys'), ('pcbparts', 'plate'), ('pods', 'knobs'), ('plate', 'printed'), ('keys', 'printed'), ('keys', 'pods'),
          ('power', 'printed'), ('power', 'elec'), ('power', 'cables'), ('power', 'pcbparts'), ('power', 'switches'), ('power', 'fast'), ('power', 'power'),
-         ('foam', 'printed'), ('foam', 'elec'), ('foam', 'cables'), ('foam', 'pcbparts'), ('foam', 'switches'), ('foam', 'fast'), ('foam', 'power'), ('foam', 'plate'), ('foam', 'pods')]
+         ('foam', 'printed'), ('foam', 'elec'), ('foam', 'cables'), ('foam', 'pcbparts'), ('foam', 'switches'), ('foam', 'fast'), ('foam', 'power'), ('foam', 'plate'), ('foam', 'pods'), ('printed', 'printed'), ('power', 'plate'), ('keys', 'keys')]
 def run(pairs):
     hits = []
     for ga, gb in pairs:

@@ -13,9 +13,10 @@ Hardware parts are named with their `(Hxx)` id from the parts list in `../web1-3
 
 `web1_check.py` reports every pair of solids that intersect; `web1_depth.py` measures how deep.
 
-Design summary: 345 × 129 × 21.3 mm, about 1.15 kg with the centre of mass within 3 mm of the middle.
-CM5 + on-board RP2040, WM8960 codec (line in, line/phones out, built-in mic, speaker), two 2000 mAh LiPo cells
-with a BQ25895 charger, USB-C data/charging, ON/OFF slide switch on the right side, 1.2 mm steel plate and
-three 4 mm steel weights, Poron and PE foam, 3 mm walls and a 2 mm floor with a cooling grille under the CM5.
+Design summary: 345 × 129 × 21.3 mm, about 1.14 kg with the centre of mass within 4 mm of the middle.
+CM5 + on-board RP2040, WM8960 codec (line in, line/phones out, built-in mic, speaker), five 2000 mAh LiPo cells
+in parallel (37 Wh, about 6 h) with a BQ25895 charger, USB-C data/charging, ON/OFF slide switch on the right side,
+1.2 mm steel plate and a 4 mm steel plate at the back, Poron and PE foam, 3 mm walls and a 2 mm floor with a
+cooling grille under the CM5. Keycaps are single solids: flat underside with the stem socket printed on.
 
 `renders/` has the latest renders.

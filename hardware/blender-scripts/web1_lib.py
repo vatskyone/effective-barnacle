@@ -18,7 +18,7 @@ FRAME_TOP = TILE_TOP = POD_TOP = SCREEN_TOP = CAP_TOP
 DISP_TOP, FEET = 7.8, 2.5
 WALL, R_CASE, GAP = 3.0, 16 * S, 0.8                 # 3.0 mm walls
 RING_R, RING_DEPTH = 24 * S, 0.8
-SEAM = X(555)
+SEAM = 34.0                                   # case halves split here: a gap between two cells, under the green knob pod's left edge
 OPEN = dict(x0=X(18), x1=X(1159), y0=Y(436), y1=Y(18), r=8.5 * S)
 PI = math.pi
 
@@ -173,21 +173,27 @@ SOC_DX, SOC_DY = 31.9875 - 27.5, -(16.975 - 20.0)
 SPREAD_W, SPREAD_D, WIN_W, WIN_D = 56.0, 40.0, 50.0, 34.0
 RP_X, RP_Y = 22.0, -28.8
 FB, FF = D / 2 - 3.4, -(D / 2 - 3.4)
-FRAME_SCREWS = [(-125.0, FB), (-3.0, FB), (39.5, FB), (159.0, FB), (-86.0, FF), (-45.0, FF), (35.0, FF), (155.5, FF), (163.0, 2.0)]
+FRAME_SCREWS = [(-125.0, FB), (-3.0, FB), (39.5, FB), (159.0, FB), (-102.0, FF), (-34.0, FF), (102.0, FF), (163.0, 14.0)]   # front screws sit in the battery gaps
 POD_POCKET = POD_TOP - 1.8
 KNOB_BASE = POD_TOP - 1.4
 VOL_LIFT = 0.3
-# battery: two 3.7 V LiPo pouch cells 505060 (5.0 × 50 × 60 mm, ~2000 mAh each, with PCM), front-left and front-right
+# battery: five 3.7 V LiPo pouch cells 505060 (5.0 × 50 × 60 mm, 2000 mAh / 7.4 Wh each, with PCM) in parallel = 10 Ah, 37 Wh,
+# in a row across the front under the keys. Power budget ≈ 5.3 W at 5 V (CM5 + Chromium 3.5, display 0.9, LEDs 0.3, audio 0.4, rest 0.2)
+# → 5.8 W from the cells through the 92 % boost → about 6 h; 4.5 h flat out, 7 h+ with the screen dimmed.
 BAT_T, BAT_W, BAT_D, BAT_TAB = 5.0, 60.0, 50.0, 5.0
 BAT_POCKET = 1.0                    # floor is 1.0 mm thick under each cell (pocket 1.0 deep)
-BATS = [(-121.0, -34.5, -1), (121.0, -34.5, 1)]          # centre x, y, side (tabs face the middle)
+BAT_Y = -33.5                       # pockets run y -58.9 … -8.1: clear of the front frame bosses (gaps) and of the display carrier
+GAPS = [-102.0, -34.0, 34.0, 102.0] # 7.2 mm between pockets: PCB posts, frame bosses, battery leads and the case seam live here
+# centre x, y, side; the tab end faces -side (md = -side): every tab faces a gap
+BATS = [(-136.0, BAT_Y, -1), (-68.0, BAT_Y, 1), (0.0, BAT_Y, 1), (68.0, BAT_Y, 1), (136.0, BAT_Y, 1)]
+BAT_LEAD = [(-103.5, -1), (-100.5, 1), (-34.0, 0), (34.0, 0), (102.0, 0)]     # lead x in its gap, pad side (pads BT1-BT5 on the PCB underside)
 # steel ballast (laser-cut S235, tapped M3, screwed from below); the front bar also ties the two shell halves together
 STEEL_T = 4.0
-STEEL = [dict(name='Steel ballast front (H28)', tag='front', x0=-83.0, x1=83.0, y0=-56.0, y1=-40.0, screws=[(x, -48.0) for x in (-75.0, -45.0, -25.0, -5.0, 35.0, 75.0)]),
-         dict(name='Steel ballast back (H29)', tag='back', x0=-4.0, x1=78.0, y0=22.0, y1=56.0, screws=[(0.0, 26.0), (0.0, 52.0), (74.0, 26.0), (74.0, 52.0)]),
-         dict(name='Steel ballast left (H34)', tag='left', x0=-79.0, x1=-27.0, y0=-36.0, y1=-17.0, screws=[(-73.0, -25.5), (-33.0, -25.5)])]     # trims the centre of mass toward the middle
+# the cells now carry the weight up front; one steel plate stays at the back, spanning the seam (screws on both halves)
+STEEL = [dict(name='Steel ballast back (H29)', tag='back', x0=-4.0, x1=78.0, y0=22.0, y1=56.0, screws=[(0.0, 26.0), (0.0, 52.0), (74.0, 26.0), (74.0, 52.0)])]
+SEAM_PLATE = (34.0, 4.0, 26.0, 12.0)                     # printed seam joiner (P05) behind the cells: x, y, w, d; one M3 from below on each side
 JACKS = [('OUT', 0.0), ('IN', 12.0)]                    # both on the left wall, between the left cell and the speaker
-SWITCH_Y = -24.0                                        # ON/OFF slide switch on the right wall
+SWITCH_Y = 0.0                                          # ON/OFF slide switch on the right wall, behind the battery row
 USBC_X = 60.0
 def _find(L, ax, ay, hw, hh, R, rad=60.0, step=0.5, tall=False):
     P, sc = L['pcb'], L['sc']; best = None; n = int(rad / step)
@@ -242,7 +248,7 @@ def layout():
     R.append((cx0, cy0 - 6, cx1, cy1)); R.append((spk['x'] - 23, spk['y'] - 23, spk['x'] + 23, spk['y'] + 23))
     for (x, y) in FRAME_SCREWS: R.append((x - 4, y - 4, x + 4, y + 4))
     tall = list(R)
-    for (x, y, s) in L['bats']: tall.append((x - BAT_W / 2 - 2, y - BAT_D / 2 - 2, x + BAT_W / 2 + 2, y + BAT_D / 2 + 2))
+    for (x, y, s) in L['bats']: tall.append((x - BAT_W / 2 - 0.6, y - BAT_D / 2 - 1.8, x + BAT_W / 2 + 0.6, y + BAT_D / 2 + 1.8))
     for st in STEEL: tall.append((st['x0'] - 1.5, st['y0'] - 1.5, st['x1'] + 1.5, st['y1'] + 1.5))
     tall.append((L['boot'][0] - 4, L['boot'][1] - 4, L['boot'][0] + 4, L['boot'][1] + 4))
     L['codec'] = _find(L, -115.0, 14.0, 6.0, 5.0, R)                     # WM8960 + passives (QFN-32, 5 × 5)
@@ -253,10 +259,27 @@ def layout():
     # side-entry connectors under the PCB: the search box covers the header and its mated plug (plug toward -y)
     L['jaud'] = _find(L, -150.0, 6.0, 6.3, 3.8, tall)                     # JST-SH 10p: both jacks + speaker
     tall.append((L['jaud'][0] - 7.0, L['jaud'][1] - 4.5, L['jaud'][0] + 7.0, L['jaud'][1] + 4.5))
-    L['jbat'] = [_find(L, s * 86.0, -20.0, 3.3, 4.8, tall) for (x, y, s) in L['bats']]   # JST-PH 2p, one per cell
-    for (x, y) in L['jbat']: tall.append((x - 4.0, y - 5.5, x + 4.0, y + 5.5))
-    L['jsw'] = _find(L, 150.0, -2.0, 2.3, 3.8, tall)                      # JST-SH 2p: slide switch
+    # battery solder pads BT1-BT5 (2 × 2 mm each, 2 mm apart) on the PCB underside, right above each lead's gap
+    L['batpads'] = []
+    for (lx0, side), (bx, by, sd) in zip(BAT_LEAD, L['bats']):
+        best = None
+        for j in range(0, 90):
+            for py in (by + 0.5 * j, by - 0.5 * j):
+                for lx in ((lx0,) if side else (lx0, lx0 - 1.5, lx0 + 1.5, lx0 - 2.4, lx0 + 2.4)):
+                    if not (-56.0 < py < -12.0): continue
+                    if any(x0 - 1.3 < lx < x1 + 1.3 and y0 - 2.2 < py < y1 + 2.2 for (x0, y0, x1, y1) in R): continue
+                    if side and any(abs(py - q[1]) < 3.0 and abs(lx - q[0]) < 2.6 for q in L['batpads']): continue
+                    best = (lx, py); break
+                if best: break
+            if best: break
+        if best is None: raise ValueError('no pad spot for the cell at %s' % bx)
+        L['batpads'].append(best)
+    L['jsw'] = _find(L, 150.0, 8.0, 2.3, 3.8, tall)                       # JST-SH 2p: slide switch
     tall.append((L['jsw'][0] - 3.0, L['jsw'][1] - 4.5, L['jsw'][0] + 3.0, L['jsw'][1] + 4.5))
+    # display link: the FFC leaves the panel's ZIF, runs under the panel and out of the carrier's right side at y ffc_y, then up into J3
+    dxl, dyl = L['disp']; L['ffc_y'] = dyl - DISP_H / 2 + 24.0 - 12.0; L['car_x1'] = dxl + (DISP_W + 0.4) / 2 + 2.0
+    L['j3'] = _find(L, L['car_x1'] + 16.0, L['ffc_y'] - 8.0, 8.2, 2.8, tall)
+    tall.append((L['j3'][0] - 8.5, L['j3'][1] - 3.0, L['j3'][0] + 8.5, L['j3'][1] + 3.0))
     L['chg_led'] = (USBC_X + 9.0, L['pcb']['y1'] - 1.6)                 # charge LED beside the USB-C port, light pipe through the back wall
     L['tall'] = tall; L['R'] = R
     _LAYOUT.update(L); return dict(L)

@@ -11,9 +11,13 @@ SOCK_R, CROSS_A, CROSS_T, SOCK_L = 2.75, 4.1, 1.32, 2.8   # MX-style cross socke
 def cross(cx, cy, a=CROSS_A, t=CROSS_T):
     h, k = a / 2, t / 2
     return [(cx + x, cy + y) for x, y in [(k, h), (-k, h), (-k, k), (-h, k), (-h, -k), (-k, -k), (-k, -h), (k, -h), (k, -k), (h, -k), (h, k), (k, k)]][::-1]
-def stem_socket(name, cx, cy, parent):
-    s = prism(name, [circ(cx, cy, SOCK_R, 40), cross(cx, cy)], CAP_BOT - SOCK_L, SOCK_L + 0.05, 0, [M['key']], cKeys, 0)
-    s.parent = parent; s.matrix_parent_inverse = Matrix.Translation(-parent.location); return s
+def stem_socket(cap, cx, cy):
+    # the cross socket is fused to the cap: it rises 0.2 mm into the flat underside, so cap + socket print as one solid
+    s = prism('_sock', [circ(cx, cy, SOCK_R, 40), cross(cx, cy)], CAP_BOT - SOCK_L, SOCK_L + 0.2, 0, [M['key']], cKeys, 0)
+    boolean(cap, s, 'UNION')
+def cavity(R, depth, cx, cy):   # the air above a concave dish, cut from a solid cap: leaves a flat underside and no coplanar faces
+    prof = [(max(0.001, R * i / 12), -depth * (1 - (i / 12) ** 2)) for i in range(0, 13)] + [(R, 1.0), (0.001, 1.0)]
+    return lathe('_cav', prof, cx, cy, CAP_TOP, [], SC, 64, 0)
 
 cKeys, cBlack, cPods, cKnobs = coll('Keycaps'), coll('Black-key dishes', 'Keycaps'), coll('Knob pods'), coll('Knobs')
 
@@ -24,26 +28,20 @@ def dish(R, depth, base):   # concave profile, traced bottom → wall → rim �
 for (a, x, y, w, h) in FKEYS:
     t = tile(x, y, w, h)
     nm = 'Key %s (%s)' % (a, 'P14' if h > 65 else 'P13')
-    cap = slab(nm, t['x'], t['y'], t['w'] - GAP, t['d'] - GAP, 7 * S, CAP_BOT, CAP_H, 0.5, [lambda b, t=t: circ(t['x'], t['y'], RING_R + b, 48)], [M['key']], cKeys)
-    d = lathe(nm + ' dish', dish(RING_R + 0.05, RING_DEPTH, -(CAP_H - 0.6)), t['x'], t['y'], CAP_TOP, [M['key']], cKeys)
-    d.parent = cap; d.matrix_parent_inverse = Matrix.Translation(-cap.location)
-    stem_socket(nm + ' stem socket', t['x'], t['y'], cap)
+    cap = slab(nm, t['x'], t['y'], t['w'] - GAP, t['d'] - GAP, 7 * S, CAP_BOT, CAP_H, 0.5, [], [M['key']], cKeys)     # solid, flat underside
+    boolean(cap, cavity(RING_R, RING_DEPTH, t['x'], t['y'])); stem_socket(cap, t['x'], t['y'])
 
 # White keys (P15): pill groove 39 × 112 px
 for (x, y, w, h, s) in WKEYS:
     t = tile(x, y, w, h); pw, pd, pz = 39 * S, 112 * S, -(9 - 11) / 2 * S
-    cap = slab('White key %02d (P15)' % s, t['x'], t['y'], t['w'] - GAP, t['d'] - GAP, 7 * S, CAP_BOT, CAP_H, 0.5,
-               [lambda b, t=t: pill(t['x'], t['y'] + pz, pw + 2 * b, pd + 2 * b)], [M['key']], cKeys)
-    fl = prism('White key %02d groove floor' % s, [pill(t['x'], t['y'] + pz, pw + 0.2, pd + 0.2)], CAP_BOT + 0.4, CAP_H - 1.0, 0, [M['key']], cKeys)
-    fl.parent = cap; fl.matrix_parent_inverse = Matrix.Translation(-cap.location)
-    stem_socket('White key %02d stem socket' % s, t['x'], t['y'], cap)
+    cap = slab('White key %02d (P15)' % s, t['x'], t['y'], t['w'] - GAP, t['d'] - GAP, 7 * S, CAP_BOT, CAP_H, 0.5, [], [M['key']], cKeys)
+    boolean(cap, prism('_groove', [pill(t['x'], t['y'] + pz, pw, pd)], CAP_TOP - 0.6, 1.6, 0, [], SC, 0)); stem_socket(cap, t['x'], t['y'])     # 0.6 mm pill groove
 
 # Black keys (P16/P17) with a concave glossy black dish (P18) over the note
 for (x, y, w, h, cx, s) in BKEYS:
     t = tile(x, y, w, h); rr_ = 20.5 * S + 0.2; nx = X(cx)
-    cap = slab('Black key %02d (%s)' % (s, 'P16' if w > 70 else 'P17'), t['x'], t['y'], t['w'] - GAP, t['d'] - GAP, 7 * S, CAP_BOT, CAP_H, 0.5,
-               [lambda b, nx=nx, t=t: circ(nx, t['y'], rr_ - 0.05 + b, 48)], [M['key']], cKeys)
-    stem_socket('Black key %02d stem socket' % s, nx, t['y'], cap)
+    cap = slab('Black key %02d (%s)' % (s, 'P16' if w > 70 else 'P17'), t['x'], t['y'], t['w'] - GAP, t['d'] - GAP, 7 * S, CAP_BOT, CAP_H, 0.5, [], [M['key']], cKeys)
+    boolean(cap, tcyl(nx, t['y'], CAP_BOT + 0.6, rr_ + 0.1, CAP_H, 72)); stem_socket(cap, nx, t['y'])     # pocket for the glued dish: 0.1 mm slip fit on a 0.6 mm floor
     d = lathe('Black key %02d dish (P18)' % s, dish(rr_, RING_DEPTH, -(CAP_H - 0.6)), nx, t['y'], CAP_TOP, [M['black']], cBlack)
     d.parent = cap; d.matrix_parent_inverse = Matrix.Translation(-cap.location)
 
