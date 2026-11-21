@@ -339,7 +339,7 @@ const PI = Math.PI;
 // Heights (mm, 0 = underside of the case). The top of the case, the tiles and the screen are level with the keytops.
 const FLOOR = 2.0, SPLIT = 9, PLATE_TOP = 14, PLATE_T = 1.2;   // 2 mm floor (1 mm under the battery pockets)
 const PCB_TOP = 10.6, PCB_T = 1.6, PCB_BOT = PCB_TOP - PCB_T;
-const CAP_BOT = PLATE_TOP + 3.4, CAP_H = 3.0, CAP_TOP = CAP_BOT + CAP_H;
+const CAP_BOT = PLATE_TOP + 0.8 + 3.2 + 0.3, CAP_H = 3.0, CAP_TOP = CAP_BOT + CAP_H;   // Choc v2 housing 0.8 + travel 3.2 + 0.3 clearance, as in the Blender model
 const FRAME_TOP = CAP_TOP, POD_TOP = CAP_TOP, TILE_TOP = CAP_TOP, SCREEN_TOP = CAP_TOP, DISP_TOP = 7.8, FEET = 2.5;
 const RING_R = 24 * S, RING_DEPTH = 0.8;   // concave centre inside each key ring (the app's 48 px ring)
 const SOCK_BOT = PCB_BOT - 1.8;   // underside of the hot-swap sockets: everything below the PCB stays under this
