@@ -50,6 +50,7 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **← / →** (synth mode) | Hold for pitch bend down / up (2 semitones) |
 | **Z X C V** | Mode: SYNTH · DRUM · TAPE · MIXER |
 | **Shift + V** | Mixer bank B (Shift + MIXER): sends, sidechain, bounce, export |
+| **Shift + 1 – 8** (mixer mode) | Scenes: Shift + 5–8 store, Shift + 1–4 recall |
 | **Shift + Z** | Synths & presets menu (Shift + SYNTH) |
 | **Shift + -** | Key & chords (Shift + TEMPO): scale lock and chord mode |
 | **Shift + B** (synth mode) | Save preset (Shift + T1) |
@@ -84,7 +85,7 @@ Press **SYNTH** (Z). The T keys choose the page:
 | Page | Knobs |
 |---|---|
 | **T1 ENGINE** | The engine's own four parameters (listed below) |
-| **T2 ENVELOPE** | ATTACK · DECAY · SUSTAIN · RELEASE |
+| **T2 ENVELOPE** | ATTACK · DECAY · SUSTAIN · RELEASE. Hold Shift for PLAY · GLIDE · DRIFT · VELOCITY (see below) |
 | **T3 FX** | The sound's own effect. Press T3 again to switch between ECHO, ROOM, CRUSH and SWIRL. Shift + T3 switches to the bank B effects (see below). |
 | **T4 LFO** | RATE · AMOUNT · DEST (PITCH, AMP, PAN, TONE) · SHAPE (SINE, TRI, SQR, SAW) |
 
@@ -148,6 +149,7 @@ Hold **Shift** and press **SYNTH** (Shift + Z) to open a menu of every synth wit
 - Each synth has INIT plus 4 presets, for example E.PIANO, BELL, SLAP BASS and METAL on FM, or FANFARE, MELLOW, SFORZANDO and SECTION on BRASS.
 - A preset sets the synth's four knobs, its envelope and its effect. You can tweak any of them afterwards; your changes are saved as usual.
 - **White knob: ENGINE.** Picks the engine that plays in the slot you are on, from the whole engine library (see below). The slot starts from that engine's own sound, and the list on the green knob shows that engine's presets. The left of the screen shows ENGINE 17/20, for example.
+- **Orange knob: RANDOM.** Each step you turn it makes a new random sound for the slot, kept within musical limits (a gentle envelope, a light effect, now and then a little LFO). The title shows RANDOM #3, for example. Save one you like with Shift + T1.
 - Your own presets appear at the end of each synth's list, marked with a dot. A preset you save belongs to the engine it was made with, so it is there in any slot that plays that engine.
 - Press **Shift + SYNTH** again, or any T key, to close the menu.
 
@@ -181,9 +183,9 @@ With SCALE set to OFF, the chord types still follow the key's major scale, and t
 
 **With the sequencers:** with ARP, holding one key arpeggiates its chord. In CHAIN, Shift + a key adds the whole chord as one step. ENDLESS and CHAIN take the scale note when you transpose them, and PATTERN toggles the whole chord on a step.
 
-### The engine library: 20 engines for 16 slots
+### The engine library: 24 engines for 16 slots
 
-Any engine can play in any slot. The 16 slots start with the engines in the tables above, and four more engines are in the library. To put one in a slot, open the synths & presets menu (Shift + SYNTH) and turn the **white knob**.
+Any engine can play in any slot. The 16 slots start with the engines in the tables above, and eight more engines are in the library. To put one in a slot, open the synths & presets menu (Shift + SYNTH) and turn the **white knob**.
 
 | Engine | Sound | Knobs | Presets |
 |---|---|---|---|
@@ -191,8 +193,25 @@ Any engine can play in any slot. The 16 slots start with the engines in the tabl
 | **TINE** | Electric piano: a warm body that barks when you dig in, a metallic tine on the attack, a natural decay and a tremolo that swings left and right | BARK · TINE · TREMOLO · TONE | CLASSIC · BARK · DREAMY · DUSTY |
 | **BOOM** | Deep sub bass for hip-hop and trap: it drops into each note from above, glides from the last note while one is still held, and is driven so it is heard on small speakers. It plays one note at a time | PUNCH · DRIVE · GLIDE · TONE | CLASSIC · DISTORTED · LONG GLIDE · DEEP SUB |
 | **MALLET** | Struck bars: marimba, vibraphone, glass and kalimba. MATERIAL moves from wood through metal to glass, HARDNESS is the mallet, TREMOLO is the vibraphone's motor | MATERIAL · HARDNESS · DECAY · TREMOLO | MARIMBA · VIBES · GLASS · KALIMBA |
+| **GRAIN** | Granular: many tiny pieces of a sound played over each other, from clouds to frozen drones to stutters. It uses the sample loaded in the slot (load one while GRAIN is in the slot), or a built-in texture | POSITION · SIZE · DENSITY · SPRAY | CLOUD · FREEZE · SHIMMER · STUTTER |
+| **VOWEL** | A small choir through formant filters that move from A to E, I, O and U: choir pads, talking leads, whispers | VOWEL · SIZE · BREATH · VIBRATO | CHOIR AAH · OOH PAD · ROBOT · WHISPER |
+| **CHIP** | 8-bit: a pulse (12.5, 25 or 50 %), a stepped triangle or noise, with a fast built-in arpeggio (octave, major or minor) on one key and a pitch sweep on each note | WAVE · ARP · SPEED · SWEEP | SQUARE LEAD · ARP MAJOR · TRI BASS · ZAP |
+| **FELT** | Soft piano, synthesized (no samples): stretched partials that fade at their own rates, a felt hammer, two strings beating, and an optional tape wobble for lo-fi keys | TONE · DECAY · FELT · WOBBLE | SOFT · UPRIGHT · LO-FI KEYS · MUSIC BOX |
 
 Changing a slot's engine replaces that slot's sound, so save it as a preset first (Shift + T1) if you want to keep it. Each project remembers which engine is in each slot.
+
+### Play modes, glide, drift and velocity: Shift + T2
+
+On the ENVELOPE page (T2) of a synth, hold **Shift** and turn the knobs. The settings belong to the slot, so each sound keeps its own.
+
+| Knob | Job |
+|---|---|
+| **Blue: PLAY** | **POLY** plays chords (the usual). **MONO** plays one note at a time, the last key you press. **LEGATO** keeps one voice sounding and glides from note to note while you hold keys, and back when you let go of the top one, like a classic mono lead. **UNISON** plays three voices per note, detuned and spread left and right, for a huge sound |
+| **Green: GLIDE** | How long the pitch takes to slide between notes in MONO and LEGATO, from OFF to 800 ms |
+| **White: DRIFT** | A slow random pitch wander for each voice, so chords breathe like an old analog synth |
+| **Orange: VELOCITY** | How much your touch (MIDI or the sequencers' velocity) changes the level. At 0 every note is equally loud |
+
+The envelope screen shows the settings while Shift is held, and the title bar shows the play mode when it isn't POLY. CHIP's arpeggio keeps its own pitch steps, so with CHIP, LEGATO plays like MONO.
 
 Bank B is reached from synth mode only: press **SYNTH** (Z) first, then Shift + 1–8. In drum mode Shift + 4 opens the pad sample editor instead, and in the other modes Shift + 1–8 does nothing.
 
@@ -326,7 +345,7 @@ In tape mode, hold **Shift** and press **8** (labelled **MENU**) to open the sys
 
 | Knob | Job |
 |---|---|
-| **Blue: SECTION** | BATTERY · TIME · TIMEZONE · STORAGE · DISPLAY · ABOUT |
+| **Blue: SECTION** | BATTERY · TIME · TIMEZONE · STORAGE · DISPLAY · MIDI · ABOUT |
 | **Green: ITEM** | The setting inside the section |
 | **White: SET / CONFIRM / OPEN** | Changes the setting; for an erase, turn it all the way to YES to confirm |
 
@@ -337,6 +356,7 @@ In tape mode, hold **Shift** and press **8** (labelled **MENU**) to open the sys
 | **TIMEZONE** | AUTO (this device) or a city from UTC−10 to UTC+12, with the local time |
 | **STORAGE** | Space used, number of samples and user presets, ERASE SAMPLES, ERASE PRESETS, ERASE TAPE (opens the erase prompt) and ERASE EVERYTHING |
 | **DISPLAY** | Brightness (20–100%), screen sleep after 1, 5, 10 or 30 minutes (any key or knob wakes it), and a clock in the title bar |
+| **MIDI** | CONNECT (the same as the connect midi button), CLOCK OUT, CLOCK IN, NOTES OUT and CHANNEL (see MIDI below) |
 | **ABOUT** | Device, version, engines, tape size and MIDI status |
 
 The settings are saved. The menu is built for the hardware version to come: in the browser, battery and storage show what the browser can see, and the timezones are fixed offsets without summer time.
@@ -383,6 +403,10 @@ Press **MIXER** (V). Each T page gives the four knobs a different job, and holdi
 - **T3** draws the real EQ curve; each coloured dot is a band, and holding Shift shows rings around the dots while you slide them.
 - **Mute and solo:** in mixer mode, keys **1–4 mute** tracks 1–4 (their lights turn orange) and keys **5–8 solo** them (their lights come on). A muted track, or one left out of a solo, is dimmed on the mixer and on the tape screen, and the title bar shows **MUTE** or **SOLO**. Mute and solo also apply when you export the tape.
 - **T4**: LIMIT pushes the mix into a limiter that never goes above the CEILING, so the mix gets louder without clipping. At 0 it is off. WIDTH narrows the stereo image (0% is mono) or widens it (up to 200%). The screen shows the output meter with the ceiling, and how much the compressor and limiter are turning the sound down.
+
+### Scenes: Shift + 1–8 in mixer mode
+
+A scene remembers the whole mix and the master FX: levels, pans, mutes and solos, sends, sidechain, EQ, compressors, master settings and the FX rack. In mixer mode, hold **Shift** and press **5–8** to store the mix in scene 1–4, and **Shift + 1–4** to bring a scene back. Mutes, solos and the FX on/off switches change at once, the knobs glide to their new places over one beat so the change sounds smooth, and the FX settings land at the end. The title bar flashes SCENE 2 or SCENE 2 STORED. Scenes are saved with the project.
 
 ### Mixer bank B: Shift + MIXER
 
@@ -479,7 +503,17 @@ Click **connect midi** to use any connected MIDI keyboard. Supported:
 - Mod wheel, which sets the LFO amount
 - Sustain pedal
 
-Web MIDI needs Chrome or Edge.
+WEB-1 can also drive and follow other gear. In tape mode, open the system menu (Shift + 8) and pick **MIDI**:
+
+| Item | What it does |
+|---|---|
+| **CONNECT** | Asks the browser for MIDI, like the connect midi button, and shows how many inputs and outputs it found |
+| **CLOCK OUT** | Sends MIDI clock (24 ticks per beat) at WEB-1's tempo, with START when the tape plays and STOP when it stops, so drum machines and sequencers play in time |
+| **CLOCK IN** | FOLLOW: WEB-1 takes its tempo from another device's clock, and starts and stops the tape with it |
+| **NOTES OUT** | SEQUENCERS sends the notes the sequencers play; EVERYTHING also sends what you play on the keys. Notes coming in over MIDI are never sent back out |
+| **CHANNEL** | The MIDI channel for the notes WEB-1 sends (1–16) |
+
+These settings are shared by every project. Web MIDI needs Chrome or Edge.
 
 ## 12. Looks: dark mode, OLED and line art
 
@@ -501,6 +535,10 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **TINE:** the tines and tone bars of an electric piano, one per key. A held note's tine rings and its hammer lights; two lights at the top swing from left to right with the tremolo.
 - **BOOM:** a subwoofer that pushes out with each note, with the pitch drop drawn beside it and a dot that follows the last note.
 - **MALLET:** a row of bars over resonator tubes, coloured by the material (wood orange, metal blue, glass white). A held note lights its bar and a mallet comes down on it, and the little fans in the tubes spin with the tremolo.
+- **GRAIN:** the sound being cut up (the slot's sample or the built-in texture), with the window POSITION and SPRAY pick from, and each grain as a dot that rises and fades as it plays.
+- **VOWEL:** a mouth that opens and rounds with the vowel, the nearest letter shown big, breath as a mist of dots, and the three formant peaks along the bottom.
+- **CHIP:** the wave in big pixels and a tracker column listing the notes the arpeggio steps through, the current one in orange.
+- **FELT:** inside a piano: felt hammers strike the strings, the dampers lift while keys are held, and two little tape reels turn with WOBBLE.
 - **HERO (A7):** an arcade space shooter. A pixel ship follows your pitch and glides with GLIDE, every note fires a laser, and aliens burst into pixels with a running score.
 - **VELVET (B4):** a retro android in thin flat lines. Its LED visor lights up like an equaliser for your chord, its ear discs and the two speaker stacks pump with the level.
 - **BRASS (B5):** a vintage polysynth in isometric line art. Its keys go down in orange as you play, its four panel knobs follow the four encoders, and a raised display traces the filter envelope, with a needle VU meter and A·D·S·R faders beside it.
