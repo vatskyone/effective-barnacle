@@ -49,7 +49,9 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **Shift + ← / →** | Octave down / up |
 | **← / →** (synth mode) | Hold for pitch bend down / up (2 semitones) |
 | **Z X C V** | Mode: SYNTH · DRUM · TAPE · MIXER |
+| **Shift + V** | Mixer bank B (Shift + MIXER): sends, sidechain, bounce, export |
 | **Shift + Z** | Synths & presets menu (Shift + SYNTH) |
+| **Shift + -** | Key & chords (Shift + TEMPO): scale lock and chord mode |
 | **Shift + B** (synth mode) | Save preset (Shift + T1) |
 | **Shift + X** | Drum machine (Shift + DRUM) |
 | **B N M ,** | T1 · T2 · T3 · T4 |
@@ -60,12 +62,14 @@ Everything on the device can be clicked or tapped, and almost everything also ha
 | **R** | REC |
 | **Shift + R** | Advanced REC (Shift + REC) |
 | **Shift + C** | Erase tape (Shift + TAPE): then hold B N M , together |
+| **Shift + 7** (tape mode) | Projects |
 | **Shift + 8** (tape mode) | System menu |
 | **Space** | PLAY (Shift + PLAY plays in reverse) |
 | **Enter** | STOP (press twice to rewind) |
 | **← →** | In synth mode: pitch bend. In the other modes: hold to wind the tape |
 | **Q** | Loop on/off |
 | **[ ]** | LIFT · DROP (Shift + LIFT erases the track) |
+| **Shift + ]** | Undo the last tape change (Shift + DROP); again to redo |
 | **Shift + B N M ,** (tape mode) | Tape edits: COPY · CROP · DOUBLE · ERASE |
 | **=** | Sequencer screen (Shift + = clears it) |
 | **I** | FX rack (Shift + I switches between bank A and bank B) |
@@ -139,11 +143,12 @@ On the screen and in the synths & presets menu, bank A slots are named **A1–A8
 
 Hold **Shift** and press **SYNTH** (Shift + Z) to open a menu of every synth with its presets. The SYNTH key lights orange while it is open.
 
-- **Blue knob:** scroll through all 16 synths, bank A and bank B. The synth loads as soon as it is highlighted.
+- **Blue knob:** scroll through the 16 synth slots, bank A and bank B. The synth loads as soon as it is highlighted.
 - **Green knob:** scroll through that synth's presets. Each one loads as you turn, so play the keys while you browse. **INIT** brings back the synth's default sound.
 - Each synth has INIT plus 4 presets, for example E.PIANO, BELL, SLAP BASS and METAL on FM, or FANFARE, MELLOW, SFORZANDO and SECTION on BRASS.
 - A preset sets the synth's four knobs, its envelope and its effect. You can tweak any of them afterwards; your changes are saved as usual.
-- Your own presets appear at the end of each synth's list, marked with a dot.
+- **White knob: ENGINE.** Picks the engine that plays in the slot you are on, from the whole engine library (see below). The slot starts from that engine's own sound, and the list on the green knob shows that engine's presets. The left of the screen shows ENGINE 17/20, for example.
+- Your own presets appear at the end of each synth's list, marked with a dot. A preset you save belongs to the engine it was made with, so it is there in any slot that plays that engine.
 - Press **Shift + SYNTH** again, or any T key, to close the menu.
 
 ### Saving your own presets: Shift + T1
@@ -159,6 +164,36 @@ In synth mode, hold **Shift** and press **T1** (Shift + B) to open **SAVE PRESET
 
 On a computer you can also type the name on the keyboard (Backspace and ← → work too). **Enter** saves and closes, **Esc** closes without saving. While the screen is open the letter keys type instead of playing. If the current sound is one of your presets, its name is already filled in, so you can overwrite or delete it straight away. Each synth holds up to 16 of your presets.
 
+### Key & chords: Shift + TEMPO
+
+Hold **Shift** and press **TEMPO** (Shift + -) to open **KEY & CHORDS**. The TEMPO key lights orange. Pick a key and a scale and every note you play stays in it; turn on a chord type and every key plays a whole chord that fits. It works on all the synths, from the computer keyboard, the on-screen keys and MIDI, and in the sequencers. Drum mode is not affected.
+
+| Knob | Job | Shift + knob | Job |
+|---|---|---|---|
+| **Blue: KEY** | The key, C to B | **VOICING** | CLOSE · INVERSION 1 · INVERSION 2 · OPEN (the middle note goes up an octave) · DROP (the root goes down an octave) |
+| **Green: SCALE** | OFF · MAJOR · MINOR · DORIAN · MIXOLYDIAN · LYDIAN · PHRYGIAN · HARMONIC MINOR · MAJOR PENTA · MINOR PENTA · BLUES · WHOLE TONE | **STRUM** | Plays the chord's notes one after another, up to 120 ms apart, like a strummed guitar |
+| **White: KEYS** | **SNAP**: the keyboard stays a normal piano and a note outside the scale moves to the nearest scale note. **WHITE KEYS**: the white keys walk up the scale from the root, so you can play any scale on the white keys alone (the black keys repeat the white key on their left) | **ADD BASS** | Adds the chord's root an octave below |
+| **Orange: CHORD** | OFF · TRIAD · SEVENTH · NINTH (stacked from the scale, so each key gets the right chord for the key: in A minor, A plays Am, C plays C, B plays Bdim) · SUS2 · SUS4 · POWER · OCTAVES (fixed shapes on any note) | **KEY GUIDE** | Dots on the on-screen keys: grey on the scale notes, orange on the root |
+
+With SCALE set to OFF, the chord types still follow the key's major scale, and the keys play every note.
+
+**The screen:** the key is shown large in blue, with the scale, the key mode and the chord type under it. On the right are the chord you played last, in big orange letters, and its notes, and a two-octave keyboard where the notes that sound light up in blue and the scale notes have a dot (orange on the root). Along the bottom is the chord on every step of the scale (I to VII), so you can see the chords that belong to the key; the one you just played is boxed. While a scale or chord type is on, the title bar of every screen shows it, for example **A MIN · 7TH**.
+
+**With the sequencers:** with ARP, holding one key arpeggiates its chord. In CHAIN, Shift + a key adds the whole chord as one step. ENDLESS and CHAIN take the scale note when you transpose them, and PATTERN toggles the whole chord on a step.
+
+### The engine library: 20 engines for 16 slots
+
+Any engine can play in any slot. The 16 slots start with the engines in the tables above, and four more engines are in the library. To put one in a slot, open the synths & presets menu (Shift + SYNTH) and turn the **white knob**.
+
+| Engine | Sound | Knobs | Presets |
+|---|---|---|---|
+| **PLUCK** | Plucked string with a wooden body: guitar, harp, koto, muted plucks. The high notes ring shorter, like a real string | BRIGHT · DECAY · BODY · PICK (where the string is plucked) | NYLON · HARP · KOTO · MUTED |
+| **TINE** | Electric piano: a warm body that barks when you dig in, a metallic tine on the attack, a natural decay and a tremolo that swings left and right | BARK · TINE · TREMOLO · TONE | CLASSIC · BARK · DREAMY · DUSTY |
+| **BOOM** | Deep sub bass for hip-hop and trap: it drops into each note from above, glides from the last note while one is still held, and is driven so it is heard on small speakers. It plays one note at a time | PUNCH · DRIVE · GLIDE · TONE | CLASSIC · DISTORTED · LONG GLIDE · DEEP SUB |
+| **MALLET** | Struck bars: marimba, vibraphone, glass and kalimba. MATERIAL moves from wood through metal to glass, HARDNESS is the mallet, TREMOLO is the vibraphone's motor | MATERIAL · HARDNESS · DECAY · TREMOLO | MARIMBA · VIBES · GLASS · KALIMBA |
+
+Changing a slot's engine replaces that slot's sound, so save it as a preset first (Shift + T1) if you want to keep it. Each project remembers which engine is in each slot.
+
 Bank B is reached from synth mode only: press **SYNTH** (Z) first, then Shift + 1–8. In drum mode Shift + 4 opens the pad sample editor instead, and in the other modes Shift + 1–8 does nothing.
 
 ## 4. Drum mode
@@ -169,10 +204,23 @@ Every musical key plays a different drum sound, and the screen flashes the pad y
 
 | Page | Knobs |
 |---|---|
-| **T1** | TUNE · DECAY · TONE · DRIVE |
+| **T1** | TUNE · DECAY · TONE · DRIVE. Hold Shift for **MODEL** and **CHOKE** (see below) |
 | **T2 MIX** | KICK · SNARE · HATS · PERC levels |
 | **T3 FX** | The kit's effect (press T3 again to change it, or Shift + T3 for bank B) |
 | **T4 LFO** | Same as for synths |
+
+### Kit models and choke
+
+On the T1 page, hold **Shift** and turn the knobs:
+
+- **Blue: MODEL** changes how the kit's twelve sounds are made, so each of the 8 kits can sound four ways. The kit's TUNE, DECAY, TONE, DRIVE and MIX still apply.
+  - **CLASSIC:** the kit's own sounds.
+  - **ANALOG:** a classic analog drum machine: a long boomy kick, a two-tone snare, a clap made of quick bursts, hats and cymbals from six metallic oscillators, and a cowbell.
+  - **PUNCH:** tight and bright: a short kick with a click, a noisy snare, brighter hats and a ride on the BELL pad.
+  - **DUSTY:** the analog sounds through a bit crusher and a dull filter, with a little hiss, for lo-fi beats.
+- **Green: CHOKE** (on by default): the closed hat cuts off a ringing open hat, like on a real kit.
+
+The title shows the model when it isn't CLASSIC, for example **DRUM 1 · BOX · ANALOG**.
 
 ### Pad samples
 
@@ -208,11 +256,17 @@ Press **Shift + DRUM** (Shift + X) to open the drum machine. The DRUM light turn
 | **T1 VOICE 1** | TUNE · WAVE (sine, triangle, square, noise) · DECAY · BEND (pitch drop) | Both voices side by side, with a tune dial, wave shape and decay and pitch curves |
 | **T2 VOICE 2** | Same, for the second voice | Same, with voice 2 highlighted |
 | **T3 FILTER** | MODE (off, low, high, band, notch, peak, ring, crush) · CUTOFF · RESO · MIX (voice 1 ↔ voice 2) | Mode dial and the filter's response curve |
-| **T4 STEPS** | PAD · LENGTH (1–16 steps) · LEVEL · RUN | A 16-step grid for all 12 pads, with the playhead |
+| **T4 STEPS** | PAD · LENGTH (1–16 steps, for this pattern) · LEVEL · RUN | A 16-step grid for all 12 pads, with the playhead, and the 8 patterns on the left |
 
 - On **STEPS**, the first 16 keys switch steps on and off for the selected pad. Hold Shift and press a key to pick a different pad.
+- **Edit a step:** hold its key and turn the knobs. The title shows the step, and the knobs become **VELOCITY** (how loud), **CHANCE** (how often it plays, from never to always), **ROLL** (1 to 4 quick hits in the step, for hat rolls) and **NUDGE** (a little early or late). Letting go of a step you turned on and didn't change keeps it; tapping a step that was on turns it off.
+- On the grid, a quiet step is dimmer, a step with less than 100% chance is drawn hollow and filled as far as its chance, a roll shows as thin lines inside the step, and a nudged step sits a little left or right.
+- **Patterns:** hold **Shift** on STEPS and the knobs become **PATTERN** (1–8, the one you edit), **CHAIN**, **HITS** and **ROTATE**. Each pattern has its own steps and length. The boxes on the left show the 8 patterns: the one playing is orange, the one you edit is outlined, and the ones with steps are grey. Choosing another pattern while it runs switches at the end of the current one.
+- **CHAIN:** OFF, or 2 to 8 to play patterns 1 to that number in turn (a green line under them), for an intro, a verse and a fill.
+- **HITS** spreads that many hits as evenly as possible over the pattern for the selected pad, a quick way to build rhythms (3 hits over 8 steps gives a classic syncopated rhythm). **ROTATE** moves the pad's steps one step later or earlier.
+- The closed hat (HAT) cuts off a ringing open hat (OPEN).
 - The pattern follows the tempo and swing. It keeps playing after you close the drum machine, and it records onto the tape like anything else.
-- Press **Shift + DRUM** again to close it. Your pads and pattern are saved.
+- Press **Shift + DRUM** again to close it. Your pads and all 8 patterns are saved with the project.
 
 ## 5. Sampler
 
@@ -294,6 +348,7 @@ The settings are saved. The menu is built for the hardware version to come: in t
 - **LIFT** (`[`) cuts the loop, or the current bar, out of the selected track.
 - **DROP** (`]`) pastes it at the tape head.
 - **Shift + LIFT** erases the whole track.
+- **Shift + DROP** (Shift + ]) is **UNDO**: it puts back the track as it was before the last tape change. Press it again to **REDO**.
 
 **More edits: Shift + T1–T4** work on the selected track, over the loop if LOOP is on, otherwise over the bar at the tape head. While you hold Shift, the tape screen shows the four edits and outlines the bar they will use.
 
@@ -326,7 +381,24 @@ Press **MIXER** (V). Each T page gives the four knobs a different job, and holdi
 - **T1** shows four channel strips: a fader and level meter for each track, with its pan underneath.
 - **T2** splits the sound into three bands. The screen shows each band's level, its threshold line and how much it is being turned down (in orange). With LOW, MID and HIGH at 0 the compressor is off and the sound passes untouched.
 - **T3** draws the real EQ curve; each coloured dot is a band, and holding Shift shows rings around the dots while you slide them.
+- **Mute and solo:** in mixer mode, keys **1–4 mute** tracks 1–4 (their lights turn orange) and keys **5–8 solo** them (their lights come on). A muted track, or one left out of a solo, is dimmed on the mixer and on the tape screen, and the title bar shows **MUTE** or **SOLO**. Mute and solo also apply when you export the tape.
 - **T4**: LIMIT pushes the mix into a limiter that never goes above the CEILING, so the mix gets louder without clipping. At 0 it is off. WIDTH narrows the stereo image (0% is mono) or widens it (up to 200%). The screen shows the output meter with the ceiling, and how much the compressor and limiter are turning the sound down.
+
+### Mixer bank B: Shift + MIXER
+
+Hold **Shift** and press **MIXER** (Shift + V) for a second set of pages. The MIXER key lights orange. Shift + MIXER again goes back.
+
+| Page | Knobs | Shift + knobs |
+|---|---|---|
+| **T1 SENDS** | REVERB 1–4: how much of each track goes to a reverb | DELAY 1–4: how much goes to a delay of 3/16 note that follows the tempo |
+| **T2 SIDECHAIN** | SOURCE · DEPTH · RELEASE · THRESHOLD | |
+| **T3 BOUNCE** | ONTO (the track to mix onto) · LEVEL · BOUNCE (turn to YES) | |
+| **T4 EXPORT** | EXPORT (TAPE MIX · STEMS · LIVE MIXDOWN) · GO (turn to YES) | |
+
+- **Sends:** the reverb and delay come back into the master, before the FX rack. Each track's two bars show its sends; Shift switches the knobs between reverb and delay.
+- **Sidechain:** pick a **SOURCE**, either a tape track (for example the drums on track 1) or **LIVE KICK** (the kick of the kits and the drum machine as you play), and every other tape track dips each time the source hits, then comes back: the classic pumping sound. **DEPTH** is how far they dip, **RELEASE** how fast they come back, **THRESHOLD** how loud the source has to be. The screen draws the shape of one dip and shows each track dipping live; the source track is marked KEY. Live playing isn't ducked.
+- **Bounce:** press keys **1–4** to choose the tracks to mix (they light up), pick the track to mix them **ONTO** and the **LEVEL**, then turn **BOUNCE** all the way to YES. The chosen tracks are mixed with their levels onto that track, added to what it already holds, so you can free tracks for more recording: clear the old ones afterwards with Shift + LIFT. **Shift + DROP** undoes a bounce.
+- **Export:** **TAPE MIX** saves the whole tape as one stereo WAV with levels, pans, mutes, sends, a track sidechain and the master. **STEMS** saves each track that has audio as its own WAV, dry and all the same length, to finish the song in another app (the browser may ask once to allow several downloads). **LIVE MIXDOWN** records exactly what you hear, playing and knob moves included, until you turn GO again (up to 10 minutes); the title bar shows **●MIX** while it records.
 
 ## 8. Sequencers
 
@@ -425,6 +497,10 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 
 - **Bank A (A1–A8):** CLUSTER, FM (a round planet with a moon on a circular orbit), PULSE, ORGAN (four tall drawbars), FOLD and STORM each draw their sound large across the screen.
 - **STRINGS (A3):** a vintage string-machine panel in flat lines. Its four sliders (TONE, PHASE, CELLO, VIB) follow the four knobs in their colours, the PHASER light pulses at the phaser's speed, and the level meter and two-octave keyboard light up as you play.
+- **PLUCK:** six strings over a round sound hole. The string nearest the note shakes and fades, the rings round the hole follow BODY, and an orange mark shows where it is plucked.
+- **TINE:** the tines and tone bars of an electric piano, one per key. A held note's tine rings and its hammer lights; two lights at the top swing from left to right with the tremolo.
+- **BOOM:** a subwoofer that pushes out with each note, with the pitch drop drawn beside it and a dot that follows the last note.
+- **MALLET:** a row of bars over resonator tubes, coloured by the material (wood orange, metal blue, glass white). A held note lights its bar and a mallet comes down on it, and the little fans in the tubes spin with the tremolo.
 - **HERO (A7):** an arcade space shooter. A pixel ship follows your pitch and glides with GLIDE, every note fires a laser, and aliens burst into pixels with a running score.
 - **VELVET (B4):** a retro android in thin flat lines. Its LED visor lights up like an equaliser for your chord, its ear discs and the two speaker stacks pump with the level.
 - **BRASS (B5):** a vintage polysynth in isometric line art. Its keys go down in orange as you play, its four panel knobs follow the four encoders, and a raised display traces the filter envelope, with a needle VU meter and A·D·S·R faders beside it.
@@ -436,17 +512,46 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **Effects (T3):** all eight effects draw their picture on the left with two big numbers on the right.
 - **Tape:** big turning reels with the tape running between them, the time at the top, the track number large in its colour with a hollow FX box that turns orange while effects are on, the speed on the right edge, and four slim tracks with bar and beat lines. Hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) over T1–T4 and an outline around the part they will change; the name of the edit you just used flashes on screen.
 - **Mixer:** channel strips with thick meters and pans below (T1), three compressor bands (T2), the real EQ curve with four dots (T3), and output and gain-reduction meters (T4).
+- **Key & chords:** the key large in blue, the last chord in orange, a keyboard showing the notes that sound, and the chord on each step of the scale.
 - **Menus:** the synths & presets menu shows the slot number large on the left with two scrolling lists; the CHAIN sequencer shows its step count large above the chain of steps.
 - The NEON, AURORA, VELVET and BRASS screens use only the four knob colours, as flat lines and fills.
 
 ## 13. Saving and exporting
 
 - Everything saves automatically in your browser: sounds, slot settings, sequences, the mixer, the FX rack, samples and the tape.
+- Your work is kept as **projects** (Shift + 7 in tape mode), and you can save any of them, or all of them, to a **.web1 file** as a backup. See below.
 - **export tape as wav** downloads the full tape mix, including the master FX.
 - **reset all** erases every saved sound, sequence, sample and the tape. You are asked to confirm first.
 - The **system menu** (Shift + 8 in tape mode) can erase just the samples, just your presets, just the tape, or everything, and shows how much space is used.
 
-Your work lives in the browser you made it in. Clearing that site's data, or using a private window, starts fresh. Export WAVs of anything you want to keep.
+Your work lives in the browser you made it in. Clearing that site's data, or using a private window, starts fresh. Save a **.web1** backup of anything you want to keep, and export WAVs to use the audio elsewhere.
+
+### Projects: Shift + 7
+
+A project is one whole song: its tape, every sound and kit setting, the sequences, the drum machine, the mixer and FX, the key and chords, and the samples. In tape mode, hold **Shift** and press **7** (labelled **PROJECT**) to open **PROJECTS**. Key 7 lights orange. The tape screen's title shows the name of the open project.
+
+| Knob | Job |
+|---|---|
+| **Blue: PROJECT** | Picks a project. The open one has a ▸ |
+| **Green: ACTION** | Picks what to do |
+| **White: DO IT** | Turn it all the way to YES to do it |
+
+| Action | What it does |
+|---|---|
+| **OPEN** | Opens the selected project. The one you were in is kept exactly as it was, and the page reloads with the new one |
+| **NEW** | Starts an empty project (and keeps the one you were in) |
+| **DUPLICATE** | Makes a copy of the selected project, for trying ideas without losing the original |
+| **RENAME** | Opens the naming screen: blue picks a letter, green moves along, white to YES renames (or type the name and press Enter) |
+| **DELETE** | Deletes the selected project. You can't delete the one that is open: open another one first |
+| **SAVE FILE** | Saves the selected project as a **.web1** file |
+| **BACKUP ALL** | Saves every project in one **.web1** file |
+| **LOAD FILE** | Adds the projects from a **.web1** file. Nothing is overwritten: a name that is already taken gets a letter, for example PROJECT 1B |
+
+Your saved presets and the system settings (time, display) are shared by every project. The **save project** and **load project** buttons under the device save the open project and load a file in one click. A .web1 file keeps the audio at 16 bits and is compressed, so a short song is small; four full tracks of 60 seconds come to at most about 23 MB. Files made on a device with another sample rate are converted when you open them. **reset all** now erases every project.
+
+### Undo: Shift + DROP
+
+Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tape: a recording (so a take in REPLACE mode can be taken back), LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE. The tape screen flashes **UNDO · TRACK 2**, for example. Press it again to **REDO**. While you hold Shift in tape mode, the top right of the tape screen shows **DROP ▸ UNDO** and the track it will change. There is one level of undo, and erasing the whole tape (Shift + TAPE) can't be undone.
 
 ## 14. Your first song in 10 steps
 
@@ -465,6 +570,11 @@ Your work lives in the browser you made it in. Clearing that site's data, or usi
 
 | Problem | Fix |
 |---|---|
+| A track is silent on playback | It may be muted (key 1–4 lit orange in mixer mode) or left out of a solo (keys 5–8). The title bar shows MUTE or SOLO. |
+| All my tracks keep dipping | The sidechain is on: Shift + MIXER, T2, set SOURCE to OFF. |
+| I recorded over something by mistake | Press **Shift + DROP** straight away to undo the take. |
+| I want my work on another computer | Open PROJECTS (Shift + 7 in tape mode), choose **BACKUP ALL**, and load the file there with **load project**. |
+| A key plays a different note, or a whole chord | KEY & CHORDS is on (the title bar shows it, for example A MIN · TRIAD). Open it with Shift + TEMPO and set SCALE and CHORD to OFF. |
 | No sound | Click the device or press a key first, since browsers need a click before audio can play. Check the volume knob and the MIXER levels. |
 | Keys don't play | Click the page so it has keyboard focus, and make sure no text field is selected. |
 | Recording is silent | Check REC LVL (tape mode) and that the right track is selected. With count-in on, recording starts after the clicks. |
