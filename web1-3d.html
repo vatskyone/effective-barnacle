@@ -322,6 +322,8 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 /* ───────────────────────── Units and layout ─────────────────────────
    The desktop app draws WEB-1 on a 1215 × 454 px grid (65 px keys, 2 px black lines).
@@ -337,7 +339,7 @@ const PI = Math.PI;
 // Heights (mm, 0 = underside of the case). The top of the case, the tiles and the screen are level with the keytops.
 const FLOOR = 2.0, SPLIT = 9, PLATE_TOP = 14, PLATE_T = 1.2;   // 2 mm floor (1 mm under the battery pockets)
 const PCB_TOP = 10.6, PCB_T = 1.6, PCB_BOT = PCB_TOP - PCB_T;
-const CAP_BOT = PLATE_TOP + 3.4, CAP_H = 3.0, CAP_TOP = CAP_BOT + CAP_H;
+const CAP_BOT = PLATE_TOP + 0.8 + 3.2 + 0.3, CAP_H = 3.0, CAP_TOP = CAP_BOT + CAP_H;   // Choc v2 housing 0.8 + travel 3.2 + 0.3 clearance, as in the Blender model
 const FRAME_TOP = CAP_TOP, POD_TOP = CAP_TOP, TILE_TOP = CAP_TOP, SCREEN_TOP = CAP_TOP, DISP_TOP = 7.8, FEET = 2.5;
 const RING_R = 24 * S, RING_DEPTH = 0.8;   // concave centre inside each key ring (the app's 48 px ring)
 const SOCK_BOT = PCB_BOT - 1.8;   // underside of the hot-swap sockets: everything below the PCB stays under this
@@ -727,327 +729,16 @@ const FRAME_SCREWS = [[-125, -61.14], [-3, -61.14], [39.5, -61.14], [159, -61.14
 const BOSSES = [[-102, 52], [-102, 21], [-34, 52], [-34, 23.5], [102, 52], [102, 23.5], [-128, -9.5], [0, -17], [27, -13.5], [64, -9.5], [96, -9.5], [122, -9.5], [15, -30], [30.5, -39.5], [64, -30], [0, -52], [43.5, -52], [63, -52]];
 const onSteel = (x, z) => STEEL.some(s => x > s.x0 + 3 && x < s.x1 - 3 && z > s.z0 + 3 && z < s.z1 - 3);
 const INNER = { x0: -W / 2 + WALL, x1: W / 2 - WALL, z0: -D / 2 + WALL, z1: D / 2 - WALL, r: R_CASE - WALL };
-const portHoles = [];   // [wall, a, y, w, h, r] for the dark port openings
-function buildCase() {
-  for (const side of [-1, 1]) {
-    const id = side < 0 ? 'P01' : 'P02';
-    const g = new THREE.Group();
-    g.add(mesh(ext(halfShape(OUT, null, side), 0, FLOOR, 0.6), MAT.case));
-    g.add(mesh(ext(halfShape(OUT, INNER, side), FLOOR - 0.1, SPLIT - FLOOR + 0.1, 0), MAT.case));
-    reg(g, id, L.bottom);
-    const t = new THREE.Group();
-    // top band: sits on the plate and rises to the keytops, so the case top is flush with the keys
-    t.add(mesh(ext(halfShape(OUT, OPEN, side), PLATE_TOP, FRAME_TOP - PLATE_TOP, 0.6), MAT.case));
-    t.add(mesh(ext(halfShape(OUT, INNER, side), SPLIT, PLATE_TOP - SPLIT + 0.1, 0), MAT.case));
-    reg(t, side < 0 ? 'P03' : 'P04', L.top);
-  }
-  // PCB / plate bosses moulded into the bottom shell
-  BOSSES.forEach(([x, z]) => {
-    const st = onSteel(x, z), y0 = st ? FLOOR + STEEL_T : FLOOR;
-    const b = mesh(new THREE.CylinderGeometry(3, 3, PCB_BOT - y0, 24), st ? MAT.printBlack : MAT.caseIn);
-    b.position.set(x, (y0 + PCB_BOT) / 2, z);
-    const pin = mesh(new THREE.CylinderGeometry(1.2, 1.2, PCB_T - 0.3, 16), st ? MAT.printBlack : MAT.caseIn); pin.position.set(x, PCB_BOT + (PCB_T - 0.3) / 2, z);
-    const g = new THREE.Group(); g.add(b, pin);
-    reg(g, st ? 'P26' : (x < SEAM ? 'P01' : 'P02'), st ? L.elec : L.bottom);
-  });
-  // battery pockets (1 mm deep) and 1.2 mm fences along the front and back of each cell; posts in the gaps hold them sideways
-  const carX0 = tc(SCR).x - 54.9;
-  BAT.cells.forEach(([cx, cz], i) => {
-    const owner = cx < SEAM ? 'P01' : 'P02';
-    const pk = mesh(new THREE.BoxGeometry(BAT.w + 0.8, 0.05, BAT.d + 0.8), MAT.caseIn); pk.position.set(cx, FLOOR - 1.0 + 0.025, cz); reg(pk, owner, L.bottom);
-    const x0 = cx - BAT.w / 2 - 0.4, x1 = cx + BAT.w / 2 + 0.4, zf = cz + BAT.d / 2 + 0.4 + 0.6, zb = cz - BAT.d / 2 - 0.4 - 0.6;
-    const fence = (a, b, z) => { if (b - a < 1) return; const f = mesh(new THREE.BoxGeometry(b - a, 4.5, 1.2), MAT.caseIn); f.position.set((a + b) / 2, FLOOR + 2.25, z); reg(f, owner, L.bottom); };
-    fence(x0 + 3, x1 - 3, zf);
-    fence(x0 + 3, Math.min(x1 - 3, carX0 - 0.6), zb); fence(Math.max(x0 + 3, CAR_X1 + 0.6), x1 - 3, zb);
-    if (i === 0 || i === BAT.cells.length - 1) { const e = mesh(new THREE.BoxGeometry(1.2, 4.5, BAT.d - 8), MAT.caseIn); e.position.set(i ? x1 + 0.6 : x0 - 0.6, FLOOR + 2.25, cz); reg(e, owner, L.bottom); }
-  });
-  // Seam joiner behind the cells (one M3 from below on each side); the back steel plate and the steel switch plate also span the seam
-  { const j = mesh(new RoundedBoxGeometry(25.2, 3.0, 11.2, 2, 0.4), MAT.printBlack); j.position.set(SEAM, FLOOR + 1.5, -4); reg(j, 'P05', L.bottom); }
-  // Cooling grille: slots in front of and beside the heat spreader; the 2.5 mm feet keep an air gap under the case
-  for (let i = 0; i < 14; i++) { const v = mesh(new RoundedBoxGeometry(1.6, 0.3, 7, 1, 0.7), MAT.hole); v.position.set(95 + i * 3.6, -0.16, -14.5); reg(v, 'P02', L.bottom); }
-  for (let i = 0; i < 6; i++) { const v = mesh(new RoundedBoxGeometry(14, 0.3, 1.6, 1, 0.7), MAT.hole); v.position.set(157, -0.16, -(24 + i * 3.6)); reg(v, 'P02', L.bottom); }
-  // Heat spreader, flush in the floor under the CM5 chip
-  { const al = mesh(new RoundedBoxGeometry(56, 1.0, 40, 2, 0.4), MAT.metal); al.position.set(SOC.x, 0.5, SOC.z); reg(al, 'H02', L.bottom); }
-  { const b = mesh(new THREE.CylinderGeometry(1.6, 1.6, 0.3, 16), MAT.hole); b.position.set(84, -0.16, -13); reg(b, 'P02', L.bottom); }   // eMMC boot-button hole
-  // Bottom engraving
-  const bot = decal(110, 18, 110, 18, (g, fin) => {
-    g.fillStyle = fin === 'dark' ? '#8d9093' : '#6d7072'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.font = `200 9px ${FONT}`; g.fillText('WEB-1', 55, 6.5);
-    g.font = `400 3px ${FONT}`; g.letterSpacing = '0.4px'; g.fillText('BY SNOW BAYLES · 2026 · 3D-PRINTED BUILD', 55, 13); g.letterSpacing = '0px';
-  }, 8);
-  bot.rotation.x = PI; bot.position.set(-60, -0.05, 0); reg(bot, 'P01', L.bottom);
-  // Port openings
-  const pcbMid = (PCB_TOP + PCB_BOT) / 2;
-  portHoles.push(['back', USBC_X, pcbMid, 9.6, 3.9, 1.8, 'H20'], ['back', CHG_LED_X, 8.0, 1.9, 1.9, 0.95, 'P20'],
-    ['left', JACKS[0][1], FLOOR + 2.5, 6.3, 6.3, 3.15, 'H19'], ['left', JACKS[1][1], FLOOR + 2.5, 6.3, 6.3, 3.15, 'H19'],
-    ['right', SWITCH_Z, 5.6, 4.4, 2.0, 0.4, 'H21']);
-  portHoles.forEach(([wall, a, y, w, h, r]) => {
-    const s = new THREE.Shape(); rrPath(s, 0, 0, w, h, r);
-    const m = mesh(new THREE.ShapeGeometry(s, 16), MAT.hole);
-    if (wall === 'back') { m.rotation.y = PI; m.position.set(a, y, -D / 2 - 0.05); }
-    else if (wall === 'left') { m.rotation.y = -PI / 2; m.position.set(-W / 2 - 0.05, y, a); }
-    else { m.rotation.y = PI / 2; m.position.set(W / 2 + 0.05, y, a); }
-    reg(m, wall === 'left' ? 'P01' : wall === 'right' ? 'P02' : a < SEAM ? 'P01' : 'P02', L.bottom);
-  });
-  // Right rail: engraving, mic holes, VU light pipes
-  const rail = decal(56 * S, DH * S, 56, DH, (g, fin) => {
-    const dark = fin === 'dark', line = fin === 'line';
-    g.save(); g.translate(1181 - 1159, 384); g.rotate(-PI / 2);
-    g.font = `200 30px ${FONT}`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.letterSpacing = '1.2px';
-    if (!line) { g.fillStyle = dark ? 'rgba(0,0,0,.5)' : 'rgba(255,255,255,.7)'; g.fillText('WEB-1', 0, 1); }
-    g.fillStyle = line ? INK : dark ? '#8d9093' : '#7d8081'; g.fillText('WEB-1', 0, 0); g.restore();
-    g.save(); g.translate(1205 - 1159, 384.5); g.rotate(-PI / 2);
-    g.font = `400 7.5px ${FONT}`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.letterSpacing = '1.2px';
-    if (!line) { g.fillStyle = dark ? 'rgba(0,0,0,.55)' : 'rgba(255,255,255,.7)'; g.fillText('by Snow Bayles - 2026', 0, -1); }
-    g.fillStyle = line ? INK : dark ? '#b9bcbe' : '#9a9d9f'; g.fillText('by Snow Bayles - 2026', 0, 0); g.restore();
-  }, 6);
-  rail.position.set(X(1159 + 28), FRAME_TOP + 0.03, 0); reg(rail, 'P04', L.top);
-  [[1184, 24], [1191, 24], [1184, 31], [1191, 31]].forEach(([x, y]) => {
-    const h = mesh(new THREE.CylinderGeometry(2 * S, 2 * S, 0.2, 16), MAT.dot); h.position.set(X(x + 2), FRAME_TOP + 0.05, Z(y + 2)); reg(h, 'P04', L.top);
-  });
-}
-
-/* ───────────────────────── Plate, PCB and switches ───────────────────────── */
 const SWITCHES = [];   // {x, z, led: [x, z] | null}
 const LED_OFF = 7.9;   // LED / light pipe offset from the key centre (clears the 15 mm Choc housing)
-function buildInternals() {
+function fillSwitches() {   // switch centres and LED spots, used by the PCB artwork
   FKEYS.forEach(k => { const c = tc(k); SWITCHES.push({ x: c.x, z: c.z, led: [c.x + LED_OFF * Math.min(1, (c.w / 2 - 1.1) / LED_OFF), c.z - (c.d / 2 - 2.0)] }); });
   WKEYS.forEach(k => { const c = tc(k); SWITCHES.push({ x: c.x, z: c.z }); });
   BKEYS.forEach(k => SWITCHES.push({ x: X(k.cx), z: Z(k.y + k.h / 2) }));
-
-  // Plate (H15): aluminium, 1.2 mm, with switch, encoder, screen and speaker cut-outs
-  const pl = rrShape((OPEN.x0 + OPEN.x1) / 2, (OPEN.z0 + OPEN.z1) / 2, OPEN.x1 - OPEN.x0 + 4, OPEN.z1 - OPEN.z0 + 4, OPEN.r + 2);
-  SWITCHES.forEach(s => pl.holes.push(rrHole(s.x, s.z, 13.8, 13.8, 0.3)));
-  ENCS.forEach(e => { const c = tc(e); pl.holes.push(rrHole(c.x, c.z, 15, 15, 1)); });
-  const v = tc(VOL); pl.holes.push(rrHole(v.x, v.z, 11, 12, 1));
-  const sc = tc(SCR); pl.holes.push(rrHole(sc.x, sc.z, sc.w, sc.d, 7 * S));
-  const sp = tc(SPK); pl.holes.push(circleHole(sp.x, sp.z, 17));
-  reg(mesh(ext(pl, PLATE_TOP - PLATE_T, PLATE_T, 0, 6), MAT.plate), 'H15', L.plate);
-
-  // PCB (H14)
-  const pc = rrShape((OPEN.x0 + OPEN.x1) / 2, (OPEN.z0 + OPEN.z1) / 2, OPEN.x1 - OPEN.x0 - 2, OPEN.z1 - OPEN.z0 - 2, 2);
-  pc.holes.push(rrHole(sc.x, sc.z, sc.w, sc.d, 2));
-  pc.holes.push(circleHole(sp.x, sp.z, 18));
-  reg(mesh(ext(pc, PCB_TOP - PCB_T, PCB_T, 0, 8), MAT.pcb), 'H14', L.pcb);
-
-  // Kailh Choc v2 switches (instanced), modelled like the real part:
-  // lower housing under the plate with its clips, round centre post and two metal pins below the PCB,
-  // the flat top housing with its raised stem collar, and the red stem with an MX-style "+" cross on top.
-  const n = SWITCHES.length, dummy = new THREE.Object3D();
-  const inst = (geo, mat, id, grp, fn) => { const im = new THREE.InstancedMesh(geo, mat, n); SWITCHES.forEach((s, i) => { fn(dummy, s); dummy.updateMatrix(); im.setMatrixAt(i, dummy.matrix); }); reg(im, id, grp); return im; };
-  const under = PLATE_TOP - PLATE_T - PCB_TOP;   // 2.2 mm between PCB and plate
-  inst(new RoundedBoxGeometry(13.8, under, 13.8, 1, 0.3), MAT.swBody, 'H07', L.sw, (d, s) => d.position.set(s.x, PCB_TOP + under / 2, s.z));
-  inst(new THREE.BoxGeometry(14.5, 0.5, 3.2), MAT.swBody, 'H07', L.sw, (d, s) => d.position.set(s.x, PLATE_TOP - PLATE_T - 0.25, s.z));        // plate clips
-  inst(new THREE.CylinderGeometry(2.45, 2.2, PCB_T + 1.0, 24), MAT.swBody, 'H07', L.sw, (d, s) => d.position.set(s.x, PCB_TOP - (PCB_T + 1.0) / 2, s.z)); // centre post
-  inst(new THREE.CylinderGeometry(0.45, 0.45, PCB_T + 1.4, 8), MAT.metal, 'H07', L.sw, (d, s) => d.position.set(s.x, PCB_TOP - (PCB_T + 1.4) / 2, s.z + 5.9));
-  inst(new THREE.CylinderGeometry(0.45, 0.45, PCB_T + 1.4, 8), MAT.metal, 'H07', L.sw, (d, s) => d.position.set(s.x + 5, PCB_TOP - (PCB_T + 1.4) / 2, s.z + 3.8));
-  const topH = (() => {   // 15 × 15 top housing, softened edges, with the light window cut out at the back
-    const sh = rrShape(0, 0, 15, 15, 1.2); sh.holes.push(rrHole(0, 0, 6.4, 6.4, 0.8)); sh.holes.push(rrHole(0, -5.6, 3.4, 2.0, 0.4));
-    return ext(sh, 0, 0.9, 0.2);
-  })();
-  inst(topH, MAT.swTop, 'H07', L.sw, (d, s) => d.position.set(s.x, PLATE_TOP, s.z));
-  const collar = (() => { const sh = rrShape(0, 0, 7.6, 7.6, 1.4); sh.holes.push(rrHole(0, 0, 6.4, 6.4, 0.8)); return ext(sh, 0, 0.6, 0.15); })();
-  inst(collar, MAT.swTop, 'H07', L.sw, (d, s) => d.position.set(s.x, PLATE_TOP + 0.9, s.z));
-  inst(new RoundedBoxGeometry(6.2, 1.6, 6.2, 2, 0.6), MAT.swStem, 'H07', L.sw, (d, s) => d.position.set(s.x, PLATE_TOP + 0.9 + 0.5, s.z));   // stem body
-  const cross = (() => { const sh = crossShape(0, 0, 4.0, 1.17); return ext(sh, 0, 3.0, 0.08); })();
-  inst(cross, MAT.swStem, 'H07', L.sw, (d, s) => d.position.set(s.x, PLATE_TOP + 1.3, s.z));                                                   // the "+" stem
-  inst(new THREE.BoxGeometry(9.5, 1.8, 4.6), MAT.socket, 'H08', L.pcb, (d, s) => d.position.set(s.x - 1, PCB_BOT - 0.9, s.z + 4));
-  inst(new THREE.BoxGeometry(2.7, 1.1, 1.6), MAT.chip, 'H09', L.pcb, (d, s) => d.position.set(s.x + 6, PCB_TOP + 0.55, s.z + 6.5));
-  const leds = SWITCHES.filter(s => s.led);
-  const lm = new THREE.InstancedMesh(new THREE.BoxGeometry(3.2, 0.8, 2.8), MAT.led, leds.length);
-  leds.forEach((s, i) => { dummy.position.set(s.led[0], PCB_TOP + 0.4, s.led[1]); dummy.updateMatrix(); lm.setMatrixAt(i, dummy.matrix); });
-  reg(lm, 'H10', L.pcb);
-
-  // EC11 encoders (H12) and the volume pot (H13), mounted on the PCB
-  ENCS.forEach(e => {
-    const c = tc(e), g = new THREE.Group();
-    const body = mesh(new THREE.BoxGeometry(12, 6.5, 13.2), MAT.metal); body.position.y = PCB_TOP + 3.25; g.add(body);
-    const bush = mesh(new THREE.CylinderGeometry(3.5, 3.5, 5, 24), MAT.metal); bush.position.y = PCB_TOP + 6.5 + 2.5; g.add(bush);
-    const shaft = mesh(new THREE.CylinderGeometry(3, 3, 15 - 11.5, 24), MAT.metal); shaft.position.y = PCB_TOP + 11.5 + 1.75; g.add(shaft);
-    g.position.set(c.x, 0, c.z); reg(g, 'H12', L.pcb);
-  });
-  { const g = new THREE.Group();
-    const body = mesh(new THREE.BoxGeometry(9.8, 6.5, 11), MAT.blue); body.position.y = PCB_TOP + 3.25; g.add(body);
-    const bush = mesh(new THREE.CylinderGeometry(3.5, 3.5, 4, 24), MAT.metal); bush.position.y = PCB_TOP + 8.5; g.add(bush);
-    const shaft = mesh(new THREE.CylinderGeometry(3, 3, 4, 24), MAT.metal); shaft.position.y = PCB_TOP + 12.5; g.add(shaft);
-    g.position.set(v.x, 0, v.z); reg(g, 'H13', L.pcb); }
-
-  // Display (H05) in its carrier (P21), hanging 1.5 mm under the PCB
-  const dx = sc.x, dz = -D / 2 + WALL + 0.6 + 67.2 / 2;
-  const dg = new THREE.Group();
-  const board = mesh(new THREE.BoxGeometry(105.5, 1.6, 67.2), MAT.blue); board.position.set(dx, DISP_TOP - 4.4, dz); dg.add(board);
-  const lcd = mesh(new THREE.BoxGeometry(105.5, 2.8, 64), MAT.panel); lcd.position.set(dx, DISP_TOP - 1.4, dz - 1.6); dg.add(lcd);
-  reg(dg, 'H05', L.disp);
-  const car = new THREE.Group();
-  const cs = rrShape(dx, dz, 110, 71.5, 2); cs.holes.push(rrHole(dx, dz, 106.3, 67.9, 1));
-  car.add(mesh(ext(cs, FLOOR, DISP_TOP - 1.2 - FLOOR, 0), MAT.printBlack));
-  reg(car, 'P21', L.elec);
-
-  // Screen shroud (P12), smoked window (H22) and the live screen picture
-  const sh = rrShape(sc.x, sc.z, sc.w - GAP, sc.d - GAP, 7 * S); sh.holes.push(rrHole(sc.x, sc.z, sc.w - GAP - 2.4, sc.d - GAP - 2.4, 1));
-  reg(mesh(ext(sh, DISP_TOP, SCREEN_TOP - DISP_TOP, 0.3), MAT.printBlack), 'P12', L.pods);
-  const glass = mesh(new THREE.PlaneGeometry(sc.w - GAP - 1.2, sc.d - GAP - 1.2), MAT.glass);
-  glass.rotation.x = -PI / 2; glass.position.set(sc.x, SCREEN_TOP - 0.1, sc.z); reg(glass, 'H22', L.pods);
-
-  // Raspberry Pi Compute Module 5 (H01) on two 4 mm-stack board-to-board receptacles (H27) under the PCB.
-  // Its SoC faces down onto a thermal pad and the aluminium heat spreader (H02) set into the floor.
-  const cm = new THREE.Group(), cmTop = PCB_BOT - 4.0, cmT = 1.24;
-  const cmb = mesh(new RoundedBoxGeometry(55, cmT, 40, 2, 0.8), MAT.pi); cmb.position.set(CM5.x, cmTop - cmT / 2, CM5.z); cm.add(cmb);
-  [[4.49, -3.03, 15, 15, 2.2, MAT.metal], [-13, -0.5, 10, 14.5, 0.95, MAT.chip], [19.5, -0.5, 7, 11.5, 0.9, MAT.chip], [-11.5, -12.5, 7, 6, 0.9, MAT.chip], [-16.5, 10, 9.5, 9.5, 1.3, MAT.metal]].forEach(([a, b, w, d, h, m]) => {
-    const c = mesh(new THREE.BoxGeometry(w, h, d), m); c.position.set(CM5.x + a, cmTop - cmT - h / 2, CM5.z + b); cm.add(c);
-  });
-  [[-24, -16.5], [24, -16.5], [-24, 16.5], [24, 16.5]].forEach(([a, b]) => { const s = mesh(new THREE.CylinderGeometry(2.1, 2.1, 4.0, 6), MAT.brass); s.position.set(CM5.x + a, PCB_BOT - 2.0, CM5.z + b); reg(s, 'H24', L.elec); });
-  reg(cm, 'H01', L.elec);
-  [-17, 17].forEach(b => { const c = mesh(new THREE.BoxGeometry(25.4, 2.84, 4.6), MAT.chip); c.position.set(CM5.x - 2.5, PCB_BOT - 1.42, CM5.z + b); reg(c, 'H27', L.pcb); });
-  { const padH = cmTop - cmT - 2.2 - 1.0; const pad = mesh(new THREE.BoxGeometry(17, padH, 17), MAT.pad); pad.position.set(SOC.x, 1.0 + padH / 2, SOC.z); reg(pad, 'H02', L.elec); }
-
-  // RP2040 (the Pico reference circuit, H06) soldered on the PCB underside: QFN-56, 2 MB flash, 12 MHz crystal, BOOTSEL button
-  const rpg = new THREE.Group();
-  [[0, 0, 7, 7, 0.9, MAT.chip], [-9, -1.5, 3, 2, 0.55, MAT.chip], [8, 1, 3.2, 2.5, 0.8, MAT.metal], [8, -4, 2.9, 1.6, 1.0, MAT.chip], [-9, 4.5, 4.2, 3.2, 1.5, MAT.led]].forEach(([a, b, w, d, h, m]) => {
-    const c = mesh(new THREE.BoxGeometry(w, h, d), m); c.position.set(RP.x + a, PCB_BOT - h / 2, RP.z + b); rpg.add(c);
-  });
-  reg(rpg, 'H06', L.pcb);
-  // WM8960 audio codec (H16): line in, headphone / line out, mic in and the 1 W speaker driver
-  { const g = new THREE.Group(); const c = mesh(new THREE.BoxGeometry(5, 0.9, 5), MAT.chip); c.position.set(CODEC.x, PCB_BOT - 0.45, CODEC.z); g.add(c);
-    for (let k = 0; k < 12; k++) { const m = mesh(new THREE.BoxGeometry(1, 0.5, 0.5), MAT.socket); m.position.set(CODEC.x - 4.6 + (k % 6) * 1.84, PCB_BOT - 0.25, CODEC.z + (k < 6 ? -3.9 : 3.9)); g.add(m); }
-    reg(g, 'H16', L.pcb); }
-  // BQ25895 charger with boost, 1 µH inductor and MAX17048 fuel gauge (H30)
-  { const g = new THREE.Group();
-    [[-3.5, 0, 4, 4, 0.8, MAT.chip], [3, -0.5, 4, 4, 2.1, MAT.metal], [-3.5, -4, 2, 2, 0.6, MAT.chip]].forEach(([a, b, w, d, h, m]) => { const c = mesh(new THREE.BoxGeometry(w, h, d), m); c.position.set(PMIC.x + a, PCB_BOT - h / 2, PMIC.z + b); g.add(c); });
-    reg(g, 'H30', L.pcb); }
-
-  // Five LiPo pouch cells (H31), 505060: 5 × 50 × 60 mm, 2000 mAh each, on foam in 1 mm floor pockets
-  BAT.cells.forEach(([cx, cz, sd]) => {
-    const g = new THREE.Group(), md = -sd;
-    const pouch = mesh(new RoundedBoxGeometry(BAT.w - 5, BAT.t, BAT.d, 2, 1.0), MAT.lipo); pouch.position.set(cx - md * 2.5, BAT.z0 + BAT.t / 2, cz); g.add(pouch);
-    const tab = mesh(new THREE.BoxGeometry(5, BAT.t - 1.6, BAT.d - 4), MAT.kapton); tab.position.set(cx + md * 27.5, BAT.z0 + BAT.t / 2, cz); g.add(tab);
-    reg(g, 'H31', L.elec);
-  });
-  // Steel ballast (H29): 4 mm S235 at the back, tapped M3 and screwed from under the case, across the seam
-  STEEL.forEach(st => { const b = mesh(new RoundedBoxGeometry(st.x1 - st.x0, STEEL_T, st.z1 - st.z0, 2, 0.4), MAT.steel); b.position.set((st.x0 + st.x1) / 2, FLOOR + STEEL_T / 2, (st.z0 + st.z1) / 2); reg(b, st.id, L.elec); });
-
-  // Slim speaker (H18, 4.8 mm thick) in its ring, right under the grille, with a foam gasket to the PCB
-  const spg = new THREE.Group(), spH = 4.8;
-  const cone = mesh(lathe([[0.01, 0], [6, 0.2], [14, 1.6], [19.4, 3.8], [20, 4.2], [20, spH], [19, spH], [12, 2.6], [0.01, 2.2]]), MAT.cone); spg.add(cone);
-  const mag = mesh(new THREE.CylinderGeometry(7, 7, 1.6, 32), MAT.metal); mag.position.y = 0.8; spg.add(mag);
-  spg.position.set(sp.x, PCB_BOT - 0.3 - spH, sp.z); reg(spg, 'H18', L.elec);
-  const ring = mesh(ext((() => { const s = new THREE.Shape(); s.absarc(sp.x, -sp.z, 22.2, 0, 2 * PI, false); s.holes.push(circleHole(sp.x, sp.z, 20.25)); return s; })(), FLOOR, PCB_BOT - FLOOR - 0.6, 0, 48), MAT.caseIn);
-  reg(ring, 'P01', L.bottom);
-
-  // Two 3.5 mm stereo jacks (H19) on the left wall: OUT (line / phones) and IN (line)
-  JACKS.forEach(([nm, z]) => {
-    const jack = new THREE.Group();
-    const jb = mesh(new THREE.BoxGeometry(12, 5, 6), MAT.chip); jb.position.set(-W / 2 + WALL + 6.1, FLOOR + 2.5, z); jack.add(jb);
-    const jn = mesh(new THREE.CylinderGeometry(2.4, 2.4, WALL - 0.4, 20), MAT.chip); jn.rotation.z = PI / 2; jn.position.set(-W / 2 + WALL / 2 + 0.3, FLOOR + 2.5, z); jack.add(jn);
-    [2.25, 0.75, -0.75, -2.25].forEach(t => { const tb = mesh(new THREE.BoxGeometry(1.2, 1.0, 0.3), MAT.metal); tb.position.set(-W / 2 + WALL + 12.7, FLOOR + 2.5, z - t); jack.add(tb); });
-    reg(jack, 'H19', L.elec);
-  });
-  // USB-C data / charging port (H20), mid-mount in the PCB's back edge
-  { const uc = mesh(new RoundedBoxGeometry(8.94, 3.26, 7.35, 2, 1.3), MAT.metal); uc.position.set(USBC_X, (PCB_TOP + PCB_BOT) / 2, -D / 2 + 0.4 + 3.675); reg(uc, 'H20', L.pcb); }
-  // ON/OFF slide switch (H21, C&K OS102011) on the right wall, in a printed bracket
-  { const g = new THREE.Group();
-    const body = mesh(new THREE.BoxGeometry(4.5, 4.4, 8.6), MAT.metal); body.position.set(W / 2 - WALL - 2.25, 5.6, SWITCH_Z); g.add(body);
-    const act = mesh(new THREE.BoxGeometry(4.0, 1.6, 2.0), MAT.chip); act.position.set(W / 2 - WALL + 2.0, 5.6, SWITCH_Z - 1.0); g.add(act);
-    reg(g, 'H21', L.elec);
-    const br = mesh(new THREE.BoxGeometry(4.7, 5.6 - 2.2 - FLOOR, 8.8), MAT.caseIn); br.position.set(W / 2 - WALL - 2.25, (FLOOR + 5.6 - 2.2) / 2, SWITCH_Z); reg(br, 'P02', L.bottom); }
 }
 
-/* ───────────────────────── Tiles, keycaps and knobs ───────────────────────── */
 const LEDPIPES = [];
 // Round stem socket under every keycap, with the "+" hole that presses onto the switch's cross stem
-const SOCKET_GEO = (() => { const s = new THREE.Shape(); s.absarc(0, 0, 2.75, 0, 2 * PI, false); s.holes.push(crossHole(0, 0, 4.1, 1.32)); return ext(s, CAP_BOT - 2.8, 3.0, 0, 24); })();   // fused 0.2 mm into the cap's flat underside
-const capSocket = (ox = 0) => { const m = mesh(SOCKET_GEO, MAT.key); m.position.x = ox; return m; };
-function buildTop() {
-  // Function keycaps with legends (P13 / P14) and light pipes (P19)
-  FKEYS.forEach((k, i) => {
-    const c = tc(k), w = c.w - GAP, d = c.d - GAP, g = new THREE.Group();
-    const kk = { ...k, w: k.w - GAP / S, h: k.h - GAP / S };
-    g.add(mesh(slab(0, 0, w, d, 7 * S, CAP_BOT, CAP_H, 0.5, [b => circleHole(0, 0, RING_R + b)]), MAT.key), capSocket());
-    { const f = mesh(new THREE.CylinderGeometry(RING_R + 0.05, RING_R + 0.05, CAP_H - RING_DEPTH, 48), MAT.key); f.position.y = CAP_BOT + (CAP_H - RING_DEPTH) / 2; g.add(f); }   // solid under the dish: flat underside
-    const dish = dishMesh(w, d, kk.w, kk.h, drawKeyLegend(kk, 'dish'), RING_R + 0.05, RING_DEPTH);
-    dish.position.y = CAP_TOP; g.add(dish);
-    const dc = decal(w, d, kk.w, kk.h, drawKeyLegend(kk, 'ring'));
-    dc.position.y = CAP_TOP + 0.02; g.add(dc);
-    g.position.set(c.x, 0, c.z);
-    reg(g, k.h > 65 ? 'P14' : 'P13', L.caps);
-    const s = SWITCHES[i];
-    const pipe = mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.3, 14), MAT.pipe.clone());
-    M(pipe.material); pipe.position.set(s.led[0], CAP_TOP + 0.05, s.led[1]); pipe.userData.key = k;
-    LEDPIPES.push(pipe); reg(pipe, 'P19', L.caps);
-  });
-  // White keys (P15) with a real pill-shaped groove
-  WKEYS.forEach(k => {
-    const c = tc(k), w = c.w - GAP, d = c.d - GAP;
-    const pw = 39 * S, pd = 112 * S, pz = (9 - 11) / 2 * S;  // inset 9/13/11 px in the app
-    const g = new THREE.Group();
-    g.add(mesh(slab(0, 0, w, d, 7 * S, CAP_BOT, CAP_H, 0.5, [b => rrHole(0, pz, pw + 2 * b, pd + 2 * b, pw / 2 + b)]), MAT.key));
-    g.add(mesh(slab(0, pz, pw + 0.2, pd + 0.2, pw / 2, CAP_BOT, CAP_H - 0.6, 0), MAT.key), capSocket());   // groove floor solid to the underside
-    g.position.set(c.x, 0, c.z);
-    reg(g, 'P15', L.caps);
-  });
-  // Black keys: white caps (P16 / P17) with a concave black dish (P18) over the note
-  BKEYS.forEach(k => {
-    const c = tc(k), w = c.w - GAP, d = c.d - GAP, ox = X(k.cx) - c.x, rr = 20.5 * S;
-    const g = new THREE.Group();
-    g.add(mesh(slab(0, 0, w, d, 7 * S, CAP_BOT, CAP_H, 0.5, [b => circleHole(ox, 0, rr + 0.3 + b)]), MAT.key), capSocket(ox));
-    { const f = mesh(new THREE.CylinderGeometry(rr + 0.4, rr + 0.4, 0.6, 48), MAT.key); f.position.set(ox, CAP_BOT + 0.3, 0); g.add(f); }   // 0.6 mm floor the black dish sits on
-    g.position.set(c.x, 0, c.z);
-    reg(g, w > 20 ? 'P16' : 'P17', L.caps);
-    // concave black dish, the same curve as the ring centres on the function keys
-    const dish = dishMesh(2 * (rr + 0.2), 2 * (rr + 0.2), 0, 0, null, rr + 0.2, RING_DEPTH, MAT.black);
-    dish.position.set(X(k.cx), CAP_TOP, c.z); reg(dish, 'P18', L.caps);
-  });
-  // Knob pods (P06) with a dish
-  ENCS.forEach(e => {
-    const c = tc(e), g = new THREE.Group();
-    g.add(mesh(slab(0, 0, c.w - GAP, c.d - GAP, 8 * S, PLATE_TOP, POD_TOP - PLATE_TOP, 0.5, [b => circleHole(0, 0, 50 * S + b)]), MAT.key));
-    g.add(mesh(lathe([[3.8, PLATE_TOP + 1], [50 * S, PLATE_TOP + 1], [50 * S, POD_TOP - 0.35], [13.8, POD_TOP - 0.8], [12.5, POD_TOP - 1.2], [9, POD_TOP - 1.45], [3.8, POD_TOP - 1.5]], 64), MAT.key));
-    g.position.set(c.x, 0, c.z); reg(g, 'P06', L.pods);
-  });
-  // Volume tile (P09) and speaker grille tile (P11), case coloured
-  const v = tc(VOL);
-  reg(mesh(slab(v.x, v.z, v.w - GAP, v.d - GAP, 7 * S, PLATE_TOP, TILE_TOP - PLATE_TOP, 0.4, [b => circleHole(v.x, v.z, 3.6 + b)]), MAT.case), 'P09', L.pods);
-  const sp = tc(SPK);
-  reg(mesh(slab(sp.x, sp.z, sp.w - GAP, sp.d - GAP, 7 * S, PLATE_TOP, TILE_TOP - PLATE_TOP, 0.4), MAT.case), 'P11', L.pods);
-  const holes = [];
-  for (let a = -5; a <= 5; a++) for (let b = -5; b <= 5; b++) if (a * a + b * b <= 26) holes.push([a, b]);
-  const gm = new THREE.InstancedMesh(new THREE.CylinderGeometry(1.6 * S, 1.6 * S, 0.2, 12), MAT.dot, holes.length);
-  const dmy = new THREE.Object3D();
-  holes.forEach(([a, b], i) => { dmy.position.set(sp.x + a * 9.4 * S, TILE_TOP + 0.02, sp.z + b * 9.4 * S); dmy.updateMatrix(); gm.setMatrixAt(i, dmy.matrix); });
-  reg(gm, 'P11', L.pods);
-  // VU light pipes (P20) on the right rail; the top one is red
-  for (let i = 0; i < 5; i++) {
-    const p = mesh(new THREE.CylinderGeometry(2.5 * S, 2.5 * S, 0.3, 14), MAT.pipe.clone()); M(p.material);
-    p.position.set(X(1189.5), FRAME_TOP + 0.05, Z(64.5 + 14 * i)); p.userData.vu = i; LEDPIPES.push(p); reg(p, 'P20', L.top);
-  }
-  buildKnobs();
-}
-function buildKnobs() {
-  ENCS.forEach((e, i) => {
-    const c = tc(e), g = new THREE.Group(), base = POD_TOP - 1.4;
-    const hair = mesh(new THREE.CylinderGeometry(37.5 * S, 37.5 * S, 0.7, 64), MAT.hair); hair.position.y = base + 0.35; g.add(hair);
-    const skirt = mesh(new THREE.CylinderGeometry(36 * S, 36 * S, 1.0, 64), MAT.skirt); skirt.position.y = base + 0.5; g.add(skirt);
-    const r = 31 * S, mat = MAT.knob['bgwo'[i]];
-    const body = mesh(lathe([[0.01, 0], [r, 0], [r, 7.2], [r - 0.25, 7.75], [r - 0.9, 8.1], [r - 2.5, 8.28], [0.01, 8.35]], 64), mat); body.position.y = base + 0.6; g.add(body);
-    const pg = new THREE.CapsuleGeometry(4 * S, 16 * S, 10, 20); pg.rotateX(PI / 2); pg.scale(1, 0.55, 1);
-    const ptr = mesh(pg, MAT.pill); ptr.position.set(0, base + 0.6 + 8.28, -16 * S); g.add(ptr);
-    g.position.set(c.x, 0, c.z); g.rotation.y = -[0.35, -0.6, 0.15, 0.9][i];
-    const parts = new THREE.Group(); parts.add(g);
-    reg(hair, 'P07'); reg(skirt, 'P07'); reg(body, 'P07'); reg(ptr, 'P08');
-    L.knobs.add(g);
-  });
-  // Volume knob (P10), set to the app's 67.5°
-  const v = tc(VOL), g = new THREE.Group(), base = TILE_TOP;
-  const edge = mesh(new THREE.CylinderGeometry(27 * S, 27 * S, 0.8, 48), MAT.collarEdge); edge.position.y = base + 0.4; g.add(edge);
-  const col = mesh(new THREE.CylinderGeometry(26 * S, 26 * S, 1.0, 48), MAT.collar); col.position.y = base + 0.5; g.add(col);
-  const r = 22 * S;
-  const body = mesh(lathe([[0.01, 0], [r, 0], [r, 5.6], [r - 0.3, 6.2], [r - 1.2, 6.5], [0.01, 6.6]], 48), MAT.key); body.position.y = base + 0.9; g.add(body);
-  const dot = mesh(new THREE.CylinderGeometry(3.5 * S, 3.5 * S, 0.3, 20), MAT.dot); dot.position.set(0, base + 0.9 + 6.52, -(22 - 5 - 3.5) * S); g.add(dot);
-  g.position.set(v.x, 0, v.z); g.rotation.y = -67.5 * PI / 180;
-  reg(g, 'P10', L.knobs);
-}
-
-/* ───────────────────────── Screen picture ───────────────────────── */
 const scrCanvas = document.createElement('canvas'); scrCanvas.width = 1000; scrCanvas.height = 438;
 const scrTex = new THREE.CanvasTexture(scrCanvas); scrTex.colorSpace = THREE.SRGBColorSpace;
 MAT.glass.emissiveMap = scrTex; MAT.glass.needsUpdate = true;
@@ -1092,12 +783,6 @@ dimLine(new THREE.Vector3(-W / 2 - 14, 0, -D / 2 - 6), new THREE.Vector3(-W / 2 
 dimLine(new THREE.Vector3(X(221), CAP_TOP + 8, Z(168) ), new THREE.Vector3(X(288), CAP_TOP + 8, Z(168)), '19.05 pitch', new THREE.Vector3(0, 0, -3));
 
 /* ───────────────────────── Feet ───────────────────────── */
-function buildFeet() {
-  [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => {
-    const f = mesh(new THREE.CylinderGeometry(6, 6, FEET, 32), MAT.tpu); f.position.set(a * (W / 2 - 14), -FEET / 2, b * (D / 2 - 12)); reg(f, 'P24', L.feet);
-  });
-}
-
 /* ───────────────────────── PCB artwork (both faces) ─────────────────────────
    Drawn in world millimetres onto a canvas: soldermask, copper traces routed at 45°, pads, drills,
    silkscreen and the cut-outs for the screen and the speaker. The bottom face has the GND pour. */
@@ -1252,134 +937,80 @@ function pcbPlanes() {
   });
 }
 
-/* ───────────────────────── Cables, fasteners and small details ───────────────────────── */
-const WMAT = {};
-const wmat = c => WMAT[c] || (WMAT[c] = M(new THREE.MeshStandardMaterial({ color: c, roughness: 0.55 })));
-function wire(pts, color, id = 'H25', grp = L.elec, r = 0.32) {
-  const curve = new THREE.CatmullRomCurve3(pts.map(p => new THREE.Vector3(...p)), false, 'centripetal');
-  return reg(mesh(new THREE.TubeGeometry(curve, 20 * pts.length, r, 8, false), wmat(color)), id, grp);
+/* ───────────────────────── The model: exported from Blender ─────────────────────────
+   hardware/web1.glb is the Blender model (hardware/web1.blend) exported as glTF with Draco compression: the very
+   same solids, in millimetres, Y up (page z = −Blender y). Each object's (Pxx) / (Hxx) id links it to the parts lists. */
+const MODEL_URL = 'hardware/web1.glb';
+const LAYER_OF = id => {
+  if (id === 'P24') return L.feet;
+  if (/^P0[125]$|^H02$/.test(id)) return L.bottom;
+  if (/^H(05|22)$|^P21$/.test(id)) return L.disp;
+  if (/^H(06|08|09|10|12|13|14|16|20|27|30)$/.test(id)) return L.pcb;
+  if (id === 'H07') return L.sw;
+  if (id === 'H15') return L.plate;
+  if (/^P0[34]$|^P20$|^H32$/.test(id)) return L.top;
+  if (/^P(06|09|11|12)$/.test(id)) return L.pods;
+  if (/^P(1[3-9])$/.test(id)) return L.caps;
+  if (/^P(0[78]|10)$/.test(id)) return L.knobs;
+  return L.elec;
+};
+const MATNAME = { 'WEB1 Case': 'case', 'WEB1 Case inside': 'caseIn', 'WEB1 Key white': 'key', 'WEB1 Knob skirt': 'skirt', 'WEB1 Volume collar': 'collar',
+  'WEB1 Plate black': 'plate', 'WEB1 Gloss black': 'black', 'WEB1 Grille hole': 'dot', 'WEB1 Knob blue': 'knob.b', 'WEB1 Knob green': 'knob.g', 'WEB1 Knob white': 'knob.w', 'WEB1 Knob orange': 'knob.o' };
+const clean = n => (n || '').replace(/_/g, ' ');
+function partId(o) {
+  for (let n = o; n; n = n.parent) { const m = /\((P\d\d|H\d\d)/.exec(n.name || ''); if (m) return m[1]; }   // three.js drops '/' and '.' from node names
+  return null;
 }
-function harness(pts, colors, id = 'H25', grp = L.elec, r = 0.32, axis = [1, 0, 0]) {
-  colors.forEach((c, i) => { const o = (i - (colors.length - 1) / 2) * r * 2.15; wire(pts.map(p => [p[0] + axis[0] * o, p[1] + axis[1] * o, p[2] + axis[2] * o]), c, id, grp, r); });
-}
-function block(x, y, z, w, h, d, col, id = 'H25', grp = L.elec) { const b = mesh(new THREE.BoxGeometry(w, h, d), wmat(col)); b.position.set(x, y, z); return reg(b, id, grp); }
-function wallLabel(txt, x, y, z, rotY, wmm = 12, hmm = 3) {
-  const d = decal(wmm, hmm, wmm * 10, hmm * 10, (g, fin) => {
-    g.fillStyle = fin === 'dark' ? '#8d9093' : fin === 'line' ? INK : '#8f9193'; g.font = `500 ${hmm * 5.5}px ${FONT}`;
-    g.textAlign = 'center'; g.textBaseline = 'middle'; g.letterSpacing = '1px'; g.fillText(txt, wmm * 5, hmm * 5); g.letterSpacing = '0px';
-  }, 3);
-  d.geometry.rotateX(PI / 2); d.rotation.y = rotY; d.position.set(x, y, z);
-  const upper = y > SPLIT;
-  return reg(d, upper ? (x < SEAM ? 'P03' : 'P04') : (x < SEAM ? 'P01' : 'P02'), upper ? L.top : L.bottom);
-}
-function buildDetails() {
+const MODEL_INFO = { meshes: 0, parts: 0 };
+function addModel(root) {
+  const named = [], mats = new Map(), meshes = [];
+  root.updateMatrixWorld(true);
+  root.traverse(o => { if (o.name && /\((P|H)\d\d/.test(o.name)) named.push(clean(o.name)); if (o.isMesh) meshes.push(o); });
+  named.sort((a, b) => b.length - a.length);
+  for (const o of meshes) {
+    const name = clean(o.name), pname = clean(o.parent && o.parent.name);
+    if (/^(Screen picture|Screen title|Screen window)/.test(name) || /^(Screen picture|Screen title|Screen window)/.test(pname)) continue;
+    let id = partId(o);
+    // objects without an id of their own take the id of the part they are named after ("Key fx label" → Key fx (P14))
+    if (!id) { const base = named.find(n => name.startsWith(n.replace(/ \((P|H)\d\d.*$/, '') + ' ')); if (base) id = /\((P\d\d|H\d\d)/.exec(base)[1]; }
+    if (!id && /lead|pair|coax|wire/i.test(name)) id = 'H25';
+    if (!id && /^Speaker grille/.test(name)) id = 'P11';
+    // keep Blender's materials, add the section plane, and let the page's finish switch drive the shared case / key / knob colours
+    const fix = m => {
+      if (mats.has(m)) return mats.get(m);
+      const key = MATNAME[m.name];
+      if (key) { const [a, b] = key.split('.'); const pm = b ? MAT.knob[b] : MAT[a]; pm.color.copy(m.color); pm.roughness = m.roughness; pm.metalness = m.metalness; mats.set(m, pm); return pm; }
+      m.side = THREE.DoubleSide; M(m); mats.set(m, m); return m;
+    };
+    o.material = Array.isArray(o.material) ? o.material.map(fix) : fix(o.material);
+    // bake the world transform, then move the mesh into its explode layer
+    o.matrixWorld.decompose(o.position, o.quaternion, o.scale); o.parent.remove(o);
+    if (/light guide|VU light pipe/.test(name)) {
+      o.material = M(o.material.clone());
+      const k = /^Key (\S+) light guide/.exec(name), v = /VU light pipe (\d)/.exec(name);
+      if (k) o.userData.key = FKEYS.find(f => f.a === k[1]);
+      if (v) o.userData.vu = +v[1] - 1;
+      if (o.userData.key || v) LEDPIPES.push(o);
+    }
+    const grp = /^Plate foam/.test(name) ? L.sw : id ? LAYER_OF(id) : L.elec;
+    if (id) reg(o, id, grp); else { o.castShadow = o.receiveShadow = true; grp.add(o); }
+    MODEL_INFO.meshes++;
+  }
+  MODEL_INFO.parts = Object.keys(PARTS).length;
+  // the live screen picture behind the smoked window
+  const sc = tc(SCR), glass = mesh(new THREE.PlaneGeometry(sc.w - GAP - 1.2, sc.d - GAP - 1.2), MAT.glass);
+  glass.rotation.x = -PI / 2; glass.position.set(sc.x, SCREEN_TOP + 0.02, sc.z); reg(glass, 'H22', L.pods);
   pcbPlanes();
-  const sc = tc(SCR), dz = -D / 2 + WALL + 0.6 + 67.2 / 2, jd = [J_DSI_X, J_DSI_Z];
-  const W1 = ['#d63a2f', '#202124', '#e8c13a', '#2fb673', '#3f7fe8'];
-
-  // Display flat-flex cable (H23) from the panel to J3 under the PCB
-  // runs under the panel from its ZIF, out of a slot in the carrier's right side, then up into J3
-  { const f1 = mesh(new THREE.BoxGeometry(CAR_X1 + 2 - sc.x, 0.15, 12), MAT.ffc); f1.position.set((sc.x + CAR_X1 + 2) / 2, 3.6, FFC_Z); reg(f1, 'H23', L.disp);
-    const f2 = mesh(new THREE.BoxGeometry(jd[0] - CAR_X1 - 2, 0.15, 12), MAT.ffc); f2.position.set((jd[0] + CAR_X1 + 2) / 2, 5.0, FFC_Z); reg(f2, 'H23', L.disp);
-    const f3 = mesh(new THREE.BoxGeometry(12, 0.15, Math.hypot(jd[1] - FFC_Z, PCB_BOT - 1 - 5)), MAT.ffc); f3.position.set(jd[0], (PCB_BOT - 1 + 5) / 2, (jd[1] + FFC_Z) / 2); f3.rotation.x = -Math.atan2(PCB_BOT - 1 - 5, jd[1] - FFC_Z); reg(f3, 'H23', L.disp); }
-  block(jd[0], PCB_BOT - 0.6, jd[1], 13, 1.2, 3.5, 0x1b1c1e, 'H23', L.pcb);
-
-  // J6 → the two jacks and the speaker. Leads leave the plug toward the front, the speaker pair runs up the corridor by the display
-  const [ax, az] = J.aud, PZ = PCB_BOT - 1.45, jx = -W / 2 + WALL + 13.4;
-  block(ax, PCB_BOT - 1.475, az, 12, 2.95, 4.25, 0xf2efe6, 'H25', L.pcb);
-  block(ax, PCB_BOT - 1.425, az + 3.725, 11, 2.75, 3.2, 0xf2efe6);
-  ['#d63a2f', '#ececec', '#202124', '#e8c13a'].forEach((c, k) => { const px = ax - 4.5 + k, t = JACKS[0][1] - [2.25, 0.75, -0.75, -2.25][k];
-    wire([[px, PZ, az + 5.3], [px, PZ - 0.6, az + 6.3], [px, 5.0, t - 1.6], [px - 1.2, 4.6, t], [jx + 1.8, FLOOR + 2.5, t], [jx, FLOOR + 2.5, t]], c, 'H25', L.elec, 0.4); });
-  ['#2fb673', '#3f7fe8', '#202124'].forEach((c, k) => { const px = ax - 0.5 + k, t = JACKS[1][1] + [2.25, 0.75, -0.75, -2.25][3 - k];
-    wire([[px, PZ, az + 5.3], [px, PZ - 0.5, az + 6.3], [px, 5.8, az + 6.9], [px, 4.5, az + 6.2], [px, 4.4, az + 4.3], [px, 4.4, t + 1.4], [px - 1.4, 4.4, t], [jx + 1.8, FLOOR + 2.5, t], [jx, FLOOR + 2.5, t]], c, 'H25', L.elec, 0.4); });
-  { const sp = tc(SPK); harness([[ax + 4, PZ, az + 5.3], [ax + 4, 6.6, az + 6.8], [ax + 7.5, 5.0, -4], [-131, 4.4, -3.6], [-123.5, 4.0, -6], [-121.8, 3.6, -12], [-121.8, 3.6, -30], [sp.x + 22.8, 4.4, sp.z], [sp.x + 19.2, 5.1, sp.z]], ['#d63a2f', '#202124'], 'H25', L.elec, 0.42, [0, 0, 1]); }
-  const gasket = mesh(ext((() => { const s = new THREE.Shape(); s.absarc(tc(SPK).x, -tc(SPK).z, 20, 0, 2 * PI, false); s.holes.push(circleHole(tc(SPK).x, tc(SPK).z, 18.2)); return s; })(), PCB_BOT - 0.3, 0.3, 0, 40), MAT.foam);
-  reg(gasket, 'H33', L.elec);
-
-  // Battery leads (26 AWG) from each cell's tab end into its gap, straight up to the solder pads BT1–BT5 under the PCB
-  BAT.cells.forEach(([cx, cz, sd], i) => { const md = -sd, tx = cx + md * BAT.w / 2, [bx, bz] = J.bat[i], ty = BAT.z0 + BAT.t / 2;
-    [[-1, '#d63a2f'], [1, '#202124']].forEach(([o, col]) => {
-      wire([[tx - md * 0.5, ty, cz - o], [tx + md * 0.8, ty, cz - o], [bx, ty + 0.4, cz - o], [bx, 6.2, bz - o], [bx, PCB_BOT - 1.6, bz - o], [bx, PCB_BOT - 0.6, bz - o]], col, 'H31', L.elec, 0.55);
-      block(bx, PCB_BOT - 0.02, bz - o, 1.6, 0.04, 1.4, 0xd6aa52, 'H14', L.pcb); }); });
-
-  // ON/OFF switch → J7
-  block(J.sw[0], PCB_BOT - 1.475, J.sw[1], 4, 2.95, 4.25, 0xf2efe6, 'H25', L.pcb);
-  harness([[J.sw[0], PCB_BOT - 1.45, J.sw[1] + 5.3], [J.sw[0], 6.8, J.sw[1] + 6.5], [J.sw[0] + 3, 6.2, 2], [153, 6.0, 5.5], [157.5, 5.8, 10], [157.5, 5.6, SWITCH_Z - 6], [159, 5.6, SWITCH_Z - 1], [W / 2 - WALL - 7.7, 5.6, SWITCH_Z - 1]], ['#202124', '#ececec'], 'H25', L.elec, 0.4, [1, 0, 0]);
-
-  // VU + mic strip under the right rail, with its 5-wire lead from J8; MEMS mic under the 2 × 2 holes, sealed by a foam gasket
-  const vx = X(1189.5), vz0 = Z(92.5) + (64 * S + 8) / 2, vz1 = MIC.z - 3.2, vzc = (vz0 + vz1) / 2;
-  block(vx, PLATE_TOP + 0.45, vzc, 4.6, 0.8, vz0 - vz1, 0x1d5a3a, 'H14', L.top);
-  for (let i = 0; i < 5; i++) block(vx, PLATE_TOP + 0.85 + 0.375, Z(64.5 + 14 * i), 3.2, 0.75, 2.8, 0xfafafa, 'H10', L.top);
-  for (let i = 0; i < 5; i++) { const p = mesh(new THREE.CylinderGeometry(0.7, 0.7, FRAME_TOP - PLATE_TOP - 1.0, 10), MAT.pipe); p.position.set(vx, (FRAME_TOP + PLATE_TOP + 1.0) / 2, Z(64.5 + 14 * i)); reg(p, 'P20', L.top); }
-  block(MIC.x, PLATE_TOP + 0.05 - 0.49, MIC.z, 3.5, 0.98, 2.65, 0xd0d2d4, 'H32', L.top);
-  { const gs = rrShape(MIC.x, MIC.z, 4.4, 6.0, 0.8); gs.holes.push(circleHole(MIC.x, MIC.z, 1.8)); reg(mesh(ext(gs, PLATE_TOP + 0.85, 0.75, 0, 24), MAT.foam), 'H33', L.top); }
-  block(J.vu[0], PCB_BOT - 1.475, J.vu[1], 4.25, 2.95, 7, 0xf2efe6, 'H25', L.pcb);
-  harness([[J.vu[0] + 5.3, PCB_BOT - 1.45, J.vu[1]], [J.vu[0] + 6.3, PCB_BOT - 1.4, J.vu[1]], [vx - 6.6, 11.9, Z(92.5)], [vx - 5.4, PLATE_TOP - 1.4, Z(92.5)]], ['#d63a2f', '#202124', '#3f7fe8', '#ececec', '#2fb673'], 'H25', L.elec, 0.4, [0, 0, 1]);
-
-  // Wi-Fi: flexible antenna on the back wall, coax from the CM5's U.FL round the module's left and back edges
-  const ant = mesh(new THREE.BoxGeometry(40, 6, 0.12), MAT.antenna); ant.position.set(120, FLOOR + 3.6, -D / 2 + WALL + 0.08); reg(ant, 'H04', L.elec);
-  wire([[88.1, 1.9, -27], [86.6, 2.8, -27.5], [84, 2.7, -31], [84, 2.7, -50], [85.5, 2.7, -58.6], [92, 2.9, -59.8], [99, 4.0, -60.2], [100.8, 4.6, -D / 2 + WALL + 0.8]], '#8c8e90', 'H04', L.elec, 0.565);
-  block(88.1, 1.98, -27, 2, 1.05, 2, 0xc7c9cc, 'H04');
-
-  // Frame screws: 8 × M3 from under the case, through the plate edge, into inserts in the top band
-  FRAME_SCREWS.forEach(([x, z]) => {
-    const half = x < SEAM, outside = x > OPEN.x1 + 5.1;
-    const b = mesh(new THREE.CylinderGeometry(2.8, 2.8, SPLIT - FLOOR, 16), MAT.caseIn); b.position.set(x, FLOOR + (SPLIT - FLOOR) / 2, z); reg(b, half ? 'P01' : 'P02', L.bottom);
-    const top = outside ? PLATE_TOP : PLATE_TOP - PLATE_T;
-    const fb = mesh(new THREE.CylinderGeometry(2.6, 2.6, top - SPLIT, 16), MAT.caseIn); fb.position.set(x, (SPLIT + top) / 2, z); reg(fb, half ? 'P03' : 'P04', L.top);
-    const ins = mesh(new THREE.CylinderGeometry(2.0, 2.0, 4, 12), MAT.brass); ins.position.set(x, PLATE_TOP + 2, z); reg(ins, 'H24', L.top);
-    const shaft = mesh(new THREE.CylinderGeometry(1.5, 1.5, 16, 10), MAT.metal); shaft.position.set(x, 8, z); reg(shaft, 'H24', L.bottom);
-    const head = mesh(new THREE.CylinderGeometry(2.75, 1.5, 1.65, 20), MAT.metal); head.position.set(x, 0.825, z); reg(head, 'H24', L.bottom);
-    const hex = mesh(new THREE.CylinderGeometry(1.0, 1.0, 0.3, 6), MAT.hole); hex.position.set(x, -0.08, z); reg(hex, 'H24', L.bottom);
-  });
-  // M3 countersunk screws from under the case: the back steel (×5) and the seam joiner (×6)
-  [[0, -26], [0, -52], [74, -26], [74, -52], [SEAM - 8, 4], [SEAM + 8, 4]].forEach(([x, z]) => {
-    const head = mesh(new THREE.CylinderGeometry(2.75, 1.5, 1.65, 20), MAT.metal); head.position.set(x, 0.825, z); reg(head, 'H24', L.bottom);
-    const hex = mesh(new THREE.CylinderGeometry(1.0, 1.0, 0.3, 6), MAT.hole); hex.position.set(x, -0.08, z); reg(hex, 'H24', L.bottom);
-  });
-  // Encoder and pot nuts with washers (under the knobs)
-  ENCS.forEach(e => {
-    const c = tc(e);
-    const n = mesh(new THREE.CylinderGeometry(5.6, 5.6, 1.6, 6), MAT.metal); n.position.set(c.x, POD_TOP - 1.5 + 0.8, c.z); reg(n, 'H12', L.pods);
-    const w = mesh(new THREE.CylinderGeometry(4.8, 4.8, 0.4, 24), MAT.metal); w.position.set(c.x, POD_TOP - 1.5 + 0.2, c.z); reg(w, 'H12', L.pods);
-  });
-  { const v = tc(VOL); const n = mesh(new THREE.CylinderGeometry(4.6, 4.6, 1.4, 6), MAT.metal); n.position.set(v.x, TILE_TOP + 0.4, v.z); reg(n, 'H13', L.pods); }
-
-  // Foam (H33): plate foam between PCB and plate, floor foam, pads on the cells, a ring under the display
-  { const pf = rrShape((PCBR.x0 + PCBR.x1) / 2, (PCBR.z0 + PCBR.z1) / 2, PCBR.x1 - PCBR.x0 - 1, PCBR.z1 - PCBR.z0 - 1, 2);
-    SWITCHES.forEach(s => pf.holes.push(rrHole(s.x, s.z, 14.6, 14.6, 0.5)));
-    ENCS.forEach(e => { const c = tc(e); pf.holes.push(rrHole(c.x, c.z, 13, 13.4, 0.5)); });
-    { const v = tc(VOL); pf.holes.push(rrHole(v.x, v.z, 10.8, 12, 0.5)); }
-    pf.holes.push(rrHole(sc.x, sc.z, sc.w + 1, sc.d + 1, 2)); pf.holes.push(circleHole(tc(SPK).x, tc(SPK).z, 18.5));
-    reg(mesh(ext(pf, PCB_TOP, 2.15, 0, 6), MAT.foam), 'H33', L.sw); }
-  { const ff = new THREE.Shape(); [[-4, 6], [82, 6], [82, -20], [-4, -20]].forEach(([x, z], i) => i ? ff.lineTo(x, -z) : ff.moveTo(x, -z));
-    const ffm = mesh(ext(ff, FLOOR, 2.0, 0), MAT.foam); reg(ffm, 'H33', L.elec); }
-  BAT.cells.forEach(([cx, cz, sd]) => { const o = mesh(new THREE.BoxGeometry(BAT.w - 10, 0.5, BAT.d - 6), MAT.foam); o.position.set(cx + sd * 3, BAT.z0 + BAT.t + 0.25, cz); reg(o, 'H33', L.elec); });
-  [-24, 24].forEach(b => block(sc.x, DISP_TOP - 3.2, dz + b, 96, 0.5, 3.6, 0x2a2b2d, 'H33', L.disp));
-  // Charge light pipe through the back wall, beside the USB-C port
-  { const p = mesh(new THREE.CylinderGeometry(0.9, 0.9, 7.2, 12), MAT.pipe); p.rotation.x = PI / 2; p.position.set(CHG_LED_X, 8.0, -D / 2 + 3.6); reg(p, 'P20', L.bottom); }
-
-  // Case seam line, port labels, CM5 activity light, bottom label
-  const seam = new THREE.Shape(); rrPath(seam, 0, 0, W + 0.12, D + 0.12, R_CASE + 0.06); seam.holes.push(rrHole(0, 0, W - 0.8, D - 0.8, R_CASE - 0.4));
-  reg(mesh(ext(seam, SPLIT - 0.15, 0.3, 0, 16), MAT.seam), 'P01', L.bottom);
-  const pcbMid = (PCB_TOP + PCB_BOT) / 2;
-  wallLabel('USB-C', USBC_X, pcbMid - 4.0, -D / 2 - 0.06, PI, 12, 2.4);
-  wallLabel('CHG', CHG_LED_X, 8.0 - 3.0, -D / 2 - 0.06, PI, 8, 2.2);
-  wallLabel('OUT', -W / 2 - 0.06, FLOOR + 2.5 + 4.6, JACKS[0][1], -PI / 2, 10, 2.4);
-  wallLabel('IN', -W / 2 - 0.06, FLOOR + 2.5 + 4.6, JACKS[1][1], -PI / 2, 8, 2.4);
-  wallLabel('OFF  ON', W / 2 + 0.06, 5.6 + 3.6, SWITCH_Z, PI / 2, 14, 2.2);
-  const st = decal(40, 26, 400, 260, (g) => {
-    g.fillStyle = '#f4f4ef'; g.beginPath(); g.roundRect(4, 4, 392, 252, 18); g.fill();
-    g.fillStyle = '#2b2c2e'; g.textAlign = 'left'; g.textBaseline = 'alphabetic';
-    g.font = `200 46px ${FONT}`; g.fillText('WEB-1', 26, 66);
-    g.font = `500 15px ${FONT}`; g.letterSpacing = '1.5px';
-    ['PORTABLE SYNTH · MODEL W-1', '5 V ⎓ 3 A USB-C · Li-ion 3.7 V 4000 mAh', 'DESIGNED BY SNOW BAYLES · 2026', 'S/N  W1-0001'].forEach((t, i) => g.fillText(t, 26, 112 + i * 34));
-    g.letterSpacing = '0px';
-  }, 2);
-  st.rotation.x = PI; st.position.set(128, -0.06, 0); reg(st, 'P02', L.bottom);
 }
-
-buildCase(); buildInternals(); buildTop(); buildFeet(); buildDetails();
+function loadModel() {
+  const note = document.createElement('div'); note.textContent = 'Loading the model…';
+  note.style.cssText = 'position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--hint);font-size:13px;pointer-events:none';
+  view.appendChild(note);
+  const draco = new DRACOLoader().setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/');
+  new GLTFLoader().setDRACOLoader(draco).load(MODEL_URL, gltf => { addModel(gltf.scene); note.remove(); setFinish(FIN); window.__web1.ready = true; },
+    undefined, err => { note.textContent = 'Could not load ' + MODEL_URL + ': open this page through a web server.'; console.error(err); });
+}
+fillSwitches();
 
 /* ───────────────────────── Finishes, case modes, LEDs ───────────────────────── */
 const FINISH = {
@@ -1437,7 +1068,6 @@ function applyLeds() {
     const m = p.material;
     if (m.isMeshBasicMaterial) return;
     m.emissive = new THREE.Color(col || 0x000000); m.emissiveIntensity = col ? 3 : 0;
-    p.scale.set(col ? 1.4 : 1, 1, col ? 1.4 : 1);
   });
 }
 
@@ -1733,7 +1363,8 @@ document.getElementById('t-build').innerHTML = `
 </tbody></table>`;
 
 setFinish('light');
-window.__web1 = { scene, PARTS, model, controls, get camera() { return camera; } };
+window.__web1 = { scene, PARTS, model, controls, addModel, MODEL_INFO, get camera() { return camera; } };
+loadModel();
 </script>
 </body>
 </html>
