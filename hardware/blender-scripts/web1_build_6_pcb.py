@@ -18,11 +18,12 @@ rect(v['x'], v['y'], 6, 7); rect(*L['boot'], 4.5, 4.5); rect(*L['jvu'], 3.5, 5)
 for (x, y) in L['jacks']: rect(x + 1.0, y, 8, 5.5)                                   # jack + cradle
 rect(W / 2 - WALL - 4.0, L['switch'][1], 6.5, 7.0)                                    # slide switch + bracket
 rect(USBC_X, D / 2 - 4, 7, 5); rect(*L['chg_led'], 3, 3)
-for (x, y, sd) in L['bats']: rect(x, y, BAT_W / 2 + 3.5, BAT_D / 2 + 3.5)              # cells + retaining ribs
+for (x, y, sd) in L['bats']: rect(x, y, BAT_W / 2 + 0.4, BAT_D / 2 + 1.6)              # cell pockets + front / back fences (the gaps stay free for posts)
 rect(*L['codec'], 6.5, 5.5); rect(*L['pmic'], 8.5, 6.5)
 rect(L['jaud'][0], L['jaud'][1] - 1.0, 8.5, 5.0); rect(L['jsw'][0], L['jsw'][1] - 1.0, 3.5, 5.0)
-for (x, y) in L['jbat']: rect(x, y - 1.0, 4.5, 6.5)
-rect(SEAM - 0.75, -22.0, 11.0, 7.0)                                                    # seam plate
+for (lx, py) in L['batpads']: rect(lx, (BAT_Y + py) / 2, 1.6, abs(BAT_Y - py) / 2 + 2.6)          # battery leads rising to their pads
+R.append((L['car_x1'] - 1.0, L['ffc_y'] - 7.5, L['j3'][0] + 8.5, L['ffc_y'] + 7.5)); rect(*L['j3'], 8.8, 3.5)          # display FFC lane and J3
+rect(SEAM_PLATE[0], SEAM_PLATE[1], SEAM_PLATE[2] / 2 + 0.5, SEAM_PLATE[3] / 2 + 0.5)                     # seam joiner
 rect(84.0, 40.0, 1.5, 22.0); rect(92.0, 60.0, 9.0, 1.8)                                 # Wi-Fi coax lane
 for (x, y) in FRAME_SCREWS: rect(x, y, 4.5, 4.5)
 for (x, y) in L['ledpcb']: rect(x, y, 2.4, 2.2)
@@ -37,8 +38,10 @@ def free(px, py, RR, r=3.0):
     if not (P['x0'] + 4 < px < P['x1'] - 4 and P['y0'] + 4 < py < P['y1'] - 4): return False
     if abs(px - sc['x']) < sc['w'] / 2 + r + 1 and abs(py - sc['y']) < sc['d'] / 2 + r + 1: return False
     if on_steel(px, py) is False: return False
+    if abs(px - SEAM) < r + 0.5: return False                                          # nothing straddles the case seam
     return all(not (x0 - r < px < x1 + r and y0 - r < py < y1 + r) for (x0, y0, x1, y1) in RR)
-anchors = [(x, y) for y in (-50.0, -24.0, 4.0, 30.0, 52.0) for x in range(-160, 161, 32)]          # a grid: the search snaps each to the nearest free spot
+anchors = [(g, y) for g in GAPS if abs(g - SEAM) > 4 for y in (-46.0, -21.0)]                       # posts between the cells: they also hold the cells in place
+anchors += [(x, y) for y in (4.0, 30.0, 52.0) for x in range(-160, 161, 32)]          # a grid: the search snaps each to the nearest free spot
 posts = []
 for (ax, ay) in anchors:
     best = None; RR = [r_ for r_ in R if r_[0] < ax + 20 and r_[2] > ax - 20 and r_[1] < ay + 20 and r_[3] > ay - 20]

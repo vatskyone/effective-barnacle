@@ -83,18 +83,18 @@ lx_, ly_ = L['chg_led']
 p = Part('Charge LED side-view (H10)', cP, [MM['white']]); p.box(0, 0, -0.8, 1.6, 1.0, 0.8, MM['white']).box(0, 0.5, -0.75, 1.0, 0.02, 0.6, MM['ledl'])
 o_ = p.build(0); o_.location = (lx_, ly_, PCB_BOT)
 
-# ── Two LiPo pouch cells 505060 (5.0 × 50 × 60 mm, 3.7 V 2000 mAh, protection board in the tab end), on foam in floor pockets ──
+# ── Five LiPo pouch cells 505060 in parallel (5.0 × 50 × 60 mm, 3.7 V 2000 mAh each, protection board in the tab end), on foam in floor pockets ──
 cB = coll('Power & ballast', 'Internals')
 BAT_Z = FLOOR - BAT_POCKET + 0.5                                     # 0.5 mm foam under the cell
 for k, (bx_, by_, sd) in enumerate(L['bats']):
-    p = Part('LiPo 505060 2000 mAh %s (H31)' % ('L' if sd < 0 else 'R'), cB, [MM['lipo']])
+    p = Part('LiPo 505060 2000 mAh B%d (H31)' % (k + 1), cB, [MM['lipo']])
     md = -sd                                                          # the tab end faces the middle of the case
     p.prism([rr(-md * BAT_TAB / 2, 0, BAT_W - BAT_TAB - 1.6, BAT_D - 1.6, 1.0)], 0, BAT_T, MM['lipo'], 0.8)     # pouch (the 0.8 bevel brings it to 55 × 50)
     p.box(md * (BAT_W / 2 - BAT_TAB / 2), 0, 0.8, BAT_TAB + 0.02, BAT_D - 4, BAT_T - 1.6, MM['kapton'])          # sealed tab edge + PCM under Kapton
     p.box(-md * BAT_TAB / 2, 0, BAT_T, 30, 18, 0.01, MM['silk'])                                               # label
     o_ = p.build(30); o_.location = (bx_, by_, BAT_Z)
-    prism('Battery foam under %s (H33)' % ('L' if sd < 0 else 'R'), [rr(bx_, by_, BAT_W - 2, BAT_D - 2, 1.5)], FLOOR - BAT_POCKET, 0.5, 0, [MM['foam']], coll('Foam', 'Internals'), 0)
-    prism('Battery foam over %s (H33)' % ('L' if sd < 0 else 'R'), [rr(bx_ + sd * 3, by_, BAT_W - 10, BAT_D - 6, 1.5)], BAT_Z + BAT_T, 0.5, 0, [MM['foam']], coll('Foam', 'Internals'), 0)
+    prism('Battery foam under B%d (H33)' % (k + 1), [rr(bx_, by_, BAT_W - 2, BAT_D - 2, 1.5)], FLOOR - BAT_POCKET, 0.5, 0, [MM['foam']], coll('Foam', 'Internals'), 0)
+    prism('Battery foam over B%d (H33)' % (k + 1), [rr(bx_ + sd * 3, by_, BAT_W - 10, BAT_D - 6, 1.5)], BAT_Z + BAT_T, 0.5, 0, [MM['foam']], coll('Foam', 'Internals'), 0)
 
 # ── Steel ballast (S235, 4 mm, tapped M3 from below) ──
 for st in STEEL:

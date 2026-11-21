@@ -342,7 +342,7 @@ const FRAME_TOP = CAP_TOP, POD_TOP = CAP_TOP, TILE_TOP = CAP_TOP, SCREEN_TOP = C
 const RING_R = 24 * S, RING_DEPTH = 0.8;   // concave centre inside each key ring (the app's 48 px ring)
 const SOCK_BOT = PCB_BOT - 1.8;   // underside of the hot-swap sockets: everything below the PCB stays under this
 const WALL = 3.0, R_CASE = 16 * S, GAP = 0.8;   // 3 mm walls
-const SEAM = X(555);                       // the case halves split between the screen and the blue knob
+const SEAM = 34;                           // the case halves split in a gap between two cells (left half 207 mm wide: fits a 220 mm bed)
 const OPEN = { x0: X(18), x1: X(1159), z0: Z(18), z1: Z(436), r: 8.5 * S }; // black plate opening
 
 document.getElementById('dimtxt').textContent = `${W.toFixed(1)} × ${D.toFixed(1)} × ${CAP_TOP.toFixed(1)} mm`;
@@ -401,11 +401,11 @@ const tc = t => ({ x: X(t.x + t.w / 2), z: Z(t.y + t.h / 2), w: t.w * S, d: t.h 
 
 /* ───────────────────────── Parts lists ───────────────────────── */
 const PRINT = [
-  ['P01', 'Bottom shell, left half', 1, 'PETG', '#c9cbcc', 'Silver', `${(SEAM + W / 2).toFixed(1)} × ${D.toFixed(1)} × ${SPLIT}`, 75, 'Print floor down, 5 walls, 40 % gyroid: a 2 mm floor (1 mm under the battery pockets) and 3 mm walls. Holds the left cell in its pocket with corner ribs, the speaker ring, the two jack cradles (Ø6.3 holes for IN and OUT in the left wall) and the PCB posts.'],
+  ['P01', 'Bottom shell, left half', 1, 'PETG', '#c9cbcc', 'Silver', `${(SEAM + W / 2).toFixed(1)} × ${D.toFixed(1)} × ${SPLIT}`, 75, 'Print floor down, 5 walls, 40 % gyroid: a 2 mm floor (1 mm under the battery pockets) and 3 mm walls. Pockets and fences for three of the five cells, the speaker ring, the two jack cradles (Ø6.3 holes for IN and OUT in the left wall) and the PCB posts.'],
   ['P02', 'Bottom shell, right half', 1, 'PETG', '#c9cbcc', 'Silver', `${(W / 2 - SEAM).toFixed(1)} × ${D.toFixed(1)} × ${SPLIT}`, 90, 'Same walls. USB-C slot and the charge-light hole in the back wall, the ON/OFF slot with a finger recess in the right wall and the switch bracket inside. Cooling grille (20 slots) beside a 56 × 40 mm pocket for the heat spreader under the CM5, Ø3.2 hole for the eMMC boot button, right cell pocket.'],
   ['P03', 'Top frame, left half', 1, 'PLA, matte or silk silver', '#c9cbcc', 'Aluminium grey', `${(SEAM + W / 2).toFixed(1)} × ${D.toFixed(1)} × ${(FRAME_TOP - SPLIT).toFixed(1)}`, 85, 'The top band rests on the plate and rises to the keytops, so the case top is flush with the keys. Hollow underneath with a 1.6 mm top skin, 4.5 mm corner radius. Print the top face on smooth PEI, or face up with ironing.'],
   ['P04', 'Top frame, right half', 1, 'PLA, matte or silk silver', '#c9cbcc', 'Aluminium grey', `${(W / 2 - SEAM).toFixed(1)} × ${D.toFixed(1)} × ${(FRAME_TOP - SPLIT).toFixed(1)}`, 100, 'Holds the right rail: "WEB-1" and the signature engraved 0.4 mm, five Ø1.5 VU light-pipe holes and the 2 × 2 mic holes, open into the pocket of the VU + mic strip.'],
-  ['P05', 'Seam joiner', 1, 'PETG', '#1b1c1e', 'Black', '19.5 × 12 × 2.4', 1, 'Bridges the two bottom halves behind the front steel bar, which ties them together at the front.'],
+  ['P05', 'Seam joiner', 1, 'PETG', '#1b1c1e', 'Black', '25.2 × 11.2 × 3.0', 1, 'Lies across the seam just behind the cells; one M3×6 countersunk from below into a heat-set insert at each end. The back steel plate and the steel switch plate also span the seam.'],
   ['P06', 'Knob pods', 4, 'PLA', '#eeefee', 'White', `${(132 * S - GAP).toFixed(1)} × ${(146 * S - GAP).toFixed(1)} × ${(POD_TOP - PLATE_TOP).toFixed(1)}`, 9, 'Ø28.4 mm dish, 1.2 mm deep. Sits on the plate around each EC11 and is clamped by the encoder nut.'],
   ['P07', 'Knob caps', 4, 'PLA', '#3f7fe8', 'Blue, green, white, orange', 'Ø21.3 × 9.0', 3, 'Body Ø17.6 mm with a white Ø20.5 skirt and a dark hairline. 6 mm D bore with a 4.5 mm deep recess for the encoder nut. Print skirt down at 0.12 mm layers, two colours or painted.'],
   ['P08', 'Knob pointer inlays', 4, 'PLA', '#ffffff', 'White', '2.3 × 6.8 × 1.0', 0.1, 'Press into the slot near the back edge of each knob cap.'],
@@ -413,18 +413,18 @@ const PRINT = [
   ['P10', 'Volume knob', 1, 'PLA', '#eeefee', 'White, black dot', 'Ø15.4 × 7.5', 1.5, 'Ø12.5 body, light collar and grey edge ring, Ø2 black dot inlay. 6 mm D bore.'],
   ['P11', 'Speaker grille tile', 1, 'PLA', '#c9cbcc', 'Aluminium grey', `${(132 * S - GAP).toFixed(1)} × ${(146 * S - GAP).toFixed(1)} × ${(TILE_TOP - PLATE_TOP).toFixed(1)}`, 7, 'Flush with the keytops. 89 holes Ø0.95 on a 2.67 mm grid inside a Ø29.6 circle (the same round grille as the app), through a 1.6 mm top skin; hollow underneath.'],
   ['P12', 'Screen shroud', 1, 'PETG', '#1b1c1e', 'Black', `${(333 * S - GAP).toFixed(1)} × ${(146 * S - GAP).toFixed(1)} × ${(SCREEN_TOP - DISP_TOP).toFixed(1)}`, 6, 'Light-tight tunnel from the display up to the window, 2 mm ledge for the acrylic.'],
-  ['P13', 'Function keycaps, square', 26, 'PLA, PETG or resin', '#eeefee', 'White', `${(65 * S - GAP).toFixed(1)} × ${(65 * S - GAP).toFixed(1)} × ${CAP_H}`, 1, 'Round stem socket with a 4.1 × 1.32 mm "+" hole for the Choc v2 cross stem (print the socket at 0.08 mm layers or in resin for a snug fit). The centre inside the Ø13.6 ring is concave, 0.8 mm deep, with the icon or number at the bottom of the dish: print two colours, or engrave and paint-fill.'],
+  ['P13', 'Function keycaps, square', 26, 'PLA, PETG or resin', '#eeefee', 'White', `${(65 * S - GAP).toFixed(1)} × ${(65 * S - GAP).toFixed(1)} × ${CAP_H}`, 1, 'Solid cap with a flat underside; the round stem socket is printed as part of it, with a 4.1 × 1.32 mm "+" hole for the Choc v2 cross stem (print the socket at 0.08 mm layers or in resin for a snug fit). The centre inside the Ø13.6 ring is concave, 0.8 mm deep, with the icon or number at the bottom of the dish: print two colours, or engrave and paint-fill.'],
   ['P14', 'Function keycaps, tall', 3, 'PLA, PETG or resin', '#eeefee', 'White', `${(65 * S - GAP).toFixed(1)} × ${(72 * S - GAP).toFixed(1)} × ${CAP_H}`, 1.1, 'FX, TEMPO and METRONOME, the two upper rows are taller in the app. Same concave ring centre as P13.'],
-  ['P15', 'White-key caps', 14, 'PLA, PETG or resin', '#eeefee', 'White', `${(65 * S - GAP).toFixed(1)} × ${(132 * S - GAP).toFixed(1)} × ${CAP_H}`, 2, 'Pill groove 11.1 × 31.8 × 0.6 mm.'],
+  ['P15', 'White-key caps', 14, 'PLA, PETG or resin', '#eeefee', 'White', `${(65 * S - GAP).toFixed(1)} × ${(132 * S - GAP).toFixed(1)} × ${CAP_H}`, 2, 'Pill groove 11.1 × 31.8 × 0.6 mm. Flat underside with the stem socket printed on it.'],
   ['P16', 'Black-key caps, wide', 8, 'PLA, PETG or resin', '#eeefee', 'White', `${(98.5 * S - GAP).toFixed(1)} × ${(65 * S - GAP).toFixed(1)} × ${CAP_H}`, 1.4, 'The outer key of each group reaches the next white-key line; the black dish (and switch) stays over its note, off centre.'],
   ['P17', 'Black-key caps, narrow', 2, 'PLA, PETG or resin', '#eeefee', 'White', `${(65 * S - GAP).toFixed(1)} × ${(65 * S - GAP).toFixed(1)} × ${CAP_H}`, 1, 'The G♯ of each octave.'],
-  ['P18', 'Black-key dishes', 10, 'Resin or PLA', '#121213', 'Black', 'Ø12.1 × 2.4', 0.2, 'A concave black insert, 0.8 mm deep at the centre: the same curve as the ring centres. Glossy: resin, or sanded and clear-coated. Glued into the cap, flush at the rim.'],
+  ['P18', 'Black-key dishes', 10, 'Resin or PLA', '#121213', 'Black', 'Ø12.1 × 2.4', 0.2, 'A concave black insert, 0.8 mm deep at the centre: the same curve as the ring centres. Glossy: resin, or sanded and clear-coated. Glued into a 0.1 mm slip-fit pocket in the cap (0.6 mm floor under it), flush at the rim.'],
   ['P19', 'Key light pipes', 29, 'Clear resin or clear PETG', '#e8f2ff', 'Clear', 'Ø1.1 × 5.0', 0, 'Through the top-right corner of each function keycap, over its LED.'],
   ['P20', 'Light pipes: VU and charge light', 6, 'Clear resin or clear PETG', '#e8f2ff', 'Clear', 'Ø1.4 × 6.3 / Ø1.8 × 7.2', 0, 'Five for the level meter on the right rail, one through the back wall beside the USB-C port for the charge light.'],
   ['P21', 'Display carrier', 1, 'PETG', '#1b1c1e', 'Black', `110 × 72 × ${(DISP_TOP - 1.2 - FLOOR).toFixed(1)}`, 10, 'A frame that wraps the 4.3" panel and holds its face 1.2 mm under the PCB, on a 0.5 mm foam ring. Pegs into the floor.'],
   ['P24', 'Feet', 4, 'TPU 95A', '#1b1c1e', 'Black', `Ø12 × ${FEET}`, 0.6, 'Glue under the case. 2.5 mm tall, so air can reach the cooling grille.'],
   ['P25', 'Switch plate, printed (alternative to the steel plate H15)', 2, 'PETG, 100 % infill', '#1b1c1e', 'Black', '≈ 170 × 123 × 1.2', 22, 'Only if you skip the steel plate; the synth is then about 150 g lighter. Choc clips need exactly 1.2 mm.'],
-  ['P26', 'PCB rests on the steel', 13, 'PETG', '#1b1c1e', 'Black', `Ø6 × ${(PCB_BOT - FLOOR - 4).toFixed(1)} + Ø2.4 pin`, 0.2, 'Glue onto the steel ballast where the shell posts cannot reach; the pin locates the PCB.'],
+  ['P26', 'PCB rests on the steel', 6, 'PETG', '#1b1c1e', 'Black', `Ø6 × ${(PCB_BOT - FLOOR - 4).toFixed(1)} + Ø2.4 pin`, 0.2, 'Glue onto the back steel plate where the shell posts cannot reach; the pin locates the PCB.'],
 ];
 // [id, item, qty, notes, ≈ US$ for the quantity, buy link, store, link is a search?]
 // Prices checked November 2026 at single-unit / small-pack prices; they move, so check before ordering.
@@ -451,14 +451,12 @@ const HW = [
   ['H21', 'ON/OFF slide switch C&K OS102011MA1QN1, and one 6 × 6 mm tactile switch', '1 each', 'The slide switch is on the right wall. The tactile switch is the eMMC boot button (nRPIBOOT), pressed with a pin through the floor.', 1.5, 'https://www.digikey.com/en/products/result?keywords=OS102011MA1QN1', 'DigiKey', true],
   ['H22', 'Smoked acrylic window, 2 mm, 94.2 × 41.0 mm, R2 corners', '1', 'Laser cut', 8, 'https://www.ponoko.com/', 'Ponoko'],
   ['H23', '22-pin 0.5 mm FPC connector and a 15-to-22-pin display cable', '1 each', 'Display link on the PCB', 4, 'https://www.digikey.com/en/products/result?keywords=22%20position%200.5mm%20FFC%20connector', 'DigiKey', true],
-  ['H24', 'Fasteners: M3 heat-set inserts, M3 countersunk screws, M2.5 standoffs and screws', '1 kit', '9 M3 inserts and 9 M3×16 countersunk (frame), 12 M3×5 countersunk (steel), 4 M2.5 × 4 mm SMT standoffs and 4 M2.5×4 (CM5), 2 M7 nuts per knob kit', 12, 'https://www.amazon.com/s?k=M3+heat+set+insert+kit+with+countersunk+screws', 'Amazon', true],
+  ['H24', 'Fasteners: M3 heat-set inserts, M3 countersunk screws, M2.5 standoffs and screws', '1 kit', '10 M3 inserts (8 frame, 2 seam joiner), 8 M3×16 countersunk (frame), 2 M3×6 countersunk (seam joiner), 4 M3×5 countersunk (steel), 4 M2.5 × 4 mm SMT standoffs and 4 M2.5×4 (CM5)', 12, 'https://www.amazon.com/s?k=M3+heat+set+insert+kit+with+countersunk+screws', 'Amazon', true],
   ['H25', 'Wiring: 30 AWG silicone wire, JST-SH 1.0 mm leads (10-, 5- and 2-pin), Kapton tape', '1 kit', 'All the internal leads shown in the model', 12, 'https://www.amazon.com/s?k=30awg+silicone+wire+jst+sh+1.0+pre-crimped', 'Amazon', true],
   ['H27', 'Amphenol 10164227-1004A1RLF 100-pin receptacle (4.0 mm stack)', '2', 'The CM5 plugs into these under the PCB. The 4 mm stack leaves 2.5 mm under the module for the encoder pins and sockets above it.', 6, 'https://www.digikey.com/en/products/result?keywords=10164227-1004A1RLF', 'DigiKey', true],
-  ['H28', 'Steel ballast, front bar: 4 mm S235, 166 × 16 mm, 6 × M3 tapped', '1', 'About 83 g. Laser cut, then tap M3. Spans the seam, so it also ties the two shell halves together.', 12, 'https://sendcutsend.com/', 'SendCutSend'],
-  ['H29', 'Steel ballast, back plate: 4 mm S235, 82 × 34 mm, 4 × M3 tapped', '1', 'About 87 g. Order with H28.', 8, 'https://sendcutsend.com/', 'SendCutSend'],
-  ['H34', 'Steel ballast, left block: 4 mm S235, 52 × 19 mm, 2 × M3 tapped', '1', 'About 31 g. Brings the centre of mass back to the middle (the CM5 and the right frame are heavier).', 5, 'https://sendcutsend.com/', 'SendCutSend'],
+  ['H29', 'Steel ballast, back plate: 4 mm S235, 82 × 34 mm, 4 × M3 tapped', '1', 'About 87 g. Spans the seam, with two screws in each half, so it also ties the halves together at the back.', 8, 'https://sendcutsend.com/', 'SendCutSend'],
   ['H30', 'Power: TI BQ25895 charger with 5.1 V boost, 1 µH XAL4020 inductor, MAX17048 fuel gauge, TPS22918 load switch', '1 set', 'Charges the cells from USB-C (up to 3 A), boosts them to 5.1 V for the CM5, reports the charge level over I²C. The ON/OFF switch drives the load switch, so it charges even when off. Assembled on the PCB.', 6, 'https://www.lcsc.com/search?q=BQ25895RTWR', 'LCSC', true],
-  ['H31', 'LiPo pouch cells 505060, 3.7 V 2000 mAh with protection board and JST-PH 2.0 lead, plus 2 JST-PH side-entry headers', '2 cells', 'In parallel: 4000 mAh, 14.8 Wh, about 2 hours of playing with the screen on. Pick cells that are 5.0 mm thick or less.', 16, 'https://www.amazon.com/s?k=505060+2000mah+lipo+jst+ph', 'Amazon', true],
+  ['H31', 'LiPo pouch cells 505060, 3.7 V 2000 mAh (7.4 Wh) with protection board, 5.0 mm thick or less', '5 cells', 'Wired in parallel: 10 000 mAh, 37 Wh, about 6 hours of playing (4.5 h flat out, 7 h+ with the screen dimmed). Buy all five from the same batch and charge them to the same voltage before soldering them to BT1–BT5. Under 100 Wh, so fine to fly with.', 38, 'https://www.amazon.com/s?k=505060+2000mah+lipo', 'Amazon', true],
   ['H32', 'Knowles SPH8878LR5H-1 bottom-port MEMS microphone', '1', 'On the underside of the VU + mic strip, under the 4 mic holes; foam gasket between the strip and the frame.', 1.5, 'https://www.digikey.com/en/products/result?keywords=SPH8878LR5H-1', 'DigiKey', true],
   ['H33', 'Foam: 2 mm Poron sheet, 2 mm PE foam sheet, 0.5 mm Poron tape', '1 each', 'Plate foam (cuts the key clack and plate ping), floor foam (damps the case), pads on the cells, the speaker and mic gaskets and the display ring. Cut with a knife from the outlines in the model.', 14, 'https://www.amazon.com/s?k=poron+foam+sheet+2mm', 'Amazon', true],
 ];
@@ -715,17 +713,18 @@ function drawKeyLegend(key, part = 'ring') {
 const OUT = { x0: -W / 2, x1: W / 2, z0: -D / 2, z1: D / 2, r: R_CASE };
 const CM5 = { x: 113, z: -38 };   // Compute Module 5, under the knob pods (the only socket-free area large enough)
 // Layout of the parts under the PCB, the same numbers as the Blender model (html z = −Blender y)
-const BAT = { w: 60, d: 50, t: 5, z0: FLOOR - 0.5, cells: [[-121, 34.5, -1], [121, 34.5, 1]] };   // two LiPo 505060 cells, tab end toward the middle
-const STEEL = [{ x0: -83, x1: 83, z0: 40, z1: 56, id: 'H28' }, { x0: -4, x1: 78, z0: -56, z1: -22, id: 'H29' }, { x0: -79, x1: -27, z0: 17, z1: 36, id: 'H34' }];
+const BAT = { w: 60, d: 50, t: 5, z0: FLOOR - 0.5, cells: [[-136, 33.5, -1], [-68, 33.5, 1], [0, 33.5, 1], [68, 33.5, 1], [136, 33.5, 1]] };   // five LiPo 505060 cells in a row; the tab end faces −side
+const GAPS = [-102, -34, 34, 102];          // 7.2 mm between the pockets: posts, front frame bosses, battery leads and the seam
+const STEEL = [{ x0: -4, x1: 78, z0: -56, z1: -22, id: 'H29' }];   // the cells carry the front weight; one steel plate at the back, across the seam
 const STEEL_T = 4;
 const JACKS = [['OUT', 0], ['IN', -12]];            // 3.5 mm stereo jacks on the left wall (z)
-const SWITCH_Z = 24, USBC_X = 60, CHG_LED_X = 69;   // ON/OFF slide switch on the right wall; USB-C and charge light on the back wall
+const SWITCH_Z = 0, USBC_X = 60, CHG_LED_X = 69;   // ON/OFF slide switch on the right wall; USB-C and charge light on the back wall
 const RP = { x: 22, z: 28.8 }, CODEC = { x: -129, z: 6 }, PMIC = { x: 40, z: -23 };
 const SOC = { x: 117.49, z: -41.03 };               // heat spreader centre, under the CM5 chip
 const MIC = { x: 165.08, z: -56.15 };
-const FRAME_SCREWS = [[-125, -61.14], [-3, -61.14], [39.5, -61.14], [159, -61.14], [-86, 61.14], [-45, 61.14], [35, 61.14], [155.5, 61.14], [163, -2]];
+const FRAME_SCREWS = [[-125, -61.14], [-3, -61.14], [39.5, -61.14], [159, -61.14], [-102, 61.14], [-34, 61.14], [102, 61.14], [163, -14]];
 // PCB supports: printed posts on the floor, or printed rests standing on the steel ballast
-const BOSSES = [[-64, 52], [-32, 52], [0, 52], [32, 52], [64, 52], [84, 36], [-64, 24], [-32, 24], [0, 24], [32, 18.5], [64, 24], [84.5, 11.5], [-128, -9.5], [0.5, -8.5], [26.5, -9.5], [64, -9.5], [96, -9.5], [122, -9.5], [5, -26], [31.5, -32.5], [64, -30], [0, -52], [32, -52], [63, -52]];
+const BOSSES = [[-102, 52], [-102, 21], [-34, 52], [-34, 23.5], [102, 52], [102, 23.5], [-128, -9.5], [0, -17], [27, -13.5], [64, -9.5], [96, -9.5], [122, -9.5], [15, -30], [30.5, -39.5], [64, -30], [0, -52], [43.5, -52], [63, -52]];
 const onSteel = (x, z) => STEEL.some(s => x > s.x0 + 3 && x < s.x1 - 3 && z > s.z0 + 3 && z < s.z1 - 3);
 const INNER = { x0: -W / 2 + WALL, x1: W / 2 - WALL, z0: -D / 2 + WALL, z1: D / 2 - WALL, r: R_CASE - WALL };
 const portHoles = [];   // [wall, a, y, w, h, r] for the dark port openings
@@ -751,18 +750,19 @@ function buildCase() {
     const g = new THREE.Group(); g.add(b, pin);
     reg(g, st ? 'P26' : (x < SEAM ? 'P01' : 'P02'), st ? L.elec : L.bottom);
   });
-  // battery pockets with corner ribs, so the cells cannot slide
-  BAT.cells.forEach(([cx, cz]) => {
-    const pk = mesh(new THREE.BoxGeometry(BAT.w + 0.8, 0.05, BAT.d + 0.8), MAT.caseIn); pk.position.set(cx, FLOOR - 1.0 + 0.025, cz); reg(pk, cx < SEAM ? 'P01' : 'P02', L.bottom);
-    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(([a, b]) => {
-      const x = cx + a * (BAT.w / 2 + 1.0), z = cz + b * (BAT.d / 2 + 1.0);
-      const r1 = mesh(new THREE.BoxGeometry(9.2, 3.5, 1.2), MAT.caseIn); r1.position.set(x - a * 3.4, FLOOR + 1.75, z);
-      const r2 = mesh(new THREE.BoxGeometry(1.2, 3.5, 9.2), MAT.caseIn); r2.position.set(x, FLOOR + 1.75, z - b * 3.4);
-      const g = new THREE.Group(); g.add(r1, r2); reg(g, cx < SEAM ? 'P01' : 'P02', L.bottom);
-    });
+  // battery pockets (1 mm deep) and 1.2 mm fences along the front and back of each cell; posts in the gaps hold them sideways
+  const carX0 = tc(SCR).x - 54.9;
+  BAT.cells.forEach(([cx, cz], i) => {
+    const owner = cx < SEAM ? 'P01' : 'P02';
+    const pk = mesh(new THREE.BoxGeometry(BAT.w + 0.8, 0.05, BAT.d + 0.8), MAT.caseIn); pk.position.set(cx, FLOOR - 1.0 + 0.025, cz); reg(pk, owner, L.bottom);
+    const x0 = cx - BAT.w / 2 - 0.4, x1 = cx + BAT.w / 2 + 0.4, zf = cz + BAT.d / 2 + 0.4 + 0.6, zb = cz - BAT.d / 2 - 0.4 - 0.6;
+    const fence = (a, b, z) => { if (b - a < 1) return; const f = mesh(new THREE.BoxGeometry(b - a, 4.5, 1.2), MAT.caseIn); f.position.set((a + b) / 2, FLOOR + 2.25, z); reg(f, owner, L.bottom); };
+    fence(x0 + 3, x1 - 3, zf);
+    fence(x0 + 3, Math.min(x1 - 3, carX0 - 0.6), zb); fence(Math.max(x0 + 3, CAR_X1 + 0.6), x1 - 3, zb);
+    if (i === 0 || i === BAT.cells.length - 1) { const e = mesh(new THREE.BoxGeometry(1.2, 4.5, BAT.d - 8), MAT.caseIn); e.position.set(i ? x1 + 0.6 : x0 - 0.6, FLOOR + 2.25, cz); reg(e, owner, L.bottom); }
   });
-  // Seam joiners
-  { const j = mesh(new RoundedBoxGeometry(19.5, 2.4, 12, 2, 0.4), MAT.printBlack); j.position.set(SEAM - 0.75, FLOOR + 1.2, 22); reg(j, 'P05', L.bottom); }   // the front steel bar also ties the halves
+  // Seam joiner behind the cells (one M3 from below on each side); the back steel plate and the steel switch plate also span the seam
+  { const j = mesh(new RoundedBoxGeometry(25.2, 3.0, 11.2, 2, 0.4), MAT.printBlack); j.position.set(SEAM, FLOOR + 1.5, -4); reg(j, 'P05', L.bottom); }
   // Cooling grille: slots in front of and beside the heat spreader; the 2.5 mm feet keep an air gap under the case
   for (let i = 0; i < 14; i++) { const v = mesh(new RoundedBoxGeometry(1.6, 0.3, 7, 1, 0.7), MAT.hole); v.position.set(95 + i * 3.6, -0.16, -14.5); reg(v, 'P02', L.bottom); }
   for (let i = 0; i < 6; i++) { const v = mesh(new RoundedBoxGeometry(14, 0.3, 1.6, 1, 0.7), MAT.hole); v.position.set(157, -0.16, -(24 + i * 3.6)); reg(v, 'P02', L.bottom); }
@@ -916,14 +916,14 @@ function buildInternals() {
     [[-3.5, 0, 4, 4, 0.8, MAT.chip], [3, -0.5, 4, 4, 2.1, MAT.metal], [-3.5, -4, 2, 2, 0.6, MAT.chip]].forEach(([a, b, w, d, h, m]) => { const c = mesh(new THREE.BoxGeometry(w, h, d), m); c.position.set(PMIC.x + a, PCB_BOT - h / 2, PMIC.z + b); g.add(c); });
     reg(g, 'H30', L.pcb); }
 
-  // Two LiPo pouch cells (H31), 505060: 5 × 50 × 60 mm, 2000 mAh each, on foam in 1 mm floor pockets
+  // Five LiPo pouch cells (H31), 505060: 5 × 50 × 60 mm, 2000 mAh each, on foam in 1 mm floor pockets
   BAT.cells.forEach(([cx, cz, sd]) => {
     const g = new THREE.Group(), md = -sd;
     const pouch = mesh(new RoundedBoxGeometry(BAT.w - 5, BAT.t, BAT.d, 2, 1.0), MAT.lipo); pouch.position.set(cx - md * 2.5, BAT.z0 + BAT.t / 2, cz); g.add(pouch);
     const tab = mesh(new THREE.BoxGeometry(5, BAT.t - 1.6, BAT.d - 4), MAT.kapton); tab.position.set(cx + md * 27.5, BAT.z0 + BAT.t / 2, cz); g.add(tab);
     reg(g, 'H31', L.elec);
   });
-  // Steel ballast (H28, H29, H34): 4 mm S235, tapped M3 and screwed from under the case; 1.15 kg in all, balanced on the middle
+  // Steel ballast (H29): 4 mm S235 at the back, tapped M3 and screwed from under the case, across the seam
   STEEL.forEach(st => { const b = mesh(new RoundedBoxGeometry(st.x1 - st.x0, STEEL_T, st.z1 - st.z0, 2, 0.4), MAT.steel); b.position.set((st.x0 + st.x1) / 2, FLOOR + STEEL_T / 2, (st.z0 + st.z1) / 2); reg(b, st.id, L.elec); });
 
   // Slim speaker (H18, 4.8 mm thick) in its ring, right under the grille, with a foam gasket to the PCB
@@ -955,7 +955,7 @@ function buildInternals() {
 /* ───────────────────────── Tiles, keycaps and knobs ───────────────────────── */
 const LEDPIPES = [];
 // Round stem socket under every keycap, with the "+" hole that presses onto the switch's cross stem
-const SOCKET_GEO = (() => { const s = new THREE.Shape(); s.absarc(0, 0, 2.75, 0, 2 * PI, false); s.holes.push(crossHole(0, 0, 4.1, 1.32)); return ext(s, CAP_BOT - 1.6, 1.6, 0, 24); })();
+const SOCKET_GEO = (() => { const s = new THREE.Shape(); s.absarc(0, 0, 2.75, 0, 2 * PI, false); s.holes.push(crossHole(0, 0, 4.1, 1.32)); return ext(s, CAP_BOT - 2.8, 3.0, 0, 24); })();   // fused 0.2 mm into the cap's flat underside
 const capSocket = (ox = 0) => { const m = mesh(SOCKET_GEO, MAT.key); m.position.x = ox; return m; };
 function buildTop() {
   // Function keycaps with legends (P13 / P14) and light pipes (P19)
@@ -963,6 +963,7 @@ function buildTop() {
     const c = tc(k), w = c.w - GAP, d = c.d - GAP, g = new THREE.Group();
     const kk = { ...k, w: k.w - GAP / S, h: k.h - GAP / S };
     g.add(mesh(slab(0, 0, w, d, 7 * S, CAP_BOT, CAP_H, 0.5, [b => circleHole(0, 0, RING_R + b)]), MAT.key), capSocket());
+    { const f = mesh(new THREE.CylinderGeometry(RING_R + 0.05, RING_R + 0.05, CAP_H - RING_DEPTH, 48), MAT.key); f.position.y = CAP_BOT + (CAP_H - RING_DEPTH) / 2; g.add(f); }   // solid under the dish: flat underside
     const dish = dishMesh(w, d, kk.w, kk.h, drawKeyLegend(kk, 'dish'), RING_R + 0.05, RING_DEPTH);
     dish.position.y = CAP_TOP; g.add(dish);
     const dc = decal(w, d, kk.w, kk.h, drawKeyLegend(kk, 'ring'));
@@ -980,7 +981,7 @@ function buildTop() {
     const pw = 39 * S, pd = 112 * S, pz = (9 - 11) / 2 * S;  // inset 9/13/11 px in the app
     const g = new THREE.Group();
     g.add(mesh(slab(0, 0, w, d, 7 * S, CAP_BOT, CAP_H, 0.5, [b => rrHole(0, pz, pw + 2 * b, pd + 2 * b, pw / 2 + b)]), MAT.key));
-    g.add(mesh(slab(0, pz, pw + 0.2, pd + 0.2, pw / 2, CAP_BOT + 0.4, CAP_H - 1.0, 0), MAT.key), capSocket());
+    g.add(mesh(slab(0, pz, pw + 0.2, pd + 0.2, pw / 2, CAP_BOT, CAP_H - 0.6, 0), MAT.key), capSocket());   // groove floor solid to the underside
     g.position.set(c.x, 0, c.z);
     reg(g, 'P15', L.caps);
   });
@@ -988,7 +989,8 @@ function buildTop() {
   BKEYS.forEach(k => {
     const c = tc(k), w = c.w - GAP, d = c.d - GAP, ox = X(k.cx) - c.x, rr = 20.5 * S;
     const g = new THREE.Group();
-    g.add(mesh(slab(0, 0, w, d, 7 * S, CAP_BOT, CAP_H, 0.5, [b => circleHole(ox, 0, rr + 0.15 + b)]), MAT.key), capSocket(ox));
+    g.add(mesh(slab(0, 0, w, d, 7 * S, CAP_BOT, CAP_H, 0.5, [b => circleHole(ox, 0, rr + 0.3 + b)]), MAT.key), capSocket(ox));
+    { const f = mesh(new THREE.CylinderGeometry(rr + 0.4, rr + 0.4, 0.6, 48), MAT.key); f.position.set(ox, CAP_BOT + 0.3, 0); g.add(f); }   // 0.6 mm floor the black dish sits on
     g.position.set(c.x, 0, c.z);
     reg(g, w > 20 ? 'P16' : 'P17', L.caps);
     // concave black dish, the same curve as the ring centres on the function keys
@@ -1100,8 +1102,8 @@ function buildFeet() {
    Drawn in world millimetres onto a canvas: soldermask, copper traces routed at 45°, pads, drills,
    silkscreen and the cut-outs for the screen and the speaker. The bottom face has the GND pour. */
 const PCBR = { x0: OPEN.x0 + 1, x1: OPEN.x1 - 1, z0: OPEN.z0 + 1, z1: OPEN.z1 - 1 };
-const J_DSI_Z = 12;
-const J = { aud: [-148.5, -12.1], sw: [141.5, -12.1], vu: [152.4, -38.4], bat: [[-85.5, 22.75], [85.5, 17.75]], boot: [84, -13], u3: [RP.x + 12, RP.z - 7], u4: [PMIC.x, PMIC.z] };
+const J_DSI_Z = 3.83, J_DSI_X = 8.36, FFC_Z = -6.17, CAR_X1 = -7.64;   // display connector J3 and the FFC lane out of the carrier's right side
+const J = { aud: [-148.5, -12.1], sw: [141.5, -12.1], vu: [152.4, -38.4], bat: [[-103.5, 33.5], [-100.5, 33.5], [-34, 33.5], [35.5, 33.5], [102, 33.5]], boot: [84, -13], u3: [RP.x + 12, RP.z - 7], u4: [PMIC.x, PMIC.z] };
 const GPIN = { 0: 1, 1: 2, 2: 4, 3: 5, 4: 6, 5: 7, 6: 9, 7: 10, 8: 11, 9: 12, 10: 14, 11: 15, 12: 16, 13: 17, 14: 19, 15: 20, 16: 21, 17: 22, 18: 24, 19: 25, 20: 26, 21: 27, 22: 29, 26: 31, 27: 32, 28: 34 };
 // RP2040 GPIO n → its pad on the QFN-56 (14 pads per side, 0.4 mm pitch), fanned out 1.2 mm from the body
 const gp = n => { const k = GPIN[n] - 1, side = Math.floor(k / 10) % 4, t = (k % 10) * 0.6 - 2.7; return [[RP.x - 4.7, RP.z + t], [RP.x + t, RP.z + 4.7], [RP.x + 4.7, RP.z - t], [RP.x - t, RP.z - 4.7]][side]; };
@@ -1188,7 +1190,7 @@ function pcbArt(bottom) {
     [-14, 14].forEach(b => { for (let j = 0; j < 50; j++) { const x = CM5.x - 9.8 + j * 0.4; rect(x, CM5.z + b - 1.1, 0.22, 0.8, PAD); rect(x, CM5.z + b + 1.1, 0.22, 0.8, PAD); } box(CM5.x, CM5.z + b, 22, 4, 0.15); text(b < 0 ? 'J10' : 'J11', CM5.x - 13.5, CM5.z + b, 1, 'right'); });
     [[-24.5, -16.5], [24.5, -16.5], [-24.5, 16.5], [24.5, 16.5]].forEach(([a, b]) => th(CM5.x + a, CM5.z + b, 1.8, 1.2));
     // display link (DSI bus) to J3
-    const jd = [tc(SCR).x + 12, J_DSI_Z];
+    const jd = [J_DSI_X, J_DSI_Z];
     for (let j = 0; j < 10; j++) trace([[CM5.x - 9.8 + j * 2, CM5.z - 15.5], [CM5.x - 9.8 + j * 2, CM5.z - 24 + j * 0.7], [jd[0] - 5 + j * 1.1, CM5.z - 24 + j * 0.7], [jd[0] - 5 + j * 1.1, jd[1] - 1]], 0.22);
     box(jd[0], jd[1], 13, 3.5); for (let j = 0; j < 22; j++) rect(jd[0] - 5.25 + j * 0.5, jd[1], 0.28, 1.3, PAD); text('J3  DSI', jd[0], jd[1] + 3.3, 1.4);
     // USB-C ports, 5 V power stage
@@ -1196,14 +1198,14 @@ function pcbArt(bottom) {
       box(x, PCBR.z0 + 3.7, 8.9, 7.3); for (let j = 0; j < 12; j++) rect(x - 2.75 + j * 0.5, PCBR.z0 + 7.6, 0.3, 1.1, PAD);
       [-4.3, 4.3].forEach(a => { rect(x + a, PCBR.z0 + 2, 1.0, 2.2, PAD); rect(x + a, PCBR.z0 + 5.6, 1.0, 1.8, PAD); }); text(t, x, PCBR.z0 + 10.2, 1.2);
     });
-    // power: USB-C → BQ25895 charger / boost → 5 V rail; both cells in parallel on J9 / J10; MAX17048 fuel gauge on I²C
+    // power: USB-C → BQ25895 charger / boost → 5 V rail; five cells in parallel on pads BT1–BT5; MAX17048 fuel gauge on I²C
     trace([[USBC_X, PCBR.z0 + 8.5], [J.u4[0] + 3, J.u4[1] - 6]], 1.2); trace([[J.u4[0] + 6, J.u4[1]], [CM5.x - 20, CM5.z + 22]], 1.2);
     J.bat.forEach(b => trace([[J.u4[0] - 6, J.u4[1] + 2], b], 1.0));
     box(J.u4[0] - 3.5, J.u4[1], 4.4, 4.4); for (let j = 0; j < 6; j++) { rect(J.u4[0] - 5.8, J.u4[1] - 1.25 + j * 0.5, 0.6, 0.25, PAD); rect(J.u4[0] - 1.2, J.u4[1] - 1.25 + j * 0.5, 0.6, 0.25, PAD); }
     rect(J.u4[0] + 3, J.u4[1] - 0.5, 4.2, 4.2, PAD); box(J.u4[0] + 3, J.u4[1] - 0.5, 4.4, 4.4); box(J.u4[0] - 3.5, J.u4[1] - 4, 2.2, 2.2);
     for (let j = 0; j < 8; j++) { rect(J.u4[0] - 7 + j * 1.9, J.u4[1] + 4.6, 0.6, 0.8, PAD); rect(J.u4[0] - 7 + j * 1.9, J.u4[1] + 5.4, 0.6, 0.8, PAD); }
     text('U4 BQ25895 · L1 · U5 MAX17048', J.u4[0], J.u4[1] - 7, 1.1);
-    J.bat.forEach((b, i) => { box(b[0], b[1], 6, 4.5); [-1, 1].forEach(a => rect(b[0] + a, b[1], 1.0, 2.6, PAD)); text('J' + (9 + i) + ' BATT ' + (i ? 'R' : 'L'), b[0], b[1] - 3.6, 1.1); });
+    J.bat.forEach((b, i) => { [-1, 1].forEach(a => rect(b[0], b[1] + a, 1.6, 1.4, PAD)); text('BT' + (i + 1), b[0], b[1] - 3.0, 1.0); });
     trace([[CM5.x - 27.5, CM5.z - 6], J.sw], 0.3); box(J.sw[0], J.sw[1], 4, 4.25); [-0.5, 0.5].forEach(a => rect(J.sw[0] + a, J.sw[1], 0.6, 1.6, PAD)); text('J7  ON/OFF', J.sw[0], J.sw[1] - 3.2, 1.1);
     // charge light beside the USB-C port
     rect(CHG_LED_X, PCBR.z0 + 1.6, 1.6, 0.8, PAD); text('LED35 CHG', CHG_LED_X, PCBR.z0 + 3.6, 0.9);
@@ -1272,13 +1274,14 @@ function wallLabel(txt, x, y, z, rotY, wmm = 12, hmm = 3) {
 }
 function buildDetails() {
   pcbPlanes();
-  const sc = tc(SCR), dz = -D / 2 + WALL + 0.6 + 67.2 / 2, jd = [sc.x + 12, J_DSI_Z];
+  const sc = tc(SCR), dz = -D / 2 + WALL + 0.6 + 67.2 / 2, jd = [J_DSI_X, J_DSI_Z];
   const W1 = ['#d63a2f', '#202124', '#e8c13a', '#2fb673', '#3f7fe8'];
 
   // Display flat-flex cable (H23) from the panel to J3 under the PCB
-  const fl = jd[1] - (dz + 33.6);
-  const f1 = mesh(new THREE.BoxGeometry(16, 0.12, fl + 1), MAT.ffc); f1.position.set(jd[0], 2.45, dz + 33.6 + fl / 2); reg(f1, 'H23', L.disp);
-  const f2 = mesh(new THREE.BoxGeometry(16, PCB_BOT - 1.2 - 2.45, 0.12), MAT.ffc); f2.position.set(jd[0], (PCB_BOT - 1.2 + 2.45) / 2, jd[1] + 0.5); reg(f2, 'H23', L.disp);
+  // runs under the panel from its ZIF, out of a slot in the carrier's right side, then up into J3
+  { const f1 = mesh(new THREE.BoxGeometry(CAR_X1 + 2 - sc.x, 0.15, 12), MAT.ffc); f1.position.set((sc.x + CAR_X1 + 2) / 2, 3.6, FFC_Z); reg(f1, 'H23', L.disp);
+    const f2 = mesh(new THREE.BoxGeometry(jd[0] - CAR_X1 - 2, 0.15, 12), MAT.ffc); f2.position.set((jd[0] + CAR_X1 + 2) / 2, 5.0, FFC_Z); reg(f2, 'H23', L.disp);
+    const f3 = mesh(new THREE.BoxGeometry(12, 0.15, Math.hypot(jd[1] - FFC_Z, PCB_BOT - 1 - 5)), MAT.ffc); f3.position.set(jd[0], (PCB_BOT - 1 + 5) / 2, (jd[1] + FFC_Z) / 2); f3.rotation.x = -Math.atan2(PCB_BOT - 1 - 5, jd[1] - FFC_Z); reg(f3, 'H23', L.disp); }
   block(jd[0], PCB_BOT - 0.6, jd[1], 13, 1.2, 3.5, 0x1b1c1e, 'H23', L.pcb);
 
   // J6 → the two jacks and the speaker. Leads leave the plug toward the front, the speaker pair runs up the corridor by the display
@@ -1293,10 +1296,11 @@ function buildDetails() {
   const gasket = mesh(ext((() => { const s = new THREE.Shape(); s.absarc(tc(SPK).x, -tc(SPK).z, 20, 0, 2 * PI, false); s.holes.push(circleHole(tc(SPK).x, tc(SPK).z, 18.2)); return s; })(), PCB_BOT - 0.3, 0.3, 0, 40), MAT.foam);
   reg(gasket, 'H33', L.elec);
 
-  // Battery leads (26 AWG) from each cell's tab end to its JST-PH header J9 / J10
+  // Battery leads (26 AWG) from each cell's tab end into its gap, straight up to the solder pads BT1–BT5 under the PCB
   BAT.cells.forEach(([cx, cz, sd], i) => { const md = -sd, tx = cx + md * BAT.w / 2, [bx, bz] = J.bat[i], ty = BAT.z0 + BAT.t / 2;
-    block(bx, PCB_BOT - 2.3, bz, 6, 4.6, 4.5, 0xf2efe6, 'H31', L.pcb); block(bx, PCB_BOT - 2.35, bz + 4.5, 5.8, 4.3, 4.5, 0xf2efe6, 'H31');
-    harness([[tx - md * 0.5, ty, cz], [tx + md * 1.5, ty + 0.3, cz], [tx + md * 2.5, 5.0, cz - 3], [bx, 5.8, bz + 6.75 + 2], [bx, PCB_BOT - 2.3, bz + 6.75]], ['#d63a2f', '#202124'], 'H31', L.elec, 0.55, [md, 0, 0]); });
+    [[-1, '#d63a2f'], [1, '#202124']].forEach(([o, col]) => {
+      wire([[tx - md * 0.5, ty, cz - o], [tx + md * 0.8, ty, cz - o], [bx, ty + 0.4, cz - o], [bx, 6.2, bz - o], [bx, PCB_BOT - 1.6, bz - o], [bx, PCB_BOT - 0.6, bz - o]], col, 'H31', L.elec, 0.55);
+      block(bx, PCB_BOT - 0.02, bz - o, 1.6, 0.04, 1.4, 0xd6aa52, 'H14', L.pcb); }); });
 
   // ON/OFF switch → J7
   block(J.sw[0], PCB_BOT - 1.475, J.sw[1], 4, 2.95, 4.25, 0xf2efe6, 'H25', L.pcb);
@@ -1317,7 +1321,7 @@ function buildDetails() {
   wire([[88.1, 1.9, -27], [86.6, 2.8, -27.5], [84, 2.7, -31], [84, 2.7, -50], [85.5, 2.7, -58.6], [92, 2.9, -59.8], [99, 4.0, -60.2], [100.8, 4.6, -D / 2 + WALL + 0.8]], '#8c8e90', 'H04', L.elec, 0.565);
   block(88.1, 1.98, -27, 2, 1.05, 2, 0xc7c9cc, 'H04');
 
-  // Frame screws: 9 × M3 from under the case, through the plate edge, into inserts in the top band
+  // Frame screws: 8 × M3 from under the case, through the plate edge, into inserts in the top band
   FRAME_SCREWS.forEach(([x, z]) => {
     const half = x < SEAM, outside = x > OPEN.x1 + 5.1;
     const b = mesh(new THREE.CylinderGeometry(2.8, 2.8, SPLIT - FLOOR, 16), MAT.caseIn); b.position.set(x, FLOOR + (SPLIT - FLOOR) / 2, z); reg(b, half ? 'P01' : 'P02', L.bottom);
@@ -1328,8 +1332,8 @@ function buildDetails() {
     const head = mesh(new THREE.CylinderGeometry(2.75, 1.5, 1.65, 20), MAT.metal); head.position.set(x, 0.825, z); reg(head, 'H24', L.bottom);
     const hex = mesh(new THREE.CylinderGeometry(1.0, 1.0, 0.3, 6), MAT.hole); hex.position.set(x, -0.08, z); reg(hex, 'H24', L.bottom);
   });
-  // M3 × 5 countersunk screws holding the steel from under the case
-  [[-75, 48], [-45, 48], [-25, 48], [-5, 48], [35, 48], [75, 48], [0, -26], [0, -52], [74, -26], [74, -52], [-73, 25.5], [-33, 25.5]].forEach(([x, z]) => {
+  // M3 countersunk screws from under the case: the back steel (×5) and the seam joiner (×6)
+  [[0, -26], [0, -52], [74, -26], [74, -52], [SEAM - 8, 4], [SEAM + 8, 4]].forEach(([x, z]) => {
     const head = mesh(new THREE.CylinderGeometry(2.75, 1.5, 1.65, 20), MAT.metal); head.position.set(x, 0.825, z); reg(head, 'H24', L.bottom);
     const hex = mesh(new THREE.CylinderGeometry(1.0, 1.0, 0.3, 6), MAT.hole); hex.position.set(x, -0.08, z); reg(hex, 'H24', L.bottom);
   });
@@ -1348,7 +1352,7 @@ function buildDetails() {
     { const v = tc(VOL); pf.holes.push(rrHole(v.x, v.z, 10.8, 12, 0.5)); }
     pf.holes.push(rrHole(sc.x, sc.z, sc.w + 1, sc.d + 1, 2)); pf.holes.push(circleHole(tc(SPK).x, tc(SPK).z, 18.5));
     reg(mesh(ext(pf, PCB_TOP, 2.15, 0, 6), MAT.foam), 'H33', L.sw); }
-  { const ff = new THREE.Shape(); [[-86, 38], [82, 38], [82, -20], [-6, -20], [-6, 17], [-86, 17]].forEach(([x, z], i) => i ? ff.lineTo(x, -z) : ff.moveTo(x, -z));
+  { const ff = new THREE.Shape(); [[-4, 6], [82, 6], [82, -20], [-4, -20]].forEach(([x, z], i) => i ? ff.lineTo(x, -z) : ff.moveTo(x, -z));
     const ffm = mesh(ext(ff, FLOOR, 2.0, 0), MAT.foam); reg(ffm, 'H33', L.elec); }
   BAT.cells.forEach(([cx, cz, sd]) => { const o = mesh(new THREE.BoxGeometry(BAT.w - 10, 0.5, BAT.d - 6), MAT.foam); o.position.set(cx + sd * 3, BAT.z0 + BAT.t + 0.25, cz); reg(o, 'H33', L.elec); });
   [-24, 24].forEach(b => block(sc.x, DISP_TOP - 3.2, dz + b, 96, 0.5, 3.6, 0x2a2b2d, 'H33', L.disp));
@@ -1592,8 +1596,8 @@ document.getElementById('t-print').innerHTML = `
   <div class="spec"><div class="k">Height: case / feet to keytops</div><div class="v">${FRAME_TOP.toFixed(1)} / ${(CAP_TOP + FEET).toFixed(1)} mm</div></div>
   <div class="spec"><div class="k">Key pitch</div><div class="v">19.05 mm</div></div>
   <div class="spec"><div class="k">Printed parts</div><div class="v">${printCount} pieces · ≈ ${Math.round(grams)} g</div></div>
-  <div class="spec"><div class="k">Weight, built</div><div class="v">≈ 1.15 kg, balanced on the middle</div></div>
-  <div class="spec"><div class="k">Battery</div><div class="v">2 × 2000 mAh LiPo · ≈ 2 h</div></div>
+  <div class="spec"><div class="k">Weight, built</div><div class="v">≈ 1.14 kg, balanced on the middle</div></div>
+  <div class="spec"><div class="k">Battery</div><div class="v">5 × 2000 mAh LiPo, 37 Wh · ≈ 6 h</div></div>
 </div>
 <p class="note">Every size comes from the desktop app's own layout: one key pitch (67 px) is 19.05 mm, so 1 px = ${S.toFixed(4)} mm. Each cap is 0.5 mm smaller than its tile, so the black plate shows between the keys like the app's thin black lines. Click a row to light the part up in the model.</p>
 <h2>Parts to 3D print</h2>
@@ -1622,8 +1626,8 @@ ${HW.map(h => `<tr data-part="${h[0]}"><td class="id">${h[0]}</td><td>${esc(h[1]
 <p>WEB-1 is a web page, so the physical instrument runs the real app. A <b>Raspberry Pi Compute Module 5</b>, plugged in under the main PCB, runs <code>index.html</code> in Chromium in kiosk mode, and a small page (<code>hw.html</code>) shows only the app's screen on the 4.3" panel behind the window.</p>
 <p>An <b>RP2040</b> on the main PCB (the Raspberry Pi Pico circuit, without the module) scans the 53 keys and 4 knob pushes as an 8 × 8 diode matrix. The function keys type the same keyboard shortcuts as the desktop app (Z X C V, B N M, 1–8, R, Space…), so they work with no change to WEB-1. The musical keys, the knobs and the volume send short lines over USB serial, which <code>hw.html</code> turns into presses and turns on the app's own controls. The same link sends the key lights and the level meter back to 34 RGB LEDs.</p>
 <p>Sound goes over I²S to a <b>WM8960</b> codec on the PCB. It drives the OUT jack (line or headphones) and, through its own 1 W amplifier, the slim 40 mm speaker under the grille. It also records from the IN jack and from the built-in MEMS microphone under the four dots on the right rail.</p>
-<p><b>Battery:</b> two 2000 mAh LiPo cells in parallel, one under each end of the keyboard. A BQ25895 charges them from the USB-C port and boosts them to 5.1 V for the CM5; a MAX17048 reports the charge level, and a light beside the USB-C port shows charging. The ON/OFF slide switch on the right side cuts power to the CM5 but lets the cells keep charging.</p>
-<p><b>Built to feel solid:</b> 3 mm walls and a 2 mm floor, 24 supports under the PCB, a 1.2 mm steel plate and three 4 mm steel weights screwed to the floor bring it to about 1.15 kg, with the centre of mass within 3 mm of the middle. Poron foam between the PCB and the plate, foam on the floor and gaskets around the speaker, mic, cells and display take out the hollow click.</p>
+<p><b>Battery:</b> five 2000 mAh LiPo cells in parallel (10 000 mAh, 37 Wh) lie in a row under the keys. The synth draws about 5.3 W (CM5 running Chromium 3.5 W, display 0.9 W, LEDs 0.3 W, audio 0.4 W), about 5.8 W from the cells through the boost, so a full charge plays for <b>about 6 hours</b>: about 4.5 h with the CPU flat out, 7 h or more with the screen dimmed. A BQ25895 charges them at up to 3 A from the USB-C port (about 3.5 hours from empty) and boosts them to 5.1 V for the CM5; a MAX17048 reports the charge level, and a light beside the USB-C port shows charging. The ON/OFF slide switch on the right side cuts power to the CM5 but lets the cells keep charging.</p>
+<p><b>Built to feel solid:</b> 3 mm walls and a 2 mm floor. The cells sit in 1 mm floor pockets between 1.2 mm fences, and the posts in the 7.2 mm gaps between them hold them sideways and carry the PCB; 18 supports in all. A 1.2 mm steel switch plate and a 4 mm steel plate at the back bring it to about 1.14 kg, with the centre of mass within 4 mm of the middle. The case halves join at a gap between two cells, tied by the back steel, a seam joiner and the steel plate. Poron foam between the PCB and the plate, foam on the floor and gaskets around the speaker, mic, cells and display take out the hollow click.</p>
 <p>The keys use <b>Kailh Choc v2</b> switches: low-profile like Choc v1, but with the MX-style "+" cross stem, so the printed keycaps press onto a round socket with a cross hole.</p>
 <h2>Fit notes</h2>
 <p class="note"><b>Thin, flush case:</b> the top of the case, the speaker grille, the volume tile, the knob pods and the screen window are all level with the keytops, at ${FRAME_TOP.toFixed(1)} mm (${(CAP_TOP + FEET).toFixed(1)} mm with the feet). A Raspberry Pi 5 build needed about 27 mm of body plus the keys. Everything under the PCB stays below ${SOCK_BOT.toFixed(1)} mm, the underside of the hot-swap sockets: the CM5 on 4 mm connectors, the 5 mm cells on 0.5 mm foam in 1 mm floor pockets (their tops at 6.5 mm), the 4 mm steel weights and a 4.8 mm speaker. The RP2040, codec and charger are chips on the PCB itself.</p>
@@ -1696,14 +1700,14 @@ document.getElementById('t-build').innerHTML = `
 <p class="note">Drag the Explode slider to see these layers come apart in order.</p>
 <ol>
 <li><b>Print</b> parts P01–P26. Melt the 9 M3 heat-set inserts into the underside of the top frame (P03, P04).</li>
-<li><b>Steel and shell:</b> place P01 and P02 together on a flat surface. Lay the three steel weights (H28, H29, H34) on the floor and screw them from below with 12 M3×5 countersunk screws; the front bar spans the seam and locks the halves together. Screw the seam joiner (P05) across the seam behind it. Glue the 13 PCB rests (P26) onto the steel where the model shows them.</li>
-<li><b>In the shell:</b> press the heat spreader into its floor pocket under the CM5 area, thermal pad on top. Put a 0.5 mm foam pad in each battery pocket, then the cells, then a 0.5 mm pad on top. Lay the 2 mm floor foam between the cells. Push the two jacks into their cradles in the left wall and the slide switch into its bracket in the right wall. Speaker in its ring with the gasket on top. Stick the Wi-Fi antenna on the back wall.</li>
+<li><b>Steel and shell:</b> place P01 and P02 together on a flat surface. Screw the back steel plate (H29) across the seam from below with 4 M3×5 countersunk screws, and the seam joiner (P05) with 2 M3×6. Glue the 6 PCB rests (P26) onto the steel where the model shows them.</li>
+<li><b>In the shell:</b> press the heat spreader into its floor pocket under the CM5 area, thermal pad on top. Put a 0.5 mm foam pad in each of the five battery pockets, then the cells with their tab ends toward the gaps, then a 0.5 mm pad on each. Lay the 2 mm floor foam behind the cells. Push the two jacks into their cradles in the left wall and the slide switch into its bracket in the right wall. Speaker in its ring with the gasket on top. Stick the Wi-Fi antenna on the back wall.</li>
 <li><b>Build the PCB</b> (ordered assembled for the RP2040, codec and charger): solder the diodes, the reverse-mount LEDs (lens up through the board) and the hot-swap sockets. Fit the EC11 encoders and the volume pot on top.</li>
 <li><b>Plate foam and switches:</b> lay the 2 mm Poron sheet on the PCB, clip all 53 Choc v2 switches into the steel plate from above, then press the plate onto the PCB through the foam. Solder the 8 switches over the display directly and trim their pins.</li>
 <li><b>Under the PCB:</b> plug the CM5 into its two connectors and screw it down on its standoffs. Clip the U.FL coax on.</li>
 <li><b>Fit the display:</b> put the foam ring in the carrier (P21), then the 4.3" panel, and the screen shroud (P12) and smoked window (H22) from above.</li>
-<li><b>Wire</b> everything as in the Wiring tab: J6 to the jacks and speaker, J7 to the slide switch, J8 to the VU + mic strip, J9 and J10 to the cells, and the display cable to J3.</li>
-<li><b>Close the case:</b> lower the PCB and plate onto the posts and rests, so the CM5 chip lands on the thermal pad and the USB-C port lines up with the back-wall slot. Place the two top-frame halves (P03, P04) over the plate and screw them from below with 9 M3×16.</li>
+<li><b>Wire</b> everything as in the Wiring tab: J6 to the jacks and speaker, J7 to the slide switch, J8 to the VU + mic strip, the five cells' leads soldered to BT1–BT5 (with Kapton over the joints), and the display cable to J3.</li>
+<li><b>Close the case:</b> lower the PCB and plate onto the posts and rests, so the CM5 chip lands on the thermal pad and the USB-C port lines up with the back-wall slot. Place the two top-frame halves (P03, P04) over the plate and screw them from below with 8 M3×16.</li>
 <li><b>Tiles:</b> press the knob pods (P06), the volume tile (P09) and the grille tile (P11) into place, then tighten the encoder and pot nuts inside the dishes.</li>
 <li><b>Caps:</b> glue the light pipes (P19) into the function keycaps and the black dishes (P18) into the black-key caps, flush with the rim, then press all caps onto the switches. Push the knobs (P07, P10) onto the shafts and press in the pointer inlays (P08).</li>
 <li><b>Rail and feet:</b> push the VU light pipes (P20) into the right rail and the charge pipe into the back wall, and glue the TPU feet (P24) under the case.</li>
