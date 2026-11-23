@@ -1,11 +1,22 @@
 # WEB-1 Guide
 
-This is the full manual for WEB-1. In the app itself, press **/** at any time, or click **guide** under the device, for a short controls card.
+This is the full manual for WEB-1. In the app itself, press **/** at any time, or click **guide** under the device, for a short controls card. New to WEB-1? Read [Start here](#start-here) first.
 
 ## Start here
 
 - **The demo song.** The first time you open WEB-1, it makes a demo song with its own sounds and puts it on the four tape tracks, in a project called **DEMO SONG**. Press **PLAY** to hear it: drums on track 1, bass on 2, pads on 3 and a lead on 4, in A minor at 108 BPM, with section markers for the INTRO, VERSE, CHORUS and OUTRO. Mute tracks in the mixer, jump between the sections (Shift + LOOP in tape mode), play along on the keys (they are set to A minor), or try the live effects on it. **PROJECTS → DEMO SONG** (Shift + 7 in tape mode), or **SYSTEM → ABOUT → DEMO SONG**, makes it again in a new project. Your other projects are kept.
-- **The guided tour.** On first launch a short tour starts too: eight steps at the bottom of the screen, each pointing at the key or knob to use (it blinks orange and gets an orange outline), and moving on once you use it. **Shift + STOP** ends it; **SYSTEM → ABOUT → GUIDED TOUR** (Shift + 8 in tape mode) starts it again.
+- **The guided tour.** On first launch a short tour starts too: eight steps at the bottom of the screen, each pointing at the key or knob to use (it blinks orange and gets an orange outline), and moving on once you use it. On a computer, each step also shows the keyboard key in brackets. **Shift + STOP** ends it; **SYSTEM → ABOUT → GUIDED TOUR** (Shift + 8 in tape mode) starts it again.
+
+  | Step | What you do | What it shows |
+  |---|---|---|
+  | 1 | Press **PLAY** (Space) | The demo song plays from the tape |
+  | 2 | Press **MIXER** (V) | The four tracks, one colour each |
+  | 3 | Turn the **blue knob** | The four knobs change the four coloured values: here, track 1's level |
+  | 4 | Press **SYNTH** (Z), then play a few keys | The keyboard, set to the song's key |
+  | 5 | Press **T2** (N) | T1–T4 pick the page; 1–8 and Shift + 1–8 pick the sound |
+  | 6 | Press **TAPE** (C) | T1–T4 pick the track, REC records on it |
+  | 7 | Press **FX** (I), then hold **2** | The master effects, and a live beat repeat on the song |
+  | 8 | Any key | Where to find help, and how to start your own song |
 - **Tips.** The first few times you open a screen, a one-line tip shows at the bottom of the screen for a few seconds. Turn them off, or on again to see them all again, in **SYSTEM → DISPLAY → TIPS**.
 
 **Contents**
@@ -702,6 +713,7 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 
 - Everything saves automatically in your browser: sounds, slot settings, sequences, the mixer, the FX rack, samples and the tape.
 - Your work is kept as **projects** (Shift + 7 in tape mode), and you can save any of them, or all of them, to a **.web1 file** as a backup. See below.
+- The first time you open WEB-1, you are in the **DEMO SONG** project. Start your own song with **NEW** in PROJECTS; the demo stays in its own project, and **DEMO SONG** in PROJECTS makes it again whenever you like.
 - **export tape as wav** downloads the full tape mix, including the master FX.
 - **reset all** erases every saved sound, sequence, sample and the tape. You are asked to confirm first.
 - The **system menu** (Shift + 8 in tape mode) can erase just the samples, just your presets, just the tape, or everything, and shows how much space is used.
@@ -739,6 +751,8 @@ Your saved presets and the system settings (time, display) are shared by every p
 Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tape: a recording (so a take in REPLACE mode can be taken back), LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE. The tape screen flashes **UNDO · TRACK 2**, for example. Press it again to **REDO**. While you hold Shift in tape mode, the top right of the tape screen shows **DROP ▸ UNDO** and the track it will change. There is one level of undo, and erasing the whole tape (Shift + TAPE) can't be undone.
 
 ## 14. Your first song in 10 steps
+
+**Before you start:** if you are in the DEMO SONG project (the title bar of the tape screen shows the project's name), start a new one so you record on an empty tape: in tape mode press **Shift + 7**, turn the green knob to **NEW** and push the white knob (or turn it to YES). The demo stays in its own project.
 
 1. Press **-** and set the BPM with the blue knob. Turn the green knob to **1 BAR** count-in, then press **-** again to close the screen.
 2. Press **X** for drums and pick a kit with **1**. Press **C** for tape and **B** to select track 1.
@@ -778,13 +792,16 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 | Pressing T1 opened the sampler | Pressing T1 on the T1 page opens the SAMPLER. Press T1 on its EDIT page to go back. |
 | Some steps only play now and then | They have a CHANCE below 100% or a condition (1 OF 2, FILL…). Hold the step, turn CHANCE up, or hold Shift and set COND to ALWAYS. |
 | ← and → don't bend the pitch | The PATTERN sequencer is on screen: there the arrows pick the step. Close the sequencer screen to bend. |
+| My recording plays on top of the demo song | You are in the DEMO SONG project, where all four tracks are already used. Start a new project: Shift + 7 in tape mode, then NEW. |
+| The tour is waiting and won't go on | Each step waits for the key or knob it points at (it blinks orange). Use it, or press Shift + STOP to end the tour. |
+| A tip covers the bottom of the screen | Tips go away after a few seconds, and each one only shows once. SYSTEM → DISPLAY → TIPS turns them off. |
 | I want a fresh start | Click **reset all**. |
 
 ## 16. On the WEB-1 hardware
 
 WEB-1 is also designed as a physical instrument: a Raspberry Pi Compute Module 5 runs this same app on a 4.3" screen, with real keys, clicking knobs, a speaker and a battery. The [build guide](https://vatskyone.github.io/effective-barnacle/web1-3d.html) has the 3D model, the parts, the wiring and the software setup. Everything in this guide works the same on the device, with these extras:
 
-- **It starts in your last project.** Switch it on and WEB-1 opens where you left off, with the sound ready and no click needed.
+- **It starts in your last project.** Switch it on and WEB-1 opens where you left off, with the sound ready and no click needed. The very first time, it makes the demo song and starts the guided tour, whose steps light up the keys to press.
 - **The knobs click.** One click is one step, and pressing a knob pushes it (see [Knob clicks and pushes](#knob-clicks-and-pushes)).
 - **Battery.** The title bar shows the charge, with ⚡ while charging. SYSTEM → BATTERY shows the level, the charging state and the cell voltage.
 - **Turning off.** Choose SYSTEM → BATTERY → **POWER OFF** and push the white knob twice: WEB-1 saves everything, shows SAVED, and shuts down. Then slide the switch to OFF. The switch on its own cuts the power at once, so use POWER OFF first.
