@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="os1-icon.png">
 <title>WEB-1 Portable Synth</title>
 <style>
@@ -210,7 +211,8 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <div class="h-os1">
 <h2>OS-1 · CONTROLS</h2>
 <table>
-<tr><td>Knobs</td><td>Drag up or down on the four coloured knobs. Each matches the same-coloured value on the screen. Double-tap resets. The small white knob is the volume.</td></tr>
+<tr><td>Knobs</td><td>Drag up or down on the four coloured knobs. Each matches the same-coloured value on the screen. Double-tap pushes the knob: it resets the value, or does that knob's action (SAVE, BOUNCE, export GO, the system menu's confirm). Deleting and erasing take two pushes. The small white knob is the volume.</td></tr>
+<tr><td>Hold SHIFT</td><td>After half a second the SHIFT MAP shows what every key does with SHIFT in this mode. Let go to close it.</td></tr>
 <tr><td>Modes</td><td>The first four keys under the screen: SYNTH · DRUM · TAPE · MIXER. FX is at the end of that row, SEQ (green steps) in the row below.</td></tr>
 <tr><td>T1 – T4</td><td>In synth/drum: ENGINE · ENVELOPE · FX · LFO (tap T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. In synth mode, hold SHIFT and tap 1–8 for synth bank B (orange light). In drum mode, SHIFT + 4 (SAMPLE) edits the selected pad's sample.</td></tr>
@@ -220,12 +222,12 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>← →</td><td>In synth mode: hold for pitch bend down / up. In the other modes: hold to wind the tape.</td></tr>
 <tr><td>Loop</td><td>The orange loop key switches LOOP on/off from the current position (length = green knob in tape mode). ↑ LIFT cuts the loop or bar from the track, ↓ DROP pastes it at the tape head. SHIFT + LIFT erases the track.</td></tr>
 <tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse.</td></tr>
-<tr><td>Shift + REC</td><td>ADVANCED REC (orange light on REC). SOURCE: instrument, mic or both · KEEP OLD: 100% overdubs, 0% replaces what is under the new take, in between fades it · START: on the REC key, ON SOUND (the tape rolls and recording starts when the input passes the threshold) or NEXT BAR · AUTO STOP after 1–8 bars. SHIFT: THRESHOLD · MONITOR (hear the mic) · PUNCH (record only inside the loop markers) · COUNT-IN.</td></tr>
+<tr><td>Shift + REC</td><td>ADVANCED REC (orange light on REC). SOURCE: instrument, mic (or line in) or both · KEEP OLD: 100% overdubs, 0% replaces what is under the new take, in between fades it · START: on the REC key, ON SOUND (the tape rolls and recording starts when the input passes the threshold) or NEXT BAR · AUTO STOP after 1–8 bars. SHIFT: THRESHOLD · MONITOR (hear the mic) · PUNCH (record only inside the loop markers) · INPUT: MIC or LINE IN (the IN jack on the WEB-1 hardware); the sampler records from it too.</td></tr>
 <tr><td>Shift + TEMPO</td><td>KEY &amp; CHORDS (Shift + -, orange light on TEMPO). KEY · SCALE (major, minor, dorian, mixolydian, lydian, phrygian, harmonic minor, major and minor pentatonic, blues, whole tone, or OFF) · KEYS: SNAP moves notes outside the scale to the nearest scale note, WHITE KEYS makes the white keys walk up the scale from the root · CHORD: one key plays a chord, TRIAD, SEVENTH or NINTH built from the scale, or SUS2, SUS4, POWER, OCTAVES. SHIFT: VOICING · STRUM · ADD BASS · KEY GUIDE (dots on the keys: grey for the scale, orange for the root). It works on the synths, from MIDI and in the sequencers: with ARP, one key arpeggiates its chord.</td></tr>
 <tr><td>Shift + DROP</td><td>UNDO the last tape change: a recording, LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE. Press it again to REDO. Hold SHIFT in tape mode to see what it will undo. Erasing the whole tape can't be undone.</td></tr>
 <tr><td>Shift + 7</td><td>In tape mode: PROJECTS (key 7 is labelled PROJECT). Each project is a whole song: its tape, sounds, sequences, mixer and samples. Blue picks a project, green an action, white turned all the way to YES does it: OPEN · NEW · DUPLICATE · RENAME · DELETE · SAVE FILE (a .web1 file of that project) · BACKUP ALL (every project in one file) · LOAD FILE. Your presets and system settings are shared by all projects. The “save project” and “load project” buttons under the device do the same for the open project.</td></tr>
 <tr><td>Shift + TAPE</td><td>ERASE TAPE: hold T1, T2, T3 and T4 down together to wipe all four tracks (there is no undo; on a computer hold B N M , together). Letting go of a key puts its box out. Shift + TAPE again, or any mode key, cancels before all four are held.</td></tr>
-<tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything, turning white all the way to YES to confirm) · DISPLAY (brightness, screen sleep, clock in the title bar) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · ABOUT.</td></tr>
+<tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY (on the hardware: POWER OFF saves first) · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything; on the hardware the USB stick: load a sample, back up all projects, eject) · DISPLAY (brightness, screen sleep, clock in the title bar) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · CPU (audio load, screen speed, voices, and the VOICE LIMIT, which AUTO lowers when the device struggles) · ABOUT (on the hardware: check for and install updates). To confirm, turn white all the way to YES or push it; erasing takes two pushes.</td></tr>
 <tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
 <tr><td>SEQ</td><td>Sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold SHIFT and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops. ARP: hold a chord. SHIFT + SEQ clears.</td></tr>
 <tr><td>CHAIN</td><td>CHAIN (T4): an endless step sequencer. Hold SHIFT and press keys to add steps (keys pressed together make a chord); keep the keys held and press → to make the last note longer; SHIFT + → adds a rest; SHIFT + ← removes the last step. Then press any key to play the chain transposed (the low C plays it as written). Knobs: RATE · GATE · OCTAVE · HOLD.</td></tr>
@@ -234,14 +236,15 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved on this phone automatically. “export tape as wav” shares the mix.</td></tr>
 <tr><td>No sound?</td><td>Turn the volume up and switch the phone's silent mode off.</td></tr>
-<tr><td>Full screen</td><td>Hold the phone sideways. In Safari tap Share, then “Add to Home Screen”: OS-1 then opens like an app and fills the screen.</td></tr>
+<tr><td>Full screen</td><td>Hold the phone sideways. In Safari tap Share, then “Add to Home Screen”: OS-1 then opens like an app, fills the screen and works with no connection.</td></tr>
 </table>
 <p>Tap outside the buttons to close.</p>
 </div>
 <div class="h-web1">
 <h2>WEB-1 · CONTROLS</h2>
 <table>
-<tr><td>Encoders</td><td>Drag up/down or scroll over the four coloured knobs. Each matches the same-coloured value on the screen. Double-click resets.</td></tr>
+<tr><td>Encoders</td><td>Drag up/down or scroll over the four coloured knobs. Each matches the same-coloured value on the screen. Double-click pushes the knob: it resets the value, or does that knob's action (SAVE, BOUNCE, export GO, the system menu's confirm). Deleting and erasing take two pushes. On the WEB-1 hardware each knob click is one step, and pressing a knob pushes it.</td></tr>
+<tr><td>Hold SHIFT</td><td>After half a second the SHIFT MAP shows what every key does with SHIFT in this mode. Let go to close it.</td></tr>
 <tr><td>Z X C V</td><td>Modes: SYNTH · DRUM · TAPE · MIXER</td></tr>
 <tr><td>B N M ,</td><td>T1–T4. In synth/drum: ENGINE · ENVELOPE · FX · LFO (press T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. The screen names them A1–A8 (bank B is B1–B8). A3 is STRINGS, a vintage string machine with phaser and cello layer; A7 is HERO, an 80s–90s solo lead with glide and delayed vibrato.</td></tr>
@@ -265,16 +268,16 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>= </td><td>SEQ: sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold Shift and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops. ARP: hold a chord. Shift+SEQ clears.</td></tr>
 <tr><td>CHAIN</td><td>CHAIN (T4): an endless step sequencer. Hold SHIFT and press keys to add steps (keys pressed together make a chord); keep the keys held and press → to make the last note longer; SHIFT + → adds a rest; SHIFT + ← removes the last step. Then press any key to play the chain transposed (the low C plays it as written). Knobs: RATE · GATE · OCTAVE · HOLD.</td></tr>
 <tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse.</td></tr>
-<tr><td>Shift + REC</td><td>ADVANCED REC (orange light on REC). SOURCE: instrument, mic or both · KEEP OLD: 100% overdubs, 0% replaces what is under the new take, in between fades it · START: on the REC key, ON SOUND (the tape rolls and recording starts when the input passes the threshold) or NEXT BAR · AUTO STOP after 1–8 bars. SHIFT: THRESHOLD · MONITOR (hear the mic) · PUNCH (record only inside the loop markers) · COUNT-IN.</td></tr>
+<tr><td>Shift + REC</td><td>ADVANCED REC (orange light on REC). SOURCE: instrument, mic (or line in) or both · KEEP OLD: 100% overdubs, 0% replaces what is under the new take, in between fades it · START: on the REC key, ON SOUND (the tape rolls and recording starts when the input passes the threshold) or NEXT BAR · AUTO STOP after 1–8 bars. SHIFT: THRESHOLD · MONITOR (hear the mic) · PUNCH (record only inside the loop markers) · INPUT: MIC or LINE IN (the IN jack on the WEB-1 hardware); the sampler records from it too.</td></tr>
 <tr><td>Shift + TEMPO</td><td>KEY &amp; CHORDS (Shift + -, orange light on TEMPO). KEY · SCALE (major, minor, dorian, mixolydian, lydian, phrygian, harmonic minor, major and minor pentatonic, blues, whole tone, or OFF) · KEYS: SNAP moves notes outside the scale to the nearest scale note, WHITE KEYS makes the white keys walk up the scale from the root · CHORD: one key plays a chord, TRIAD, SEVENTH or NINTH built from the scale, or SUS2, SUS4, POWER, OCTAVES. SHIFT: VOICING · STRUM · ADD BASS · KEY GUIDE (dots on the keys: grey for the scale, orange for the root). It works on the synths, from MIDI and in the sequencers: with ARP, one key arpeggiates its chord.</td></tr>
 <tr><td>Shift + DROP</td><td>UNDO the last tape change: a recording, LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE. Press it again to REDO. Hold SHIFT in tape mode to see what it will undo. Erasing the whole tape can't be undone.</td></tr>
 <tr><td>Shift + 7</td><td>In tape mode: PROJECTS (key 7 is labelled PROJECT). Each project is a whole song: its tape, sounds, sequences, mixer and samples. Blue picks a project, green an action, white turned all the way to YES does it: OPEN · NEW · DUPLICATE · RENAME · DELETE · SAVE FILE (a .web1 file of that project) · BACKUP ALL (every project in one file) · LOAD FILE. Your presets and system settings are shared by all projects. The “save project” and “load project” buttons under the device do the same for the open project.</td></tr>
 <tr><td>Shift + TAPE</td><td>ERASE TAPE: hold T1, T2, T3 and T4 down together to wipe all four tracks (there is no undo; on a computer hold B N M , together). Letting go of a key puts its box out. Shift + TAPE again, or any mode key, cancels before all four are held.</td></tr>
-<tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything, turning white all the way to YES to confirm) · DISPLAY (brightness, screen sleep, clock in the title bar) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · ABOUT.</td></tr>
+<tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY (on the hardware: POWER OFF saves first) · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything; on the hardware the USB stick: load a sample, back up all projects, eject) · DISPLAY (brightness, screen sleep, clock in the title bar) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · CPU (audio load, screen speed, voices, and the VOICE LIMIT, which AUTO lowers when the device struggles) · ABOUT (on the hardware: check for and install updates). To confirm, turn white all the way to YES or push it; erasing takes two pushes.</td></tr>
 <tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
 <tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
 <tr><td>MIDI</td><td>“connect midi” enables any attached keyboard: velocity, pitch bend, mod wheel (LFO amount), sustain pedal.</td></tr>
-<tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved in this browser automatically. “export tape as wav” downloads the mix.</td></tr>
+<tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved in this browser automatically. “export tape as wav” downloads the mix. Once opened, WEB-1 also works offline.</td></tr>
 <tr><td>I</td><td>FX RACK: four master effects in a chain, DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, press the same T again to switch it on/off. Shift+FX (Shift+I) switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). Shift+FX (Shift+I) again goes back to bank A. The four lights on the FX key show which are on. Delay is synced to the tempo; delay and reverb tails ring out when switched off. The rack is included in the WAV export.</td></tr>
 <tr><td>- · `</td><td>TEMPO screen · metronome on/off</td></tr>
 <tr><td>Count-in</td><td>On the TEMPO screen, green knob = COUNT-IN (off / 1 bar / 2 bars). Pressing REC from stop then clicks you in and the tape starts exactly on the downbeat. Press STOP or REC again to cancel.</td></tr>
@@ -306,7 +309,7 @@ const S={mode:'synth',inst:'synth',page:0,slot:0,kit:0,oct:0,shift:false,overlay
   rk:[[.35,0,.6,1],[.3,.5,.8,.5],[.55,.4,.3,.3],[.45,.5,.5,.3]],rkOn:[false,false,false,false],rkSel:0,
   rk2:[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]],rkOn2:[false,false,false,false],rkB:false, // FX rack bank B: FILTER GATE FLANGER LO-FI
   tq:[.5,0,1],count:null,fb:0,fbT:0,lastBeat:-1e9,tposAt:0,
-  metro:false,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],rm:[0,1,0,0],rm2:[.3,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
+  metro:false,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],rm:[0,1,0,0],rm2:[.3,0,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
 const seq={on:false,type:0,pat:Array.from({length:16},()=>[]),steps:[],ch:[],ins:new Set(),sub:0,held:new Set(),playing:false,i:0,cnt:0,next:0,tr:0,dirS:1,cur:-1};
 /* ── drum machine (Shift + DRUM): 12 pads, each built from 2 synth voices + a filter, and a 16-step pattern ──
    voice v=[TUNE, WAVE, DECAY, BEND] · filter f=[MODE, CUTOFF, RESO, MIX] · sq=[PAD, LENGTH, LEVEL, RUN] */
@@ -412,10 +415,10 @@ function doSave(){if(SAVE.kind==='project'){const n=svName()||'PROJECT';if(SAVE.
 function doDel(){const sl=S.slot,E2=slE(sl),U=S.up[E2],j=svHit();if(j<0)return;U.splice(j,1);const k=1+PRESETS[E2].length+j;
   synthP.forEach((P2,s2)=>{if(P2.e!==E2)return;if(S.pre[s2]===k)S.pre[s2]=0;else if(S.pre[s2]>k)S.pre[s2]--});svMsg('DELETED')}
 function saveParams(){const yes=(v,f)=>v<.02?'NO':v<1?'YES ▸':'';return[
-  {n:'LETTER',val:()=>{const c=SAVE.name[SAVE.cur];return c===' '?'SPACE':c},turn(d){SAVE.cf=((SAVE.cf+d*15)%SCH.length+SCH.length)%SCH.length;SAVE.name[SAVE.cur]=SCH[Math.floor(SAVE.cf)];SAVE.arm=SAVE.del=0}},
-  {n:'CURSOR',val:()=>(SAVE.cur+1)+'/'+SVL,turn(d){SAVE.pf=clamp(SAVE.pf+d*10,0,SVL-.01);const c=Math.floor(SAVE.pf);if(c!==SAVE.cur){SAVE.cur=c;SAVE.cf=Math.max(0,SCH.indexOf(SAVE.name[c]))+.5}}},
-  {n:SAVE.kind==='project'?'RENAME':'SAVE',val:()=>yes(SAVE.arm),turn(d){SAVE.arm=clamp(SAVE.arm+d*1.6);if(SAVE.arm>=1){SAVE.arm=0;doSave()}}},
-  SAVE.kind==='project'?null:{n:'DELETE',val:()=>svHit()<0?'—':yes(SAVE.del),turn(d){if(svHit()<0)return;SAVE.del=clamp(SAVE.del+d*1.6);if(SAVE.del>=1){SAVE.del=0;doDel()}}}]}
+  {n:'LETTER',val:()=>{const c=SAVE.name[SAVE.cur];return c===' '?'SPACE':c},step(k){SAVE.cf=((Math.floor(SAVE.cf)+k)%SCH.length+SCH.length)%SCH.length+.5;SAVE.name[SAVE.cur]=SCH[Math.floor(SAVE.cf)];SAVE.arm=SAVE.del=0},turn(d){SAVE.cf=((SAVE.cf+d*15)%SCH.length+SCH.length)%SCH.length;SAVE.name[SAVE.cur]=SCH[Math.floor(SAVE.cf)];SAVE.arm=SAVE.del=0}},
+  {n:'CURSOR',val:()=>(SAVE.cur+1)+'/'+SVL,step(k){svCur(SAVE.cur+k)},turn(d){SAVE.pf=clamp(SAVE.pf+d*10,0,SVL-.01);const c=Math.floor(SAVE.pf);if(c!==SAVE.cur){SAVE.cur=c;SAVE.cf=Math.max(0,SCH.indexOf(SAVE.name[c]))+.5}}},
+  {n:SAVE.kind==='project'?'RENAME':'SAVE',val:()=>yes(SAVE.arm),push(){doSave()},turn(d){SAVE.arm=clamp(SAVE.arm+d*1.6);if(SAVE.arm>=1){SAVE.arm=0;doSave()}}},
+  SAVE.kind==='project'?null:{n:'DELETE',val:()=>svHit()<0?'—':armed('pdel')?'PUSH AGAIN':yes(SAVE.del),push(){if(svHit()>=0)twoStep('pdel',doDel)},turn(d){if(svHit()<0)return;SAVE.del=clamp(SAVE.del+d*1.6);if(SAVE.del>=1){SAVE.del=0;doDel()}}}]}
 function svKey(e){const c=e.code;if(e.shiftKey&&c==='KeyB')return false;let ch=null;
   if(/^Key[A-Z]$/.test(c))ch=c.slice(3);else if(/^Digit\d$/.test(c))ch=c.slice(5);else if(c==='Space')ch=' ';else if(c==='Minus')ch='-';
   if(ch!==null){SAVE.name[SAVE.cur]=ch;svCur(SAVE.cur+1);SAVE.arm=SAVE.del=0;return true}
@@ -440,7 +443,7 @@ const mod24=x=>((x%24)+24)%24;
 const padP={}; // drum pad sample settings: padP['kit_pad'] = [START, END, TUNE, REVERSE, PLAY, FADE IN, FADE OUT, LEVEL]
 const LSK='web1.v1',SKEYS=['inst','slot','kit','oct','bpm','tm','sqp','tp','lv','pn','eq','ms','rk','rkOn','rkSel','tq','rk2','rkOn2','rkB','pre','eqf','mb','mb2','ms2','up','sys','rm','rm2','kc','kc2','mute','solo','srv','sdl','sc','mxB','scn','midi'];
 const snapshot=()=>JSON.stringify({S:Object.fromEntries(SKEYS.map(k=>[k,S[k]])),synthP,drumP,seq:{type:seq.type,steps:seq.steps,pat:seq.pat,ch:seq.ch},dm:{pads:DM.pads,pats:DM.pats,sq:DM.sq,sq2:DM.sq2},pp:padP,ver:3});
-try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){const old=!(d.ver>=2),eq4=!d.S.eqf;Object.assign(S,d.S);if(eq4)S.eq[3]=.5;const o3=!(d.ver>=3);d.synthP.forEach((p,i)=>{if(!(old&&[6,11,12].includes(i))&&!(o3&&i===2))Object.assign(synthP[i],p)});if(o3)S.pre[2]=0;synthP.forEach(P=>{const o=P.smp;if(o.length<8)P.smp=[o[0],o[1],o[3],.5,o[2]>.5?.9:.5,0,0,.1]});['mute','solo','srv','sdl','midi'].forEach(k=>{if(!S[k])S[k]=[0,0,0,0]});if(!S.scn)S.scn=[null,null,null,null];synthP.forEach(P=>{if(!P.pm)P.pm=[0,.25,0,.8]});if(!S.sc)S.sc=[0,.5,.35,.4];if(!S.kc)S.kc=[0,0,0,0];if(!S.kc2)S.kc2=[0,0,0,1];if(!S.rm)S.rm=[0,1,0,0];if(!S.rm2)S.rm2=[.3,0,0];S.sys=Object.assign({tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0},S.sys||{});synthP.forEach((P,i)=>{if(!(P.e>=0&&P.e<NENG))P.e=i});if(!S.up||S.up.length<NENG)S.up=Array.from({length:NENG},(_,i)=>(S.up&&S.up[i])||[]);S.pre=S.pre.map((k,i)=>k<presetsSl(i).length?k:0);d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));drumP.forEach(P=>{if(!P.km)P.km=[0,1]});Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));if(d.dm.pats)d.dm.pats.forEach((P,k)=>{const Q=DM.pats[k];if(!Q||!P)return;['s','v','p','r','n'].forEach(f=>P[f]&&P[f].forEach((row,i)=>Q[f][i]&&row.forEach((v,j)=>Q[f][i][j]=v)));if(P.rot)Q.rot=P.rot.slice(0,12);if(P.len)Q.len=P.len});else if(d.dm.pat){d.dm.pat.forEach((r,i)=>DM.pats[0].s[i]&&r.forEach((v,j)=>DM.pats[0].s[i][j]=v));DM.pats[0].len=1+idx(d.dm.sq[1],16)}DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12);if(d.dm.sq2)DM.sq2=d.dm.sq2;DM.pe=idx(DM.sq2[0],8)}if(d.pp)Object.assign(padP,d.pp);if(!S.rk2){S.rk2=[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]];S.rkOn2=[false,false,false,false]}if(S.sqp.length<4)S.sqp.push([.3,.55,.5,0]);S.mode=S.inst}}catch(_){}
+try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){const old=!(d.ver>=2),eq4=!d.S.eqf;Object.assign(S,d.S);if(eq4)S.eq[3]=.5;const o3=!(d.ver>=3);d.synthP.forEach((p,i)=>{if(!(old&&[6,11,12].includes(i))&&!(o3&&i===2))Object.assign(synthP[i],p)});if(o3)S.pre[2]=0;synthP.forEach(P=>{const o=P.smp;if(o.length<8)P.smp=[o[0],o[1],o[3],.5,o[2]>.5?.9:.5,0,0,.1]});['mute','solo','srv','sdl','midi'].forEach(k=>{if(!S[k])S[k]=[0,0,0,0]});if(!S.scn)S.scn=[null,null,null,null];synthP.forEach(P=>{if(!P.pm)P.pm=[0,.25,0,.8]});if(!S.sc)S.sc=[0,.5,.35,.4];if(!S.kc)S.kc=[0,0,0,0];if(!S.kc2)S.kc2=[0,0,0,1];if(!S.rm)S.rm=[0,1,0,0];if(!S.rm2)S.rm2=[.3,0,0,0];if(S.rm2.length<4)S.rm2.push(0);S.sys=Object.assign({tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},S.sys||{});synthP.forEach((P,i)=>{if(!(P.e>=0&&P.e<NENG))P.e=i});if(!S.up||S.up.length<NENG)S.up=Array.from({length:NENG},(_,i)=>(S.up&&S.up[i])||[]);S.pre=S.pre.map((k,i)=>k<presetsSl(i).length?k:0);d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));drumP.forEach(P=>{if(!P.km)P.km=[0,1]});Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));if(d.dm.pats)d.dm.pats.forEach((P,k)=>{const Q=DM.pats[k];if(!Q||!P)return;['s','v','p','r','n'].forEach(f=>P[f]&&P[f].forEach((row,i)=>Q[f][i]&&row.forEach((v,j)=>Q[f][i][j]=v)));if(P.rot)Q.rot=P.rot.slice(0,12);if(P.len)Q.len=P.len});else if(d.dm.pat){d.dm.pat.forEach((r,i)=>DM.pats[0].s[i]&&r.forEach((v,j)=>DM.pats[0].s[i][j]=v));DM.pats[0].len=1+idx(d.dm.sq[1],16)}DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12);if(d.dm.sq2)DM.sq2=d.dm.sq2;DM.pe=idx(DM.sq2[0],8)}if(d.pp)Object.assign(padP,d.pp);if(!S.rk2){S.rk2=[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]];S.rkOn2=[false,false,false,false]}if(S.sqp.length<4)S.sqp.push([.3,.55,.5,0]);S.mode=S.inst}}catch(_){}
 [...synthP,...drumP].forEach(P=>{const f=fxDef(-1);for(let i=P.fx.length;i<f.length;i++)P.fx[i]=f[i];if(!(P.fxType<f.length))P.fxType=0});
 let lastSnap=snapshot(),tapeDirty=false;
 const saveTimer=setInterval(()=>{const s=snapshot();if(s!==lastSnap){lastSnap=s;try{localStorage.setItem(LSK,s)}catch(_){}}
@@ -562,6 +565,7 @@ registerProcessor('lofi',Lofi);`;
 async function initAudio(){
   if(AC){if(AC.state==='suspended')AC.resume();return}
   AC=new (window.AudioContext||window.webkitAudioContext)({latencyHint:'interactive'});
+  if(AC.renderCapacity){try{AC.renderCapacity.addEventListener('update',e=>{PERF.load=e.averageLoad;PERF.peak=e.peakLoad;PERF.under=e.underrunRatio});AC.renderCapacity.start({updateInterval:1})}catch(_){}}
   $('#hint').textContent=IDLE;
   const sr=AC.sampleRate;
   noiseBuf=AC.createBuffer(1,sr*2,sr);{const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}
@@ -917,10 +921,10 @@ async function decodeToSample(ab,name){const b=await AC.decodeAudioData(ab),n=b.
 let micRec=null;
 const aSess=t=>{try{if(OS1&&navigator.audioSession)navigator.audioSession.type=t}catch(_){}};
 async function micSample(btn){if(micRec){micRec.stop();return}
-  try{aSess('play-and-record');const st=await navigator.mediaDevices.getUserMedia({audio:true}),mr=new MediaRecorder(st),ch=[];micRec=mr;btn.classList.add('rec');btn.textContent='stop recording';
+  try{aSess('play-and-record');const st=await openInput(),mr=new MediaRecorder(st),ch=[];micRec=mr;btn.classList.add('rec');btn.textContent='stop recording';
     mr.ondataavailable=e=>ch.push(e.data);
     mr.onstop=async()=>{micRec=null;aSess('playback');btn.classList.remove('rec');btn.textContent='record sample';st.getTracks().forEach(t=>t.stop());try{await decodeToSample(await new Blob(ch).arrayBuffer(),'recording')}catch(_){status('could not read that recording')}};
-    mr.start();setTimeout(()=>{if(micRec===mr)mr.stop()},6000);status('recording from the microphone… (6 seconds max)')}catch(_){aSess('playback');status('microphone not available')}}
+    mr.start();setTimeout(()=>{if(micRec===mr)mr.stop()},6000);status('recording from the '+(S.rm2[3]>.5?'line input':'microphone')+'… (6 seconds max)')}catch(_){aSess('playback');status('microphone not available')}}
 async function buildWav(){const d=await dumpTape(),sr=d.sr;let end=-1;d.dump.forEach(a=>{let e=a.length-1;while(e>end&&a[e]===0)e--;if(e>end)end=e});if(end<0)return null;
   const sends=S.srv.some(v=>v>.01)||S.sdl.some(v=>v>.01),tail=S.rkOn[2]||S.rkOn[3]||sends?Math.floor(sr*6):0,oc=new OfflineAudioContext(2,end+1+tail,sr),rk=buildRack(oc);rk.out.connect(oc.destination);
   const anyS=S.solo.some(Boolean),src=scSrc();let duck=false;if(src>=1&&src<=4&&S.sc[1]>.01&&WKURL){try{await oc.audioWorklet.addModule(WKURL);duck=true}catch(_){}}
@@ -938,7 +942,7 @@ async function buildWav(){const d=await dumpTape(),sr=d.sr;let end=-1;d.dump.for
   for(let i=0;i<n;i++){dv.setInt16(44+i*4,Math.tanh(L[i])*32767,true);dv.setInt16(46+i*4,Math.tanh(R[i])*32767,true)}
   return new Blob([dv],{type:'audio/wav'})}
 async function exportWav(){if(!tape)return;const b=await buildWav();if(!b){status('the tape is empty — record something first');return}
-  const nm=OS1?'os1-tape.wav':'web1-tape.wav';
+  const nm=OS1?'os1-tape.wav':'web1-tape.wav';if(usbOn()){download(b,fileBase()+'-tape.wav');return}
   if(OS1&&navigator.canShare){const f=new File([b],nm,{type:'audio/wav'});if(navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});status('exported '+nm);return}catch(e){if(e.name==='AbortError')return}}}
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=nm;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),5000);status('exported '+nm)}
 const envVals=e=>[.002+e[0]*e[0]*2,.02+e[1]*e[1]*3,e[2],.02+e[3]*e[3]*4];
@@ -968,7 +972,7 @@ function voiceOn1(note,t,vel=1,dc=0,pan=0){
   const v={note,e,vg,r,off:false,t0:t,d0:e.det.map(p=>p.value)};voices.push(v);
   e.srcs[0].onended=()=>{if(e.kill)e.kill();vg.disconnect();e.det.forEach(p=>{try{N.pitchMod.disconnect(p)}catch(_){}});const i=voices.indexOf(v);if(i>=0)voices.splice(i,1)};
   // steal the oldest sounding voice past 10; past 24 total, cut the oldest release tail
-  const act=voices.filter(x=>!x.off);if(act.length>10)voiceOff(act[0],AC.currentTime,.03);
+  const act=voices.filter(x=>!x.off);if(act.length>vmax())voiceOff(act[0],AC.currentTime,.03);
   if(voices.length>24){const o=voices.find(x=>x.off),n=AC.currentTime;if(o){o.vg.gain.cancelScheduledValues(n);o.vg.gain.setTargetAtTime(0,n,.01);o.e.srcs.forEach(s=>{try{s.stop(n+.06)}catch(_){}})}}
   return v}
 function voiceOff1(v,t,rr){
@@ -1164,13 +1168,19 @@ function buildRack(ctx){
 function applyRack(){if(AC&&N.rack)N.rack.apply();if(AC&&N.dly)N.dly.delayTime.setTargetAtTime(60/S.bpm*.75,AC.currentTime,.05)}
 
 /* ───────────── advanced REC (Shift + REC): source, keep/replace, start, auto stop · Shift: threshold, monitor, punch, count-in ───────────── */
-const RSRC=['INSTRUMENT','MIC','BOTH'],RSTART=['KEY','ON SOUND','NEXT BAR'],RSTOP=[0,1,2,4,8],RPUNCH=['OFF','LOOP AREA'];
+const RSRC={get 0(){return'INSTRUMENT'},get 1(){return S.rm2[3]>.5?'LINE IN':'MIC'},get 2(){return'BOTH'}},RSTART=['KEY','ON SOUND','NEXT BAR'],RSTOP=[0,1,2,4,8],RPUNCH=['OFF','LOOP AREA'];
 const RM={wait:0,t0:0,mic:null,lvl:0,pk:0};
 const rSrc=()=>idx(S.rm[0],3),rStart=()=>idx(S.rm[2],3),rStop=()=>RSTOP[idx(S.rm[3],5)],rThr=()=>.01+S.rm2[0]*S.rm2[0]*.5;
-async function recSource(){if(!AC||!N.instRec)return;const s2=rSrc(),T=(p,v)=>p.setTargetAtTime(v,AC.currentTime,.02);
+// the input: the built-in mic or the line-in jack. On the device the helper switches the codec's input; in a browser, LINE IN picks a second input such as an audio interface
+async function openInput(){const line=S.rm2[3]>.5;if(HW.ok)await hwPost('/api/input',{source:line?'line':'mic'});let dev;
+  if(line&&!HW.ok){try{let ds=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='audioinput');if(ds.length&&!ds[0].label){const tmp=await navigator.mediaDevices.getUserMedia({audio:true});tmp.getTracks().forEach(x=>x.stop());ds=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='audioinput')}
+    const real=ds.filter(d=>d.deviceId!=='default'&&d.deviceId!=='communications'),m=real.find(d=>/line|usb|interface|audio in/i.test(d.label))||real[1];dev=m&&m.deviceId}catch(_){}}
+  return navigator.mediaDevices.getUserMedia({audio:Object.assign({echoCancellation:false,noiseSuppression:false,autoGainControl:false},dev?{deviceId:{exact:dev}}:{})})}
+async function recSource(){if(!AC||!N.instRec)return;const s2=rSrc(),T=(p,v)=>p.setTargetAtTime(v,AC.currentTime,.02),kind=S.rm2[3]>.5?'line':'mic';
   T(N.instRec.gain,s2===1?0:1);
-  if(s2>0&&!RM.mic){try{const st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
-      RM.mic=AC.createMediaStreamSource(st);RM.mic.connect(N.micRec);RM.mic.connect(N.micMon);status('microphone on for recording')}catch(_){status('no microphone: allow it, and use localhost or HTTPS');S.rm[0]=0;T(N.instRec.gain,1);return}}
+  if(s2>0&&RM.mic&&RM.kind!==kind){try{RM.mic.disconnect();RM.stream.getTracks().forEach(x=>x.stop())}catch(_){}RM.mic=null}
+  if(s2>0&&!RM.mic){try{const st=await openInput();RM.stream=st;RM.kind=kind;
+      RM.mic=AC.createMediaStreamSource(st);RM.mic.connect(N.micRec);RM.mic.connect(N.micMon);status((kind==='line'?'line in':'microphone')+' on for recording')}catch(_){status('no '+(kind==='line'?'line input':'microphone')+': allow it, and use localhost or HTTPS');S.rm[0]=0;T(N.instRec.gain,1);return}}
   T(N.micRec.gain,s2>0?1:0);T(N.micMon.gain,s2>0?S.rm2[1]*S.rm2[1]:0)}
 function recWaitStart(){// ON SOUND / NEXT BAR: the tape rolls, recording starts later
   const m=rStart();if(!S.playing){S.playing=true;S.rev=false;if(AC){S.nextClick=AC.currentTime+.03;S.beatN=0}}
@@ -1193,7 +1203,7 @@ function drawRecm(t){const now=AC.currentTime,keep=S.rm[1],src=rSrc(),st=rStart(
   const cx=i=>px[i]+(pw-4)/2;
   // SOURCE: keys and/or a microphone
   {const x=cx(0),c=COL.b,kOn=src!==1,mOn=src>0;g.globalAlpha=kOn?1:.25;for(let k=0;k<5;k++){g.strokeStyle=c;g.lineWidth=.9;g.strokeRect(x-22+k*6+.5,30.5,5,18)}for(const k of[0,1,3])g.fillStyle=c,g.fillRect(x-18+k*6,30,3,10);
-    g.globalAlpha=mOn?1:.25;g.strokeStyle=c;g.lineWidth=1.2;g.beginPath();g.roundRect(x+10,28,9,15,4.5);g.stroke();g.beginPath();g.arc(x+14.5,38,7.5,.1,Math.PI-.1);g.stroke();ln(x+14.5,45.5,x+14.5,50,c,1.2);g.globalAlpha=1;
+    g.globalAlpha=mOn?1:.25;g.strokeStyle=c;g.lineWidth=1.2;if(S.rm2[3]>.5){g.strokeRect(x+11.5,28.5,6,12);ln(x+14.5,40.5,x+14.5,50,c,2);ln(x+12,44,x+17,44,c,1)}else{g.beginPath();g.roundRect(x+10,28,9,15,4.5);g.stroke();g.beginPath();g.arc(x+14.5,38,7.5,.1,Math.PI-.1);g.stroke();ln(x+14.5,45.5,x+14.5,50,c,1.2)}g.globalAlpha=1;
     txt(RSRC[src],x,64,c,6,'center');const L=clamp(RM.pk*1.6),tY=86-rThr()*1.6*24;g.fillStyle='#1c1e22';g.fillRect(x-20,70,40,18);g.fillStyle=c;g.fillRect(x-20,88-L*18,40,L*18);if(st===1)ln(x-22,clamp(88-rThr()*1.6*18,70,88),x+22,clamp(88-rThr()*1.6*18,70,88),COL.w,1)}
   // KEEP: the old take (grey) under the new one (green); 100% = overdub, 0% = replace
   {const x=cx(1),c=COL.g;for(let k=0;k<3;k++){g.fillStyle='#5d6169';g.globalAlpha=Math.max(.08,keep);g.fillRect(x-22,30+k*7,44*(.5+.5*Math.sin(k*2+1.3)),4)}g.globalAlpha=1;
@@ -1203,7 +1213,7 @@ function drawRecm(t){const now=AC.currentTime,keep=S.rm[1],src=rSrc(),st=rStart(
   {const x=cx(2),c=COL.w;RSTART.forEach((n,i)=>{const y=32+i*13,sel=i===st;if(sel){g.fillStyle=c;g.fillRect(x-25,y-7,50,10)}txt(n,x,y,sel?'#07080a':'#5d6169',6,'center')});txt('STARTS ON',x,82,COL.dim,5.5,'center')}
   // AUTO STOP: bars
   {const x=cx(3),c=COL.o;for(let k=0;k<8;k++){const on2=stop&&k<stop;g.fillStyle=on2?c:'#1c1e22';g.fillRect(x-24+k*6,34,5,14)}bigN(stop?stop+'':'∞',x,72,c,16,'center');txt(stop?(stop>1?'BARS THEN STOP':'BAR THEN STOP'):'NO AUTO STOP',x,86,c,5.5,'center')}
-  txt(S.shift?'THRESHOLD · MONITOR · PUNCH · COUNT-IN':'SHIFT ▸ MORE',W-8,98.5,S.shift?COL.o:'#4a4d54',5,'right');
+  txt(S.shift?'THRESHOLD · MONITOR · PUNCH · INPUT':'SHIFT ▸ MORE',W-8,98.5,S.shift?COL.o:'#4a4d54',5,'right');
   if(idx(S.rm2[2],2))txt('PUNCH: LOOP AREA',66,98.5,COL.g,5)}
 
 /* ───────────── mixer bank B (Shift + MIXER): SENDS · SIDECHAIN · BOUNCE · EXPORT; keys 1–4 mute, 5–8 solo in mixer mode ───────────── */
@@ -1217,7 +1227,7 @@ function bounce(){if(!tape)return;const f=BN.f.map(Boolean),n=f.filter(Boolean).
 function wavBlob(chunks,ch,sr){let n=0;chunks.forEach(c=>n+=c.length);const h=new DataView(new ArrayBuffer(44)),w=(o,s2)=>{for(let i=0;i<s2.length;i++)h.setUint8(o+i,s2.charCodeAt(i))};
   w(0,'RIFF');h.setUint32(4,36+n*2,true);w(8,'WAVEfmt ');h.setUint32(16,16,true);h.setUint16(20,1,true);h.setUint16(22,ch,true);h.setUint32(24,sr,true);h.setUint32(28,sr*ch*2,true);h.setUint16(32,ch*2,true);h.setUint16(34,16,true);w(36,'data');h.setUint32(40,n*2,true);
   return new Blob([h,...chunks],{type:'audio/wav'})}
-function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),20000)}
+function download(blob,name){if(usbOn()){usbWrite(blob,name).then(()=>status('saved '+name+' on the USB stick')).catch(()=>status('could not write '+name+' to the USB stick'));return}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),20000)}
 const fileBase=()=>('WEB-1 '+((pjCur()||{name:''}).name)).replace(/[^\w -]+/g,'').trim().replace(/\s+/g,'-');
 async function exportStems(){if(!tape)return;const d=await dumpTape();let end=-1;d.dump.forEach(a=>{let e=a.length-1;while(e>end&&a[e]===0)e--;if(e>end)end=e});
   if(end<0){status('the tape is empty — record something first');return}let k=0;
@@ -1229,10 +1239,10 @@ function mixDone(){if(!MIX.frames){status('nothing was recorded');return}downloa
 function mixBParams(){const A=applyMix,sh=S.shift,stp=(o,k,d,f)=>{o[k]+=d*15;while(Math.abs(o[k])>=1){const s2=Math.sign(o[k]);o[k]-=s2;f(s2)}};
   if(S.page===0)return[0,1,2,3].map(i=>sh?mk(S.sdl,i,'DELAY '+(i+1),pct,A):mk(S.srv,i,'REVERB '+(i+1),pct,A));
   if(S.page===1)return[mk(S.sc,0,'SOURCE',v=>SCN[idx(v,6)],A),mk(S.sc,1,'DEPTH',pct,A),mk(S.sc,2,'RELEASE',()=>Math.round(scRel()*1000)+'ms',A),mk(S.sc,3,'THRESHOLD',v=>Math.round(-36+v*30)+' dB',A)];
-  if(S.page===2)return[{n:'ONTO',val:()=>'TRACK '+(BN.to+1),turn(d){stp(BN,'a',d,k=>{BN.to=clamp(BN.to+k,0,3);BN.arm=0})}},{n:'LEVEL',val:()=>pct(BN.lv),turn(d){BN.lv=clamp(BN.lv+d)}},
-    {n:'BOUNCE',val:()=>BN.arm<.02?'NO':'YES ▸',turn(d){BN.arm=clamp(BN.arm+d*1.6);if(BN.arm>=1){BN.arm=0;bounce()}}},null];
+  if(S.page===2)return[{n:'ONTO',val:()=>'TRACK '+(BN.to+1),turn(d){stp(BN,'a',d,k=>{BN.to=clamp(BN.to+k,0,3);BN.arm=0})}},{n:'LEVEL',val:()=>pct(BN.lv),step(k){BN.lv=clamp(BN.lv+k*.02)},turn(d){BN.lv=clamp(BN.lv+d)}},
+    {n:'BOUNCE',val:()=>BN.arm<.02?'NO':'YES ▸',push(){bounce()},turn(d){BN.arm=clamp(BN.arm+d*1.6);if(BN.arm>=1){BN.arm=0;bounce()}}},null];
   return[{n:'EXPORT',val:()=>EXPN[EXP.w],turn(d){if(MIX.rec)return;stp(EXP,'a',d,k=>{EXP.w=clamp(EXP.w+k,0,2);EXP.arm=0})}},null,
-    {n:EXP.w===2&&MIX.rec?'STOP':'GO',val:()=>EXP.w===2&&MIX.rec?'TURN ▸':EXP.arm<.02?'NO':'YES ▸',turn(d){EXP.arm=clamp(EXP.arm+d*1.6);if(EXP.arm>=1){EXP.arm=0;if(EXP.w===0)exportWav();else if(EXP.w===1)exportStems();else MIX.rec?mixStop():mixStart()}}},null]}
+    {n:EXP.w===2&&MIX.rec?'STOP':'GO',val:()=>EXP.w===2&&MIX.rec?'TURN ▸':EXP.arm<.02?'NO':'YES ▸',push(){if(EXP.w===0)exportWav();else if(EXP.w===1)exportStems();else MIX.rec?mixStop():mixStart()},turn(d){EXP.arm=clamp(EXP.arm+d*1.6);if(EXP.arm>=1){EXP.arm=0;if(EXP.w===0)exportWav();else if(EXP.w===1)exportStems();else MIX.rec?mixStop():mixStart()}}},null]}
 function drawMixerB(t){const pg=S.page,sh=S.shift;for(let i=0;i<4;i++){const pk=peak(N.trAn[i]);mPk[i]=Math.max(pk,mPk[i]*.9)}
   if(pg===0){// two send bars per track: reverb, delay
     for(let i=0;i<4;i++){const x=W/8+i*W/4,c=TC[i],y0=88,h=58;txt('TRK '+(i+1),x,24,trackOn(i)?c:'#3a3d44',6,'center');
@@ -1278,6 +1288,20 @@ function midiSend(d,t){if(!MIDI.out.length)return;const ts=t!=null&&AC?midiTs(t)
 function midiClock(now){if(!S.midi[0]||!MIDI.out.length){MIDI.next=0;MIDI.was=S.playing;return}const tick=60/S.bpm/24;if(!MIDI.next||MIDI.next<now-.2)MIDI.next=now+.02;
   if(S.playing!==MIDI.was){MIDI.was=S.playing;midiSend([S.playing?0xFA:0xFC],now)}while(MIDI.next<now+.1){midiSend([0xF8],MIDI.next);MIDI.next+=tick}}
 function midiNote(n,vel,t,dur){if(!MIDI.out.length)return;const ch=S.midi[3];midiSend([0x90|ch,clamp(n,0,127),clamp(Math.round(vel*127),1,127)],t);if(dur!=null)midiSend([0x80|ch,clamp(n,0,127),0],t+dur)}
+
+/* ───────────── Shift map: hold Shift on its own for half a second and the screen lists what each key does with Shift here ───────────── */
+function shiftMap(){const m=S.mode,o=S.overlay,A=[];
+  if(o==='dm')A.push(['DRUM','CLOSE THE DRUM MACHINE'],['KNOBS ON T4','PATTERN · CHAIN · HITS · ROTATE'],['A KEY','PICK A PAD (ON STEPS)']);
+  else if(o==='seq')A.push(['KEYS','ADD STEPS (ENDLESS, CHAIN)'],['→ / ←','REST / REMOVE (CHAIN)'],['SEQ','CLEAR THE SEQUENCE']);
+  else if(m==='synth')A.push(['1–8','SYNTH BANK B'],['T1','SAVE PRESET'],['T3','FX BANK B (SOUND FX)'],['KNOBS ON T2','PLAY MODE · GLIDE · DRIFT · VEL']);
+  else if(m==='drum')A.push(['4','PAD SAMPLE EDITOR'],['KNOBS ON T1','KIT MODEL · CHOKE'],['T3','FX BANK B (SOUND FX)']);
+  else if(m==='tape')A.push(['T1–T4','COPY · CROP · DOUBLE · ERASE'],['7','PROJECTS'],['8','SYSTEM MENU']);
+  else if(m==='mixer')A.push(['1–4','RECALL SCENE 1–4'],['5–8','STORE SCENE 1–4'],['KNOBS','PAN · X-OVER · FREQ · LIMITER']);
+  A.push(['SYNTH','SYNTHS & PRESETS'],['DRUM','DRUM MACHINE'],['TAPE','ERASE TAPE'],['MIXER','MIXER BANK B'],['FX','FX BANK B'],['TEMPO','KEY & CHORDS'],
+    ['REC','ADVANCED REC'],['PLAY','PLAY BACKWARDS'],['LIFT','ERASE THE TRACK'],['DROP','UNDO ON THE TAPE'],['← →','OCTAVE DOWN / UP']);
+  return A.slice(0,18)}
+function drawShiftMap(){const A=shiftMap();g.fillStyle='rgba(7,8,10,.95)';g.fillRect(0,14,W,86);txt('SHIFT +',8,23,COL.o,7);txt(S.overlay?'':S.mode.toUpperCase()+' MODE',W-8,23,COL.dim,6,'right');
+  A.forEach(([k,a],j)=>{const col=j<9?0:1,x=8+col*166,y=32+(j%9)*7.4;txt(k,x,y,j<3&&!S.overlay?COL.o:COL.b,5.5);txt(a,x+42,y,COL.w,5.5)})}
 
 /* ───────────── erase tape (Shift + TAPE): press all four T keys to wipe every track ───────────── */
 const ER={k:[0,0,0,0],t0:0,done:0};
@@ -1342,8 +1366,8 @@ async function pjUnpack(file){let buf=await file.arrayBuffer(),u=new Uint8Array(
 async function pjSaveFile(ps,kind){if(PJ.busy)return;PJ.busy=true;pjMsg('SAVING FILE…');
   try{const M=pjm(),list=[];for(const p of ps){const b=p.id===M.cur?await pjLive():await idb.get('proj:'+p.id);if(b)list.push({name:p.name,b})}
     const blob=await pjPack(list,kind),fn=((kind==='backup'?'WEB-1 backup '+new Date().toISOString().slice(0,10):'WEB-1 '+ps[0].name).replace(/[^\w -]+/g,'').trim().replace(/\s+/g,'-'))+'.web1';
-    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=fn;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),20000);
-    pjMsg('SAVED · '+(blob.size<1e6?Math.round(blob.size/1e3)+' KB':(blob.size/1e6).toFixed(1)+' MB'));status('saved '+fn)}
+    download(blob,fn);
+    pjMsg((usbOn()?'ON USB · ':'SAVED · ')+(blob.size<1e6?Math.round(blob.size/1e3)+' KB':(blob.size/1e6).toFixed(1)+' MB'));status('saved '+fn)}
   catch(e){console.warn(e);pjMsg('COULD NOT SAVE')}PJ.busy=false}
 async function pjLoadFile(f){if(PJ.busy)return;PJ.busy=true;pjMsg('LOADING FILE…');
   try{const r=await pjUnpack(f),M=pjm();for(const{name,b}of r.list){const id=pjId();await idb.set('proj:'+id,b);M.list.push({id,name:pjName(name),t:Date.now()})}pjSave();
@@ -1360,11 +1384,11 @@ function pjDo(){const M=pjm(),p=M.list[PJ.sel];switch(PJA[PJ.act]){
   case'DELETE':pjDel();break;
   case'SAVE FILE':pjSaveFile([p],'project');break;
   case'BACKUP ALL':pjSaveFile(M.list.slice(),'backup');break;
-  case'LOAD FILE':if(navigator.userActivation&&!navigator.userActivation.isActive)pjMsg('USE LOAD PROJECT BELOW');else $('#pfile').click()}}
+  case'LOAD FILE':if(HW.ok){usbOpen('project');break}if(navigator.userActivation&&!navigator.userActivation.isActive)pjMsg('USE LOAD PROJECT BELOW');else $('#pfile').click()}}
 function pjParams(){const M=pjm(),n=M.list.length,step=(k,d,f)=>{PJ[k]+=d*15;while(Math.abs(PJ[k])>=1){const s2=Math.sign(PJ[k]);PJ[k]-=s2;f(s2);PJ.arm=0}};return[
   {n:'PROJECT',val:()=>(PJ.sel+1)+'/'+n,turn(d){step('sa',d,k=>PJ.sel=clamp(PJ.sel+k,0,pjm().list.length-1))}},
   {n:'ACTION',val:()=>PJA[PJ.act],turn(d){step('aa',d,k=>PJ.act=clamp(PJ.act+k,0,PJA.length-1))}},
-  {n:'DO IT',val:()=>PJ.busy?'…':PJ.arm<.02?'NO':'YES ▸',turn(d){if(PJ.busy)return;PJ.arm=clamp(PJ.arm+d*1.6);if(PJ.arm>=1){PJ.arm=0;pjDo()}}},null]}
+  {n:'DO IT',val:()=>PJ.busy?'…':armed('pjdel')?'PUSH AGAIN':PJ.arm<.02?'NO':'YES ▸',push(){if(PJ.busy)return;if(PJA[PJ.act]==='DELETE')twoStep('pjdel',pjDo);else pjDo()},turn(d){if(PJ.busy)return;PJ.arm=clamp(PJ.arm+d*1.6);if(PJ.arm>=1){PJ.arm=0;pjDo()}}},null]}
 function drawProj(t){const M=pjm(),L=M.list,sel=clamp(PJ.sel,0,L.length-1),p=L[sel],open=p&&p.id===M.cur,now=performance.now();
   bigN(''+(sel+1),40,52,open?COL.g:COL.w,30,'center');txt('OF '+L.length,40,63,COL.dim,6,'center');txt(open?'OPEN NOW':'SAVED',40,74,open?COL.g:COL.dim,6,'center');
   if(p&&p.t){const d=new Date(p.t);txt(d.getDate()+' '+['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getMonth()]+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'),40,84,'#5d6169',5.5,'center')}
@@ -1377,48 +1401,99 @@ function drawProj(t){const M=pjm(),L=M.list,sel=clamp(PJ.sel,0,L.length-1),p=L[s
     g.fillStyle='rgba(7,8,10,.92)';g.fillRect(84,72,W-90,24);txt(what,88,81,PJA[PJ.act]==='DELETE'?COL.red:COL.w,6);g.strokeStyle=COL.w;g.strokeRect(88.5,86.5,W-100,6);g.fillStyle=COL.w;g.fillRect(90,88,(W-103)*PJ.arm,3)}
   if(PJ.msg&&(PJ.busy||now-PJ.at<1800)){g.fillStyle='rgba(7,8,10,.92)';g.fillRect(84,38,W-90,24);bigN(PJ.msg,84+(W-90)/2,56,COL.g,PJ.msg.length>18?9:12,'center')}}
 
+/* ───────────── the WEB-1 device: when the page is served by the helper on the Pi (hardware/pi/web1-helper.py), these work too:
+   real battery and charging, setting the system clock and timezone, a USB stick for projects, samples and WAVs, software updates,
+   and saving everything before the device turns off ───────────── */
+const HW={ok:false,ver:null,power:null,usb:null,upd:null,off:false};
+async function hwApi(path,opt){const r=await fetch(path,Object.assign({cache:'no-store'},opt||{}));if(!r.ok)throw new Error(path+' '+r.status);const ct=r.headers.get('content-type')||'';return ct.includes('json')?r.json():r.arrayBuffer()}
+const hwPost=(p,b)=>hwApi(p,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(b||{})}).catch(()=>null);
+async function hwInit(){if(!/^(localhost|127\.0\.0\.1)$/.test(location.hostname))return;
+  try{const c=new AbortController();setTimeout(()=>c.abort(),1200);const r=await fetch('/api/ping',{cache:'no-store',signal:c.signal});if(!r.ok)return;const j=await r.json();if(!j.ok)return;HW.ok=true;HW.ver=j}catch(_){return}
+  hwPower();setInterval(hwPower,15000);hwUsb();
+  try{const es=new EventSource('/api/events');es.addEventListener('shutdown',hwShutdown);es.addEventListener('usb',hwUsb)}catch(_){}}
+async function hwPower(){try{HW.power=await hwApi('/api/power')}catch(_){HW.power=null}}
+async function hwUsb(){try{HW.usb=await hwApi('/api/usb')}catch(_){HW.usb=null}}
+const usbOn=()=>!!(HW.ok&&HW.usb&&HW.usb.drive);
+// the device is turning off: stop recording, save the settings and the tape, then tell the helper it may power off
+async function hwShutdown(){if(HW.off)return;HW.off=true;try{if(S.rec){S.rec=false;tapeSet()}clearInterval(saveTimer);localStorage.setItem(LSK,snapshot());if(tape&&!PJ.busy)await saveTape()}catch(_){}await hwPost('/api/saved',{})}
+async function usbWrite(blob,name){const r=await fetch('/api/usb/file?name='+encodeURIComponent(name),{method:'PUT',body:blob});if(!r.ok)throw new Error('usb '+r.status);hwUsb()}
+// a list of the stick's files to load a project or a sample (blue picks, a push or the white knob loads it)
+const UB={kind:'project',sel:0,a:0,ret:null};
+function usbOpen(kind){if(!HW.ok){status('the USB stick works on the WEB-1 device');return}UB.kind=kind;UB.sel=0;UB.a=0;UB.ret={o:S.overlay,m:S.mode,i:S.inst};S.overlay='usb';hwUsb()}
+const usbFiles=()=>(HW.usb&&HW.usb.files||[]).filter(f=>UB.kind==='project'?/\.web1$/i.test(f.name):/\.(wav|mp3|aiff?|flac|ogg|m4a)$/i.test(f.name));
+async function usbLoad(){const f=usbFiles()[UB.sel];if(!f)return;status('loading '+f.name+'…');try{const buf=await hwApi('/api/usb/file?name='+encodeURIComponent(f.name));
+    if(UB.kind==='project')await pjLoadFile(new File([buf],f.name));else{S.overlay=UB.ret&&UB.ret.o==='pse'?'pse':null;await decodeToSample(buf,f.name)}}catch(_){status('could not read '+f.name)}}
+function usbParams(){return[{n:'FILE',val:()=>{const n=usbFiles().length;return n?(UB.sel+1)+'/'+n:'NONE'},step(k){UB.sel=clamp(UB.sel+k,0,Math.max(0,usbFiles().length-1))},turn(d){UB.f=(UB.f||0)+d*15;while(Math.abs(UB.f)>=1){const s2=Math.sign(UB.f);UB.f-=s2;this.step(s2)}}},
+  null,{n:'LOAD',val:()=>usbFiles().length?(UB.a<.02?'PUSH':'YES ▸'):'—',push(){usbLoad()},turn(d){UB.a=clamp(UB.a+d*1.6);if(UB.a>=1){UB.a=0;usbLoad()}}},null]}
+function drawUsb(t){const fs=usbFiles(),dr=HW.usb&&HW.usb.drive;
+  if(!dr){txt('NO USB STICK',CX,52,COL.w,10,'center');txt('PLUG ONE IN: WEB-1 USES ITS WEB-1 FOLDER',CX,66,COL.dim,6,'center');return}
+  txt(dr.label+' · '+mb(dr.free||0)+' FREE',8,24,COL.dim,6);txt(UB.kind==='project'?'PROJECTS (.web1)':'SAMPLES (WAV · MP3 · AIFF · FLAC)',W-8,24,COL.o,6,'right');
+  if(!fs.length){txt('NOTHING TO LOAD HERE YET',CX,56,COL.w,8,'center');txt('PUT FILES IN THE WEB-1 FOLDER OF THE STICK',CX,68,COL.dim,6,'center');return}
+  const st=clamp(UB.sel-3,0,Math.max(0,fs.length-7));for(let r=0;r<7&&st+r<fs.length;r++){const i=st+r,f=fs[i],y=30+r*10,on=i===UB.sel;if(on){g.fillStyle=COL.b;g.fillRect(8,y-1,W-16,9.5)}
+    txt(f.name.slice(0,44),12,y+6.5,on?'#07080a':COL.w,6.5);txt(mb(f.size),W-12,y+6.5,on?'#07080a':COL.dim,6,'right')}}
+// the IANA names of the timezone list, so summer time is right and the device's clock can follow the choice
+const TZN=[null,'Pacific/Honolulu','America/Los_Angeles','America/Denver','America/Chicago','America/New_York','America/Sao_Paulo','Europe/London','Europe/Paris','Europe/Athens','Europe/Moscow','Asia/Dubai','Asia/Kolkata','Asia/Bangkok','Asia/Singapore','Asia/Tokyo','Australia/Sydney','Pacific/Auckland'];
+function zoneOffset(z){try{const d=new Date(),p=x=>new Date(d.toLocaleString('en-US',{timeZone:x}));return Math.round((p(z)-p('UTC'))/60000)}catch(_){return null}}
+let tzTimer=0;function tzApply(){clearTimeout(tzTimer);tzTimer=setTimeout(()=>{const z=TZN[S.sys.tz+1];if(HW.ok&&z)hwPost('/api/timezone',{zone:z}).then(r=>status(r&&r.ok?'device timezone set to '+z:'could not set the timezone'))},700)}
+function hwTime(sec){if(!HW.ok)return false;hwPost('/api/time',{epoch:Math.round(Date.now()/1000+sec)}).then(r=>{if(r&&r.ok)status('device clock set')});return true}
+
 /* ───────────── system menu (Shift + 8 in tape mode): battery, time, timezone, storage, display, about ───────────── */
-const SYSN=['BATTERY','TIME','TIMEZONE','STORAGE','DISPLAY','MIDI','ABOUT'],
+const SYSN=['BATTERY','TIME','TIMEZONE','STORAGE','DISPLAY','MIDI','CPU','ABOUT'],
   TZL=[[null,'AUTO (THIS DEVICE)'],[-600,'HONOLULU'],[-480,'LOS ANGELES'],[-420,'DENVER'],[-360,'CHICAGO'],[-300,'NEW YORK'],[-180,'SAO PAULO'],[0,'LONDON'],[60,'PARIS'],[120,'ATHENS'],[180,'MOSCOW'],[240,'DUBAI'],[330,'MUMBAI'],[420,'BANGKOK'],[480,'SINGAPORE'],[540,'TOKYO'],[600,'SYDNEY'],[720,'AUCKLAND']],
   SLEEPS=[0,1,5,10,30],SYS={s:0,i:0,sf:.5/6,iff:0,acc:0,arm:0,msg:'',at:0,bat:null,est:null};
 let lastIn=performance.now();const wake=()=>{lastIn=performance.now()};
-const tzMin=()=>{const z=TZL[S.sys.tz+1];return z&&z[0]!==null?z[0]:-new Date().getTimezoneOffset()},
+// performance: frames per second of the screen, the audio load where the browser reports it, and the voice limit (AUTO lowers it when the device struggles)
+const PERF={fps:60,n:0,t0:0,load:null,peak:null,under:null,vmax:12,good:0},VLIM=[0,4,6,8,10,12,16];
+const vmax=()=>S.sys.vl||PERF.vmax;
+function perfTick(){if(S.sys.vl||document.visibilityState!=='visible'||!AC)return;const busy=(PERF.load!=null&&PERF.load>.85)||PERF.fps<24,sounding=voices.filter(v=>!v.off).length;
+  if(busy&&sounding>=4){PERF.vmax=Math.max(4,Math.min(PERF.vmax,sounding)-2);PERF.good=0}else if(!busy&&++PERF.good>=5&&PERF.vmax<12){PERF.vmax++;PERF.good=0}}
+const tzMin=()=>{const z=TZL[S.sys.tz+1];if(!z||z[0]===null)return-new Date().getTimezoneOffset();const o=zoneOffset(TZN[S.sys.tz+1]);return o==null?z[0]:o},
   tzNm=()=>{const z=TZL[S.sys.tz+1];if(!z||z[0]===null)return'AUTO';const m=z[0],h=Math.trunc(m/60),mm=Math.abs(m%60);return'UTC'+(m<0?'−':'+')+Math.abs(h)+(mm?':'+mm:'')+' '+z[1]},
   devNow=()=>new Date(Date.now()+S.sys.toff*60000+tzMin()*60000),
   clockStr=(sec)=>{const d=devNow();let h=d.getUTCHours();const ap=S.sys.h24?'':h<12?' AM':' PM';if(!S.sys.h24)h=h%12||12;const p=n=>String(n).padStart(2,'0');return(S.sys.h24?p(h):h)+':'+p(d.getUTCMinutes())+(sec?':'+p(d.getUTCSeconds()):'')+ap},
   dateStr=()=>{const d=devNow();return['SUN','MON','TUE','WED','THU','FRI','SAT'][d.getUTCDay()]+' '+d.getUTCDate()+' '+['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][d.getUTCMonth()]+' '+d.getUTCFullYear()};
 const mb=v=>v<1e6?Math.round(v/1e3)+' KB':v<1e9?(v/1e6).toFixed(1)+' MB':(v/1e9).toFixed(2)+' GB';
 const nSmp=()=>slotSmp.filter(Boolean).length+padSmp.flat().filter(Boolean).length,nUp=()=>S.up.reduce((a,u)=>a+u.length,0);
+const TW=()=>HW.ok?'PUSH WHITE':'TURN WHITE';   // the confirm hint: on the device the white knob is pushed
 function sysMsg(m){SYS.msg=m;SYS.at=performance.now()}
 // items: n name · v() value · adj(steps) changes it · act() runs after the white knob is turned all the way to YES · go() runs at once
 function sysItems(){const y=S.sys,b=SYS.bat;switch(SYS.s){
-  case 0:return[{n:'LEVEL',v:()=>b?Math.round(b.level*100)+'%':'NO BATTERY INFO'},{n:'POWER',v:()=>!b?'—':b.charging?'CHARGING':'ON BATTERY'},
+  case 0:if(HW.ok){const P=HW.power||{};return[{n:'LEVEL',v:()=>P.ok?Math.round(P.soc)+'%':'NO READING'},{n:'POWER',v:()=>!P.ok?'—':P.charging?'CHARGING':P.plugged?'PLUGGED IN · FULL':'ON BATTERY'},
+      {n:'VOLTAGE',v:()=>P.ok&&P.volts?P.volts.toFixed(2)+' V':'—'},{n:'POWER OFF',v:()=>'SAVES FIRST',act:()=>{hwPost('/api/shutdown',{});sysMsg('TURNING OFF…')}}]}
+    return[{n:'LEVEL',v:()=>b?Math.round(b.level*100)+'%':'NO BATTERY INFO'},{n:'POWER',v:()=>!b?'—':b.charging?'CHARGING':'ON BATTERY'},
     {n:'TIME LEFT',v:()=>{if(!b)return'—';const t=b.charging?b.chargingTime:b.dischargingTime;if(!isFinite(t)||!t)return b.charging&&b.level>=1?'FULL':'—';return Math.floor(t/3600)+' H '+Math.round(t%3600/60)+' MIN'+(b.charging?' TO FULL':'')}}];
-  case 1:return[{n:'HOUR',v:()=>clockStr().split(':')[0],adj:k=>y.toff+=60*k},{n:'MINUTE',v:()=>clockStr().split(':')[1].slice(0,2),adj:k=>y.toff+=k},
-    {n:'FORMAT',v:()=>y.h24?'24 H':'12 H',adj:()=>y.h24=y.h24?0:1},{n:'DATE',v:dateStr,adj:k=>y.toff+=1440*k},{n:'USE DEVICE TIME',v:()=>y.toff?'RESET':'IN USE',act:()=>{y.toff=0;sysMsg('TIME RESET')}}];
-  case 2:return[{n:'ZONE',v:tzNm,adj:k=>y.tz=clamp(y.tz+k,-1,TZL.length-2)},{n:'LOCAL TIME',v:()=>clockStr(1)}];
-  case 3:return[{n:'PROJECTS',v:()=>pjm().list.length+' · OPEN THEM',go:pjPage},{n:'USED',v:()=>SYS.est?mb(SYS.est.usage||0)+' OF '+mb(SYS.est.quota||0):'—'},{n:'SAMPLES',v:()=>nSmp()+' FILES'},{n:'USER PRESETS',v:()=>nUp()+''},
-    {n:'ERASE SAMPLES',v:()=>nSmp()?'TURN WHITE':'EMPTY',act:()=>{if(!nSmp())return;slotSmp.forEach((x,i)=>{if(x){slotSmp[i]=null;idb.del('smp'+i).catch(()=>{})}});padSmp.forEach((r,kt)=>r.forEach((x,p)=>{if(x){r[p]=null;idb.del(padK(kt,p)).catch(()=>{})}}));sysMsg('SAMPLES ERASED');sysEst()}},
-    {n:'ERASE PRESETS',v:()=>nUp()?'TURN WHITE':'EMPTY',act:()=>{if(!nUp())return;S.up.forEach(u=>u.length=0);S.pre.forEach((k,sl)=>{if(k>PRESETS[slE(sl)].length)S.pre[sl]=0});sysMsg('PRESETS ERASED')}},
-    {n:'ERASE TAPE',v:()=>'OPEN',go:eraseOpen},{n:'ERASE EVERYTHING',v:()=>'TURN WHITE',act:()=>{sysMsg('ERASING…');setTimeout(wipeAll,400)}}];
+  case 1:return[{n:'HOUR',v:()=>clockStr().split(':')[0],adj:k=>hwTime(3600*k)||(y.toff+=60*k)},{n:'MINUTE',v:()=>clockStr().split(':')[1].slice(0,2),adj:k=>hwTime(60*k)||(y.toff+=k)},
+    {n:'FORMAT',v:()=>y.h24?'24 H':'12 H',adj:()=>y.h24=y.h24?0:1},{n:'DATE',v:dateStr,adj:k=>hwTime(86400*k)||(y.toff+=1440*k)},{n:'USE DEVICE TIME',v:()=>y.toff?'RESET':'IN USE',act:()=>{y.toff=0;sysMsg('TIME RESET')}}];
+  case 2:return[{n:'ZONE',v:tzNm,adj:k=>{y.tz=clamp(y.tz+k,-1,TZL.length-2);tzApply()}},{n:'LOCAL TIME',v:()=>clockStr(1)}];
+  case 3:return[{n:'PROJECTS',v:()=>pjm().list.length+' · OPEN THEM',go:pjPage},...(HW.ok?[{n:'USB STICK',v:()=>usbOn()?HW.usb.drive.label+' · '+mb(HW.usb.drive.free||0)+' FREE':'NONE',go:()=>{hwUsb()}},
+      {n:'LOAD SAMPLE FROM USB',v:()=>'OPEN',go:()=>usbOpen('audio')},{n:'BACKUP TO USB',v:()=>usbOn()?'ALL PROJECTS':'NO STICK',act:()=>{if(usbOn())pjSaveFile(pjm().list.slice(),'backup');else sysMsg('NO USB STICK')}},
+      {n:'EJECT USB',v:()=>usbOn()?'SAFE TO PULL OUT':'—',go:()=>{if(usbOn())hwPost('/api/usb/eject',{}).then(()=>{hwUsb();sysMsg('USB EJECTED')})}}]:[]),{n:'USED',v:()=>SYS.est?mb(SYS.est.usage||0)+' OF '+mb(SYS.est.quota||0):'—'},{n:'SAMPLES',v:()=>nSmp()+' FILES'},{n:'USER PRESETS',v:()=>nUp()+''},
+    {n:'ERASE SAMPLES',v:()=>nSmp()?TW():'EMPTY',act:()=>{if(!nSmp())return;slotSmp.forEach((x,i)=>{if(x){slotSmp[i]=null;idb.del('smp'+i).catch(()=>{})}});padSmp.forEach((r,kt)=>r.forEach((x,p)=>{if(x){r[p]=null;idb.del(padK(kt,p)).catch(()=>{})}}));sysMsg('SAMPLES ERASED');sysEst()}},
+    {n:'ERASE PRESETS',v:()=>nUp()?TW():'EMPTY',act:()=>{if(!nUp())return;S.up.forEach(u=>u.length=0);S.pre.forEach((k,sl)=>{if(k>PRESETS[slE(sl)].length)S.pre[sl]=0});sysMsg('PRESETS ERASED')}},
+    {n:'ERASE TAPE',v:()=>'OPEN',go:eraseOpen},{n:'ERASE EVERYTHING',v:()=>TW(),act:()=>{sysMsg('ERASING…');setTimeout(wipeAll,400)}}];
   case 4:return[{n:'BRIGHTNESS',v:()=>Math.round(y.bri*100)+'%',adj:k=>y.bri=clamp(Math.round((y.bri+k*.1)*10)/10,.2,1)},
     {n:'SCREEN SLEEP',v:()=>y.sleep?y.sleep+' MIN':'OFF',adj:k=>y.sleep=SLEEPS[clamp(SLEEPS.indexOf(y.sleep)+k,0,SLEEPS.length-1)]},{n:'CLOCK IN TITLE',v:()=>y.clk?'ON':'OFF',adj:()=>y.clk=y.clk?0:1}];
-  case 5:return[{n:'CONNECT',v:()=>midiOK?MIDI.ins+' IN · '+MIDI.out.length+' OUT':'TURN WHITE',go:initMidi},{n:'CLOCK OUT',v:()=>S.midi[0]?'ON':'OFF',adj:()=>S.midi[0]=S.midi[0]?0:1},
+  case 5:return[{n:'CONNECT',v:()=>midiOK?MIDI.ins+' IN · '+MIDI.out.length+' OUT':TW(),go:initMidi},{n:'CLOCK OUT',v:()=>S.midi[0]?'ON':'OFF',adj:()=>S.midi[0]=S.midi[0]?0:1},
     {n:'CLOCK IN',v:()=>S.midi[1]?'FOLLOW':'OFF',adj:()=>S.midi[1]=S.midi[1]?0:1},{n:'NOTES OUT',v:()=>['OFF','SEQUENCERS','EVERYTHING'][S.midi[2]],adj:k=>S.midi[2]=clamp(S.midi[2]+k,0,2)},
     {n:'CHANNEL',v:()=>''+(S.midi[3]+1),adj:k=>S.midi[3]=clamp(S.midi[3]+k,0,15)}];
-  default:return[{n:'DEVICE',v:()=>NAME},{n:'VERSION',v:()=>'0.28 · 2026'},{n:'DESIGN',v:()=>'SNOW BAYLES'},{n:'ENGINES',v:()=>'16 SYNTHS · 8 KITS'},{n:'TAPE',v:()=>'4 TRACKS × '+TAPE_SECS+' S'},{n:'MIDI',v:()=>midiOK?'CONNECTED':'NOT CONNECTED'}]}}
+  case 6:return[{n:'AUDIO LOAD',v:()=>PERF.load!=null?Math.round(PERF.load*100)+'% · PEAK '+Math.round((PERF.peak||0)*100)+'%':'NOT REPORTED'},{n:'SCREEN',v:()=>Math.round(PERF.fps)+' FPS'},
+    {n:'VOICES',v:()=>voices.filter(v=>!v.off).length+' OF '+vmax()},{n:'VOICE LIMIT',v:()=>S.sys.vl?S.sys.vl+' VOICES':'AUTO ('+PERF.vmax+')',adj:k=>S.sys.vl=VLIM[clamp(VLIM.indexOf(S.sys.vl)+k,0,VLIM.length-1)]},
+    {n:'DROPOUTS',v:()=>PERF.under!=null?(PERF.under*100).toFixed(1)+'%':'NOT REPORTED'}];
+  default:return[{n:'DEVICE',v:()=>NAME},{n:'VERSION',v:()=>'0.40 · 2026'+(HW.upd&&HW.upd.current?' · '+HW.upd.current:'')},{n:'DESIGN',v:()=>'SNOW BAYLES'},{n:'ENGINES',v:()=>NENG+' ENGINES · 16 SLOTS · 8 KITS'},
+    ...(HW.ok?[{n:'CHECK FOR UPDATE',v:()=>!HW.upd?TW():HW.upd.ok?(HW.upd.behind?HW.upd.behind+' NEW':'UP TO DATE'):'NO CONNECTION',go:()=>{sysMsg('CHECKING…');hwApi('/api/update').then(u=>{HW.upd=u;sysMsg(u.ok?(u.behind?u.behind+' UPDATES':'UP TO DATE'):'NO CONNECTION')}).catch(()=>sysMsg('NO CONNECTION'))}},
+      {n:'INSTALL UPDATE',v:()=>HW.upd&&HW.upd.behind?TW():'—',act:()=>{if(!(HW.upd&&HW.upd.behind))return;sysMsg('UPDATING…');hwPost('/api/update',{}).then(r=>{if(r&&r.ok){sysMsg('UPDATED · RESTARTING');setTimeout(()=>location.reload(),2500)}else sysMsg('UPDATE FAILED')})}}]:[]),{n:'TAPE',v:()=>'4 TRACKS × '+TAPE_SECS+' S'},{n:'MIDI',v:()=>midiOK?'CONNECTED':'NOT CONNECTED'}]}}
 function sysEst(){if(navigator.storage&&navigator.storage.estimate)navigator.storage.estimate().then(e=>SYS.est=e).catch(()=>{})}
 function sysOpen(){S.overlay='sys';SYS.arm=0;SYS.acc=0;sysEst();if(navigator.getBattery&&!SYS.bat)navigator.getBattery().then(b=>SYS.bat=b).catch(()=>{})}
 function sysParams(){const it=sysItems(),cur=it[clamp(SYS.i,0,it.length-1)];return[
-  {n:'SECTION',val:()=>SYSN[SYS.s],turn(d){SYS.sf=clamp(SYS.sf+d);const s2=idx(SYS.sf,SYSN.length);if(s2!==SYS.s){SYS.s=s2;SYS.i=0;SYS.iff=0;SYS.arm=0}}},
-  {n:'ITEM',val:()=>(SYS.i+1)+'/'+it.length,turn(d){SYS.iff=clamp(SYS.iff+d*2,0,.999);const i2=Math.floor(SYS.iff*sysItems().length);if(i2!==SYS.i){SYS.i=i2;SYS.arm=0;SYS.acc=0}}},
-  cur.adj?{n:'SET',val:()=>cur.v(),turn(d){SYS.acc+=d*12;while(Math.abs(SYS.acc)>=1){const k=Math.sign(SYS.acc);SYS.acc-=k;cur.adj(k)}}}
-  :cur.act?{n:'CONFIRM',val:()=>SYS.arm<.02?'NO':'YES ▸',turn(d){SYS.arm=clamp(SYS.arm+d*1.6);if(SYS.arm>=1){SYS.arm=0;cur.act()}}}
-  :cur.go?{n:'OPEN',val:()=>'TURN ▸',turn(d){SYS.acc+=d;if(SYS.acc>.15){SYS.acc=0;cur.go();leds()}}}:null,null]}
+  {n:'SECTION',val:()=>SYSN[SYS.s],step(k){const s2=clamp(SYS.s+k,0,SYSN.length-1);if(s2!==SYS.s){SYS.s=s2;SYS.sf=(s2+.5)/SYSN.length;SYS.i=0;SYS.iff=0;SYS.arm=0}},turn(d){SYS.sf=clamp(SYS.sf+d);const s2=idx(SYS.sf,SYSN.length);if(s2!==SYS.s){SYS.s=s2;SYS.i=0;SYS.iff=0;SYS.arm=0}}},
+  {n:'ITEM',val:()=>(SYS.i+1)+'/'+it.length,step(k){const n2=sysItems().length,i2=clamp(SYS.i+k,0,n2-1);SYS.i=i2;SYS.iff=(i2+.5)/n2;SYS.arm=0;SYS.acc=0},turn(d){SYS.iff=clamp(SYS.iff+d*2,0,.999);const i2=Math.floor(SYS.iff*sysItems().length);if(i2!==SYS.i){SYS.i=i2;SYS.arm=0;SYS.acc=0}}},
+  cur.adj?{n:'SET',val:()=>cur.v(),step(k){cur.adj(k)},push(){cur.adj(1)},turn(d){SYS.acc+=d*12;while(Math.abs(SYS.acc)>=1){const k=Math.sign(SYS.acc);SYS.acc-=k;cur.adj(k)}}}
+  :cur.act?{n:'CONFIRM',val:()=>armed('sys'+cur.n)?'PUSH AGAIN':SYS.arm<.02?'NO':'YES ▸',push(){if(/ERASE|POWER|INSTALL/.test(cur.n))twoStep('sys'+cur.n,cur.act);else cur.act()},turn(d){SYS.arm=clamp(SYS.arm+d*1.6);if(SYS.arm>=1){SYS.arm=0;cur.act()}}}
+  :cur.go?{n:'OPEN',val:()=>HW.ok?'PUSH ▸':'TURN ▸',step(k){if(k>0){cur.go();leds()}},push(){cur.go();leds()},turn(d){SYS.acc+=d;if(SYS.acc>.15){SYS.acc=0;cur.go();leds()}}}:null,null]}
 function drawSys(t){const it=sysItems(),sel=clamp(SYS.i,0,it.length-1),cur=it[sel],L=48,y0=20,now=performance.now();
   // left: a picture of the section
   g.strokeStyle=COL.w;g.lineWidth=1;
-  if(SYS.s===0){const b=SYS.bat,lv=b?b.level:0;g.strokeRect(L-24.5,40.5,46,24);g.fillStyle=COL.w;g.fillRect(L+22,47,3,10);g.fillStyle=lv<.2?COL.red:COL.g;if(b)g.fillRect(L-22,43,41*lv,19);
+  if(SYS.s===0){const hp=HW.ok&&HW.power&&HW.power.ok?HW.power:null,b=hp?{level:hp.soc/100,charging:hp.charging}:SYS.bat,lv=b?b.level:0;g.strokeRect(L-24.5,40.5,46,24);g.fillStyle=COL.w;g.fillRect(L+22,47,3,10);g.fillStyle=lv<.2?COL.red:COL.g;if(b)g.fillRect(L-22,43,41*lv,19);
     bigN(b?Math.round(lv*100)+'%':'—',L,84,COL.w,14,'center');if(b&&b.charging)txt('CHARGING',L,92,COL.o,5.5,'center')}
   else if(SYS.s<3){const r=20,cx=L,cy=50,d=devNow(),hh=d.getUTCHours()%12+d.getUTCMinutes()/60,mm=d.getUTCMinutes()+d.getUTCSeconds()/60;circ(cx,cy,r,COL.w);
     for(let k=0;k<12;k++){const a=k/12*6.283;ln(cx+Math.sin(a)*(r-3),cy-Math.cos(a)*(r-3),cx+Math.sin(a)*(r-1),cy-Math.cos(a)*(r-1),COL.dim,.8)}
@@ -1427,6 +1502,8 @@ function drawSys(t){const it=sysItems(),sel=clamp(SYS.i,0,it.length-1),cur=it[se
   else if(SYS.s===3){const e=SYS.est,u=e&&e.quota?e.usage/e.quota:0;g.strokeRect(L-14.5,26.5,28,40);g.beginPath();g.moveTo(L+3.5,26.5);g.lineTo(L+13.5,36.5);g.stroke();
     for(let k=0;k<4;k++)g.fillRect(L-10+k*6,22,3,4);g.fillStyle=COL.g;g.fillRect(L-12,64-Math.max(1,u*36),24,Math.max(1,u*36));txt(e?mb(e.usage||0):'—',L,82,COL.w,8,'center');txt('SD CARD',L,92,COL.dim,5.5,'center')}
   else if(SYS.s===4){const r=8+S.sys.bri*6;circ(L,48,r,COL.w,true);for(let k=0;k<8;k++){const a=k/8*6.283+t*.3;ln(L+Math.cos(a)*(r+3),48+Math.sin(a)*(r+3),L+Math.cos(a)*(r+7),48+Math.sin(a)*(r+7),COL.o,1.2)}txt(Math.round(S.sys.bri*100)+'%',L,84,COL.w,8,'center')}
+  else if(SYS.s===6){const ld=PERF.load!=null?PERF.load:clamp(1-PERF.fps/60),a0=Math.PI*.8,a1=Math.PI*2.2;g.strokeStyle='#2a2d34';g.lineWidth=5;g.beginPath();g.arc(L,54,18,a0,a1);g.stroke();
+    g.strokeStyle=ld>.8?COL.red:ld>.6?COL.o:COL.g;g.beginPath();g.arc(L,54,18,a0,a0+(a1-a0)*clamp(ld));g.stroke();txt(PERF.load!=null?Math.round(ld*100)+'%':Math.round(PERF.fps)+' FPS',L,58,COL.w,7,'center');txt(PERF.load!=null?'AUDIO':'SCREEN',L,84,COL.dim,5.5,'center')}
   else if(SYS.s===5){circ(L,48,17,COL.w);for(let k=0;k<5;k++){const a=Math.PI*(1.15+k*.175);circ(L+Math.cos(a)*10,48-Math.sin(a)*-10,1.8,midiOK?COL.g:COL.dim,true)}g.fillStyle=COL.w;g.fillRect(L-3,62,6,3);
     txt(midiOK?(MIDI.ins+' IN · '+MIDI.out.length+' OUT'):'NOT CONNECTED',L,80,midiOK?COL.g:COL.dim,6,'center');txt(S.midi[0]?'CLOCK OUT':S.midi[1]?'FOLLOWS CLOCK':'',L,90,COL.o,5.5,'center')}
   else{bigN(NAME,L,58,COL.w,18,'center');txt('SYSTEM',L,72,COL.dim,6,'center')}
@@ -1448,7 +1525,7 @@ function drawErase(t){const now=performance.now(),run=ER.t0&&!ER.done,fin=ER.don
     txt(fin?'ALL FOUR TRACKS ARE EMPTY':Math.round(u*100)+'%',CX,92,fin?COL.g:COL.w,6.5,'center')}}
 
 /* ───────────── params on encoders ───────────── */
-const mk=(arr,i,n,fmt,cb)=>({n,val:()=>(fmt||pct)(arr[i]),turn(d){arr[i]=clamp(arr[i]+d);cb&&cb()},arr,i});
+const mk=(arr,i,n,fmt,cb)=>({n,val:()=>(fmt||pct)(arr[i]),fm:fmt||pct,turn(d){arr[i]=clamp(arr[i]+d);cb&&cb()},arr,i});
 const FXN=['ECHO','ROOM','CRUSH','SWIRL','BOUNCE','COIL','CUBE','RADIO'],FXP=[['TIME','REPEAT','TONE','MIX'],['SIZE','DAMP','PRE','MIX'],['CRUSH','DRIVE','TONE','MIX'],['RATE','DEPTH','FEEDBK','MIX'],
   ['TIME','WOBBLE','FEEDBK','MIX'],['TONE','TENSION','DAMP','MIX'],['SIZE','SHAPE','FEEDBK','MIX'],['BAND','CRUSH','STATIC','MIX']];
 const LFD=['PITCH','AMP','PAN','TONE'],LFS=['SINE','TRI','SQR','SAW'],RATES=['1/4','1/8','1/16','1/32'],DIRS=['FWD','REV','PING','RND'];
@@ -1458,14 +1535,15 @@ function params(){
   if(S.overlay==='save')return saveParams();
   if(S.overlay==='sys')return sysParams();
   if(S.overlay==='proj')return pjParams();
+  if(S.overlay==='usb')return usbParams();
   if(S.overlay==='key')return S.shift?[mk(S.kc2,0,'VOICING',v=>VOIC[idx(v,5)]),mk(S.kc2,1,'STRUM',v=>v<.02?'OFF':Math.round(v*v*120)+'ms'),mk(S.kc2,2,'ADD BASS',v=>v>.5?'ON':'OFF'),mk(S.kc2,3,'KEY GUIDE',v=>v>.5?'ON':'OFF',keyGuide)]
     :[mk(S.kc,0,'KEY',v=>NOTE_N[idx(v,12)],keyGuide),mk(S.kc,1,'SCALE',v=>SCL[idx(v,SCL.length)][0],keyGuide),mk(S.kc,2,'KEYS',v=>kScl()?KMAP[idx(v,2)]:'—',keyGuide),mk(S.kc,3,'CHORD',v=>CHD[idx(v,CHD.length)][0])];
-  if(S.overlay==='recm'){const A=()=>{recSource();tapeSet()};return S.shift?[mk(S.rm2,0,'THRESHOLD',pct),mk(S.rm2,1,'MONITOR',pct,recSource),mk(S.rm2,2,'PUNCH',v=>RPUNCH[idx(v,2)],tapeSet),mk(S.tq,0,'COUNT-IN',v=>CIN[idx(v,3)])]
+  if(S.overlay==='recm'){const A=()=>{recSource();tapeSet()};return S.shift?[mk(S.rm2,0,'THRESHOLD',pct),mk(S.rm2,1,'MONITOR',pct,recSource),mk(S.rm2,2,'PUNCH',v=>RPUNCH[idx(v,2)],tapeSet),mk(S.rm2,3,'INPUT',v=>v>.5?'LINE IN':'MIC',recSource)]
     :[mk(S.rm,0,'SOURCE',v=>RSRC[idx(v,3)],A),mk(S.rm,1,'KEEP OLD',v=>v>.99?'ALL':v<.01?'NONE':pct(v)+'%',tapeSet),mk(S.rm,2,'START',v=>RSTART[idx(v,3)]),mk(S.rm,3,'AUTO STOP',v=>{const n=RSTOP[idx(v,5)];return n?n+(n>1?' BARS':' BAR'):'OFF'})]}
   if(S.overlay==='erase')return[null,null,null,null];
   if(S.overlay==='menu'){const n=presetsSl(S.slot).length;return[
-    {n:'SYNTH',val:()=>slotNm(S.slot),turn(d){MENU.e=clamp(MENU.e+d);const i=idx(MENU.e,16);if(i!==S.slot){S.slot=i;MENU.p=(S.pre[i]+.5)/presetsSl(i).length;applyPatch();leds()}}},
-    {n:'PRESET',val:()=>(S.pre[S.slot]+1)+'/'+n,turn(d){MENU.p=clamp(MENU.p+d);const k=idx(MENU.p,n);if(k!==S.pre[S.slot])applyPreset(S.slot,k)}},
+    {n:'SYNTH',val:()=>slotNm(S.slot),step(k){const i=clamp(S.slot+k,0,15);if(i!==S.slot){S.slot=i;MENU.e=(i+.5)/16;MENU.p=(S.pre[i]+.5)/presetsSl(i).length;applyPatch();leds()}},turn(d){MENU.e=clamp(MENU.e+d);const i=idx(MENU.e,16);if(i!==S.slot){S.slot=i;MENU.p=(S.pre[i]+.5)/presetsSl(i).length;applyPatch();leds()}}},
+    {n:'PRESET',val:()=>(S.pre[S.slot]+1)+'/'+n,step(k){const n2=presetsSl(S.slot).length,k2=clamp(S.pre[S.slot]+k,0,n2-1);if(k2!==S.pre[S.slot]){applyPreset(S.slot,k2);MENU.p=(k2+.5)/n2}},turn(d){MENU.p=clamp(MENU.p+d);const k=idx(MENU.p,n);if(k!==S.pre[S.slot])applyPreset(S.slot,k)}},
     {n:'ENGINE',val:()=>ENG[slE(S.slot)].name,turn(d){MENU.g+=d*15;while(Math.abs(MENU.g)>=1){const k=Math.sign(MENU.g);MENU.g-=k;setEngine(S.slot,(slE(S.slot)+k+NENG)%NENG);MENU.p=.5/presetsSl(S.slot).length}}},
     {n:'RANDOM',val:()=>synthP[S.slot].rnd?'#'+synthP[S.slot].rnd:'TURN ▸',turn(d){MENU.r=(MENU.r||0)+d*15;while(Math.abs(MENU.r)>=1){MENU.r-=Math.sign(MENU.r);randomize(S.slot)}}}]}
   if(S.overlay==='pse'){const k=S.pad|0;if(!padSmp[S.kit][k])return[null,null,null,null];const q=padPar(S.kit,k);
@@ -1500,7 +1578,7 @@ function params(){
       :seq.type===1?[mk(q,0,'STEP',()=>patStep()+1+''),mk(q,1,'RATE',rf),mk(q,2,'LENGTH',()=>patLen()+''),mk(q,3,'RUN',of)]
       :seq.type===2?[mk(q,0,'RATE',rf),mk(q,1,'GATE'),mk(q,2,'MODE',v=>ARPM[idx(v,4)]),mk(q,3,'RANGE',v=>1+idx(v,3)+' OCT')]
       :[mk(q,0,'RATE',rf),mk(q,1,'GATE'),mk(q,2,'OCTAVE',v=>{const o=idx(v,5)-2;return(o>0?'+':'')+o}),mk(q,3,'HOLD',of)]}
-  if(S.mode==='tape')return[{n:'JOG',val:()=>fmtT(S.tpos/(AC?AC.sampleRate:48000)),turn(d){if(tape)tape.port.postMessage({t:'seek',pos:S.tpos+d*AC.sampleRate*10})}},
+  if(S.mode==='tape')return[{n:'JOG',val:()=>fmtT(S.tpos/(AC?AC.sampleRate:48000)),step(k){if(tape)tape.port.postMessage({t:'seek',pos:Math.max(0,S.tpos+k*AC.sampleRate*60/S.bpm)})},turn(d){if(tape)tape.port.postMessage({t:'seek',pos:S.tpos+d*AC.sampleRate*10})}},
     mk(S.tp,1,'LOOP',()=>loopBars()+' BAR',()=>{if(S.loop){S.lo=Math.min(S.li+loopBars()*barS(),TAPE_SECS*AC.sampleRate-1);tapeSet()}}),
     mk(S.tp,2,'REC LVL',pct,applyMix),mk(S.tp,3,'SPEED',()=>'×'+tapeSpeed().toFixed(2),tapeSet)];
   if(S.mode==='mixer'&&S.mxB)return mixBParams();
@@ -1521,7 +1599,25 @@ function params(){
   return[mk(P.lfo,0,'RATE',v=>(.05*2**(v*8.6)).toFixed(v<.5?2:1)+'Hz',applyLfo),mk(P.lfo,1,'AMOUNT',pct,applyLfo),mk(P.lfo,2,'DEST',v=>LFD[idx(v,4)],applyLfo),mk(P.lfo,3,'SHAPE',v=>LFS[idx(v,4)],applyLfo)]}
 
 /* ───────────── device UI ───────────── */
-const dev=$('#dev'),keyEl=[],actEl={},encEl=[];let volEl;
+const dev=$('#dev'),keyEl=[],actEl={},encEl=[],KR=[],KDEF=[];let volEl;
+const kkey=p=>p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');
+/* hardware knobs: encStep(knob, clicks) and encPush(knob) are called by hw.html for each encoder click and push.
+   One click moves a list or a menu exactly one step, and a value to its next shown value (faster turns skip ahead);
+   a push confirms the action on that knob (SAVE, BOUNCE, OPEN…) or, on a plain value, resets it. On a computer,
+   double-clicking a knob does the same as a push. */
+const ENC=[0,1,2,3].map(()=>({t:0,n:0})),PUSH2={k:'',at:0};
+const armed=k=>PUSH2.k===k&&performance.now()-PUSH2.at<3000;
+function twoStep(k,fn){if(armed(k)){PUSH2.k='';fn()}else{PUSH2.k=k;PUSH2.at=performance.now();status('push again to confirm')}}  // erasing needs two pushes
+function encStep(i,k){initAudio();wake();if(S.shift)S.shiftUsed=true;const p=params()[i];k=Math.round(k);if(!p||!k)return;
+  if(p.step)p.step(k);
+  else if(p.arr){const a=p.arr,ix=p.i,fm=p.fm,D=new Set(),E=ENC[i],kd=KDEF[i];for(let q=0;q<=200;q++)D.add(fm(q/200));if(kd&&!kd.has(kkey(p)))kd.set(kkey(p),a[ix]);
+    const now=performance.now(),fast=D.size>24&&now-E.t<70?Math.min(6,E.n+1):1;E.t=now;E.n=fast;
+    let v=a[ix];const dir=Math.sign(k);for(let s=0;s<Math.abs(k)*fast;s++){const c0=fm(v);let w=v;for(let q=0;q<800;q++){w=clamp(w+dir/800);if(fm(w)!==c0||w<=0||w>=1)break}if(fm(w)===c0)break;v=w}
+    if(v!==a[ix])p.turn(v-a[ix])}
+  else p.turn(k/15+Math.sign(k)*1e-4);
+  leds()}
+function encPush(i){initAudio();wake();if(KR[i])KR[i]()}
+window.encStep=encStep;window.encPush=encPush;
 const svg=d=>`<svg viewBox="0 0 24 24">${d}</svg>`;
 const ICON={fx:'FX',synth:svg('<path d="M2 12c3-9 6-9 9 0s6 9 9 0"/>'),drum:svg('<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/>'),
   tape:svg('<circle cx="7" cy="12" r="4"/><circle cx="17" cy="12" r="4"/><path d="M7 16h10"/>'),mixer:svg('<path d="M6 4v16M12 4v16M18 4v16M4 9h4M10 15h4M16 7h4"/>'),
@@ -1549,9 +1645,10 @@ function bindTurn(el,turn,reset){let y=null,tap=0,mv=0;el.addEventListener('poin
   const pr=document.createElement('div');pr.className='pair';dev.appendChild(pr);if(OS1){addKey(0,0,'help');addKey(0,0,'tempo');pr.remove()}else{pr.remove();addKey(3,2,'tempo')}
   const sc=document.createElement('div');sc.className='scr';sc.innerHTML='<canvas id="scr"></canvas><canvas class="glow" id="glow"></canvas>';dev.appendChild(sc);
   ['b','g','w','o'].forEach((c,i)=>{const e=document.createElement('div');e.className='enc';e.style.gridColumn=OS1?(15+i*5)+'/span 5':(9+i*2)+'/'+(11+i*2);e.style.setProperty('--c',`var(--${c})`);
-    e.innerHTML='<div class="base"><div class="cap"></div></div>';dev.appendChild(e);encEl.push(e);let ang=0,defs=new Map();
-    bindTurn(e,d=>{wake();const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
-      ()=>{const p=params()[i];if(p&&p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(defs.has(k))p.turn(defs.get(k)-p.arr[p.i])}})});
+    e.innerHTML='<div class="base"><div class="cap"></div></div>';dev.appendChild(e);encEl.push(e);let ang=0;const defs=KDEF[i]=new Map();
+    KR[i]=()=>{const p=params()[i];if(p&&p.push){p.push();return}if(p&&p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(defs.has(k))p.turn(defs.get(k)-p.arr[p.i])}};
+    bindTurn(e,d=>{wake();if(S.shift)S.shiftUsed=true;const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
+      ()=>KR[i]())});
   addKey(17,1,'fx','FX<span class="dots">'+TC.map(c=>`<i style="--c:${c}"></i>`).join('')+'</span>',COL.o);addKey(17,2,'metro');addKey(17,3,'seq',null,COL.g).style.color='#2fb673';
   ['synth','drum','tape','mixer'].forEach((m,i)=>addKey(i+1,3,m,null,TC[i]).style.color=['#3f7fe8','#2fb673','#ff6427',''][i]);
   for(let i=0;i<4;i++)addKey(5+i,3,'t'+i,'T'+(i+1),TC[i]);
@@ -1673,7 +1770,7 @@ function noteOn1(n,vel=1){const now=AC.currentTime,ty=seq.type;wake();if(S.overl
 function noteOff1(n){if(S.midi[2]===2&&!MIDI.fromIn&&MIDI.out.length)midiSend([0x80|S.midi[3],clamp(n,0,127),0]);if(S.overlay==='dm'&&DM.page===3)dmUp(mod24(n-base()));seq.ins.delete(n);if(S.inst==='drum'&&AC)padRelease(mod24(n-base()));
   if(seq.held.delete(n)&&!seq.held.size&&(seq.type===2||(seq.type===0&&S.sqp[0][3]<=.5)||(seq.type===3&&S.sqp[3][3]<=.5)))seq.playing=false;
   if(held[n]){voiceOff(held[n],Math.max(AC.currentTime,(held[n].qt||0)+.06));delete held[n]}}
-function keyDown(ki){initAudio();if(!AC||downNote[ki]!==undefined)return;const n=base()+ki;downNote[ki]=n;keyEl[ki].classList.add('on');noteOn(n,1)}
+function keyDown(ki){initAudio();if(S.shift)S.shiftUsed=true;if(!AC||downNote[ki]!==undefined)return;const n=base()+ki;downNote[ki]=n;keyEl[ki].classList.add('on');noteOn(n,1)}
 function keyUp(ki){const n=downNote[ki];if(n===undefined)return;delete downNote[ki];keyEl[ki].classList.remove('on');noteOff(n)}
 /* ── MIDI ── */
 let midiOK=false,sus=false;const susNotes=new Set(),midiKi={};
@@ -1704,7 +1801,8 @@ function trick(i,on){if(!tape)return;S.trick=on?i:-1;
   else if(i===1)tape.port.postMessage({t:'stut',on,len:AC.sampleRate*60/S.bpm/4});
   else{S.revHold=on;tapeSet()}}
 function press(a){initAudio();wake();
-  if(a==='shift'){S.shift=true}
+  if(a!=='shift'&&S.shift)S.shiftUsed=true;
+  if(a==='shift'){if(!S.shift){S.shiftAt=performance.now();S.shiftUsed=false}S.shift=true}
   else if(a==='help'){$('#help').classList.toggle('show')}
   else if(a==='synth'&&S.shift){S.mode='synth';S.inst='synth';applyPatch();S.overlay=S.overlay==='menu'?null:'menu';MENU.e=(S.slot+.5)/16;MENU.p=(S.pre[S.slot]+.5)/presetsSl(S.slot).length}
   else if(a==='drum'&&S.shift){S.overlay=S.overlay==='dm'?null:'dm'}
@@ -2395,7 +2493,7 @@ function drawSave(t){const sl=S.slot,U=S.up[sl],hit=svHit(),now=performance.now(
     if(on){g.fillStyle=COL.b;g.fillRect(x,20,bw-3,28)}else{g.strokeStyle='#2a2d34';g.lineWidth=.8;g.strokeRect(x+.5,20.5,bw-4,27)}
     if(c!==' ')bigN(c,x+(bw-3)/2,42,on?'#07080a':COL.w,19,'center');else if(on&&Math.sin(t*8)>0)g.fillStyle='#07080a',g.fillRect(x+5,42,bw-13,2)}
   ln(x0+SAVE.cur*bw,51,x0+SAVE.cur*bw+bw-3,51,COL.g,1.5);
-  txt(pj?'TURN WHITE TO YES TO RENAME THE PROJECT':hit>=0?'SAVING OVERWRITES "'+svName()+'"':'NEW PRESET · '+U.length+'/16 SAVED ON '+slotNm(sl),x0,61,hit>=0?COL.o:COL.dim,6);
+  txt(pj?(HW.ok?'PUSH WHITE':'TURN WHITE TO YES')+' TO RENAME THE PROJECT':hit>=0?'SAVING OVERWRITES "'+svName()+'"':'NEW PRESET · '+U.length+'/16 SAVED ON '+slotNm(sl),x0,61,hit>=0?COL.o:COL.dim,6);
   if(!OS1)txt('OR TYPE THE NAME · ENTER SAVES · ESC CLOSES',x0,70,'#4a4d54',5.5);
   const bar=(y,lab,v,c,ok)=>{txt(lab,x0,y+7,ok?c:'#3a3d44',6.5);const bx=x0+44,w=W-10-bx;g.strokeStyle=ok?c:'#2a2d34';g.lineWidth=.8;g.strokeRect(bx+.5,y+.5,w,8);
     if(ok){g.fillStyle=c;g.fillRect(bx+1.5,y+1.5,(w-2)*v,6);txt(v>.02?'YES':'NO',bx+w-3,y+6.8,v>.6?'#07080a':c,5.5,'right')}};
@@ -2405,7 +2503,8 @@ function drawSmp(p){const sm=slotSmp[S.slot],D=sm.buf.duration;
   drawSampleView(slotNm(S.slot)+' · SAMPLE · '+D.toFixed(1)+' S',1,sm.pk,{a:p[0],b:p[1],rv:p[5]>.5,md:idx(p[4],3),fi:fadeS(p[6]),fo:fadeS(p[7]),D},
     voices.map(v=>v.e.sp).filter(Boolean),AC.currentTime-lastOn.t<.18&&AC.currentTime>=lastOn.t)}
 function boot(t){for(let i=0;i<5;i++)plot(u=>65+Math.sin(u*9+t*1.4+i*.9)*(8+i*4)*Math.sin(u*3.14),20,W-20,i===4?COL.w:TC[i%4],1);txt(NAME,CX,34,COL.w,13,'center');txt(OS1?'TAP ANY KEY':'PRESS ANY KEY',CX,118,Math.sin(t*4)>0?COL.o:COL.dim,7,'center')}
-function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);
+function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PERF.t0>1000){PERF.fps=PERF.n*1000/(ts-PERF.t0);PERF.n=0;PERF.t0=ts;perfTick()}
+  if(HW.off){g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);txt('SAVED',CX,58,COL.g,16,'center');txt('WEB-1 IS TURNING OFF',CX,76,COL.w,7,'center');return}g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);
   if(!AC){boot(t);return}
   if(S.sys.sleep&&performance.now()-lastIn>S.sys.sleep*60000){g.fillStyle='#000';g.fillRect(0,0,W,H);return}
   readScope();const P=cur();let title;
@@ -2417,6 +2516,7 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.setTransform(3,0
   else if(S.overlay==='erase'){title='ERASE TAPE';drawErase(t)}
   else if(S.overlay==='sys'){title='SYSTEM · '+SYSN[SYS.s];drawSys(t)}
   else if(S.overlay==='save'){title=SAVE.kind==='project'?'NAME PROJECT':'SAVE PRESET · '+slotNm(S.slot)+' · '+engOf().name;drawSave(t)}
+  else if(S.overlay==='usb'){title='USB STICK · '+(UB.kind==='project'?'LOAD A PROJECT':'LOAD A SAMPLE');drawUsb(t)}
   else if(S.overlay==='proj'){title='PROJECTS · '+(pjCur()||{name:''}).name;drawProj(t)}
   else if(S.overlay==='menu'){title='SYNTHS & PRESETS · '+engOf().name+' · '+(synthP[S.slot].rnd?'RANDOM #'+synthP[S.slot].rnd:presetsSl(S.slot)[S.pre[S.slot]][0]);drawMenu(t)}
   else if(S.overlay==='tempo'){title='TEMPO';drawTempo(t)}
@@ -2433,15 +2533,21 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;g.setTransform(3,0
     else{title='LFO';drawLfo(t,P.lfo)}}
   if(S.count){const left=Math.max(1,Math.ceil(S.count.b0-beatNow().b-1e-6));g.fillStyle='rgba(5,5,7,.86)';g.fillRect(0,14,W,86);
     txt(''+left,CX,80,COL.red,48,'center');txt('COUNT-IN · TRACK '+(S.track+1),CX,28,COL.dim,7,'center');title='REC'}
+  if(S.shift&&!S.shiftUsed&&performance.now()-(S.shiftAt||0)>500&&S.overlay!=='save'){drawShiftMap();title='SHIFT MAP'}
   g.restore();
   txt(title,6,10,COL.w,7);
   let hx=W-6;const hd=(s,c)=>{txt(s,hx,10,c,7,'right');hx-=g.measureText(s).width+8};
-  hd('♩'+S.bpm,COL.dim);if(S.inst==='synth'&&synthP[S.slot].pm&&pmOf(synthP[S.slot]))hd(PMN[pmOf(synthP[S.slot])],COL.b);if(kOn())hd(kTag(),COL.g);if(S.sys.clk)hd(clockStr(),COL.w);if(S.oct)hd('OCT'+(S.oct>0?'+':'')+S.oct,COL.g);if(seq.on)hd('SEQ',COL.g);if(S.rkOn.some(x=>x)||S.rkOn2.some(x=>x))hd('FX',COL.o);if(qStep())hd('Q'+QZN[idx(S.tq[1],5)],COL.w);if(S.loop)hd('LOOP',COL.b);if(S.playing)hd(S.rec?'●REC':'▶',S.rec?COL.red:COL.w);if(MIX.rec)hd('●MIX',COL.red);if(SCENE.msg&&performance.now()-SCENE.at<1600)hd(SCENE.msg,COL.o);if(S.solo.some(Boolean)||S.mute.some(Boolean))hd(S.solo.some(Boolean)?'SOLO':'MUTE',S.solo.some(Boolean)?COL.g:COL.o);if(S.shift)hd('SHIFT',COL.o);
+  hd('♩'+S.bpm,COL.dim);if(HW.power&&HW.power.ok)hd((HW.power.charging?'⚡':'')+Math.round(HW.power.soc)+'%',HW.power.soc<15?COL.red:COL.dim);if(!S.sys.vl&&PERF.vmax<10)hd('CPU',COL.o);if(S.inst==='synth'&&synthP[S.slot].pm&&pmOf(synthP[S.slot]))hd(PMN[pmOf(synthP[S.slot])],COL.b);if(kOn())hd(kTag(),COL.g);if(S.sys.clk)hd(clockStr(),COL.w);if(S.oct)hd('OCT'+(S.oct>0?'+':'')+S.oct,COL.g);if(seq.on)hd('SEQ',COL.g);if(S.rkOn.some(x=>x)||S.rkOn2.some(x=>x))hd('FX',COL.o);if(qStep())hd('Q'+QZN[idx(S.tq[1],5)],COL.w);if(S.loop)hd('LOOP',COL.b);if(S.playing)hd(S.rec?'●REC':'▶',S.rec?COL.red:COL.w);if(MIX.rec)hd('●MIX',COL.red);if(SCENE.msg&&performance.now()-SCENE.at<1600)hd(SCENE.msg,COL.o);if(S.solo.some(Boolean)||S.mute.some(Boolean))hd(S.solo.some(Boolean)?'SOLO':'MUTE',S.solo.some(Boolean)?COL.g:COL.o);if(S.shift)hd('SHIFT',COL.o);
   ln(0,14,W,14,'#1c1e22',.6);ln(0,100,W,100,'#1c1e22',.6);
   params().forEach((p,i)=>{if(!p)return;const x=i*W/4+W/8;txt(p.n,x,111,COL.dim,6.5,'center');txt(p.val(),x,123,TC[i],9.5,'center')});
   if(S.sys.bri<1){g.fillStyle=`rgba(0,0,0,${(1-S.sys.bri)*.8})`;g.fillRect(0,0,W,H)}}
 requestAnimationFrame(draw);
 {const b=()=>{requestAnimationFrame(b);blit()};requestAnimationFrame(b)}
+hwInit();
+// offline: a service worker keeps a copy of WEB-1 so it opens without internet (web and OS-1)
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+// on the device (hw.html adds ?hw), sound starts by itself and the last project opens straight away
+if(new URLSearchParams(location.search).has('hw'))setTimeout(()=>initAudio(),200);
 {const gc=$('#glow'),gx=gc.getContext('2d');gc.width=W;gc.height=H;const gl=()=>{requestAnimationFrame(gl);if(document.documentElement.classList.contains('oled')){gx.clearRect(0,0,W,H);gx.drawImage(cv,0,0,W,H)}};requestAnimationFrame(gl)}
 setInterval(()=>{if(S.count&&actEl.rec)actEl.rec.classList.toggle('lit',Math.floor(performance.now()/180)%2===0)},60);
 const vuEl=[...document.querySelectorAll('.vu')].reverse();let vuLv=0;
