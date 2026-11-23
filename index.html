@@ -214,26 +214,26 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Knobs</td><td>Drag up or down on the four coloured knobs. Each matches the same-coloured value on the screen. Double-tap pushes the knob: it resets the value, or does that knob's action (SAVE, BOUNCE, export GO, the system menu's confirm). Deleting and erasing take two pushes. The small white knob is the volume.</td></tr>
 <tr><td>Hold SHIFT</td><td>After half a second the SHIFT MAP shows what every key does with SHIFT in this mode. Let go to close it.</td></tr>
 <tr><td>Modes</td><td>The first four keys under the screen: SYNTH · DRUM · TAPE · MIXER. FX is at the end of that row, SEQ (green steps) in the row below.</td></tr>
-<tr><td>T1 – T4</td><td>In synth/drum: ENGINE · ENVELOPE · FX · LFO (tap T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
+<tr><td>T1 – T4</td><td>In synth/drum: ENGINE · ENVELOPE · FX · LFO (tap T3 again to change effect, T1 again for the SAMPLER; SHIFT + knobs on T1: MACRO, on T4: LFO 2). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. In synth mode, hold SHIFT and tap 1–8 for synth bank B (orange light). In drum mode, SHIFT + 4 (SAMPLE) edits the selected pad's sample.</td></tr>
 <tr><td>Shift + SYNTH</td><td>SYNTHS &amp; PRESETS menu : every synth in one list (blue knob) and its presets (green knob); both load as you turn, and the keys still play so you can try them. The white knob picks the ENGINE for the slot you are on, from all 24: the 16 above plus PLUCK (plucked string), TINE (electric piano), BOOM (deep sub bass that glides), MALLET (marimba, vibes, glass), GRAIN (granular clouds from the slot's sample or a built-in texture), VOWEL (choir and talking pads), CHIP (8-bit with a built-in arpeggio) and FELT (soft piano). Each engine has its own presets, and a preset you save belongs to its engine. The orange knob makes a RANDOM sound each step you turn it. Shift + SYNTH again or any T key closes it.</td></tr>
 <tr><td>Keys</td><td>Two octaves, low to high from left to right. Hold SHIFT and tap ← or → to change octave.</td></tr>
 <tr><td>● ▶ ■</td><td>REC · PLAY · STOP. REC starts the tape and overdubs what you play onto the selected track. STOP twice rewinds. SHIFT + PLAY plays in reverse.</td></tr>
 <tr><td>← →</td><td>In synth mode: hold for pitch bend down / up. In the other modes: hold to wind the tape.</td></tr>
 <tr><td>Loop</td><td>The orange loop key switches LOOP on/off from the current position (length = green knob in tape mode). ↑ LIFT cuts the loop or bar from the track, ↓ DROP pastes it at the tape head. SHIFT + LIFT erases the track.</td></tr>
-<tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse.</td></tr>
+<tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse. SHIFT + 4 sends the piece you lifted or copied to the sampler. SHIFT + LOOP: SECTIONS, up to 6 song markers: 1–6 set one at the tape head, or jump to it on the next bar (with LOOP on, that section loops).</td></tr>
 <tr><td>Shift + REC</td><td>ADVANCED REC (orange light on REC). SOURCE: instrument, mic (or line in) or both · KEEP OLD: 100% overdubs, 0% replaces what is under the new take, in between fades it · START: on the REC key, ON SOUND (the tape rolls and recording starts when the input passes the threshold) or NEXT BAR · AUTO STOP after 1–8 bars. SHIFT: THRESHOLD · MONITOR (hear the mic) · PUNCH (record only inside the loop markers) · INPUT: MIC or LINE IN (the IN jack on the WEB-1 hardware); the sampler records from it too.</td></tr>
-<tr><td>Shift + TEMPO</td><td>KEY &amp; CHORDS (Shift + -, orange light on TEMPO). KEY · SCALE (major, minor, dorian, mixolydian, lydian, phrygian, harmonic minor, major and minor pentatonic, blues, whole tone, or OFF) · KEYS: SNAP moves notes outside the scale to the nearest scale note, WHITE KEYS makes the white keys walk up the scale from the root · CHORD: one key plays a chord, TRIAD, SEVENTH or NINTH built from the scale, or SUS2, SUS4, POWER, OCTAVES. SHIFT: VOICING · STRUM · ADD BASS · KEY GUIDE (dots on the keys: grey for the scale, orange for the root). It works on the synths, from MIDI and in the sequencers: with ARP, one key arpeggiates its chord.</td></tr>
+<tr><td>Shift + TEMPO</td><td>KEY &amp; CHORDS (Shift + -, orange light on TEMPO). KEY · SCALE (major, minor, dorian, mixolydian, lydian, phrygian, harmonic minor, major and minor pentatonic, blues, whole tone, or OFF) · KEYS: SNAP moves notes outside the scale to the nearest scale note, WHITE KEYS makes the white keys walk up the scale from the root · CHORD: one key plays a chord, TRIAD, SEVENTH or NINTH built from the scale, or SUS2, SUS4, POWER, OCTAVES. SHIFT: VOICING · STRUM · ADD BASS · KEY GUIDE (dots on the keys: grey for the scale, orange for the root). It works on the synths, from MIDI and in the sequencers: with ARP, one key arpeggiates its chord. T2: PROGRESSION writes chords in your key into the CHAIN sequencer (STYLE · CHORDS · MAKE · EACH); tap the low C to play them. T3: FOLLOW BASS, another synth slot plays under your chords (ROOT, PULSE, OFFBEAT, OCTAVES or WALK).</td></tr>
 <tr><td>Shift + DROP</td><td>UNDO the last tape change: a recording, LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE. Press it again to REDO. Hold SHIFT in tape mode to see what it will undo. Erasing the whole tape can't be undone.</td></tr>
 <tr><td>Shift + 7</td><td>In tape mode: PROJECTS (key 7 is labelled PROJECT). Each project is a whole song: its tape, sounds, sequences, mixer and samples. Blue picks a project, green an action, white turned all the way to YES does it: OPEN · NEW · DUPLICATE · RENAME · DELETE · SAVE FILE (a .web1 file of that project) · BACKUP ALL (every project in one file) · LOAD FILE. Your presets and system settings are shared by all projects. The “save project” and “load project” buttons under the device do the same for the open project.</td></tr>
 <tr><td>Shift + TAPE</td><td>ERASE TAPE: hold T1, T2, T3 and T4 down together to wipe all four tracks (there is no undo; on a computer hold B N M , together). Letting go of a key puts its box out. Shift + TAPE again, or any mode key, cancels before all four are held.</td></tr>
 <tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY (on the hardware: POWER OFF saves first) · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything; on the hardware the USB stick: load a sample, back up all projects, eject) · DISPLAY (brightness, screen sleep, clock in the title bar) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · CPU (audio load, screen speed, voices, and the VOICE LIMIT, which AUTO lowers when the device struggles) · ABOUT (on the hardware: check for and install updates). To confirm, turn white all the way to YES or push it; erasing takes two pushes.</td></tr>
 <tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
-<tr><td>SEQ</td><td>Sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold SHIFT and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops. ARP: hold a chord. SHIFT + SEQ clears.</td></tr>
+<tr><td>SEQ</td><td>Sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold SHIFT and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops; SHIFT + knobs set the step's VELOCITY · CHANCE · ROLL · COND (1 OF 2 … FILL), and T2 again opens LOCKS: the engine's knobs just for that step (← → pick the step). ARP: hold a chord. SHIFT + SEQ clears.</td></tr>
 <tr><td>CHAIN</td><td>CHAIN (T4): an endless step sequencer. Hold SHIFT and press keys to add steps (keys pressed together make a chord); keep the keys held and press → to make the last note longer; SHIFT + → adds a rest; SHIFT + ← removes the last step. Then press any key to play the chain transposed (the low C plays it as written). Knobs: RATE · GATE · OCTAVE · HOLD.</td></tr>
-<tr><td>FX</td><td>Master rack: DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, tap the same T again to switch it on/off. SHIFT + FX switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). SHIFT + FX again goes back to bank A.</td></tr>
+<tr><td>FX</td><td>Master rack: DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, tap the same T again to switch it on/off. SHIFT + FX switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). SHIFT + FX again goes back to bank A. LIVE FX: with the FX screen open, hold 1–8: REPEAT 1/4 · 1/8 · 1/16 · 1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP, on everything you hear.</td></tr>
 <tr><td>Tempo</td><td>The metronome-shaped key opens TEMPO: count-in (green), quantize (white); hold SHIFT for swing, beats and snap. The clock key switches the metronome on/off.</td></tr>
-<tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
+<tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back. T1 again opens the SAMPLER: T1 EDIT · T2 SLICE (across the pads, evenly or at each hit) · T3 RECORD (resample what you hear, or the input) · T4 FROM TAPE (the lifted piece, the loop or a bar).</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved on this phone automatically. “export tape as wav” shares the mix.</td></tr>
 <tr><td>No sound?</td><td>Turn the volume up and switch the phone's silent mode off.</td></tr>
 <tr><td>Full screen</td><td>Hold the phone sideways. In Safari tap Share, then “Add to Home Screen”: OS-1 then opens like an app, fills the screen and works with no connection.</td></tr>
@@ -246,7 +246,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Encoders</td><td>Drag up/down or scroll over the four coloured knobs. Each matches the same-coloured value on the screen. Double-click pushes the knob: it resets the value, or does that knob's action (SAVE, BOUNCE, export GO, the system menu's confirm). Deleting and erasing take two pushes. On the WEB-1 hardware each knob click is one step, and pressing a knob pushes it.</td></tr>
 <tr><td>Hold SHIFT</td><td>After half a second the SHIFT MAP shows what every key does with SHIFT in this mode. Let go to close it.</td></tr>
 <tr><td>Z X C V</td><td>Modes: SYNTH · DRUM · TAPE · MIXER</td></tr>
-<tr><td>B N M ,</td><td>T1–T4. In synth/drum: ENGINE · ENVELOPE · FX · LFO (press T3 again to change effect). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
+<tr><td>B N M ,</td><td>T1–T4. In synth/drum: ENGINE · ENVELOPE · FX · LFO (press T3 again to change effect, T1 again for the SAMPLER; SHIFT + knobs on T1: MACRO, on T4: LFO 2). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. The screen names them A1–A8 (bank B is B1–B8). A3 is STRINGS, a vintage string machine with phaser and cello layer; A7 is HERO, an 80s–90s solo lead with glide and delayed vibrato.</td></tr>
 <tr><td>Mixer</td><td>T1 LEVEL &amp; PAN: knobs set track levels, SHIFT + knobs pan them. T2 MULTIBAND COMP: LOW · MID · HIGH amount · MAKEUP; SHIFT: LOW X · HIGH X crossovers · ATTACK · RELEASE. T3 EQ: 4 bands, knobs set the gain, SHIFT + knobs slide the frequency. T4 MASTER: OUT · COMP · INSTR · LIMIT; SHIFT: CEILING · LIM REL · COMP SPD · WIDTH.</td></tr>
 <tr><td>Play modes</td><td>In synth mode, hold SHIFT on the T2 page: PLAY (POLY · MONO · LEGATO, one voice that glides between held notes · UNISON, three detuned voices) · GLIDE · DRIFT (a slow random pitch wander, for a vintage feel) · VELOCITY (how much touch changes the level).</td></tr>
@@ -254,10 +254,10 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Shift + MIXER</td><td>MIXER B (orange light on MIXER). T1 SENDS: knobs send tracks 1–4 to a reverb, SHIFT + knobs to a delay in time with the tempo. T2 SIDECHAIN: SOURCE (a track, or the live kick) makes the other tracks dip and pump · DEPTH · RELEASE · THRESHOLD. T3 BOUNCE: keys 1–4 pick tracks, ONTO picks the track to mix them onto, LEVEL, turn BOUNCE to YES (Shift + DROP undoes it). T4 EXPORT: TAPE MIX (one stereo WAV) · STEMS (one WAV per track) · LIVE MIXDOWN (records what you hear until you stop it). Shift + MIXER again goes back to bank A.</td></tr>
 <tr><td>Shift + SYNTH</td><td>SYNTHS &amp; PRESETS menu (Shift + Z): every synth in one list (blue knob) and its presets (green knob); both load as you turn, and the keys still play so you can try them. The white knob picks the ENGINE for the slot you are on, from all 24: the 16 above plus PLUCK (plucked string), TINE (electric piano), BOOM (deep sub bass that glides), MALLET (marimba, vibes, glass), GRAIN (granular clouds from the slot's sample or a built-in texture), VOWEL (choir and talking pads), CHIP (8-bit with a built-in arpeggio) and FELT (soft piano). Each engine has its own presets, and a preset you save belongs to its engine. The orange knob makes a RANDOM sound each step you turn it. Shift + SYNTH again or any T key closes it.</td></tr>
 <tr><td>Shift + T1</td><td>In synth mode (or from the SYNTHS &amp; PRESETS menu): SAVE PRESET for the current synth (orange light on T1). Blue knob picks a letter, green moves along the name, turn white all the way right to save, orange all the way right to delete the user preset with that name. On a computer you can also type the name; Enter saves, Esc closes. User presets show with a dot at the end of the synth's list in the menu.</td></tr>
-<tr><td>Shift + DRUM</td><td>DRUM MACHINE (Shift + X): 12 pads built from 2 synth voices and a filter, plus a 16-step pattern. T1 VOICE 1 · T2 VOICE 2 (TUNE, WAVE, DECAY, BEND) · T3 FILTER (MODE, CUTOFF, RESO, MIX) · T4 STEPS (PAD, LENGTH, LEVEL, RUN). Keys play and pick pads; on STEPS the first 16 keys toggle steps (hold Shift to pick a pad instead). Hold a step key and turn the knobs to set that step's VELOCITY · CHANCE · ROLL (1–4 hits) · NUDGE. SHIFT on STEPS: PATTERN (8 patterns) · CHAIN (play patterns 1 to N in turn) · HITS (spreads that many hits evenly for the pad) · ROTATE. Shift + DRUM again closes it; the pattern keeps running. The closed hat cuts off the open hat.</td></tr>
+<tr><td>Shift + DRUM</td><td>DRUM MACHINE (Shift + X): 12 pads built from 2 synth voices and a filter, plus a 16-step pattern. T1 VOICE 1 · T2 VOICE 2 (TUNE, WAVE, DECAY, BEND) · T3 FILTER (MODE, CUTOFF, RESO, MIX) · T4 STEPS (PAD, LENGTH, LEVEL, RUN). Keys play and pick pads; on STEPS the first 16 keys toggle steps (hold Shift to pick a pad instead). Hold a step key and turn the knobs to set that step's VELOCITY · CHANCE · ROLL (1–4 hits) · NUDGE, SHIFT: COND (1 OF 2 … FILL); while holding it, T1–T3 lock that page's knobs just for the step (push a knob to clear). 1–8 pick the pattern, SHIFT + 1–8 copies it there. T4 again: DICE & FILL: DICE rolls a new pattern (turn back for the previous ones) · WHAT · DENSITY · FILL every 2, 4 or 8 passes; hold → for a fill. SHIFT on STEPS: PATTERN (8 patterns) · CHAIN (play patterns 1 to N in turn) · HITS (spreads that many hits evenly for the pad) · ROTATE. Shift + DRUM again closes it; the pattern keeps running. The closed hat cuts off the open hat.</td></tr>
 <tr><td>Kit models</td><td>In drum mode, hold SHIFT on the T1 page: MODEL changes the kit's sounds (CLASSIC · ANALOG classic analog drum machine · PUNCH tight and bright · DUSTY lo-fi) and CHOKE lets the closed hat cut off the open hat.</td></tr>
 <tr><td>Pad samples</td><td>In drum mode, hit a pad, then “load sample” / “record sample” (or drop a file) to put a sound on that pad only, for the current kit. The kit’s TUNE and TONE still shape it; Shift + 4 trims it and sets how it plays. “clear sample” brings the built-in sound back.</td></tr>
-<tr><td>Shift + 4</td><td>In drum mode: SAMPLE editor for the selected pad's sample (orange light on 4). START · END · TUNE (±12) · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole part from one hit, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL. An orange line runs through the waveform as the pad plays. Hit pads to switch pad; Shift + 4 again or any T key closes it.</td></tr>
+<tr><td>Shift + 4</td><td>In drum mode: the SAMPLER for the selected pad (orange light on 4; T1 again does the same). T1 EDIT: START · END · TUNE (±12) · REVERSE; hold SHIFT for PLAY (ONE SHOT, GATE, LOOP) · FADE IN · FADE OUT · LEVEL. T2 SLICE: cut the sample across the pads, EVEN or AT HITS. T3 RECORD: resample what you hear (MASTER) or the INPUT, 1 beat to 4 bars, now or from the next bar. T4 FROM TAPE: the lifted piece, the loop or a bar, one track or all. Hit pads to switch pad; Shift + 4 again closes it.</td></tr>
 <tr><td>Shift + 1 – 8</td><td>In synth mode: synth bank B (orange light): NEON supersaw · LADDER mono bass/lead with glide · ORBIT poly brass · VELVET warm analog poly pad · BRASS punchy poly brass · AURORA string ensemble · ACID squelch bass (overlap notes to slide) · HOOVER rave lead.</td></tr>
 <tr><td>Shift + M</td><td>Sound FX bank B (Shift + T3, orange light on T3): BOUNCE ping-pong tape delay · COIL spring reverb · CUBE feedback-box reverb · RADIO lo-fi radio. Shift + T3 again steps through them; plain T3 goes back to ECHO · ROOM · CRUSH · SWIRL.</td></tr>
 <tr><td>A…' row</td><td>Musical keys (W E T Y U O P are the black keys). Shift+← / → changes octave.</td></tr>
@@ -265,20 +265,20 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>← →</td><td>In synth mode: hold for pitch bend down / up. In the other modes: hold to wind the tape.</td></tr>
 <tr><td>Q</td><td>LOOP on/off from the current position (length = green knob in tape mode).</td></tr>
 <tr><td>[ ]</td><td>LIFT (cut loop/bar from the track) · DROP (paste it at the tape head). Shift+LIFT erases the track.</td></tr>
-<tr><td>= </td><td>SEQ: sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold Shift and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops. ARP: hold a chord. Shift+SEQ clears.</td></tr>
+<tr><td>= </td><td>SEQ: sequencers. With the screen open, T1–T4 pick the type. ENDLESS: hold Shift and tap notes to add steps, then hold any key to play them transposed. PATTERN: blue knob picks a step, tap keys to toggle notes on it, orange knob starts/stops; SHIFT + knobs set the step's VELOCITY · CHANCE · ROLL · COND (1 OF 2 … FILL), and T2 again opens LOCKS: the engine's knobs just for that step (← → pick the step). ARP: hold a chord. Shift+SEQ clears.</td></tr>
 <tr><td>CHAIN</td><td>CHAIN (T4): an endless step sequencer. Hold SHIFT and press keys to add steps (keys pressed together make a chord); keep the keys held and press → to make the last note longer; SHIFT + → adds a rest; SHIFT + ← removes the last step. Then press any key to play the chain transposed (the low C plays it as written). Knobs: RATE · GATE · OCTAVE · HOLD.</td></tr>
-<tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse.</td></tr>
+<tr><td>Tape tricks</td><td>In tape mode hold 1 = brake, 2 = stutter, 3 = reverse. SHIFT + 4 sends the piece you lifted or copied to the sampler. SHIFT + LOOP: SECTIONS, up to 6 song markers: 1–6 set one at the tape head, or jump to it on the next bar (with LOOP on, that section loops).</td></tr>
 <tr><td>Shift + REC</td><td>ADVANCED REC (orange light on REC). SOURCE: instrument, mic (or line in) or both · KEEP OLD: 100% overdubs, 0% replaces what is under the new take, in between fades it · START: on the REC key, ON SOUND (the tape rolls and recording starts when the input passes the threshold) or NEXT BAR · AUTO STOP after 1–8 bars. SHIFT: THRESHOLD · MONITOR (hear the mic) · PUNCH (record only inside the loop markers) · INPUT: MIC or LINE IN (the IN jack on the WEB-1 hardware); the sampler records from it too.</td></tr>
-<tr><td>Shift + TEMPO</td><td>KEY &amp; CHORDS (Shift + -, orange light on TEMPO). KEY · SCALE (major, minor, dorian, mixolydian, lydian, phrygian, harmonic minor, major and minor pentatonic, blues, whole tone, or OFF) · KEYS: SNAP moves notes outside the scale to the nearest scale note, WHITE KEYS makes the white keys walk up the scale from the root · CHORD: one key plays a chord, TRIAD, SEVENTH or NINTH built from the scale, or SUS2, SUS4, POWER, OCTAVES. SHIFT: VOICING · STRUM · ADD BASS · KEY GUIDE (dots on the keys: grey for the scale, orange for the root). It works on the synths, from MIDI and in the sequencers: with ARP, one key arpeggiates its chord.</td></tr>
+<tr><td>Shift + TEMPO</td><td>KEY &amp; CHORDS (Shift + -, orange light on TEMPO). KEY · SCALE (major, minor, dorian, mixolydian, lydian, phrygian, harmonic minor, major and minor pentatonic, blues, whole tone, or OFF) · KEYS: SNAP moves notes outside the scale to the nearest scale note, WHITE KEYS makes the white keys walk up the scale from the root · CHORD: one key plays a chord, TRIAD, SEVENTH or NINTH built from the scale, or SUS2, SUS4, POWER, OCTAVES. SHIFT: VOICING · STRUM · ADD BASS · KEY GUIDE (dots on the keys: grey for the scale, orange for the root). It works on the synths, from MIDI and in the sequencers: with ARP, one key arpeggiates its chord. T2: PROGRESSION writes chords in your key into the CHAIN sequencer (STYLE · CHORDS · MAKE · EACH); tap the low C to play them. T3: FOLLOW BASS, another synth slot plays under your chords (ROOT, PULSE, OFFBEAT, OCTAVES or WALK).</td></tr>
 <tr><td>Shift + DROP</td><td>UNDO the last tape change: a recording, LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE. Press it again to REDO. Hold SHIFT in tape mode to see what it will undo. Erasing the whole tape can't be undone.</td></tr>
 <tr><td>Shift + 7</td><td>In tape mode: PROJECTS (key 7 is labelled PROJECT). Each project is a whole song: its tape, sounds, sequences, mixer and samples. Blue picks a project, green an action, white turned all the way to YES does it: OPEN · NEW · DUPLICATE · RENAME · DELETE · SAVE FILE (a .web1 file of that project) · BACKUP ALL (every project in one file) · LOAD FILE. Your presets and system settings are shared by all projects. The “save project” and “load project” buttons under the device do the same for the open project.</td></tr>
 <tr><td>Shift + TAPE</td><td>ERASE TAPE: hold T1, T2, T3 and T4 down together to wipe all four tracks (there is no undo; on a computer hold B N M , together). Letting go of a key puts its box out. Shift + TAPE again, or any mode key, cancels before all four are held.</td></tr>
 <tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY (on the hardware: POWER OFF saves first) · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything; on the hardware the USB stick: load a sample, back up all projects, eject) · DISPLAY (brightness, screen sleep, clock in the title bar) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · CPU (audio load, screen speed, voices, and the VOICE LIMIT, which AUTO lowers when the device struggles) · ABOUT (on the hardware: check for and install updates). To confirm, turn white all the way to YES or push it; erasing takes two pushes.</td></tr>
 <tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
-<tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back.</td></tr>
+<tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back. T1 again opens the SAMPLER: T1 EDIT · T2 SLICE (across the pads, evenly or at each hit) · T3 RECORD (resample what you hear, or the input) · T4 FROM TAPE (the lifted piece, the loop or a bar).</td></tr>
 <tr><td>MIDI</td><td>“connect midi” enables any attached keyboard: velocity, pitch bend, mod wheel (LFO amount), sustain pedal.</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved in this browser automatically. “export tape as wav” downloads the mix. Once opened, WEB-1 also works offline.</td></tr>
-<tr><td>I</td><td>FX RACK: four master effects in a chain, DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, press the same T again to switch it on/off. Shift+FX (Shift+I) switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). Shift+FX (Shift+I) again goes back to bank A. The four lights on the FX key show which are on. Delay is synced to the tempo; delay and reverb tails ring out when switched off. The rack is included in the WAV export.</td></tr>
+<tr><td>I</td><td>FX RACK: four master effects in a chain, DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, press the same T again to switch it on/off. Shift+FX (Shift+I) switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). Shift+FX (Shift+I) again goes back to bank A. LIVE FX: with the FX screen open, hold 1–8: REPEAT 1/4 · 1/8 · 1/16 · 1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP, on everything you hear (not recorded on the tape). The four lights on the FX key show which are on. Delay is synced to the tempo; delay and reverb tails ring out when switched off. The rack is included in the WAV export.</td></tr>
 <tr><td>- · `</td><td>TEMPO screen · metronome on/off</td></tr>
 <tr><td>Count-in</td><td>On the TEMPO screen, green knob = COUNT-IN (off / 1 bar / 2 bars). Pressing REC from stop then clicks you in and the tape starts exactly on the downbeat. Press STOP or REC again to cancel.</td></tr>
 <tr><td>Quantize</td><td>On the TEMPO screen, white knob = QUANTIZE (off, 1/4, 1/8, 1/16, 1/32). Notes you play on the keys or over MIDI snap to that grid, which follows the tape's bars; notes only a hair late play straight away. Sequencers start on the grid too. Hold SHIFT on the TEMPO screen for SWING, BEATS and SNAP (loop, lift and drop line up with bars and beats).</td></tr>
@@ -309,8 +309,8 @@ const S={mode:'synth',inst:'synth',page:0,slot:0,kit:0,oct:0,shift:false,overlay
   rk:[[.35,0,.6,1],[.3,.5,.8,.5],[.55,.4,.3,.3],[.45,.5,.5,.3]],rkOn:[false,false,false,false],rkSel:0,
   rk2:[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]],rkOn2:[false,false,false,false],rkB:false, // FX rack bank B: FILTER GATE FLANGER LO-FI
   tq:[.5,0,1],count:null,fb:0,fbT:0,lastBeat:-1e9,tposAt:0,
-  metro:false,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],rm:[0,1,0,0],rm2:[.3,0,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
-const seq={on:false,type:0,pat:Array.from({length:16},()=>[]),steps:[],ch:[],ins:new Set(),sub:0,held:new Set(),playing:false,i:0,cnt:0,next:0,tr:0,dirS:1,cur:-1};
+  metro:false,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],mk:Array(6).fill(null),mkn:[0,1,2,3,4,5],kp:[0,0,1],bs:[0,0,1,.8],rm:[0,1,0,0],rm2:[.3,0,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
+const seq={on:false,type:0,pat:Array.from({length:16},()=>[]),ps:{v:Array(16).fill(.9),p:Array(16).fill(1),c:Array(16).fill(0),r:Array(16).fill(0),lk:Array(16).fill(null)},lkPg:false,loopN:0,steps:[],ch:[],ins:new Set(),sub:0,held:new Set(),playing:false,i:0,cnt:0,next:0,tr:0,dirS:1,cur:-1};
 /* ── drum machine (Shift + DRUM): 12 pads, each built from 2 synth voices + a filter, and a 16-step pattern ──
    voice v=[TUNE, WAVE, DECAY, BEND] · filter f=[MODE, CUTOFF, RESO, MIX] · sq=[PAD, LENGTH, LEVEL, RUN] */
 const dmV=(a,b,f)=>({v:[a,b],f}),fm=k=>(k+.5)/8;
@@ -322,19 +322,68 @@ const DM={page:0,pad:0,i:0,next:0,cur:-1,sq:[.5/12,1,.8,0],
         dmV([.95,.9,.4,0],[.9,.6,.3,0],[fm(2),.82,.2,.3]),       dmV([.7,.6,.42,0],[.78,.6,.42,0],[fm(6),.62,.2,.5]),
         dmV([.97,.9,.8,0],[.85,.6,.6,0],[fm(2),.76,.3,.4]),      dmV([.9,.9,.12,0],[.95,.9,.08,0],[fm(3),.8,.5,.4])],
   // 8 patterns: s = steps on/off, v = velocity, p = chance, r = roll (1–4 hits), n = nudge (.5 = on the beat), rot = generator rotation, len = length
-  pats:[dmPat(Array.from({length:12},(_,r)=>Array.from({length:16},(_,i)=>+(r===0&&i%4===0||r===2&&i%8===4||r===6&&i%2===0&&i!==14||r===8&&i===14)))),...Array.from({length:7},()=>dmPat())],pe:0,pp:0,cp:-1,sq2:[.5/8,0,0,0],hold:null,
+  pats:[dmPat(Array.from({length:12},(_,r)=>Array.from({length:16},(_,i)=>+(r===0&&i%4===0||r===2&&i%8===4||r===6&&i%2===0&&i!==14||r===8&&i===14)))),...Array.from({length:7},()=>dmPat())],pe:0,pp:0,cp:-1,sq2:[.5/8,0,0,0],hold:null,gz:[.5,0,0],loopN:0,fillHold:false,hist:{},
   get pat(){return this.pats[this.pe].s}};
-function dmPat(s0){const A=x=>Array.from({length:12},()=>Array(16).fill(x));return{s:s0||A(0),v:A(1),p:A(1),r:A(0),n:A(.5),rot:Array(12).fill(0),len:16}}
+function dmPat(s0){const A=x=>Array.from({length:12},()=>Array(16).fill(x));return{s:s0||A(0),v:A(1),p:A(1),r:A(0),n:A(.5),c:A(0),lk:A(null),rot:Array(12).fill(0),len:16}}  // c = condition, lk = step locks
 const dmChain=()=>1+Math.round(DM.sq2[1]*7);
 function dmEuclid(k){// spread the selected pad's hits evenly over the pattern (keeping its rotation)
   const pt=DM.pats[DM.pe],r=DM.pad,L=pt.len,h=clamp(pt.s[r].slice(0,L).filter(Boolean).length+k,0,L),o=pt.rot[r];
   for(let i=0;i<L;i++){const j=((i-o)%L+L)%L;pt.s[r][i]=h&&Math.floor(j*h/L)!==Math.floor((j-1)*h/L)?1:0}}
-function dmRotate(k){const pt=DM.pats[DM.pe],r=DM.pad,L=pt.len;['s','v','p','r','n'].forEach(f=>{const a=pt[f][r].slice(0,L);for(let i=0;i<L;i++)pt[f][r][((i+k)%L+L)%L]=a[i]});pt.rot[r]+=k}
+function dmRotate(k){const pt=DM.pats[DM.pe],r=DM.pad,L=pt.len;['s','v','p','r','n','c','lk'].forEach(f=>{const a=pt[f][r].slice(0,L);for(let i=0;i<L;i++)pt[f][r][((i+k)%L+L)%L]=a[i]});pt.rot[r]+=k}
+/* ── step conditions (drum machine and PATTERN): ALWAYS, A OF B passes, FILL, NO FILL, FIRST ── */
+const CONDN=['ALWAYS','1 OF 2','2 OF 2','1 OF 3','2 OF 3','3 OF 3','1 OF 4','2 OF 4','3 OF 4','4 OF 4','FILL','NO FILL','FIRST'],CONDAB=[0,[1,2],[2,2],[1,3],[2,3],[3,3],[1,4],[2,4],[3,4],[4,4]];
+// fills: hold → in the drum machine, or automatically on the last pass of every 2, 4 or 8 (DICE & FILL page)
+const fillOn=n=>DM.fillHold||(DM.gz[2]>0&&(n+1)%[1,2,4,8][DM.gz[2]|0]===0);
+function condOK(c,n){c=c|0;if(!c)return true;if(c<10){const[a,b]=CONDAB[c];return n%b===a-1}return c===10?fillOn(n):c===11?!fillOn(n):n===0}
+// a knob that steps through a list (stored as a whole number), for both the screen knobs and the hardware clicks
+const ST=(o,k,d,f)=>{o[k]=(o[k]||0)+d*15;while(Math.abs(o[k])>=1){const s2=Math.sign(o[k]);o[k]-=s2;f(s2)}};
+function stepK(o,k,n,names,cb){const st=s=>{const v=clamp((o[k]|0)+s,0,names.length-1);if(v!==(o[k]|0)){o[k]=v;cb&&cb()}};return{n,val:()=>names[o[k]|0],step:st,turn(d){ST(o,'_a'+k,d,st)}}}
+// step locks: a drum machine step can change any VOICE 1, VOICE 2 or FILTER knob just for itself (keys 0–3, 4–7, 8–11)
+function dmLocked(P,lk){const v=[P.v[0].slice(),P.v[1].slice()],f=P.f.slice();for(const k in lk){const j=+k;if(j<4)v[0][j]=lk[k];else if(j<8)v[1][j-4]=lk[k];else f[j-8]=lk[k]}return{v,f}}
+const DMFM=[[x=>Math.round(dmFr(x))+'',x=>DMW[idx(x,4)],x=>{const d=dmDec(x);return d<1?Math.round(d*1000)+'ms':d.toFixed(1)+'s'},pct],
+  [x=>DMF[idx(x,8)],x=>{const f=dmCut(x);return f<1000?Math.round(f)+'':(f/1000).toFixed(1)+'k'},pct,x=>Math.round((1-x)*100)+'/'+Math.round(x*100)]];
+function dmLockParams(h){const r=DM.pad,st=h.st,L=DM.pats[DM.pe].lk[r],P=DM.pads[r],pg=h.pg,base=pg<2?P.v[pg]:P.f,nm=pg<2?['TUNE','WAVE','DECAY','BEND']:['MODE','CUTOFF','RESO','MIX'],fm=DMFM[pg<2?0:1];
+  return[0,1,2,3].map(i=>{const key=pg*4+i;return{n:nm[i],val:()=>{const v=L[st]&&L[st][key];return v==null?fm[i](base[i]):'● '+fm[i](v)},
+    turn(d){h.turned=true;const o=L[st]||(L[st]={});o[key]=clamp((o[key]??base[i])+d)},push(){if(L[st]){delete L[st][key];if(!Object.keys(L[st]).length)L[st]=null}}}})}
+// PATTERN locks: the slot's four engine knobs, just for the selected step (T2 again); push a knob to clear its lock
+function patLockParams(){const st=patStep(),E=engOf(),P=cur(),lk=seq.ps.lk;if(E===SMP||S.inst!=='synth')return[null,null,null,null];
+  return[0,1,2,3].map(i=>({n:E.pn[i],val:()=>{const v=lk[st]&&lk[st][i];return v==null?'—':(E.fmt&&E.fmt[i]?E.fmt[i](v):pct(v))},
+    turn(d){const L=lk[st]||(lk[st]={});L[i]=clamp((L[i]??P.eng[i])+d)},push(){if(lk[st]){delete lk[st][i];if(!Object.keys(lk[st]).length)lk[st]=null}}}))}
+/* ── DICE & FILL (T4 again in the drum machine): roll a new pattern, step back through the rolls, set fills ── */
+const dmCopy=pt=>JSON.parse(JSON.stringify(pt));
+function dmGrooveParams(){const G=DM.gz,H=DM.hist,n=H.pe===DM.pe&&H.list?H.i:0;return[{n:'DICE',val:()=>{const H2=DM.hist,k=H2.pe===DM.pe&&H2.list?H2.i:0;return k?'ROLL '+k:(HW.ok?'PUSH':'TURN ▸')},step(k){dmDiceStep(k)},turn(d){ST(DM,'_dc',d,dmDiceStep)},push(){dmRoll()}},
+  stepK(G,1,'WHAT',['ALL PADS','THIS PAD']),mk(G,0,'DENSITY',pct),stepK(G,2,'FILL',['OFF','EVERY 2','EVERY 4','EVERY 8'])]}
+function dmRoll(){const H=DM.hist;if(H.pe!==DM.pe||!H.list){H.pe=DM.pe;H.list=[dmCopy(DM.pats[DM.pe])];H.i=0}
+  H.list.splice(H.i+1);dmDice(DM.pats[DM.pe],DM.gz[1]?[DM.pad]:null,DM.gz[0]);H.list.push(dmCopy(DM.pats[DM.pe]));if(H.list.length>17)H.list.shift();H.i=H.list.length-1;
+  status('roll '+H.i+' on pattern '+(DM.pe+1)+(DM.gz[1]?' · '+DN[DM.pad]:'')+' — turn back to go to the previous one')}
+function dmDiceStep(k){const H=DM.hist,ok=H.pe===DM.pe&&H.list;if(k>0){if(ok&&H.i<H.list.length-1){H.i++;Object.assign(DM.pats[DM.pe],dmCopy(H.list[H.i]))}else dmRoll()}
+  else if(ok&&H.i>0){H.i--;Object.assign(DM.pats[DM.pe],dmCopy(H.list[H.i]));status(H.i?'roll '+H.i:'back to the pattern before the dice')}}
+// a musical random pattern: kick on the one, snare backbeat, hats on 8ths (16ths when busy), toms as a FILL at the end
+function dmDice(pt,rows,dn){const L=pt.len,Rn=Math.random,rs=rows||[0,1,2,3,4,5,6,7,8,9,10,11],on=r=>rs.includes(r),q=i=>i%4===0,e=i=>i%2===0;
+  const set=(r,i,v=1,p=1,c=0,rl=0)=>{pt.s[r][i]=1;pt.v[r][i]=v;pt.p[r][i]=p;pt.c[r][i]=c;pt.r[r][i]=rl;pt.n[r][i]=.5;pt.lk[r][i]=null};
+  rs.forEach(r=>{for(let i=0;i<16;i++){pt.s[r][i]=0;pt.v[r][i]=1;pt.p[r][i]=1;pt.c[r][i]=0;pt.r[r][i]=0;pt.n[r][i]=.5;pt.lk[r][i]=null}pt.rot[r]=0});
+  for(let i=0;i<L;i++){
+    if(on(0)&&(i===0||(q(i)&&Rn()<.3+.4*dn)||(e(i)&&Rn()<.08+.25*dn)||Rn()<.03+.06*dn))set(0,i,q(i)?1:.8);
+    if(on(2)){if(i%8===4)set(2,i,1);else if(!q(i)&&Rn()<.04+.16*dn)set(2,i,.35,Rn()<.5?.6:1)}
+    if(on(3)&&i%8===4&&Rn()<.25+.3*dn)set(3,i,.9);
+    if(on(1)&&!e(i)&&Rn()<.05+.18*dn)set(1,i,.7);
+    if(on(6)&&(e(i)||dn>.55&&Rn()<dn*.8))set(6,i,q(i)?.9:e(i)?.7:.45,e(i)?1:.8);
+    if(on(8)&&i%4===2&&Rn()<.12+.3*dn){set(8,i,.8);if(on(6))pt.s[6][i]=0}
+    if(i>=L-4)[4,5,7].forEach(r=>{if(on(r)&&Rn()<.15+.35*dn)set(r,i,.85,1,10)});
+    if(on(10)&&i===0&&Rn()<.25)set(10,i,.8);
+    if(on(9)&&!e(i)&&Rn()<.03+.1*dn)set(9,i,.6);
+    if(on(11)&&Rn()<.1+.4*dn)set(11,i,.35+Rn()*.3)}
+  if(on(2)&&L>=16&&Rn()<.3+.3*dn)set(2,L-1,.6,1,10,.34)}
+function dmDiceInfo(){const H=DM.hist,n=H.pe===DM.pe&&H.list?H.i:0,pips=[[4],[0,8],[0,4,8],[0,2,6,8],[0,2,4,6,8],[0,2,3,5,6,8]][(n+5)%6],x=10,y=73;
+  g.strokeStyle=COL.w;g.lineWidth=1;g.strokeRect(x+.5,y+.5,17,17);pips.forEach(p=>circ(x+4.2+(p%3)*4.6,y+4.2+Math.floor(p/3)*4.6,1.3,COL.w,true));
+  txt(n?'ROLL '+n:'DICE',x+22,y+7,COL.w,6);txt((DM.gz[1]?DN[DM.pad]:'ALL PADS')+' · '+pct(DM.gz[0])+'%',x+22,y+15,COL.dim,5);
+  txt('FILL '+['OFF','EVERY 2','EVERY 4','EVERY 8'][DM.gz[2]|0]+' · HOLD →',x,y+25,DM.fillHold?COL.o:COL.dim,4.8)}
 function dmUp(k){const h=DM.hold;if(h&&h.st===k%16){DM.hold=null;if(h.was&&!h.turned)DM.pats[DM.pe].s[DM.pad][h.st]=0}}
 
 const fxDef=(t,m)=>[[.35,.4,.6,t===0?m:.3],[.5,.4,.1,t===1?m:.3],[.5,.3,.7,t===2?m:.5],[.3,.6,.4,t===3?m:.5],
   [.35,.3,.45,t===4?m:.3],[.55,.45,.4,t===5?m:.35],[.45,.5,.6,t===6?m:.3],[.45,.4,.35,t===7?m:.7]];
-const mkP=(eng,env,ft,fm)=>({eng,env,fxType:ft,fx:fxDef(ft,fm),lfo:[.5,0,0,0],smp:[0,1,.5,.5,.5,0,0,.1],pm:[0,.25,0,.8]});  // pm = PLAY MODE, GLIDE, DRIFT, VELOCITY
+const LF2D=[.45,0,0,0],MACD=[0,.8,.5,.65];  // LFO 2: RATE AMOUNT DEST SHAPE · macro: MACRO, ENGINE depth, TONE depth, FX depth (.5 = 0)
+const mkP=(eng,env,ft,fm)=>({eng,env,fxType:ft,fx:fxDef(ft,fm),lfo:[.5,0,0,0],lfo2:[...LF2D],mac:[...MACD],smp:[0,1,.5,.5,.5,0,0,.1],pm:[0,.25,0,.8]});  // pm = PLAY MODE, GLIDE, DRIFT, VELOCITY
 const synthP=[
   mkP([.35,.3,.7,.2],[.02,.4,.7,.35],1,.25), mkP([.3,.45,.2,.4],[0,.5,.3,.4],0,.2),
   mkP([.55,.5,.4,.25],[.35,.5,.9,.5],1,.3),       mkP([.5,.5,.4,.3],[.01,.3,.8,.2],3,0),
@@ -389,14 +438,14 @@ const PRESETS=[
 const presetsOf=e=>[['INIT'],...PRESETS[e],...S.up[e].map(u=>[u.n,null,null,null,1])],presetsSl=sl=>presetsOf(slE(sl));
 function applyPreset(sl,k){const P=synthP[sl],e=slE(sl),d=ENGDEF[e];P.rnd=0;
   if(!k){P.eng=[...d.eng];P.env=[...d.env];P.fxType=d.fxType;P.fx=JSON.parse(JSON.stringify(d.fx))}
-  else if(k>PRESETS[e].length){const u=S.up[e][k-1-PRESETS[e].length];P.eng=[...u.eng];P.env=[...u.env];P.fxType=u.ft;P.fx=JSON.parse(JSON.stringify(u.fx));P.lfo=[...u.lfo]}
+  else if(k>PRESETS[e].length){const u=S.up[e][k-1-PRESETS[e].length];P.eng=[...u.eng];P.env=[...u.env];P.fxType=u.ft;P.fx=JSON.parse(JSON.stringify(u.fx));P.lfo=[...u.lfo];if(u.lfo2)P.lfo2=[...u.lfo2];if(u.mac)P.mac=[...u.mac]}
   else{const[,eng,env,fx]=PRESETS[e][k-1];P.eng=[...eng];if(env)P.env=[...env];if(fx){P.fxType=fx[0];P.fx=fxDef(fx[0],fx[1])}}
   S.pre[sl]=k;if(sl===S.slot&&S.inst==='synth')applyPatch()}
 // put engine e in slot sl, starting from that engine's own sound
 // a new random sound for the slot, kept inside musical limits (gentle envelope, a light effect, a little LFO now and then)
 let RNDN=0;function randomize(sl){const P=synthP[sl],r=(a,b)=>a+Math.random()*(b-a),ft=Math.floor(Math.random()*4);P.eng=P.eng.map(()=>r(.08,.92));P.env=[r(0,.3),r(.25,.75),r(.45,1),r(.15,.55)];
   P.fxType=ft;P.fx=fxDef(ft,r(.1,.35));P.lfo=[r(.2,.7),Math.random()<.35?r(.05,.25):0,Math.random(),Math.random()];P.rnd=++RNDN;S.pre[sl]=0;if(sl===S.slot&&S.inst==='synth')applyPatch()}
-function setEngine(sl,e){const P=synthP[sl],d=ENGDEF[e];P.e=e;P.rnd=0;P.eng=[...d.eng];P.env=[...d.env];P.fxType=d.fxType;P.fx=JSON.parse(JSON.stringify(d.fx));P.lfo=[...d.lfo];S.pre[sl]=0;if(sl===S.slot&&S.inst==='synth')applyPatch()}
+function setEngine(sl,e){const P=synthP[sl],d=ENGDEF[e];P.e=e;P.rnd=0;P.eng=[...d.eng];P.env=[...d.env];P.fxType=d.fxType;P.fx=JSON.parse(JSON.stringify(d.fx));P.lfo=[...d.lfo];P.lfo2=[...LF2D];P.mac=[...MACD];S.pre[sl]=0;if(sl===S.slot&&S.inst==='synth')applyPatch()}
 const MENU={e:0,p:0,g:0};
 /* save mode (Shift + T1 on a synth): name a preset with the knobs or the keyboard, then turn white to save or orange to delete */
 const SCH=' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-',SVL=10,SAVE={name:[],cur:0,cf:0,pf:0,arm:0,del:0,msg:'',at:0,back:null,kind:'preset',done:null};
@@ -410,7 +459,7 @@ function svMsg(m){SAVE.msg=m;SAVE.at=performance.now()}
 function doSave(){if(SAVE.kind==='project'){const n=svName()||'PROJECT';if(SAVE.done)SAVE.done(n);svMsg('RENAMED');setTimeout(()=>{if(S.overlay==='save'&&SAVE.kind==='project'){S.overlay=SAVE.back;leds()}},700);return}
   const sl=S.slot,E2=slE(sl),U=S.up[E2],P=synthP[sl],n=svName()||'USER',j0=U.findIndex(u=>u.n===n);
   if(j0<0&&U.length>=16){svMsg('FULL · DELETE ONE FIRST');return}
-  const e={n,eng:[...P.eng],env:[...P.env],ft:P.fxType,fx:JSON.parse(JSON.stringify(P.fx)),lfo:[...P.lfo]},j=j0<0?U.push(e)-1:(U[j0]=e,j0);
+  const e={n,eng:[...P.eng],env:[...P.env],ft:P.fxType,fx:JSON.parse(JSON.stringify(P.fx)),lfo:[...P.lfo],lfo2:[...(P.lfo2||LF2D)],mac:[...(P.mac||MACD)]},j=j0<0?U.push(e)-1:(U[j0]=e,j0);
   S.pre[sl]=1+PRESETS[E2].length+j;svMsg(j0<0?'SAVED':'OVERWRITTEN')}
 function doDel(){const sl=S.slot,E2=slE(sl),U=S.up[E2],j=svHit();if(j<0)return;U.splice(j,1);const k=1+PRESETS[E2].length+j;
   synthP.forEach((P2,s2)=>{if(P2.e!==E2)return;if(S.pre[s2]===k)S.pre[s2]=0;else if(S.pre[s2]>k)S.pre[s2]--});svMsg('DELETED')}
@@ -441,9 +490,13 @@ const mod24=x=>((x%24)+24)%24;
 
 /* ───────────── saving ───────────── */
 const padP={}; // drum pad sample settings: padP['kit_pad'] = [START, END, TUNE, REVERSE, PLAY, FADE IN, FADE OUT, LEVEL]
-const LSK='web1.v1',SKEYS=['inst','slot','kit','oct','bpm','tm','sqp','tp','lv','pn','eq','ms','rk','rkOn','rkSel','tq','rk2','rkOn2','rkB','pre','eqf','mb','mb2','ms2','up','sys','rm','rm2','kc','kc2','mute','solo','srv','sdl','sc','mxB','scn','midi'];
-const snapshot=()=>JSON.stringify({S:Object.fromEntries(SKEYS.map(k=>[k,S[k]])),synthP,drumP,seq:{type:seq.type,steps:seq.steps,pat:seq.pat,ch:seq.ch},dm:{pads:DM.pads,pats:DM.pats,sq:DM.sq,sq2:DM.sq2},pp:padP,ver:3});
-try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){const old=!(d.ver>=2),eq4=!d.S.eqf;Object.assign(S,d.S);if(eq4)S.eq[3]=.5;const o3=!(d.ver>=3);d.synthP.forEach((p,i)=>{if(!(old&&[6,11,12].includes(i))&&!(o3&&i===2))Object.assign(synthP[i],p)});if(o3)S.pre[2]=0;synthP.forEach(P=>{const o=P.smp;if(o.length<8)P.smp=[o[0],o[1],o[3],.5,o[2]>.5?.9:.5,0,0,.1]});['mute','solo','srv','sdl','midi'].forEach(k=>{if(!S[k])S[k]=[0,0,0,0]});if(!S.scn)S.scn=[null,null,null,null];synthP.forEach(P=>{if(!P.pm)P.pm=[0,.25,0,.8]});if(!S.sc)S.sc=[0,.5,.35,.4];if(!S.kc)S.kc=[0,0,0,0];if(!S.kc2)S.kc2=[0,0,0,1];if(!S.rm)S.rm=[0,1,0,0];if(!S.rm2)S.rm2=[.3,0,0,0];if(S.rm2.length<4)S.rm2.push(0);S.sys=Object.assign({tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},S.sys||{});synthP.forEach((P,i)=>{if(!(P.e>=0&&P.e<NENG))P.e=i});if(!S.up||S.up.length<NENG)S.up=Array.from({length:NENG},(_,i)=>(S.up&&S.up[i])||[]);S.pre=S.pre.map((k,i)=>k<presetsSl(i).length?k:0);d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));drumP.forEach(P=>{if(!P.km)P.km=[0,1]});Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));if(d.dm.pats)d.dm.pats.forEach((P,k)=>{const Q=DM.pats[k];if(!Q||!P)return;['s','v','p','r','n'].forEach(f=>P[f]&&P[f].forEach((row,i)=>Q[f][i]&&row.forEach((v,j)=>Q[f][i][j]=v)));if(P.rot)Q.rot=P.rot.slice(0,12);if(P.len)Q.len=P.len});else if(d.dm.pat){d.dm.pat.forEach((r,i)=>DM.pats[0].s[i]&&r.forEach((v,j)=>DM.pats[0].s[i][j]=v));DM.pats[0].len=1+idx(d.dm.sq[1],16)}DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12);if(d.dm.sq2)DM.sq2=d.dm.sq2;DM.pe=idx(DM.sq2[0],8)}if(d.pp)Object.assign(padP,d.pp);if(!S.rk2){S.rk2=[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]];S.rkOn2=[false,false,false,false]}if(S.sqp.length<4)S.sqp.push([.3,.55,.5,0]);S.mode=S.inst}}catch(_){}
+const LSK='web1.v1',SKEYS=['inst','slot','kit','oct','bpm','tm','sqp','tp','lv','pn','eq','ms','rk','rkOn','rkSel','tq','rk2','rkOn2','rkB','pre','eqf','mb','mb2','ms2','up','sys','rm','rm2','kc','kc2','mute','solo','srv','sdl','sc','mxB','scn','midi','mk','mkn','kp','bs'];
+const snapshot=()=>JSON.stringify({S:Object.fromEntries(SKEYS.map(k=>[k,S[k]])),synthP,drumP,seq:{type:seq.type,steps:seq.steps,pat:seq.pat,ch:seq.ch,ps:seq.ps},dm:{pads:DM.pads,pats:DM.pats,sq:DM.sq,sq2:DM.sq2,gz:DM.gz},pp:padP,ver:4});
+try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){const old=!(d.ver>=2),eq4=!d.S.eqf;Object.assign(S,d.S);if(eq4)S.eq[3]=.5;const o3=!(d.ver>=3);d.synthP.forEach((p,i)=>{if(!(old&&[6,11,12].includes(i))&&!(o3&&i===2))Object.assign(synthP[i],p)});if(o3)S.pre[2]=0;synthP.forEach(P=>{const o=P.smp;if(o.length<8)P.smp=[o[0],o[1],o[3],.5,o[2]>.5?.9:.5,0,0,.1]});['mute','solo','srv','sdl','midi'].forEach(k=>{if(!S[k])S[k]=[0,0,0,0]});if(!S.scn)S.scn=[null,null,null,null];if(!S.mk)S.mk=Array(6).fill(null);if(!S.kp)S.kp=[0,0,1];if(!S.bs)S.bs=[0,0,1,.8];if(!S.mkn)S.mkn=[0,1,2,3,4,5];synthP.forEach(P=>{if(!P.pm)P.pm=[0,.25,0,.8]});if(!S.sc)S.sc=[0,.5,.35,.4];if(!S.kc)S.kc=[0,0,0,0];if(!S.kc2)S.kc2=[0,0,0,1];if(!S.rm)S.rm=[0,1,0,0];if(!S.rm2)S.rm2=[.3,0,0,0];if(S.rm2.length<4)S.rm2.push(0);S.sys=Object.assign({tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},S.sys||{});synthP.forEach((P,i)=>{if(!(P.e>=0&&P.e<NENG))P.e=i});if(!S.up||S.up.length<NENG)S.up=Array.from({length:NENG},(_,i)=>(S.up&&S.up[i])||[]);S.pre=S.pre.map((k,i)=>k<presetsSl(i).length?k:0);d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));drumP.forEach(P=>{if(!P.km)P.km=[0,1]});Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));if(d.dm.pats)d.dm.pats.forEach((P,k)=>{const Q=DM.pats[k];if(!Q||!P)return;['s','v','p','r','n','c','lk'].forEach(f=>P[f]&&P[f].forEach((row,i)=>Q[f][i]&&row.forEach((v,j)=>Q[f][i][j]=v)));if(P.rot)Q.rot=P.rot.slice(0,12);if(P.len)Q.len=P.len});else if(d.dm.pat){d.dm.pat.forEach((r,i)=>DM.pats[0].s[i]&&r.forEach((v,j)=>DM.pats[0].s[i][j]=v));DM.pats[0].len=1+idx(d.dm.sq[1],16)}DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12);if(d.dm.sq2)DM.sq2=d.dm.sq2;if(d.dm.gz)DM.gz=d.dm.gz;DM.pe=idx(DM.sq2[0],8)}if(d.pp)Object.assign(padP,d.pp);if(!S.rk2){S.rk2=[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]];S.rkOn2=[false,false,false,false]}if(S.sqp.length<4)S.sqp.push([.3,.55,.5,0]);
+  // version 4: the LFO has 9 destinations and 6 shapes (was 4 and 4)
+  if(!(d.ver>=4)){const m4=L=>{if(L&&L.length>=4){L[2]=(idx(L[2],4)+.5)/9;L[3]=(idx(L[3],4)+.5)/6}};synthP.forEach(P=>m4(P.lfo));drumP.forEach(P=>m4(P.lfo));(S.up||[]).forEach(U=>(U||[]).forEach(u=>m4(u.lfo)))}
+  S.mode=S.inst}}catch(_){}
+synthP.forEach(P=>{if(!P.lfo2)P.lfo2=[...LF2D];if(!P.mac)P.mac=[...MACD]});
 [...synthP,...drumP].forEach(P=>{const f=fxDef(-1);for(let i=P.fx.length;i<f.length;i++)P.fx[i]=f[i];if(!(P.fxType<f.length))P.fxType=0});
 let lastSnap=snapshot(),tapeDirty=false;
 const saveTimer=setInterval(()=>{const s=snapshot();if(s!==lastSnap){lastSnap=s;try{localStorage.setItem(LSK,s)}catch(_){}}
@@ -476,14 +529,17 @@ class Tape extends AudioWorkletProcessor{
     this.tr=[0,1,2,3].map(()=>new Float32Array(this.len+2));
     this.pos=0;this.cur=0;this.speed=1;this.playing=false;this.rec=false;this.track=0;this.scrub=0;
     this.loop=false;this.li=0;this.lo=0;this.keep=1;this.punch=false;this.clip=null;this.ub=null;this.uf=null;this.ut=-1;this.umin=1e12;this.umax=-1;this.newTake=false;this.n=0;this.peak=0;this.brake=false;this.st=false;this.sa=0;this.sb=0;
+    this.jAt=-1;this.jTo=0;
     this.port.onmessage=e=>{const m=e.data;
       if(m.t==='dump'){this.port.postMessage({dump:this.tr.map(a=>a.slice(0,this.len)),sr:sampleRate});return}
       if(m.t==='undo'){this.undo();return}
+      if(m.t==='getclip'){this.port.postMessage({clip:this.clip});return}
       if(m.t==='load'){this.resetU();m.tr.forEach((a,i)=>{if(a)this.tr[i].set(a.subarray(0,Math.min(a.length,this.len)))});return}
       if(m.t==='arm'){this.armAt=m.at;this.armV=m.v;return}
       if(m.t==='stut'){this.st=m.on;this.sa=this.pos;this.sb=this.pos+m.len;return}
       if(m.t==='set'){const wr=this.rec;Object.assign(this,m.v);if(this.rec&&!wr)this.newTake=true}
-      else if(m.t==='seek')this.pos=Math.max(0,Math.min(this.len-1,m.pos));
+      else if(m.t==='seek'){this.pos=Math.max(0,Math.min(this.len-1,m.pos));this.jAt=-1}
+      else if(m.t==='jump'){this.jAt=m.at;this.jTo=m.to}
       else if(m.t==='lift'){const a=Math.max(0,m.a|0),b=Math.min(this.len,m.b|0);this.beginU(m.track);this.saveR(a,b);this.clip=this.tr[m.track].slice(a,b);this.tr[m.track].fill(0,a,b);}
       else if(m.t==='drop'&&this.clip){const p=(m.at!=null?m.at:this.pos)|0,n=Math.min(this.clip.length,this.len-p);this.beginU(m.track);this.saveR(p,p+n);this.tr[m.track].set(this.clip.subarray(0,n),p);this.pos=Math.min(this.len-1,p+n);}
       else if(m.t==='bounce'){const T=this.tr[m.to],L=this.len;this.beginU(m.to);this.saveR(0,L);const keep=m.f[m.to]?m.g[m.to]:1;
@@ -512,6 +568,7 @@ class Tape extends AudioWorkletProcessor{
         const x=(L[i]+R[i])*.5,ax=x<0?-x:x;if(ax>this.peak)this.peak=ax;
         const j1=np|0;if(j1!==i0){if(this.newTake||this.ut!==this.track){this.beginU(this.track,1);this.newTake=false}const a=tr[this.track],uf=this.uf,ub=this.ub,st=j1>i0?1:-1;for(let j=i0;j!==j1;j+=st)if(j>=0&&j<this.len&&!(this.punch&&(j<this.li||j>=this.lo))){if(!uf[j]){uf[j]=1;ub[j]=a[j];if(j<this.umin)this.umin=j;if(j>this.umax)this.umax=j}a[j]=a[j]*this.keep+x}}
       }
+      if(this.jAt>=0&&!this.scrub&&p<this.jAt&&np>=this.jAt){np=this.jTo+(np-this.jAt);this.jAt=-1;this.port.postMessage({jumped:1})}
       if(this.loop&&this.lo>this.li&&!this.scrub){if(np>=this.lo&&p<this.lo)np-=this.lo-this.li;else if(np<this.li&&p>=this.li)np+=this.lo-this.li;}
       if(this.st&&!this.scrub){if(np>=this.sb)np=this.sa;else if(np<this.sa)np=this.sb-1;}
       if(np<0){np=0;this.cur=0;this.playing=false;this.rec=false;this.port.postMessage({end:1});}
@@ -546,6 +603,43 @@ class Cap extends AudioWorkletProcessor{
     return true;}
 }
 registerProcessor('cap',Cap);
+// grab: records n frames from frame 'at' (mono), for the sampler's RECORD page
+class Grab extends AudioWorkletProcessor{
+  constructor(){super();this.b=null;this.i=0;this.at=0;this.port.onmessage=e=>{const m=e.data;if(m.stop){if(this.b){this.port.postMessage({d:this.b.slice(0,this.i)});this.b=null}return}this.b=new Float32Array(m.n);this.i=0;this.at=m.at}}
+  process(ins){const x=ins[0];if(this.b){const L=x&&x[0],R=x&&(x[1]||x[0]),n=L?L.length:128;for(let j=0;j<n;j++){if(currentFrame+j<this.at)continue;this.b[this.i++]=L?(L[j]+R[j])*.5:0;if(this.i>=this.b.length){this.port.postMessage({d:this.b});this.b=null;break}}}return true}}
+registerProcessor('grab',Grab);
+// live: performance effects on the master (hold 1–8 on the FX screen): beat repeat, freeze, tape stop, and resonant sweeps
+class Live extends AudioWorkletProcessor{
+  constructor(){super();const n=sampleRate*4|0;this.N=n;this.L=new Float32Array(n);this.R=new Float32Array(n);this.w=0;this.m=0;this.em=0;this.mix=0;this.len=1;this.ls=0;this.rp=0;
+    this.GL=Math.round(sampleRate*.08);this.FR=Math.round(sampleRate*.2);this.fill=false;this.fs=0;this.gp=[0,0];this.go=[0,0];this.sp=0;this.rate=1;this.dec=0;
+    this.lp=0;this.hp=0;this.lx=0;this.hx=0;this.sw=1;this.s=new Float64Array(8);this.k=0;this.c=[0,0,0,0,0,0,0,0];
+    this.port.onmessage=e=>{const m=e.data;
+      if(m.rep){this.m=1;this.len=m.rep;this.ls=((this.w-m.off)%this.N+this.N)%this.N;this.rp=m.off%m.rep;this.fill=true}
+      else if(m.frz){this.m=2;this.fs=(this.w-this.FR+this.N)%this.N;this.gp=[0,this.GL>>1];this.go=[0,Math.floor(Math.random()*(this.FR-this.GL))]}
+      else if(m.stop){this.m=3;this.sp=(this.w-1+this.N)%this.N;this.rate=1;this.dec=1/(sampleRate*m.T)}
+      else if(m.off)this.m=0;
+      if(m.lp!==undefined)this.lp=m.lp;if(m.hp!==undefined)this.hp=m.hp;if(m.T&&!m.stop)this.sw=m.T}}
+  coef(fc,k){const g=Math.tan(Math.PI*Math.min(fc,sampleRate*.45)/sampleRate),a1=1/(1+g*(g+k));return[a1,g*a1,g*g*a1,k]}
+  svf(x,s,i,c,hi){const v3=x-s[i+1],v1=c[0]*s[i]+c[1]*v3,v2=s[i+1]+c[1]*s[i]+c[2]*v3;s[i]=2*v1-s[i];s[i+1]=2*v2-s[i+1];return hi?x-c[3]*v1-v2:v2}
+  process(ins,outs){const x=ins[0],o=outs[0],L=x&&x[0],R=x&&(x[1]||x[0]),oL=o[0],oR=o[1]||o[0],n=oL.length,N=this.N,BL=this.L,BR=this.R,GL=this.GL,s=this.s;
+    // sweep positions move every block: towards 1 over the sweep time while held, back to 0 in 0.15 s when let go
+    const st=n/(this.sw*sampleRate),bk=n/(.15*sampleRate);this.lx=this.lp?Math.min(1,this.lx+st):Math.max(0,this.lx-bk);this.hx=this.hp?Math.min(1,this.hx+st):Math.max(0,this.hx-bk);
+    const lpOn=this.lx>1e-4,hpOn=this.hx>1e-4,cl=lpOn?this.coef(18000*2**(-this.lx*6.2),.55):null,ch=hpOn?this.coef(20*2**(this.hx*7.3),.6):null;if(!lpOn)s.fill(0,0,4);if(!hpOn)s.fill(0,4,8);
+    for(let j=0;j<n;j++){const xl=L?L[j]:0,xr=R?R[j]:0;
+      if(this.m)this.em=this.m;this.mix+=((this.m?1:0)-this.mix)*.004;if(!this.m&&this.mix<.001){this.mix=0;this.em=0}
+      const wr=this.em!==2&&!(this.em===1&&!this.fill);if(wr){BL[this.w]=xl;BR[this.w]=xr}
+      let yl=xl,yr=xr;
+      if(this.em){let el=0,er=0;
+        if(this.em===1){const i=(this.ls+this.rp)%N,e=this.fill?1:Math.min(1,this.rp/96,(this.len-this.rp)/96);el=BL[i]*e;er=BR[i]*e;if(++this.rp>=this.len){this.rp=0;this.fill=false}}
+        else if(this.em===2){for(let k=0;k<2;k++){const p=this.gp[k],wv=.5-.5*Math.cos(p/GL*6.2832),i=(this.fs+this.go[k]+p)%N;el+=BL[i]*wv;er+=BR[i]*wv;if(++this.gp[k]>=GL){this.gp[k]=0;this.go[k]=Math.floor(Math.random()*(this.FR-GL))}}}
+        else{const i0=Math.floor(this.sp),f=this.sp-i0,a=i0%N,b=(i0+1)%N,gg=Math.min(1,this.rate*3);el=(BL[a]+(BL[b]-BL[a])*f)*gg;er=(BR[a]+(BR[b]-BR[a])*f)*gg;this.sp+=this.rate;if(this.sp>=N)this.sp-=N;this.rate=Math.max(0,this.rate-this.dec)}
+        yl=xl*(1-this.mix)+el*this.mix;yr=xr*(1-this.mix)+er*this.mix}
+      if(wr)this.w=(this.w+1)%N;
+      if(lpOn){yl=this.svf(yl,s,0,cl,0);yr=this.svf(yr,s,2,cl,0)}
+      if(hpOn){yl=this.svf(yl,s,4,ch,1);yr=this.svf(yr,s,6,ch,1)}
+      oL[j]=yl;oR[j]=yr}
+    return true}}
+registerProcessor('live',Live);
 class Lofi extends AudioWorkletProcessor{
   static get parameterDescriptors(){return[{name:'hold',defaultValue:1,minValue:1,maxValue:64},{name:'bits',defaultValue:16,minValue:2,maxValue:16},{name:'noise',defaultValue:0,minValue:0,maxValue:1}]}
   constructor(){super();this.c=0;this.h=[0,0];this.g=1;this.tg=1;this.dt=0;this.env=0;this.hs=0}
@@ -573,7 +667,7 @@ async function initAudio(){
   n.synthIn=gn(1);n.drumBus=gn(1);n.drumSh=AC.createWaveShaper();n.drumBus.connect(n.drumSh);n.drumSh.connect(n.synthIn);
   n.toneF=flt('lowpass',20000,.7);n.trem=gn(1);n.pan=AC.createStereoPanner();
   n.fxIn=gn(1);n.fxOut=gn(1);n.dry=gn(1);
-  n.synthIn.connect(n.toneF);n.toneF.connect(n.trem);n.trem.connect(n.pan);n.pan.connect(n.fxIn);n.fxIn.connect(n.dry);n.dry.connect(n.fxOut);
+  n.macF=flt('lowpass',20000,.5);n.synthIn.connect(n.toneF);n.toneF.connect(n.macF);n.macF.connect(n.trem);n.trem.connect(n.pan);n.pan.connect(n.fxIn);n.fxIn.connect(n.dry);n.dry.connect(n.fxOut);
   n.wet=[0,1,2,3,4,5,6,7].map(()=>{const w=gn(0);w.connect(n.fxOut);return w});
   // echo
   n.dl=AC.createDelay(1.2);n.dlFb=gn(.4);n.dlLp=flt('lowpass',4000,.5);
@@ -602,11 +696,16 @@ async function initAudio(){
   // radio (band-pass, drive, then the lofi worklet once it loads)
   n.rdHp=flt('highpass',400,.9);n.rdLp=flt('lowpass',3000,.9);n.rdSh=AC.createWaveShaper();n.rdSh.curve=satCurve(3);
   n.fxIn.connect(n.rdHp);n.rdHp.connect(n.rdLp);n.rdLp.connect(n.rdSh);n.rdSh.connect(n.wet[7]);
-  // lfo
-  n.lfo=osc('sine',2,0);n.lfoPitch=gn(0);n.lfoAmp=gn(0);n.lfoPan=gn(0);n.lfoTone=gn(0);
-  [n.lfoPitch,n.lfoAmp,n.lfoPan,n.lfoTone].forEach(g=>n.lfo.connect(g));
-  n.pitchMod=gn(1);n.lfoPitch.connect(n.pitchMod);n.bend=AC.createConstantSource();n.bend.offset.value=0;n.bend.start();n.bend.connect(n.pitchMod);
-  n.lfoAmp.connect(n.trem.gain);n.lfoPan.connect(n.pan.pan);n.lfoTone.connect(n.toneF.detune);
+  // two LFOs: an oscillator for the smooth shapes, plus two looping 32-step buffers for RANDOM (steps) and DRIFT (smooth random)
+  n.pitchMod=gn(1);n.bend=AC.createConstantSource();n.bend.offset.value=0;n.bend.start();n.bend.connect(n.pitchMod);
+  n.lfx=[0,1].map(k=>{const R=LFOS[k].v,sps=256,b1=AC.createBuffer(1,32*sps,sr),b2=AC.createBuffer(1,32*sps,sr),d1=b1.getChannelData(0),d2=b2.getChannelData(0);
+    for(let j=0;j<32;j++)for(let q=0;q<sps;q++){const a=R[j],c=R[(j+1)&31];d1[j*sps+q]=a;d2[j*sps+q]=a+(c-a)*(1-Math.cos(q/sps*Math.PI))/2}
+    const o=osc('sine',2,0),rs=AC.createBufferSource(),rd=AC.createBufferSource();rs.buffer=b1;rd.buffer=b2;rs.loop=rd.loop=true;rs.playbackRate.value=rd.playbackRate.value=2*sps/sr;rs.start(0);rd.start(0);
+    const go=gn(1),gs=gn(0),gd=gn(0),sum=gn(1);o.connect(go);rs.connect(gs);rd.connect(gd);[go,gs,gd].forEach(x=>x.connect(sum));
+    const D={pitch:gn(0),amp:gn(0),pan:gn(0),tone:gn(0),fx:gn(0)};Object.values(D).forEach(x=>sum.connect(x));
+    D.pitch.connect(n.pitchMod);D.amp.connect(n.trem.gain);D.pan.connect(n.pan.pan);D.tone.connect(n.toneF.detune);LFOS[k].t0=AC.currentTime;LFOS[k].f=2;LFOS[k].P=0;
+    return{o,rs,rd,go,gs,gd,D,sps,fxTo:-1,sh:-1}});
+  n.lfo=n.lfx[0].o;
   // master
   n.inst=gn(.8);n.fxOut.connect(n.inst);n.instAn=AC.createAnalyser();n.instAn.fftSize=2048;n.inst.connect(n.instAn);
   n.master=gn(1);n.inst.connect(n.master);
@@ -645,6 +744,8 @@ async function initAudio(){
     n.mixRec.port.onmessage=e=>{const m=e.data;if(m.done){mixDone();return}const k=m.L.length,o=new Int16Array(k*2);for(let j=0;j<k;j++){o[2*j]=Math.tanh(m.L[j])*32767;o[2*j+1]=Math.tanh(m.R[j])*32767}MIX.chunks.push(o);MIX.frames+=k;
       if(MIX.frames>AC.sampleRate*600)mixStop()};applyMix();
     tape.port.onmessage=e=>{const m=e.data;
+      if(m.clip!==undefined){clipQ.splice(0).forEach(r=>r(m.clip));return}
+      if(m.jumped){MK.pend=null;leds();return}
       if(m.ub!==undefined){if(m.ub>=0)ovSnap(m.ub);else UNDO.t=-1;return}
       if(m.undone!==undefined){const t=m.undone;if(UNDO.t===t&&UNDO.ov){const c=ov[t].slice();ov[t].set(UNDO.ov);UNDO.ov=c}UNDO.done=!UNDO.done;tapeDirty=true;S.tedit={op:UNDO.done?'UNDO':'REDO',at:performance.now()};status((UNDO.done?'undo':'redo')+' on track '+(t+1));return}
       if(m.dump){dumpQ.splice(0).forEach(r=>r(m));return}
@@ -656,6 +757,8 @@ async function initAudio(){
     tapeSet();
     idb.get('tape').then(d=>{if(d&&d.sr!==AC.sampleRate)d.tr=d.tr.map(a=>{if(!a)return a;const k=d.sr/AC.sampleRate,n=Math.floor(a.length/k),o=new Float32Array(n);for(let i=0;i<n;i++){const x=i*k,j=x|0,f=x-j;o[i]=a[j]+((a[j+1]||0)-a[j])*f}return o});
     if(d){tape.port.postMessage({t:'load',tr:d.tr});d.ov.forEach((a,i)=>ov[i].set(a))}}).catch(()=>{});
+    n.grabIn=gn(1);n.grabM=gn(1);n.clip.connect(n.grabM);n.grabM.connect(n.grabIn);n.grab=new AudioWorkletNode(AC,'grab',{numberOfInputs:1,numberOfOutputs:1,channelCount:2,channelCountMode:'explicit'});n.grabIn.connect(n.grab);{const z=gn(0);n.grab.connect(z);z.connect(AC.destination)}n.grab.port.onmessage=e=>grabDone(e.data.d);
+    n.live=new AudioWorkletNode(AC,'live',{numberOfInputs:1,numberOfOutputs:1,outputChannelCount:[2],channelCount:2,channelCountMode:'explicit'});n.rack.out.disconnect(n.eqB[0]);n.rack.out.connect(n.live);n.live.connect(n.eqB[0]);
     n.cap=new AudioWorkletNode(AC,'cap',{numberOfInputs:1,numberOfOutputs:1,channelCount:2,channelCountMode:'explicit'});n.capI=gn(1);n.capO=gn(0);
     n.inst.connect(n.capI);n.clip.connect(n.capO);n.capI.connect(n.cap);n.capO.connect(n.cap);const z=gn(0);n.cap.connect(z);z.connect(AC.destination);
     n.rdLofi=new AudioWorkletNode(AC,'lofi',{numberOfInputs:1,numberOfOutputs:1,outputChannelCount:[2]});n.rdSh.disconnect();n.rdSh.connect(n.rdLofi);n.rdLofi.connect(n.wet[7]);applyFx();
@@ -717,7 +820,7 @@ const ENG=[
    bp.frequency.setValueAtTime(Math.min(18000,tf*(1+p[3]*8)),t);bp.frequency.exponentialRampToValueAtTime(tf,t+.05+p[3]*.6);
    n1.connect(bp);bp.connect(ng);ng.connect(out);s.connect(sg);sg.connect(out);return{out,srcs:[n1,s],det:[s.detune,bp.detune]}}}
 ];
-let WK=false,lastOn={t:-9,f:220,pf:220},ladCurve,acidCurve,heroCurve,tineCurve,boomCurve,grainTexB,chipNz,triCurve;const chipW={},GRV=[],CHIPR={c:[],at:0};let grainPkA;
+let WK=false,BSL=0,lastOn={t:-9,f:220,pf:220},ladCurve,acidCurve,heroCurve,tineCurve,boomCurve,grainTexB,chipNz,triCurve;const chipW={},GRV=[],CHIPR={c:[],at:0};let grainPkA;
 function grainPk(){if(grainPkA)return grainPkA;const d=grainTex().getChannelData(0),n=d.length,o=new Float32Array(160);for(let i=0;i<n;i++){const k=Math.floor(i/n*160),v=Math.abs(d[i]);if(v>o[k])o[k]=v}return grainPkA=o}
 const spn=v=>{const p=AC.createStereoPanner();p.pan.value=v;return p};
 const neonD=[-1,-.62,-.3,0,.29,.6,.98];
@@ -826,7 +929,7 @@ ENG.push(
 ENG.push(
  {name:'GRAIN',pn:['POSITION','SIZE','DENSITY','SPRAY'],build(f,p,t){
    // granular: many tiny pieces of a sound, played over each other. It uses the sample loaded in this slot, or a built-in texture.
-   const sm=slotSmp[S.slot],buf=sm?sm.buf:grainTex(),D=buf.duration,out=gn(1.9),cs=AC.createConstantSource();cs.offset.value=0;cs.connect(out);cs.start(t);
+   const sm=slotSmp[BSL],buf=sm?sm.buf:grainTex(),D=buf.duration,out=gn(1.9),cs=AC.createConstantSource();cs.offset.value=0;cs.connect(out);cs.start(t);
    const size=.02+p[1]*p[1]*.42,rate=4+p[2]*p[2]*56,sp=p[3],base=f/261.63,pl=spn(-.55*sp),pr=spn(.55*sp);pl.connect(out);pr.connect(out);let alive=true,nt=t,k=0;
    const tick=()=>{if(!alive)return;const now=AC.currentTime;
      while(nt<now+.12){const u=clamp(p[0]+(Math.random()-.5)*sp*.35),st=Math.max(nt,now+.004),s=AC.createBufferSource(),g=AC.createGain(),pos=u*Math.max(0,D-size);
@@ -876,7 +979,7 @@ const PADDEF=[0,1,.5,0,0,0,0,.5],padPar=(kt,p)=>{const q=padP[kt+'_'+p]||(padP[k
 const SMODE=['ONE SHOT','GATE','LOOP'],tuneF=v=>{const s=Math.round((v-.5)*24);return(s>=0?'+':'')+s},fadeS=v=>v*v*2,fadeF=v=>{const x=fadeS(v);return x<.003?'OFF':x<1?Math.round(x*1000)+'ms':x.toFixed(1)+'s'};
 const SMP={name:'SAMPLE',pn:['START','END','TUNE','REVERSE'],build(f,p,t){
    // P.smp = START END TUNE LEVEL · PLAY (one shot / gate / loop) REVERSE FADE-IN FADE-OUT
-   const sm=slotSmp[S.slot],D=sm.buf.duration,a=clamp(p[0],0,.98)*D,b=Math.max(a+.01,Math.min(1,p[1])*D),md=idx(p[4],3),rv=p[5]>.5;
+   const sm=slotSmp[BSL],D=sm.buf.duration,a=clamp(p[0],0,.98)*D,b=Math.max(a+.01,Math.min(1,p[1])*D),md=idx(p[4],3),rv=p[5]>.5;
    if(rv&&!sm.rev){const n=sm.buf.length,r=AC.createBuffer(1,n,sm.buf.sampleRate),x=sm.buf.getChannelData(0),y=r.getChannelData(0);for(let i=0;i<n;i++)y[i]=x[n-1-i];sm.rev=r}
    const src=AC.createBufferSource(),rate=f/261.63*2**(Math.round((p[2]-.5)*24)/12),sa=rv?D-b:a,sb=rv?D-a:b,seg=(sb-sa)/rate,fi=fadeS(p[6]),fo=fadeS(p[7]);
    src.buffer=rv?sm.rev:sm.buf;src.playbackRate.value=rate;const out=gn(p[3]*3),fg=gn(1);src.connect(fg);fg.connect(out);
@@ -884,15 +987,15 @@ const SMP={name:'SAMPLE',pn:['START','END','TUNE','REVERSE'],build(f,p,t){
    if(md===2){src.loop=true;src.loopStart=sa;src.loopEnd=sb;src.start(t,sa)}
    else{src.start(t,sa,sb-sa);if(fo>.003){const e=t+seg,f0=Math.min(fo,seg);fg.gain.setValueAtTime(1,Math.max(t+Math.min(fi,seg),e-f0));fg.gain.linearRampToValueAtTime(0,e)}}
    return{out,srcs:[src],det:src.detune?[src.detune]:[],oneShot:md===0,sp:{t0:t,a,b,rate,md,rv,D}}}};
-const engOf=()=>{const E=ENG[slE(S.slot)];return slotSmp[S.slot]&&E.name!=='GRAIN'?SMP:E};  // GRAIN plays the slot's sample its own way
-function setSample(slot,d,sr,quiet){let a=0,pk=0;for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>pk)pk=v}
+const engOfSl=sl=>{const E=ENG[slE(sl)];return slotSmp[sl]&&E.name!=='GRAIN'?SMP:E},engOf=()=>engOfSl(S.slot);  // GRAIN plays the slot's sample its own way
+function setSample(slot,d,sr,quiet,raw){let a=0,pk=0;for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>pk)pk=v}
   if(pk<1e-4){status('that sample is silent');return}
-  while(a<d.length&&Math.abs(d[a])<pk*.02)a++;const n=Math.min(d.length-a,Math.floor(sr*10)),o=new Float32Array(n),g=.9/pk;for(let i=0;i<n;i++)o[i]=d[a+i]*g;
+  if(!raw)while(a<d.length&&Math.abs(d[a])<pk*.02)a++;const n=Math.min(d.length-a,Math.floor(sr*10)),o=new Float32Array(n),g=raw?1:.9/pk;for(let i=0;i<n;i++)o[i]=d[a+i]*g;
   const buf=AC.createBuffer(1,n,sr);buf.copyToChannel(o,0);const pks=new Float32Array(160);for(let i=0;i<n;i++){const k=Math.floor(i/n*160),v=Math.abs(o[i]);if(v>pks[k])pks[k]=v}
   slotSmp[slot]={buf,pk:pks};if(!quiet){idb.set('smp'+slot,{sr,data:o}).catch(()=>{});status('sample loaded into slot '+slotNm(slot)+' — play the keys')}}
-function setPadSample(kt,p,d,sr,quiet,name){let a=0,pk=0;for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>pk)pk=v}
+function setPadSample(kt,p,d,sr,quiet,name,raw){let a=0,pk=0;for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>pk)pk=v}
   if(pk<1e-4){status('that sample is silent');return}
-  while(a<d.length&&Math.abs(d[a])<pk*.02)a++;const n=Math.min(d.length-a,Math.floor(sr*6)),o=new Float32Array(n),g=.9/pk;for(let i=0;i<n;i++)o[i]=d[a+i]*g;
+  if(!raw)while(a<d.length&&Math.abs(d[a])<pk*.02)a++;const n=Math.min(d.length-a,Math.floor(sr*6)),o=new Float32Array(n),g=raw?1:.9/pk;for(let i=0;i<n;i++)o[i]=d[a+i]*g;
   const buf=AC.createBuffer(1,n,sr);buf.copyToChannel(o,0);const pks=new Float32Array(160);for(let i=0;i<n;i++){const k=Math.floor(i/n*160),v=Math.abs(o[i]);if(v>pks[k])pks[k]=v}
   padSmp[kt][p]={buf,pk:pks,name:name||'sample'};if(!quiet)padP[kt+'_'+p]=[...PADDEF];
   if(!quiet){idb.set(padK(kt,p),{sr,data:o,name}).catch(()=>{});status((name||'sample')+' loaded on '+padNm(p)+' · kit '+(kt+1)+' '+KITS[kt])}}
@@ -948,14 +1051,30 @@ async function exportWav(){if(!tape)return;const b=await buildWav();if(!b){statu
 const envVals=e=>[.002+e[0]*e[0]*2,.02+e[1]*e[1]*3,e[2],.02+e[3]*e[3]*4];
 /* play modes: POLY · MONO (one note, glides when you play legato) · LEGATO (one voice that keeps sounding and glides between held notes)
    · UNISON (three voices per note, detuned and spread). DRIFT adds a slow random pitch wander per voice; VELOCITY sets how much touch changes the level */
+/* ── per-note knobs: step locks, the macro and an LFO aimed at a knob are added as each note starts ── */
+const MACW=[[.5,.2,.8,.3],[0,.9,.4,.2],[.8,.5,.2,.3],[-.4,.7,.3,.2],[.2,0,.6,.8],[.9,.3,0,.5],[.6,.8,0,.3],[.5,.4,.7,.6],[.6,.4,.3,.8],[.8,.4,.5,0],[-.3,.8,.4,.2],[-.5,.5,.2,.6],
+  [.8,-.3,.3,.6],[.6,.4,.7,.3],[.7,.4,.6,.3],[.5,.6,.4,.6],[.8,.3,.2,.5],[.8,.4,.3,.5],[.4,.8,0,.6],[.3,.8,.3,.2],[.5,-.3,.6,.7],[.8,.3,.4,.3],[.4,0,.5,.6],[.7,.3,-.5,.4]];  // how far MACRO moves each engine's four knobs
+const LFOS=[0,1].map(()=>({P:0,t0:0,f:2,v:Float32Array.from({length:32},()=>Math.random()*2-1)})),lfoDi=L=>idx(L[2],9),lfoDN=d=>{if(d<5||S.inst!=='synth')return LFD[d];const n=engOf().pn[d-5]||LFD[d];return LFD.includes(n)?n+' KNOB':n};
+const lfoPh=(k,t)=>{const L=LFOS[k];return L.P+(t-L.t0)*L.f};
+function lfoShape(sh,p,R){const ph=p-Math.floor(p);if(sh===0)return Math.sin(ph*6.2832);if(sh===1)return ph<.25?ph*4:ph<.75?2-ph*4:ph*4-4;if(sh===2)return ph<.5?1:-1;if(sh===3)return ph<.5?ph*2:ph*2-2;
+  const j=Math.floor(p)&31;if(sh===4)return R[j];const a=R[j],b=R[(j+1)&31];return a+(b-a)*(1-Math.cos(ph*Math.PI))/2}
+const lfoVal=(k,t)=>{const P=synthP[S.slot],L=k?P.lfo2||LF2D:P.lfo;return lfoShape(idx(L[3],6),lfoPh(k,t),LFOS[k].v)};
+function modEng(P,sl,t,lk){const o=P.eng.slice(),M=P.mac||MACD,W4=MACW[P.e]||[0,0,0,0],dm=M[0]*(2*M[1]-1);
+  if(lk)for(const k in lk)o[k]=lk[k];
+  for(let i=0;i<4;i++){let v=o[i]+dm*W4[i];if(sl===S.slot)[P.lfo,P.lfo2].forEach((L,k)=>{if(L&&L[1]>.003&&lfoDi(L)===5+i)v+=lfoVal(k,t)*L[1]*.5});o[i]=clamp(v)}
+  return o}
+// notes sounding on the synth (keys and sequencers): the follow bass plays under the lowest one
+const HT=[];function htAdd(n,t0,t1=Infinity){HT.push({n,t0,t1});if(HT.length>256)HT.splice(0,HT.length-256)}
+function htEnd(n,t){for(let i=HT.length-1;i>=0;i--){const h=HT[i];if(h.n===n&&h.t1===Infinity){h.t1=t;return}}}
+function htRoot(t){let r=null;for(const h of HT)if(h.t0<=t+.012&&t<h.t1-.004&&(r===null||h.n<r))r=h.n;return r}
 const PMN=['POLY','MONO','LEGATO','UNISON'],pmOf=P=>idx(P.pm[0],4),glideT=P=>P.pm[1]*P.pm[1]*.8,MONO={v:null,stack:[]};
 function glideTo(v,note,t,gl){const c=(note-v.note)*100;v.e.det.forEach((p,i)=>{p.cancelScheduledValues(t);p.setValueAtTime(p.value,t);p.setTargetAtTime(v.d0[i]+c,t,gl/3)});v.cur=note}
-function voiceOn(note,t,vel=1){const P=synthP[S.slot],m=pmOf(P);
-  if(m===3)return{note,sub:[-1,0,1].map(k=>voiceOn1(note,t,vel*.8,k*14,k*.7)),off:false};
-  if(m===0)return voiceOn1(note,t,vel);
+function voiceOn(note,t,vel=1,lk=null){const P=synthP[S.slot],m=pmOf(P);
+  if(m===3)return{note,sub:[-1,0,1].map(k=>voiceOn1(note,t,vel*.8,k*14,k*.7,S.slot,lk)),off:false};
+  if(m===0)return voiceOn1(note,t,vel,0,0,S.slot,lk);
   const live=MONO.v&&!MONO.v.off&&voices.includes(MONO.v)?MONO.v:null,gl=glideT(P);
   if(m===2&&live&&!live.e.arp){glideTo(live,note,t,Math.max(.004,gl));MONO.stack.push(note);return{note,lg:live,off:false}}
-  if(live)voiceOff1(live,t,.015);const v=voiceOn1(note,t,vel);MONO.v=v;v.cur=note;MONO.stack=[note];
+  if(live)voiceOff1(live,t,.015);const v=voiceOn1(note,t,vel,0,0,S.slot,lk);MONO.v=v;v.cur=note;MONO.stack=[note];
   if(live&&gl>.002)v.e.det.forEach((p,i)=>{p.setValueAtTime(v.d0[i]+((live.cur??live.note)-note)*100,t);p.setTargetAtTime(v.d0[i],t,gl/3)});return v}
 function voiceOff(v,t,rr){
   if(v.sub){if(v.off)return;v.off=true;v.sub.forEach(x=>voiceOff1(x,t,rr));return}
@@ -963,9 +1082,9 @@ function voiceOff(v,t,rr){
     if(MONO.stack.length&&!rr)glideTo(L,MONO.stack[MONO.stack.length-1],t,Math.max(.004,glideT(synthP[S.slot])));else voiceOff1(L,t,rr);return}
   if(v===MONO.v&&!v.off){MONO.stack=MONO.stack.filter(n=>n!==v.note);if(MONO.stack.length&&!rr&&pmOf(synthP[S.slot])===2){glideTo(v,MONO.stack[MONO.stack.length-1],t,Math.max(.004,glideT(synthP[S.slot])));return}}
   voiceOff1(v,t,rr)}
-function voiceOn1(note,t,vel=1,dc=0,pan=0){
-  const P=synthP[S.slot],E=engOf(),f=440*2**((note-69)/12),e=E.build(f,E===SMP?P.smp:P.eng,t),vg=gn(0),[a,d,s,r]=envVals(P.env),vs=P.pm?P.pm[3]:.8,pk=.26*((1-vs)+vs*vel);
-  lastOn={t,f,pf:lastOn.f};e.out.connect(vg);if(pan){const pn=spn(pan);vg.connect(pn);pn.connect(N.synthIn)}else vg.connect(N.synthIn);
+function voiceOn1(note,t,vel=1,dc=0,pan=0,sl=S.slot,lk=null){
+  const P=synthP[sl],E=engOfSl(sl),f=440*2**((note-69)/12);BSL=sl;const e=E.build(f,E===SMP?P.smp:modEng(P,sl,t,lk),t),vg=gn(0),[a,d,s,r]=envVals(P.env),vs=P.pm?P.pm[3]:.8,pk=.26*((1-vs)+vs*vel);
+  if(sl===S.slot)lastOn={t,f,pf:lastOn.f};e.out.connect(vg);if(pan){const pn=spn(pan);vg.connect(pn);pn.connect(N.synthIn)}else vg.connect(N.synthIn);
   const dr=P.pm?P.pm[2]:0;if(dc||dr>.01){const off=dc+(Math.random()*2-1)*dr*9;e.det.forEach(p=>p.value+=off);if(dr>.01&&!e.arp){const w=osc('sine',.07+Math.random()*.3,t),wg=gn(dr*8);w.connect(wg);e.det.forEach(p=>wg.connect(p));e.srcs.push(w)}}
   vg.gain.setValueAtTime(0,t);vg.gain.linearRampToValueAtTime(pk,t+a);vg.gain.setTargetAtTime(pk*s,t+a,d/3);
   e.det.forEach(p=>N.pitchMod.connect(p));
@@ -1030,7 +1149,7 @@ function drumModel(md,ty,t,out,pm,dm,br){let dst=out;const an=md!==2;
     case 9:if(an)[540,800].forEach(f=>P(osc('square',f*pm,t),.22,.35*dm,.001,flt('bandpass',870*pm,2.2)));else MET(.9*dm,5500,3500,.32);break;
     case 10:MET((an?1.1:1.4)*dm,8500,5500,.35);P(nz(t),an?.12:.2,(an?1.1:1.4)*dm,.002,flt('highpass',6500*br));break;
     case 11:P(nz(t),.45,.045*dm,.012,flt('bandpass',(an?7500:9000)*br,2));break}}
-function trig(note,t,dur){if(S.midi[2]>=1)midiNote(note,.8,t,dur);if(S.inst==='drum')drumHit(mod24(note-base()),t,.9,dur);else{const v=voiceOn(note,t,.9);voiceOff(v,t+dur)}}
+function trig(note,t,dur,vel=.9,lk=null){if(S.midi[2]>=1)midiNote(note,Math.min(1,vel),t,dur);if(S.inst==='drum')drumHit(mod24(note-base()),t,vel,dur);else{htAdd(note,t,t+dur);const v=voiceOn(note,t,vel,lk);voiceOff(v,t+dur)}}
 function click(t,acc){const o=osc('square',acc?1760:1100,t),g=gn(0);g.gain.setValueAtTime(.5,t);g.gain.exponentialRampToValueAtTime(.001,t+.04);o.connect(g);g.connect(N.click);o.stop(t+.06);return o}
 
 /* ── apply settings ── */
@@ -1046,9 +1165,9 @@ function mkSpring(ten,damp){const sr=AC.sampleRate,T=.022+ten*.05,len=Math.floor
     let lp=0;for(let i=0;i<len;i++){const e=Math.exp(-i/sr*dec);d[i]+=(Math.random()*2-1)*.04*e;const c=.85-damp*.6*Math.min(1,i/len*4);lp+=(d[i]-lp)*c;d[i]=lp}}
   return b}
 let coKey='',coTimer=0;
-function applyFx(){if(!AC)return;const P=cur(),ty=P.fxType,p=P.fx[ty],n=N,now=AC.currentTime;
-  n.wet.forEach((w,i)=>w.gain.setTargetAtTime(i===ty?p[3]*WETK[ty]:0,now,.02));
-  n.dry.gain.setTargetAtTime(ty===2||ty===7?1-p[3]:ty===3?1-p[3]*.5:1,now,.02);
+function applyFx(){if(!AC)return;const P=cur(),ty=P.fxType,p=P.fx[ty],n=N,now=AC.currentTime,mx=clamp(p[3]+(S.inst==='synth'&&P.mac?P.mac[0]*(2*P.mac[3]-1):0));
+  n.wet.forEach((w,i)=>w.gain.setTargetAtTime(i===ty?mx*WETK[ty]:0,now,.02));
+  n.dry.gain.setTargetAtTime(ty===2||ty===7?1-mx:ty===3?1-mx*.5:1,now,.02);lfoFx(ty);
   if(ty===0){n.dl.delayTime.setTargetAtTime(.03+p[0]*.97,now,.08);n.dlFb.gain.value=p[1]*.93;n.dlLp.frequency.value=500*2**(p[2]*5)}
   else n.dlFb.gain.value=Math.min(n.dlFb.gain.value,.5);
   if(ty===1){const k=Math.round(p[0]*20)+'_'+Math.round(p[1]*10);if(k!==irKey||!n.cv.buffer){irKey=k;clearTimeout(irTimer);irTimer=setTimeout(()=>n.cv.buffer=mkIR(p[0],p[1]),n.cv.buffer?120:0)}n.pre.delayTime.value=p[2]*.15}
@@ -1060,10 +1179,19 @@ function applyFx(){if(!AC)return;const P=cur(),ty=P.fxType,p=P.fx[ty],n=N,now=AC
     n.cbD.forEach((d,i)=>{const dt=b*r[i%4]*(i<4?1:1.071);d.delayTime.setTargetAtTime(dt,now,.1);n.cbLp[i].frequency.value=9000-p[2]*4500;n.cbFb[i].gain.setTargetAtTime(Math.pow(.001,dt/rt),now,.05)})}
   if(ty===7){const fc=350*2**(p[0]*3.6);n.rdHp.frequency.value=fc/2;n.rdLp.frequency.value=fc*2;if(n.rdLofi){const q=n.rdLofi.parameters;q.get('hold').value=1+Math.round(p[1]*p[1]*24);q.get('bits').value=16-p[1]*12;q.get('noise').value=p[2]}}}
 const WETK=[1,1.6,1,1,1,1,.5,1];
-function applyLfo(){if(!AC)return;const p=cur().lfo,n=N,d=idx(p[2],4),a=p[1];
-  n.lfo.frequency.value=.05*2**(p[0]*8.6);n.lfo.type=['sine','triangle','square','sawtooth'][idx(p[3],4)];
-  n.lfoPitch.gain.value=d===0?a*a*1200:0;n.lfoAmp.gain.value=d===1?a*.5:0;n.trem.gain.value=d===1?1-a*.5:1;
-  n.lfoPan.gain.value=d===2?a:0;n.lfoTone.gain.value=d===3?a*3600:0;n.toneF.frequency.value=d===3&&a>0?900:20000}
+// LFO 1 (T4) and LFO 2 (Shift + knobs on T4): PITCH AMP PAN TONE FX MIX run all the time; KNOB 1–4 move the engine's knobs as each note starts
+function applyLfo(){if(!AC||!N.lfx)return;const P=cur(),now=AC.currentTime;let amp=0,tone=0;
+  [P.lfo,P.lfo2||LF2D].forEach((L,k)=>{const X=N.lfx[k],T=LFOS[k],f=.05*2**(L[0]*8.6),d=lfoDi(L),sh=idx(L[3],6),a=L[1];
+    if(Math.abs(f-T.f)>1e-9){T.P=lfoPh(k,now);T.t0=now;T.f=f;X.o.frequency.setValueAtTime(f,now);const pr=f*X.sps/AC.sampleRate;X.rs.playbackRate.setValueAtTime(pr,now);X.rd.playbackRate.setValueAtTime(pr,now)}
+    if(sh!==X.sh){X.sh=sh;if(sh<4)X.o.type=['sine','triangle','square','sawtooth'][sh];X.go.gain.value=sh<4?1:0;X.gs.gain.value=sh===4?1:0;X.gd.gain.value=sh===5?1:0}
+    X.D.pitch.gain.value=d===0?a*a*1200:0;X.D.amp.gain.value=d===1?a*.5:0;X.D.pan.gain.value=d===2?a:0;X.D.tone.gain.value=d===3?a*3600:0;if(d===1)amp+=a*.5;if(d===3&&a>0)tone=1});
+  N.trem.gain.value=Math.max(0,1-amp);N.toneF.frequency.value=tone?900:20000;lfoFx(P.fxType);applyMacro()}
+function lfoFx(ty){if(!N.lfx)return;const P=cur();[P.lfo,P.lfo2||LF2D].forEach((L,k)=>{const X=N.lfx[k];if(X.fxTo!==ty){try{X.D.fx.disconnect()}catch(_){}X.D.fx.connect(N.wet[ty].gain);X.fxTo=ty}X.D.fx.gain.value=lfoDi(L)===4?L[1]*WETK[ty]*.5:0})}
+// the macro (Shift + knobs on T1): MACRO moves the engine's knobs (curated per engine), opens or closes a low-pass (TONE) and adds effect (FX)
+function applyMacro(){if(!AC||!N.macF)return;const P=cur(),M=S.inst==='synth'&&P.mac?P.mac:MACD,td=2*M[2]-1,x=M[0],oc=td>0?7*td*(1-x):-7*td*x;
+  N.macF.frequency.setTargetAtTime(Math.max(80,20000*2**(-oc)),AC.currentTime,.03)}
+const bipF=v=>{const x=Math.round((v-.5)*200);return(x>0?'+':'')+x};
+function macParams(P){const M=P.mac||(P.mac=[...MACD]),A=()=>{applyMacro();applyFx()};return[mk(M,0,'MACRO',pct,A),mk(M,1,'ENGINE',bipF),mk(M,2,'TONE',bipF,A),mk(M,3,'FX',bipF,A)]}
 function applyDrum(){if(!AC)return;const k=Math.round(drumP[S.kit].eng[3]*40);if(k!==drKey){drKey=k;N.drumSh.curve=satCurve(k/40*8)}}
 function applyPatch(){applyFx();applyLfo();applyDrum()}
 /* ── mixer: 4-band EQ, 3-band compressor, master width + limiter ── */
@@ -1291,11 +1419,11 @@ function midiNote(n,vel,t,dur){if(!MIDI.out.length)return;const ch=S.midi[3];mid
 
 /* ───────────── Shift map: hold Shift on its own for half a second and the screen lists what each key does with Shift here ───────────── */
 function shiftMap(){const m=S.mode,o=S.overlay,A=[];
-  if(o==='dm')A.push(['DRUM','CLOSE THE DRUM MACHINE'],['KNOBS ON T4','PATTERN · CHAIN · HITS · ROTATE'],['A KEY','PICK A PAD (ON STEPS)']);
-  else if(o==='seq')A.push(['KEYS','ADD STEPS (ENDLESS, CHAIN)'],['→ / ←','REST / REMOVE (CHAIN)'],['SEQ','CLEAR THE SEQUENCE']);
-  else if(m==='synth')A.push(['1–8','SYNTH BANK B'],['T1','SAVE PRESET'],['T3','FX BANK B (SOUND FX)'],['KNOBS ON T2','PLAY MODE · GLIDE · DRIFT · VEL']);
-  else if(m==='drum')A.push(['4','PAD SAMPLE EDITOR'],['KNOBS ON T1','KIT MODEL · CHOKE'],['T3','FX BANK B (SOUND FX)']);
-  else if(m==='tape')A.push(['T1–T4','COPY · CROP · DOUBLE · ERASE'],['7','PROJECTS'],['8','SYSTEM MENU']);
+  if(o==='dm')A.push(['DRUM','CLOSE THE DRUM MACHINE'],['KNOBS ON T4','PATTERN · CHAIN · HITS · ROTATE'],['A KEY','PICK A PAD (ON STEPS)'],['1–8','COPY THIS PATTERN TO 1–8'],['KNOBS (STEP HELD)','CONDITION (1 OF 2, FILL…)']);
+  else if(o==='seq')A.push(['KEYS','ADD STEPS (ENDLESS, CHAIN)'],['→ / ←','REST / REMOVE (CHAIN)'],['SEQ','CLEAR THE SEQUENCE'],['KNOBS (PATTERN)','VEL · CHANCE · ROLL · COND']);
+  else if(m==='synth')A.push(['1–8','SYNTH BANK B'],['T1','SAVE PRESET'],['T3','FX BANK B (SOUND FX)'],['KNOBS ON T1','MACRO'],['KNOBS ON T2','PLAY MODE · GLIDE · DRIFT · VEL'],['KNOBS ON T4','LFO 2']);
+  else if(m==='drum')A.push(['4','SAMPLER (THIS PAD)'],['KNOBS ON T1','KIT MODEL · CHOKE'],['T3','FX BANK B (SOUND FX)'],['KNOBS ON T4','LFO 2']);
+  else if(m==='tape')A.push(['T1–T4','COPY · CROP · DOUBLE · ERASE'],['4','LIFTED PIECE → SAMPLER'],['LOOP','SECTIONS (SONG MARKERS)'],['7','PROJECTS'],['8','SYSTEM MENU']);
   else if(m==='mixer')A.push(['1–4','RECALL SCENE 1–4'],['5–8','STORE SCENE 1–4'],['KNOBS','PAN · X-OVER · FREQ · LIMITER']);
   A.push(['SYNTH','SYNTHS & PRESETS'],['DRUM','DRUM MACHINE'],['TAPE','ERASE TAPE'],['MIXER','MIXER BANK B'],['FX','FX BANK B'],['TEMPO','KEY & CHORDS'],
     ['REC','ADVANCED REC'],['PLAY','PLAY BACKWARDS'],['LIFT','ERASE THE TRACK'],['DROP','UNDO ON THE TAPE'],['← →','OCTAVE DOWN / UP']);
@@ -1309,7 +1437,7 @@ function eraseOpen(){S.mode='tape';S.overlay='erase';ER.k=[0,0,0,0];ER.t0=0;ER.d
 // T1–T4 have to be held down together: a box lights while its key is held and goes out when it is let go
 function eraseKey(i){if(ER.t0)return;ER.k[i]=1;if(ER.k.every(x=>x)){ER.t0=performance.now();setTimeout(eraseTape,1800)}}
 function eraseUp(i){if(!ER.t0)ER.k[i]=0}
-function eraseTape(){if(tape){for(let t=0;t<4;t++)tape.port.postMessage({t:'clear',track:t,nosnap:true});UNDO.t=-1;tape.port.postMessage({t:'seek',pos:0})}ov.forEach(o=>o.fill(0));S.loop=false;S.playing=false;S.rec=false;tapeDirty=true;tapeSet&&tapeSet();
+function eraseTape(){S.mk=Array(6).fill(null);MK.pend=null;if(tape){for(let t=0;t<4;t++)tape.port.postMessage({t:'clear',track:t,nosnap:true});UNDO.t=-1;tape.port.postMessage({t:'seek',pos:0})}ov.forEach(o=>o.fill(0));S.loop=false;S.playing=false;S.rec=false;tapeDirty=true;tapeSet&&tapeSet();
   ER.done=performance.now();setTimeout(()=>{if(S.overlay==='erase')S.overlay=null;ER.t0=0;leds()},900);status('tape erased')}
 async function wipeAll(){clearInterval(saveTimer);localStorage.removeItem(LSK);const PL=pjm().list;localStorage.removeItem(PJK);await Promise.all([...PL.map(p=>idb.del('proj:'+p.id)),idb.del('tape'),...slotSmp.map((_,i)=>idb.del('smp'+i)),...padSmp.flatMap((r,kt)=>r.map((_,p)=>idb.del(padK(kt,p))))]).catch(()=>{});location.reload()}
 
@@ -1514,6 +1642,33 @@ function drawSys(t){const it=sysItems(),sel=clamp(SYS.i,0,it.length-1),cur=it[se
   list(98,62,SYSN,SYS.s,COL.b);list(170,156,it.map(x=>x.n),sel,COL.g,i=>{const v=it[i].v();return v.length>18?v.slice(0,18):v});
   if(cur.act&&SYS.arm>.02){g.fillStyle='rgba(7,8,10,.9)';g.fillRect(170,74,156,20);g.strokeStyle=COL.w;g.strokeRect(172.5,84.5,150,7);g.fillStyle=COL.w;g.fillRect(174,86,147*SYS.arm,4);txt(cur.n+'?',174,81,COL.red,6)}
   if(SYS.msg&&now-SYS.at<1500){g.fillStyle='rgba(7,8,10,.9)';g.fillRect(98,40,228,26);bigN(SYS.msg,212,59,COL.g,13,'center')}}
+/* ── SECTIONS (Shift + LOOP in tape mode): up to 6 song markers. In it, 1–6 set a marker at the tape head, or jump to it
+   on the next bar line while the tape plays (at once when stopped); with LOOP on, the loop moves to that section ── */
+const MKN=['INTRO','VERSE','CHORUS','BRIDGE','BREAK','OUTRO','BUILD','DROP','HOOK','SOLO','A','B','C','D'],MK={sel:0,pend:null,go:0};
+const mkName=i=>MKN[S.mkn[i]|0],mkSorted=()=>S.mk.map((t,i)=>[t,i]).filter(x=>x[0]!=null).sort((a,b)=>a[0]-b[0]);
+function mkEnd(i){const t=S.mk[i],nx=mkSorted().find(x=>x[0]>t+1e-6);return nx?nx[0]:null}
+function mkKey(i){if(!AC||!tape)return;const sr=AC.sampleRate,t=S.mk[i],bs=barS()/sr;MK.sel=i;
+  if(t==null){const at=Math.max(0,Math.round(S.tpos/sr/bs)*bs);if(S.mk.some(x=>x!=null&&Math.abs(x-at)<1e-3)){status('there is already a marker on bar '+(Math.round(at/bs)+1));return}
+    S.mk[i]=at;status(mkName(i)+' (marker '+(i+1)+') set on bar '+(Math.round(at/bs)+1));return}
+  if(S.rec){status('stop recording to jump between sections');return}
+  const to=Math.round(t*sr);
+  if(S.loop){const e=mkEnd(i);S.li=to;S.lo=e!=null?Math.round(e*sr):Math.min(to+Math.round(loopBars()*barS()),TAPE_SECS*sr-1);tapeSet()}
+  if(S.playing&&!S.rev){const b=barS(),nb=Math.ceil((S.tpos+sr*.03)/b)*b;tape.port.postMessage({t:'jump',at:nb,to});MK.pend={i,at:nb};status((S.loop?'looping ':'to ')+mkName(i)+' from the next bar')}
+  else{tape.port.postMessage({t:'seek',pos:to});MK.pend=null;status(mkName(i))}}
+function mkMove(k){const i=MK.sel;if(S.mk[i]==null)return;const bs=barS()/AC.sampleRate;S.mk[i]=clamp(S.mk[i]+k*bs,0,TAPE_SECS-bs)}
+function mkParams(){const i=MK.sel,none=()=>S.mk[MK.sel]==null;return[{n:'MARKER',val:()=>''+(MK.sel+1),step(k){MK.sel=clamp(MK.sel+k,0,5)},turn(d){ST(MK,'_s',d,k=>MK.sel=clamp(MK.sel+k,0,5))}},
+  stepK(S.mkn,i,'NAME',MKN),{n:'MOVE',val:()=>none()?'—':'BAR '+(Math.round(S.mk[MK.sel]/(barS()/AC.sampleRate))+1),step(k){mkMove(k)},turn(d){ST(MK,'_m',d,mkMove)}},
+  {n:'CLEAR',val:()=>none()?'—':armed('mkclr')?'PUSH AGAIN':MK.go<.02?(HW.ok?'PUSH':'TURN ▸'):'YES ▸',push(){if(!none())twoStep('mkclr',()=>{S.mk[MK.sel]=null;status('marker '+(MK.sel+1)+' cleared')})},
+    turn(d){if(none())return;MK.go=clamp(MK.go+d*1.6);if(MK.go>=1){MK.go=0;S.mk[MK.sel]=null;status('marker '+(MK.sel+1)+' cleared')}}}]}
+// the whole tape as a song map: recorded audio faint, each section a coloured block, the loop in green, the head in red
+function drawMarkers(t){const sr=AC.sampleRate,pos=S.tpos/sr,x0=14,ww=W-28,X=s=>x0+s/TAPE_SECS*ww,y=34,h=30,L=mkSorted();
+  g.fillStyle='#101114';g.fillRect(x0,y,ww,h);
+  for(let b=0;b<BINS;b++){let v=0;for(let k=0;k<4;k++)v=Math.max(v,ov[k][b]);if(v>0){g.fillStyle='#2a2d34';const hh=v*h*.8;g.fillRect(X(b/10),y+h/2-hh/2,ww/BINS+.2,hh)}}
+  L.forEach(([tm,i],j)=>{const e=j+1<L.length?L[j+1][0]:TAPE_SECS,xa=X(tm),xb=X(e),c=TC[i%4],sel=i===MK.sel;g.fillStyle=c;g.globalAlpha=sel?.3:.14;g.fillRect(xa,y,xb-xa,h);g.globalAlpha=1;ln(xa,y-3,xa,y+h,c,sel?1.6:1);const lb=(i+1)+' '+mkName(i);txt(xb-xa>lb.length*3.1+4?lb:''+(i+1),xa+2,y-4,sel?COL.w:c,5.2)});
+  if(S.loop){g.fillStyle=COL.g;g.fillRect(X(S.li/sr),y+h+2,Math.max(1,X(S.lo/sr)-X(S.li/sr)),1.6)}
+  ln(X(pos),y-2,X(pos),y+h+2,COL.red,1.2);
+  for(let i=0;i<6;i++){const x=x0+i*ww/6+ww/12,on=S.mk[i]!=null,c=TC[i%4],pd=MK.pend&&MK.pend.i===i;circ(x,79,6.5,on?c:'#3a3d44',pd&&Math.sin(t*14)>0);txt(''+(i+1),x,81.5,on?(pd&&Math.sin(t*14)>0?'#07080a':COL.w):'#5d6169',6.5,'center');txt(on?mkName(i):'SET',x,94,on?(i===MK.sel?COL.w:c):'#4a4d54',4.8,'center')}
+  txt(S.loop?'1–6: LOOP THAT SECTION (FROM ITS MARKER TO THE NEXT)':'1–6: SET A MARKER AT THE HEAD, OR JUMP TO IT ON THE NEXT BAR',x0,24,COL.dim,5.2);if(MK.pend)txt('→ '+mkName(MK.pend.i),W-14,24,COL.o,6,'right')}
 function drawErase(t){const now=performance.now(),run=ER.t0&&!ER.done,fin=ER.done&&now-ER.done<900;
   // warning sign + question, four boxes for T1–T4 (each lights in its track colour when pressed)
   g.strokeStyle=COL.red;g.lineWidth=1.4;g.beginPath();g.moveTo(40,22);g.lineTo(58,52);g.lineTo(22,52);g.closePath();g.stroke();ln(40,31,40,43,COL.red,1.6);circ(40,47.5,1,COL.red,true);
@@ -1528,7 +1683,7 @@ function drawErase(t){const now=performance.now(),run=ER.t0&&!ER.done,fin=ER.don
 const mk=(arr,i,n,fmt,cb)=>({n,val:()=>(fmt||pct)(arr[i]),fm:fmt||pct,turn(d){arr[i]=clamp(arr[i]+d);cb&&cb()},arr,i});
 const FXN=['ECHO','ROOM','CRUSH','SWIRL','BOUNCE','COIL','CUBE','RADIO'],FXP=[['TIME','REPEAT','TONE','MIX'],['SIZE','DAMP','PRE','MIX'],['CRUSH','DRIVE','TONE','MIX'],['RATE','DEPTH','FEEDBK','MIX'],
   ['TIME','WOBBLE','FEEDBK','MIX'],['TONE','TENSION','DAMP','MIX'],['SIZE','SHAPE','FEEDBK','MIX'],['BAND','CRUSH','STATIC','MIX']];
-const LFD=['PITCH','AMP','PAN','TONE'],LFS=['SINE','TRI','SQR','SAW'],RATES=['1/4','1/8','1/16','1/32'],DIRS=['FWD','REV','PING','RND'];
+const LFD=['PITCH','AMP','PAN','TONE','FX MIX','KNOB 1','KNOB 2','KNOB 3','KNOB 4'],LFS=['SINE','TRI','SQR','SAW','RANDOM','DRIFT'],RATES=['1/4','1/8','1/16','1/32'],DIRS=['FWD','REV','PING','RND'];
 const ARPM=['UP','DOWN','UPDN','RND'],SEQT=['ENDLESS','PATTERN','ARP','CHAIN'];const patStep=()=>idx(S.sqp[1][0],16),patLen=()=>1+idx(S.sqp[1][2],16);
 const fmtT=s=>{const m=Math.floor(s/60),x=s-m*60;return m+':'+(x<10?'0':'')+x.toFixed(1)};
 function params(){
@@ -1536,24 +1691,29 @@ function params(){
   if(S.overlay==='sys')return sysParams();
   if(S.overlay==='proj')return pjParams();
   if(S.overlay==='usb')return usbParams();
+  if(S.overlay==='key'&&KC.pg===1)return progParams();
+  if(S.overlay==='key'&&KC.pg===2)return bassParams();
   if(S.overlay==='key')return S.shift?[mk(S.kc2,0,'VOICING',v=>VOIC[idx(v,5)]),mk(S.kc2,1,'STRUM',v=>v<.02?'OFF':Math.round(v*v*120)+'ms'),mk(S.kc2,2,'ADD BASS',v=>v>.5?'ON':'OFF'),mk(S.kc2,3,'KEY GUIDE',v=>v>.5?'ON':'OFF',keyGuide)]
     :[mk(S.kc,0,'KEY',v=>NOTE_N[idx(v,12)],keyGuide),mk(S.kc,1,'SCALE',v=>SCL[idx(v,SCL.length)][0],keyGuide),mk(S.kc,2,'KEYS',v=>kScl()?KMAP[idx(v,2)]:'—',keyGuide),mk(S.kc,3,'CHORD',v=>CHD[idx(v,CHD.length)][0])];
   if(S.overlay==='recm'){const A=()=>{recSource();tapeSet()};return S.shift?[mk(S.rm2,0,'THRESHOLD',pct),mk(S.rm2,1,'MONITOR',pct,recSource),mk(S.rm2,2,'PUNCH',v=>RPUNCH[idx(v,2)],tapeSet),mk(S.rm2,3,'INPUT',v=>v>.5?'LINE IN':'MIC',recSource)]
     :[mk(S.rm,0,'SOURCE',v=>RSRC[idx(v,3)],A),mk(S.rm,1,'KEEP OLD',v=>v>.99?'ALL':v<.01?'NONE':pct(v)+'%',tapeSet),mk(S.rm,2,'START',v=>RSTART[idx(v,3)]),mk(S.rm,3,'AUTO STOP',v=>{const n=RSTOP[idx(v,5)];return n?n+(n>1?' BARS':' BAR'):'OFF'})]}
   if(S.overlay==='erase')return[null,null,null,null];
+  if(S.overlay==='mk')return mkParams();
   if(S.overlay==='menu'){const n=presetsSl(S.slot).length;return[
     {n:'SYNTH',val:()=>slotNm(S.slot),step(k){const i=clamp(S.slot+k,0,15);if(i!==S.slot){S.slot=i;MENU.e=(i+.5)/16;MENU.p=(S.pre[i]+.5)/presetsSl(i).length;applyPatch();leds()}},turn(d){MENU.e=clamp(MENU.e+d);const i=idx(MENU.e,16);if(i!==S.slot){S.slot=i;MENU.p=(S.pre[i]+.5)/presetsSl(i).length;applyPatch();leds()}}},
     {n:'PRESET',val:()=>(S.pre[S.slot]+1)+'/'+n,step(k){const n2=presetsSl(S.slot).length,k2=clamp(S.pre[S.slot]+k,0,n2-1);if(k2!==S.pre[S.slot]){applyPreset(S.slot,k2);MENU.p=(k2+.5)/n2}},turn(d){MENU.p=clamp(MENU.p+d);const k=idx(MENU.p,n);if(k!==S.pre[S.slot])applyPreset(S.slot,k)}},
     {n:'ENGINE',val:()=>ENG[slE(S.slot)].name,turn(d){MENU.g+=d*15;while(Math.abs(MENU.g)>=1){const k=Math.sign(MENU.g);MENU.g-=k;setEngine(S.slot,(slE(S.slot)+k+NENG)%NENG);MENU.p=.5/presetsSl(S.slot).length}}},
     {n:'RANDOM',val:()=>synthP[S.slot].rnd?'#'+synthP[S.slot].rnd:'TURN ▸',turn(d){MENU.r=(MENU.r||0)+d*15;while(Math.abs(MENU.r)>=1){MENU.r-=Math.sign(MENU.r);randomize(S.slot)}}}]}
-  if(S.overlay==='pse'){const k=S.pad|0;if(!padSmp[S.kit][k])return[null,null,null,null];const q=padPar(S.kit,k);
+  if(S.overlay==='pse'){const pg=SMPX.pg;if(pg===1)return sliceParams();if(pg===2)return recParams();if(pg===3)return tapeParams();
+    if(SMPX.to==='slot')return slotSmp[S.slot]?smpKnobs(synthP[S.slot]):[null,null,null,null];
+    const k=S.pad|0;if(!padSmp[S.kit][k])return[null,null,null,null];const q=padPar(S.kit,k);
     if(S.shift)return[mk(q,4,'PLAY',v=>SMODE[idx(v,3)]),mk(q,5,'FADE IN',fadeF),mk(q,6,'FADE OUT',fadeF),mk(q,7,'LEVEL')];
     return[mk(q,0,'START'),mk(q,1,'END'),mk(q,2,'TUNE',v=>{const s=Math.round((v-.5)*24);return(s>=0?'+':'')+s}),mk(q,3,'REVERSE',v=>v>.5?'ON':'OFF')]}
-  if(S.overlay==='dm'){const P=DM.pads[DM.pad];
+  if(S.overlay==='dm'){const P=DM.pads[DM.pad];if(DM.hold&&DM.hold.pg<3)return dmLockParams(DM.hold);if(DM.page===4)return dmGrooveParams();
     if(DM.page<2){const v=P.v[DM.page];return[mk(v,0,'TUNE',x=>Math.round(dmFr(x))+''),mk(v,1,'WAVE',x=>DMW[idx(x,4)]),mk(v,2,'DECAY',x=>{const d=dmDec(x);return d<1?Math.round(d*1000)+'ms':d.toFixed(1)+'s'}),mk(v,3,'BEND')]}
     if(DM.page===2)return[mk(P.f,0,'MODE',x=>DMF[idx(x,8)]),mk(P.f,1,'CUTOFF',x=>{const f=dmCut(x);return f<1000?Math.round(f)+'':(f/1000).toFixed(1)+'k'}),mk(P.f,2,'RESO'),mk(P.f,3,'MIX',x=>Math.round((1-x)*100)+'/'+Math.round(x*100))];
     const pt=DM.pats[DM.pe],h=DM.hold,stp=(k,d,f)=>{DM[k]=(DM[k]||0)+d*15;while(Math.abs(DM[k])>=1){const s2=Math.sign(DM[k]);DM[k]-=s2;f(s2)}};
-    if(h){const r=DM.pad,st=h.st,T=()=>h.turned=true;return[mk(pt.v[r],st,'VELOCITY',pct,T),mk(pt.p[r],st,'CHANCE',x=>pct(x)+'%',T),mk(pt.r[r],st,'ROLL',x=>(1+idx(x,4))+'×',T),
+    if(h){const r=DM.pad,st=h.st,T=()=>h.turned=true;if(S.shift)return[stepK(pt.c[r],st,'COND',CONDN,T),null,null,null];return[mk(pt.v[r],st,'VELOCITY',pct,T),mk(pt.p[r],st,'CHANCE',x=>pct(x)+'%',T),mk(pt.r[r],st,'ROLL',x=>(1+idx(x,4))+'×',T),
       mk(pt.n[r],st,'NUDGE',x=>{const v=Math.round((x-.5)*90);return(v>0?'+':'')+v+'%'},T)]}
     if(S.shift)return[{n:'PATTERN',val:()=>''+(DM.pe+1),turn(d){stp('aP',d,k=>{DM.pe=clamp(DM.pe+k,0,7);DM.sq2[0]=(DM.pe+.5)/8})}},
       {n:'CHAIN',val:()=>dmChain()>1?'1–'+dmChain():'OFF',turn(d){stp('aC',d,k=>DM.sq2[1]=clamp(Math.round(DM.sq2[1]*7)+k,0,7)/7)}},
@@ -1575,7 +1735,8 @@ function params(){
     mk(S.tq,0,'COUNT-IN',v=>CIN[idx(v,3)]),mk(S.tq,1,'QUANTIZE',v=>QZN[idx(v,5)]),mk(S.tm,3,'CLICK',pct,applyMix)];
   if(S.overlay==='seq'){const q=S.sqp[seq.type],rf=v=>RATES[idx(v,4)],of=v=>v>.5?'ON':'OFF';
     return seq.type===0?[mk(q,0,'RATE',rf),mk(q,1,'GATE'),mk(q,2,'DIR',v=>DIRS[idx(v,4)]),mk(q,3,'LATCH',of)]
-      :seq.type===1?[mk(q,0,'STEP',()=>patStep()+1+''),mk(q,1,'RATE',rf),mk(q,2,'LENGTH',()=>patLen()+''),mk(q,3,'RUN',of)]
+      :seq.type===1?(seq.lkPg?patLockParams():S.shift?[mk(seq.ps.v,patStep(),'VELOCITY',pct),mk(seq.ps.p,patStep(),'CHANCE',x=>pct(x)+'%'),mk(seq.ps.r,patStep(),'ROLL',x=>(1+idx(x,4))+'×'),stepK(seq.ps.c,patStep(),'COND',CONDN)]
+        :[mk(q,0,'STEP',()=>patStep()+1+''),mk(q,1,'RATE',rf),mk(q,2,'LENGTH',()=>patLen()+''),mk(q,3,'RUN',of)])
       :seq.type===2?[mk(q,0,'RATE',rf),mk(q,1,'GATE'),mk(q,2,'MODE',v=>ARPM[idx(v,4)]),mk(q,3,'RANGE',v=>1+idx(v,3)+' OCT')]
       :[mk(q,0,'RATE',rf),mk(q,1,'GATE'),mk(q,2,'OCTAVE',v=>{const o=idx(v,5)-2;return(o>0?'+':'')+o}),mk(q,3,'HOLD',of)]}
   if(S.mode==='tape')return[{n:'JOG',val:()=>fmtT(S.tpos/(AC?AC.sampleRate:48000)),step(k){if(tape)tape.port.postMessage({t:'seek',pos:Math.max(0,S.tpos+k*AC.sampleRate*60/S.bpm)})},turn(d){if(tape)tape.port.postMessage({t:'seek',pos:S.tpos+d*AC.sampleRate*10})}},
@@ -1591,16 +1752,15 @@ function params(){
     return sh?[mk(S.ms2,0,'CEILING',v=>limCeil(v).toFixed(1),A),mk(S.ms2,1,'LIM REL',v=>msf(limRel(v)),A),mk(S.ms2,2,'COMP SPD',v=>msf(mbA(v)),A),mk(S.ms2,3,'WIDTH',v=>Math.round(v*200)+'%',A)]
       :[mk(S.ms,0,'OUT',pct,A),mk(S.ms,1,'COMP',pct,A),mk(S.ms,2,'INSTR',pct,A),mk(S.ms,3,'LIMIT',v=>v<.01?'OFF':'+'+(v*18).toFixed(1),A)]}
   const P=cur();
-  if(S.page===0){if(S.inst==='drum')return S.shift?[mk(P.km,0,'MODEL',x=>KMODEL[idx(x,4)]),mk(P.km,1,'CHOKE',x=>x>.5?'ON':'OFF'),null,null]:['TUNE','DECAY','TONE','DRIVE'].map((n,i)=>mk(P.eng,i,n,pct,applyDrum));const E=engOf();if(E===SMP)return S.shift?[mk(P.smp,4,'PLAY',v=>SMODE[idx(v,3)]),mk(P.smp,6,'FADE IN',fadeF),mk(P.smp,7,'FADE OUT',fadeF),mk(P.smp,3,'LEVEL')]
-    :[mk(P.smp,0,'START'),mk(P.smp,1,'END'),mk(P.smp,2,'TUNE',tuneF),mk(P.smp,5,'REVERSE',v=>v>.5?'ON':'OFF')];return E.pn.map((n,i)=>mk(E===SMP?P.smp:P.eng,i,n,E.fmt&&E.fmt[i]))}
+  if(S.page===0){if(S.inst==='drum')return S.shift?[mk(P.km,0,'MODEL',x=>KMODEL[idx(x,4)]),mk(P.km,1,'CHOKE',x=>x>.5?'ON':'OFF'),null,null]:['TUNE','DECAY','TONE','DRIVE'].map((n,i)=>mk(P.eng,i,n,pct,applyDrum));const E=engOf();if(E===SMP)return smpKnobs(P);if(S.shift&&S.inst==='synth')return macParams(P);return E.pn.map((n,i)=>mk(E===SMP?P.smp:P.eng,i,n,E.fmt&&E.fmt[i]))}
   if(S.page===1&&S.inst==='synth'&&S.shift)return[mk(P.pm,0,'PLAY',v=>PMN[idx(v,4)]),mk(P.pm,1,'GLIDE',v=>{const g2=v*v*.8;return g2<.003?'OFF':Math.round(g2*1000)+'ms'}),mk(P.pm,2,'DRIFT',pct),mk(P.pm,3,'VELOCITY',pct)];
   if(S.page===1)return(S.inst==='drum'?['KICK','SNARE','HATS','PERC']:['ATTACK','DECAY','SUSTAIN','RELEASE']).map((n,i)=>mk(P.env,i,n));
   if(S.page===2)return FXP[P.fxType].map((n,i)=>mk(P.fx[P.fxType],i,n,pct,applyFx));
-  return[mk(P.lfo,0,'RATE',v=>(.05*2**(v*8.6)).toFixed(v<.5?2:1)+'Hz',applyLfo),mk(P.lfo,1,'AMOUNT',pct,applyLfo),mk(P.lfo,2,'DEST',v=>LFD[idx(v,4)],applyLfo),mk(P.lfo,3,'SHAPE',v=>LFS[idx(v,4)],applyLfo)]}
+  const L=S.shift?(P.lfo2||(P.lfo2=[...LF2D])):P.lfo;return[mk(L,0,'RATE',v=>(.05*2**(v*8.6)).toFixed(v<.5?2:1)+'Hz',applyLfo),mk(L,1,'AMOUNT',pct,applyLfo),mk(L,2,'DEST',v=>lfoDN(idx(v,9)),applyLfo),mk(L,3,'SHAPE',v=>LFS[idx(v,6)],applyLfo)]}
 
 /* ───────────── device UI ───────────── */
 const dev=$('#dev'),keyEl=[],actEl={},encEl=[],KR=[],KDEF=[];let volEl;
-const kkey=p=>p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');
+const kkey=p=>p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.shift?'^':'')+(S.overlay==='pse'?S.kit+'_'+S.pad+SMPX.to+SMPX.pg:'');
 /* hardware knobs: encStep(knob, clicks) and encPush(knob) are called by hw.html for each encoder click and push.
    One click moves a list or a menu exactly one step, and a value to its next shown value (faster turns skip ahead);
    a push confirms the action on that knob (SAVE, BOUNCE, OPEN…) or, on a plain value, resets it. On a computer,
@@ -1646,8 +1806,8 @@ function bindTurn(el,turn,reset){let y=null,tap=0,mv=0;el.addEventListener('poin
   const sc=document.createElement('div');sc.className='scr';sc.innerHTML='<canvas id="scr"></canvas><canvas class="glow" id="glow"></canvas>';dev.appendChild(sc);
   ['b','g','w','o'].forEach((c,i)=>{const e=document.createElement('div');e.className='enc';e.style.gridColumn=OS1?(15+i*5)+'/span 5':(9+i*2)+'/'+(11+i*2);e.style.setProperty('--c',`var(--${c})`);
     e.innerHTML='<div class="base"><div class="cap"></div></div>';dev.appendChild(e);encEl.push(e);let ang=0;const defs=KDEF[i]=new Map();
-    KR[i]=()=>{const p=params()[i];if(p&&p.push){p.push();return}if(p&&p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(defs.has(k))p.turn(defs.get(k)-p.arr[p.i])}};
-    bindTurn(e,d=>{wake();if(S.shift)S.shiftUsed=true;const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.overlay==='pse'?S.kit+'_'+S.pad:'');if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
+    KR[i]=()=>{const p=params()[i];if(p&&p.push){p.push();return}if(p&&p.arr){const k=kkey(p);if(defs.has(k))p.turn(defs.get(k)-p.arr[p.i])}};
+    bindTurn(e,d=>{wake();if(S.shift)S.shiftUsed=true;const p=params()[i];ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=kkey(p);if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
       ()=>KR[i]())});
   addKey(17,1,'fx','FX<span class="dots">'+TC.map(c=>`<i style="--c:${c}"></i>`).join('')+'</span>',COL.o);addKey(17,2,'metro');addKey(17,3,'seq',null,COL.g).style.color='#2fb673';
   ['synth','drum','tape','mixer'].forEach((m,i)=>addKey(i+1,3,m,null,TC[i]).style.color=['#3f7fe8','#2fb673','#ff6427',''][i]);
@@ -1720,6 +1880,57 @@ function noteOn(n,vel=1){if(!kOn())return noteOn1(n,vel);if(KH[n])noteOff(n);
   const sc=kScale(),r=kRoot(),mm=sclSnap(m,sc,r);KM.last={name:tr?NOTE_N[pcOf(m)]:chordName(kChd()&&!Array.isArray(CHD[kChd()][1])?mm:m,ns),ns,rpc:pcOf(tr||Array.isArray(CHD[kChd()][1])||!kChd()?m:mm),at:performance.now()};
   ns.forEach((x,i)=>{if(!i||st<.002){h.started.push(x);kOnNote(x,vel)}else h.tm.push(setTimeout(()=>{h.started.push(x);kOnNote(x,vel)},i*st*1000))})}
 function noteOff(n){const h=KH[n];if(!h)return noteOff1(n);delete KH[n];h.tm.forEach(clearTimeout);h.started.forEach(kOffNote)}
+/* ── KEY & CHORDS pages (T1–T3 in Shift + TEMPO): T1 KEY, T2 PROGRESSION, T3 FOLLOW BASS ── */
+const KC={pg:0,prog:null,ch:null};
+// PROGRESSION: a chord progression in the key, scale and chord type of KEY & CHORDS, written into the CHAIN sequencer (one step per beat, HOLD on)
+const PROG=[['POP',[0,4,5,3]],['DREAMY',[0,2,5,3]],['SAD',[5,3,0,4]],['EPIC',[0,5,2,6]],['FIFTIES',[0,5,3,4]],['JAZZY',[1,4,0,5]],['CIRCLE',[0,3,6,2,5,1,4,0]],['DICE',null]],
+  PNEXT=[[3,4,5,1,2],[4,6,3],[5,3,0],[4,0,1,5],[0,5,3],[3,1,4,2],[0,2]];
+function progDice(n){const r=[0];while(r.length<n){const a=PNEXT[r[r.length-1]];r.push(a[Math.floor(Math.random()*a.length)])}r[n-1]=Math.random()<.6?4:3;return r}
+function progParams(){return[stepK(S.kp,0,'STYLE',PROG.map(p=>p[0])),stepK(S.kp,1,'CHORDS',['4','8']),goK('MAKE',progMake),stepK(S.kp,2,'EACH',['2 BEATS','1 BAR','2 BARS'])]}
+function progMake(){const st=S.kp[0]|0,n=(S.kp[1]|0)?8:4,lenB=[2,4,8][S.kp[2]|0],sc=kScale(),L=sc.length,r=kRoot(),b=base();
+  let dg=PROG[st][1]?[...PROG[st][1]]:progDice(n);while(dg.length<n)dg=dg.concat(dg);dg=dg.slice(0,n);
+  const ct=kChd()&&!Array.isArray(CHD[kChd()][1])?kChd():1;  // TRIAD, SEVENTH or NINTH from KEY & CHORDS, triads otherwise
+  KC.prog=dg.map(d=>{const m=b+r+sc[d%L]+12*Math.floor(d/L),ns=kChord(m,ct);return{d,m,ns,nm:chordName(m,ns,ct)}});
+  seq.ch=KC.prog.map(p=>({n:p.ns.slice(),len:lenB}));KC.ch=seq.ch;S.sqp[3][0]=.1;S.sqp[3][1]=.92;S.sqp[3][3]=1;seq.type=3;seq.on=true;seq.playing=false;seq.i=0;seq.sub=0;
+  status(PROG[st][0]+' in '+NOTE_N[r]+': '+KC.prog.map(p=>p.nm).join(' – ')+' — tap the low C to play it (another key transposes it), STOP to stop')}
+function drawProg(t){const st=S.kp[0]|0,r=kRoot(),P=KC.prog&&KC.ch===seq.ch?KC.prog:null;
+  txt(PROG[st][0]+' · '+((S.kp[1]|0)?8:4)+' CHORDS · '+['2 BEATS','1 BAR','2 BARS'][S.kp[2]|0]+' EACH',8,24,COL.w,6);txt(NOTE_N[r]+' '+SCL[kSi()][0]+(kChd()?' · '+CHD[kChd()][0]:''),W-8,24,COL.g,6,'right');
+  if(!P){txt(HW.ok?'PUSH WHITE TO MAKE A PROGRESSION':'TURN WHITE TO MAKE A PROGRESSION',CX,54,COL.w,8,'center');txt('IT GOES INTO THE CHAIN SEQUENCER · THEN TAP THE LOW C TO PLAY IT',CX,67,COL.dim,5.5,'center');return}
+  const n=P.length,w=(W-16)/n,cur=seq.on&&seq.type===3&&seq.playing?seq.cur:-1,y=36,h=40;
+  P.forEach((p,i)=>{const x=8+i*w,on=i===cur;g.fillStyle=on?COL.o:'#14161a';g.fillRect(x+1,y,w-2,h);g.strokeStyle=on?COL.o:'#2a2d34';g.lineWidth=.8;g.strokeRect(x+1.5,y+.5,w-3,h-1);
+    txt(p.nm.length>7?p.nm.slice(0,7):p.nm,x+w/2,y+20,on?'#07080a':COL.w,n>4?8:11,'center');txt(kScale().length===7?ROMAN[p.d%7]:''+(p.d+1),x+w/2,y+33,on?'#07080a':COL.dim,5.5,'center')});
+  txt(seq.playing&&seq.type===3?'PLAYING · STOP TO STOP':'TAP THE LOW C TO PLAY · ANOTHER KEY TRANSPOSES IT',CX,92,seq.playing?COL.o:COL.dim,5.5,'center')}
+// FOLLOW BASS: another synth slot plays under the lowest note sounding on the synth (your chords, or the sequencers), in time
+const BSN=['ROOT','PULSE','OFFBEAT','OCTAVES','WALK'],BS={next:0,i:0,v:null,root:null};
+function bassParams(){return[stepK(S.bs,0,'SLOT',['OFF',...Array.from({length:16},(_,i)=>slotNm(i))],()=>{if(BS.v&&AC){voiceOff1(BS.v,AC.currentTime,.05);BS.v=null}}),stepK(S.bs,1,'STYLE',BSN),stepK(S.bs,2,'OCTAVE',['−2','−1','0']),mk(S.bs,3,'LEVEL',pct)]}
+function bassNote(root){const lo=base()+12*[-2,-1,0][S.bs[2]|0];return lo+((pcOf(root)-pcOf(lo))+12)%12}
+function bassTick(now,beat){const sl=(S.bs[0]|0)-1;if(sl<0||S.inst!=='synth'){if(BS.v){voiceOff1(BS.v,now,.05);BS.v=null}BS.next=0;BS.lt=0;BS.root=null;return}
+  const sty=S.bs[1]|0,vel=S.bs[3];
+  if(sty===0){// ROOT: one long note per chord, starting exactly when the chord starts
+    if(!BS.lt&&!BS.v){const r=htRoot(now);if(r!==null){BS.v=voiceOn1(bassNote(r),now+.005,vel,0,0,sl);BS.root=r}}
+    // each note start and end is looked at once (live keys arrive a little late, sequencer notes a little early)
+    const to=now+.1,ts=[];for(const h of HT){if(!h.s0&&h.t0<=to){ts.push(h.t0);h.s0=1}if(!h.s1&&h.t1<=to){ts.push(h.t1);h.s1=1}}ts.sort((a,b)=>a-b);
+    for(const tc of ts){if(tc<now-.5)continue;const r=htRoot(tc+.002);if(r===BS.root)continue;const at=Math.max(now,tc);if(BS.v){voiceOff1(BS.v,at,.04);BS.v=null}if(r!==null)BS.v=voiceOn1(bassNote(r),at,vel,0,0,sl);BS.root=r}
+    BS.lt=now;BS.next=0;return}
+  if(BS.v){voiceOff1(BS.v,now,.04);BS.v=null}BS.root=null;BS.lt=0;
+  // the other styles play on the 8th-note grid of the beat
+  const d=beat/2;if(!BS.next){const bn=beatNow(now),k=Math.ceil(bn.b*2+1e-6);BS.next=now+(k/2-bn.b)*beat/bn.r;BS.i=k}if(BS.next<now-.2)BS.next=now+.02;
+  while(BS.next<now+.1){const tt=BS.next,k=BS.i,r=htRoot(tt);
+    if(r!==null){const n0=bassNote(r);let n=null,len=d*.5;
+      if(sty===1)n=n0;                                       // PULSE: every 8th
+      else if(sty===2){if(k%2)n=n0}                          // OFFBEAT: between the beats
+      else if(sty===3)n=k%2?n0+12:n0;                        // OCTAVES: low, high
+      else if(k%2===0){n=n0+[0,7,12,7][(k>>1)%4];len=d*1.7}  // WALK: root, fifth, octave, fifth on the beats
+      if(n!==null){const v=voiceOn1(n,tt,vel,0,0,sl);voiceOff1(v,tt+len)}}
+    BS.i++;BS.next+=d}}
+function drawBass(t){const sl=(S.bs[0]|0)-1,r=AC?htRoot(AC.currentTime):null,sty=S.bs[1]|0;
+  if(sl<0){txt('FOLLOW BASS IS OFF',CX,48,COL.w,9,'center');txt('PICK A SYNTH SLOT FOR THE BASS WITH THE BLUE KNOB, THEN PLAY CHORDS:',CX,62,COL.dim,5.5,'center');txt('THE BASS PLAYS UNDER THE LOWEST NOTE, IN TIME (KEYS OR SEQUENCERS)',CX,71,COL.dim,5.5,'center');return}
+  bigN(slotNm(sl),40,52,COL.b,26,'center');txt(ENG[slE(sl)].name,40,64,COL.dim,6,'center');ln(82,18,82,96,'#26282e',.8);
+  txt(BSN[sty]+' · OCTAVE '+['−2','−1','0'][S.bs[2]|0],92,30,COL.g,7);txt(r===null?'PLAY A CHORD':'ROOT '+NOTE_N[pcOf(r)],92,42,r===null?COL.dim:COL.o,7);
+  const cur=AC?Math.floor(((beatNow().b*2)%8+8)%8):-1;
+  for(let k=0;k<8;k++){const x=92+k*28,on=sty===0?k===0:sty===2?k%2===1:sty===4?k%2===0:true,hi=(sty===3&&k%2===1)||(sty===4&&k%4===2),c=k===cur&&r!==null?COL.o:hi?COL.w:COL.g;
+    g.fillStyle=on?c:'#1c1e22';g.fillRect(x,hi?58:66,22,on?(hi?18:10):3);if(sty===0&&k>0){g.fillStyle=r!==null?'#2a4a38':'#1c1e22';g.fillRect(x,70,22,3)}}
+  txt('8THS OF A BAR · THE BASS SLOT PLAYS THROUGH THIS SLOT\'S EFFECT',92,93,'#4a4d54',4.8)}
 function drawKey(t){const r=kRoot(),sc=kScl(),scU=kScale(),ct=kChd(),c=CHD[ct],L=scU.length,b0=base(),x0=88,ww=W-x0-8,kw=ww/14,last=KM.last;
   // left: the key (blue), the scale (green), how the keys play it (white), the chord type (orange)
   bigN(NOTE_N[r],42,48,COL.b,30,'center');txt(SCL[kSi()][0],42,61,COL.g,6.5,'center');txt(sc?KMAP[kMap()]:'ALL NOTES',42,71,COL.w,5.5,'center');
@@ -1741,11 +1952,13 @@ function drawKey(t){const r=kRoot(),sc=kScl(),scU=kScale(),ct=kChd(),c=CHD[ct],L
     if(hit){g.strokeStyle=COL.o;g.lineWidth=1;g.strokeRect(x-cw/2+1.5,77.5,cw-3,19)}txt(L===7?ROMAN[d]:''+(d+1),x,84,'#5d6169',5,'center');txt(nm.length>7?nm.slice(0,7):nm,x,93,hit?COL.o:sc||ct?COL.w:'#5d6169',6,'center')}}
 function leds(){const L=(a,on)=>actEl[a].classList.toggle('lit',!!on);
   ['synth','drum','tape','mixer'].forEach(m=>L(m,S.mode===m));if(S.overlay==='dm')L('drum',1);actEl.drum.classList.toggle('alt',S.overlay==='dm');actEl.tape.classList.toggle('alt',S.overlay==='erase');actEl.rec.classList.toggle('alt',S.overlay==='recm');actEl.tempo.classList.toggle('alt',S.overlay==='key');keyGuide();actEl.synth.classList.toggle('alt',S.overlay==='menu');
-  for(let i=0;i<4;i++)L('t'+i,S.overlay==='save'?i===0:S.overlay==='seq'?seq.type===i:S.overlay==='fx'?rkO()[i]:S.overlay==='dm'?DM.page===i:!S.overlay&&(S.mode==='tape'?S.track===i:S.page===i));
-  actEl.t0.classList.toggle('alt',S.overlay==='save');actEl.t2.classList.toggle('alt',!S.overlay&&(S.mode==='synth'||S.mode==='drum')&&S.page===2&&cur().fxType>=4);
+  for(let i=0;i<4;i++)L('t'+i,S.overlay==='save'?i===0:S.overlay==='seq'?seq.type===i:S.overlay==='fx'?rkO()[i]:S.overlay==='dm'?(DM.hold?DM.hold.pg===i:Math.min(DM.page,3)===i):S.overlay==='pse'?SMPX.pg===i:S.overlay==='key'?KC.pg===i:!S.overlay&&(S.mode==='tape'?S.track===i:S.page===i));
+  actEl.t0.classList.toggle('alt',S.overlay==='save');actEl.t3.classList.toggle('alt',S.overlay==='dm'&&DM.page===4&&!DM.hold);actEl.t1.classList.toggle('alt',S.overlay==='seq'&&seq.type===1&&seq.lkPg);actEl.t2.classList.toggle('alt',!S.overlay&&(S.mode==='synth'||S.mode==='drum')&&S.page===2&&cur().fxType>=4);
   actEl.mixer.classList.toggle('alt',S.mode==='mixer'&&!!S.mxB);
   if(S.mode==='mixer'&&!S.overlay){const bp=S.mxB&&S.page===2;for(let i=0;i<8;i++){L('s'+i,bp?i<4&&!!BN.f[i]:i<4?!!S.mute[i]:!!S.solo[i-4]);actEl['s'+i].classList.toggle('alt',!bp&&i<4&&!!S.mute[i])}}else
-  for(let i=0;i<8;i++){const pe=S.overlay==='pse',sy=S.overlay==='sys'?7:S.overlay==='proj'?6:-1;if(sy>=0){L('s'+i,i===sy);actEl['s'+i].classList.toggle('alt',i===sy);continue}L('s'+i,pe?i===3:(S.inst==='synth'?S.slot%8:S.kit)===i);actEl['s'+i].classList.toggle('alt',pe?i===3:S.inst==='synth'&&S.slot>=8)}
+  for(let i=0;i<8;i++){const pe=S.overlay==='pse',sy=S.overlay==='sys'?7:S.overlay==='proj'?6:-1;if(S.overlay==='dm'){L('s'+i,DM.pe===i);actEl['s'+i].classList.toggle('alt',false);continue}
+    if(S.overlay==='mk'){L('s'+i,i<6&&S.mk[i]!=null);actEl['s'+i].classList.toggle('alt',!!(MK.pend&&MK.pend.i===i));continue}
+    if(S.overlay==='fx'){const h=LV.held.includes(i);L('s'+i,h);actEl['s'+i].classList.toggle('alt',h);continue}if(sy>=0){L('s'+i,i===sy);actEl['s'+i].classList.toggle('alt',i===sy);continue}const pp=pe&&SMPX.to==='pad';L('s'+i,pp?i===3:(S.inst==='synth'?S.slot%8:S.kit)===i);actEl['s'+i].classList.toggle('alt',pp?i===3:S.inst==='synth'&&S.slot>=8)}
   L('fx',S.overlay==='fx');actEl.fx.classList.toggle('alt',S.overlay==='fx'&&S.rkB);actEl.fx.querySelectorAll('.dots i').forEach((e,i)=>e.classList.toggle('on',S.rkOn[i]||S.rkOn2[i]));L('metro',S.metro);L('seq',seq.on);L('tempo',S.overlay==='tempo'||S.overlay==='key');L('loop',S.loop);L('rec',S.rec&&!S.count);L('play',S.playing);L('shift',S.shift)}
 leds();
 
@@ -1766,10 +1979,10 @@ function noteOn1(n,vel=1){const now=AC.currentTime,ty=seq.type;wake();if(S.overl
   const tq=qt(now);
   if(S.midi[2]===2&&!MIDI.fromIn)midiNote(n,vel,tq);
   if(S.inst==='drum'){S.pad=mod24(n-base());drumHit(S.pad,tq,vel);return}
-  if(held[n])voiceOff(held[n],tq);held[n]=voiceOn(n,tq,vel);held[n].qt=tq}
+  if(held[n]){voiceOff(held[n],tq);htEnd(n,tq)}held[n]=voiceOn(n,tq,vel);held[n].qt=tq;htAdd(n,tq)}
 function noteOff1(n){if(S.midi[2]===2&&!MIDI.fromIn&&MIDI.out.length)midiSend([0x80|S.midi[3],clamp(n,0,127),0]);if(S.overlay==='dm'&&DM.page===3)dmUp(mod24(n-base()));seq.ins.delete(n);if(S.inst==='drum'&&AC)padRelease(mod24(n-base()));
   if(seq.held.delete(n)&&!seq.held.size&&(seq.type===2||(seq.type===0&&S.sqp[0][3]<=.5)||(seq.type===3&&S.sqp[3][3]<=.5)))seq.playing=false;
-  if(held[n]){voiceOff(held[n],Math.max(AC.currentTime,(held[n].qt||0)+.06));delete held[n]}}
+  if(held[n]){const te=Math.max(AC.currentTime,(held[n].qt||0)+.06);voiceOff(held[n],te);htEnd(n,te);delete held[n]}}
 function keyDown(ki){initAudio();if(S.shift)S.shiftUsed=true;if(!AC||downNote[ki]!==undefined)return;const n=base()+ki;downNote[ki]=n;keyEl[ki].classList.add('on');noteOn(n,1)}
 function keyUp(ki){const n=downNote[ki];if(n===undefined)return;delete downNote[ki];keyEl[ki].classList.remove('on');noteOff(n)}
 /* ── MIDI ── */
@@ -1809,12 +2022,18 @@ function press(a){initAudio();wake();
   else if(a==='tape'&&S.shift){if(S.overlay==='erase'&&!ER.t0)S.overlay=null;else if(S.overlay!=='erase')eraseOpen()}
   else if(a==='mixer'&&S.shift){if(!(S.overlay==='erase'&&ER.t0)){S.mode='mixer';S.overlay=null;S.mxB=!S.mxB}}
   else if(['synth','drum','tape','mixer'].includes(a)){if(S.overlay==='erase'&&ER.t0){leds();return}S.mode=a;S.overlay=null;if(a==='synth'||a==='drum'){S.inst=a;applyPatch()}}
-  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='erase')eraseKey(i);else if(S.shift&&i===0&&S.inst==='synth'&&S.mode==='synth'&&(!S.overlay||S.overlay==='menu'||S.overlay==='save')){if(S.overlay==='save')S.overlay=SAVE.back;else openSave()}else if(S.overlay==='seq'){seq.type=i;seq.playing=false;seq.held.clear();seq.cur=-1}else if(S.overlay==='fx'){if(S.rkSel===i){rkO()[i]=!rkO()[i];applyRack()}else S.rkSel=i}else if(S.overlay==='dm')DM.page=i;else if(S.overlay)S.overlay=null;else if(S.mode==='tape'&&S.shift&&tape)tapeEdit(i);else if(S.mode==='tape'){S.track=i;tapeSet()}else if(i===2&&S.mode!=='mixer'){const P=cur(),ty=P.fxType,b=ty>=4;
+  else if(a[0]==='t'&&a.length===2){const i=+a[1];if(S.overlay==='erase')eraseKey(i);else if(S.shift&&i===0&&S.inst==='synth'&&S.mode==='synth'&&(!S.overlay||S.overlay==='menu'||S.overlay==='save')){if(S.overlay==='save')S.overlay=SAVE.back;else openSave()}else if(S.overlay==='seq'){if(i===1&&seq.type===1)seq.lkPg=!seq.lkPg;else{seq.type=i;seq.lkPg=false;seq.playing=false;seq.held.clear();seq.cur=-1}}else if(S.overlay==='fx'){if(S.rkSel===i){rkO()[i]=!rkO()[i];applyRack()}else S.rkSel=i}else if(S.overlay==='dm'){if(DM.hold)DM.hold.pg=i;else if(i===3&&DM.page>=3)DM.page=DM.page===3?4:3;else DM.page=i}else if(S.overlay==='pse'){if(i===0&&SMPX.pg===0)S.overlay=null;else{SMPX.pg=i;SMPX.go=0}}else if(S.overlay==='key'){if(i<3){KC.pg=i;SMPX.go=0}else S.overlay=null}else if(S.overlay)S.overlay=null;else if(S.mode==='tape'&&S.shift&&tape)tapeEdit(i);else if(S.mode==='tape'){S.track=i;tapeSet()}else if(i===0&&S.page===0&&S.mode!=='mixer'){smpOpen()}else if(i===2&&S.mode!=='mixer'){const P=cur(),ty=P.fxType,b=ty>=4;
       // T3 = effects ECHO ROOM CRUSH SWIRL · Shift+T3 = BOUNCE COIL CUBE RADIO; pressing again on the FX page steps through the bank
       if(S.page!==2){if(S.shift&&!b)P.fxType=ty+4}else if(S.shift)P.fxType=b?4+(ty-3)%4:ty+4;else P.fxType=b?ty-4:(ty+1)%4;if(P.fxType!==ty)applyFx();S.page=2}
     else S.page=i}
-  else if(a[0]==='s'&&a.length===2){const i=+a[1];if(S.shift&&S.mode==='synth'){S.slot=8+i}
-    else if(S.shift&&S.mode==='drum'){if(i===3)S.overlay=S.overlay==='pse'?null:'pse'}
+  else if(a[0]==='s'&&a.length===2){const i=+a[1];
+    // in the drum machine, 1–8 pick the pattern and Shift + 1–8 copies this pattern there
+    if(S.overlay==='mk'&&i<6&&!S.shift){mkKey(i);leds();return}
+    if(S.overlay==='fx'&&!S.shift){liveKey(i,true);leds();return}
+    if(S.overlay==='dm'){if(S.shift){if(i!==DM.pe){DM.pats[i]=dmCopy(DM.pats[DM.pe]);status('pattern '+(DM.pe+1)+' copied to pattern '+(i+1))}}else{DM.pe=i;DM.sq2[0]=(i+.5)/8}leds();return}
+    if(S.shift&&S.mode==='synth'){S.slot=8+i}
+    else if(S.shift&&S.mode==='drum'){if(i===3){if(S.overlay==='pse')S.overlay=null;else{smpOpen();SMPX.to='pad'}}}
+    else if(S.shift&&S.mode==='tape'&&i===3){clipToSampler()}
     else if(S.shift&&S.mode==='tape'&&i===6){if(S.overlay==='proj')S.overlay=null;else if(S.overlay!=='erase')pjPage()}
     else if(S.shift&&S.mode==='tape'&&i===7){if(S.overlay==='sys')S.overlay=null;else if(S.overlay!=='erase')sysOpen()}
     else if(S.shift&&S.mode==='mixer'&&!S.overlay){if(i<4)sceneRecall(i);else sceneStore(i-4);applyMix();leds();return}
@@ -1838,8 +2057,11 @@ function press(a){initAudio();wake();
   else if((a==='left'||a==='right')&&S.overlay==='seq'&&seq.type===3&&(S.shift||seq.ins.size)){const C=seq.ch;
     // → with keys held = longer last step · SHIFT + → = rest · SHIFT + ← = remove last step
     if(a==='right'){if(seq.ins.size&&C.length)C[C.length-1].len=Math.min(16,C[C.length-1].len+1);else{C.push({n:[],len:1});if(C.length>64)C.shift()}}else C.pop()}
+  else if(a==='right'&&S.overlay==='dm'&&!S.shift){DM.fillHold=true}
+  else if((a==='left'||a==='right')&&S.overlay==='seq'&&seq.type===1){S.sqp[1][0]=(clamp(patStep()+(a==='left'?-1:1),0,15)+.5)/16}
   else if((a==='left'||a==='right')&&S.mode==='synth'&&!S.shift&&AC){N.bend.offset.setTargetAtTime(a==='left'?-200:200,AC.currentTime,.03);S.bendK=a}
   else if(a==='left'||a==='right'){if(S.shift)S.oct=clamp(S.oct+(a==='left'?-1:1),-3,3);else if(tape)tape.port.postMessage({t:'set',v:{scrub:a==='left'?-7:7}})}
+  else if(a==='loop'&&S.shift&&S.mode==='tape'){if(S.overlay==='mk')S.overlay=null;else if(S.overlay!=='erase')S.overlay='mk'}
   else if(a==='loop'&&AC){S.loop=!S.loop;if(S.loop){S.li=Math.floor(snapTo(S.tpos,barS()));S.lo=Math.min(S.li+loopBars()*barS(),TAPE_SECS*AC.sampleRate-1)}tapeSet()}
   else if(a==='lift'&&tape){const sr=AC.sampleRate;if(S.shift){ovSnap(S.track);tape.port.postMessage({t:'clear',track:S.track});ov[S.track].fill(0);tapeDirty=true}else{
     const A=S.loop?S.li:snapTo(S.tpos,barS()/beats()),B=S.loop?S.lo:Math.min(A+barS(),TAPE_SECS*sr);ovSnap(S.track);tape.port.postMessage({t:'lift',a:A,b:B,track:S.track});
@@ -1847,7 +2069,7 @@ function press(a){initAudio();wake();
   else if(a==='drop'&&S.shift){tapeUndo()}
   else if(a==='drop'&&tape&&clipOv){ovSnap(S.track);const at=Math.floor(snapTo(S.tpos,barS()/beats())),b0=Math.floor(at/AC.sampleRate*10);for(let i=0;i<clipOv.length&&b0+i<BINS;i++)ov[S.track][b0+i]=clipOv[i];tape.port.postMessage({t:'drop',track:S.track,at});tapeDirty=true}
   leds()}
-function release(a){if(S.overlay==='erase'&&a[0]==='t'&&a.length===2)eraseUp(+a[1]);if(a[0]==='s'&&a.length===2&&S.trick===+a[1])trick(S.trick,false);if(S.bendK&&a===S.bendK&&AC){N.bend.offset.setTargetAtTime(0,AC.currentTime,.06);S.bendK=null}if(a==='shift'){S.shift=false;leds()}else if((a==='left'||a==='right')&&tape)tape.port.postMessage({t:'set',v:{scrub:0}})}
+function release(a){if(a==='right')DM.fillHold=false;if(a[0]==='s'&&a.length===2&&LV.held.includes(+a[1])){liveKey(+a[1],false);leds()}if(S.overlay==='erase'&&a[0]==='t'&&a.length===2)eraseUp(+a[1]);if(a[0]==='s'&&a.length===2&&S.trick===+a[1])trick(S.trick,false);if(S.bendK&&a===S.bendK&&AC){N.bend.offset.setTargetAtTime(0,AC.currentTime,.06);S.bendK=null}if(a==='shift'){S.shift=false;leds()}else if((a==='left'||a==='right')&&tape)tape.port.postMessage({t:'set',v:{scrub:0}})}
 $('#help').addEventListener('click',()=>$('#help').classList.remove('show'));
 const UIK='web1.ui',uiSet=(k,v)=>{document.documentElement.classList.toggle(k,v);document.querySelector(`#bar [data-b=${k}]`).classList.toggle('on',v);try{const u=JSON.parse(localStorage.getItem(UIK)||'{}');u[k]=v;localStorage.setItem(UIK,JSON.stringify(u))}catch(_){}};
 ['dark','oled','line'].forEach(k=>uiSet(k,document.documentElement.classList.contains(k)));
@@ -1902,14 +2124,15 @@ const countClicks=[];
 
 /* ───────────── clock: sequencer + metronome ───────────── */
 setInterval(()=>{if(!AC)return;const now=AC.currentTime,beat=60/S.bpm;midiClock(now);
-  if(DM.sq[3]>.5){const d=beat/4;if(!DM.next){DM.next=qStart(now);DM.i=0;DM.pp=dmChain()>1?0:DM.pe}if(DM.next<now-.2)DM.next=now+.02;
+  if(DM.sq[3]>.5){const d=beat/4;if(!DM.next){DM.next=qStart(now);DM.i=0;DM.loopN=-1;DM.pp=dmChain()>1?0:DM.pe}if(DM.next<now-.2)DM.next=now+.02;
     while(DM.next<now+.1){const pt=DM.pats[DM.pp],L=pt.len,i=DM.i%L,tt=DM.next+((DM.i&1)?S.tm[1]*d*.6:0);
-      for(let r=0;r<12;r++)if(pt.s[r][i]&&(pt.p[r][i]>=1||Math.random()<pt.p[r][i])){const rt=1+idx(pt.r[r][i],4),t0=Math.max(now,tt+(pt.n[r][i]-.5)*d*.9);for(let q=0;q<rt;q++)dmHit(r,t0+q*d/rt,pt.v[r][i]*(q?.8:1))}
+      if(i===0)DM.loopN++;
+      for(let r=0;r<12;r++)if(pt.s[r][i]&&condOK(pt.c[r][i],DM.loopN)&&(pt.p[r][i]>=1||Math.random()<pt.p[r][i])){const rt=1+idx(pt.r[r][i],4),t0=Math.max(now,tt+(pt.n[r][i]-.5)*d*.9);for(let q=0;q<rt;q++)dmHit(r,t0+q*d/rt,pt.v[r][i]*(q?.8:1),pt.lk[r][i])}
       const pp=DM.pp;setTimeout(()=>{DM.cur=i;DM.cp=pp},Math.max(0,(tt-now)*1000));DM.i=i+1;if(DM.i>=L){DM.i=0;const C=dmChain();DM.pp=C>1?(DM.pp+1)%C:DM.pe}DM.next+=d}}
   else{DM.next=0;DM.cur=-1}
   const ty=seq.type;
   if(!seq.on)seq.playing=false;
-  else if(ty===1){const run=S.sqp[1][3]>.5;if(run&&!seq.playing){seq.playing=true;seq.i=0;seq.cnt=0;seq.next=qStart(now)}else if(!run)seq.playing=false}
+  else if(ty===1){const run=S.sqp[1][3]>.5;if(run&&!seq.playing){seq.playing=true;seq.i=0;seq.cnt=0;seq.loopN=-1;seq.next=qStart(now)}else if(!run)seq.playing=false}
   if(seq.playing){const q=S.sqp[ty],d=beat*4/[4,8,16,32][idx(ty===1?q[1]:q[0],4)];
     if(seq.next<now-.2)seq.next=now;
     while(seq.playing&&seq.next<now+.1){const tt=seq.next+((seq.cnt&1)?S.tm[1]*d*.6:0);let shown=-1;
@@ -1919,13 +2142,15 @@ setInterval(()=>{if(!AC)return;const now=AC.currentTime,beat=60/S.bpm;midiClock(
         else{if(L<2)seq.i=0;else{if(i+seq.dirS>=L||i+seq.dirS<0)seq.dirS=-seq.dirS;seq.i=i+seq.dirS}}}
       else if(ty===3){const L=seq.ch.length;if(!L){seq.playing=false;break}const i=seq.i%L,st=seq.ch[i],oc=(idx(q[2],5)-2)*12;
         if(!seq.sub)st.n.forEach(n=>trig(n+seq.tr+oc,tt,d*st.len*(.1+q[1]*.9)));shown=i;if(++seq.sub>=st.len){seq.sub=0;seq.i=(i+1)%L}}
-      else if(ty===1){const L=patLen(),i=seq.i%L;seq.pat[i].forEach(n=>trig(n,tt,d*.6));shown=i;seq.i=(i+1)%L}
+      else if(ty===1){const L=patLen(),i=seq.i%L,ps=seq.ps;if(i===0)seq.loopN++;
+        if(seq.pat[i].length&&condOK(ps.c[i],seq.loopN)&&(ps.p[i]>=1||Math.random()<ps.p[i])){const rt=1+idx(ps.r[i],4);for(let q=0;q<rt;q++)seq.pat[i].forEach(n=>trig(n,tt+q*d/rt,d*.6/rt,ps.v[i]*(q?.8:1),ps.lk[i]))}shown=i;seq.i=(i+1)%L}
       else{const hs=[...seq.held].sort((x,y)=>x-y);if(!hs.length){seq.playing=false;break}
         const oc=1+idx(q[3],3),list=[];for(let o=0;o<oc;o++)hs.forEach(n=>list.push(n+12*o));const L=list.length,md=idx(q[2],4);let i;
         if(md===0)i=seq.cnt%L;else if(md===1)i=L-1-seq.cnt%L;else if(md===2){const P=Math.max(1,2*L-2),k=seq.cnt%P;i=k<L?k:P-k}else i=Math.floor(Math.random()*L);
         trig(list[i],tt,d*(.1+q[1]*.9));shown=i}
       setTimeout(()=>seq.cur=shown,Math.max(0,(tt-now)*1000));seq.cnt++;seq.next+=d}}
   else seq.cur=-1;
+  bassTick(now,beat);
   const bn=beatNow(now);S.fb=bn.b;S.fbT=now;
   if(!S.count&&(bn.b-S.lastBeat>4||bn.b<S.lastBeat-1))S.lastBeat=Math.ceil(bn.b)-1;
   if(S.metro||S.count){const bpb=beats();
@@ -2260,14 +2485,26 @@ const FXDRAW=[
   g.strokeStyle=COL.g;g.lineWidth=1.3;g.beginPath();for(let x=x0;x<=x1;x+=stw){const u=(x-x0)/(x1-x0),v=Math.round(Math.sin(u*6.283*3+t*2)*q)/q,drop=Math.sin(u*7+t*5)>1-nz*.6?.2:1,y=38-v*14*drop*(.6+L*.8)+(Math.random()*2-1)*nz*3;x===x0?g.moveTo(x,y):g.lineTo(x,y);g.lineTo(x+stw,y)}g.stroke();
   for(let i=0;i<nz*40;i++)circ(x0+Math.random()*(x1-x0),20+Math.random()*36,.5,COL.w,true);
   fxSide(['CRUSH',p[1],COL.g],['STATIC',p[2],COL.w])}];
-function drawLfo(t,p){const sh=idx(p[3],4),f=.05*2**(p[0]*8.6),A=4+p[1]*30;
-  const fn=x=>{const ph=(x%1+1)%1;return sh===0?Math.sin(ph*6.283):sh===1?1-4*Math.abs(ph-.5):sh===2?(ph<.5?1:-1):ph*2-1};
-  plot(u=>CY-fn(u*3+t*Math.min(f,6)*.5)*A,24,W-24,COL.b,1.5,240);circ(CX,CY-fn(1.5+t*Math.min(f,6)*.5)*A,3,COL.o,true);txt('→ '+LFD[idx(p[2],4)],W-8,26,COL.w,7,'right')}
+// LFO 1 on top, LFO 2 underneath; the one the knobs edit is bright (hold Shift for LFO 2)
+function drawLfo(t,P){const ed=S.shift?1:0;
+  [P.lfo,P.lfo2||LF2D].forEach((L,k)=>{const on=k===ed,sh=idx(L[3],6),f=.05*2**(L[0]*8.6),yc=k?79:41,A=on?3+L[1]*13:2+L[1]*8,R=LFOS[k].v,vp=t*Math.min(f,6)*.5,cyc=sh>=4?8:3,c=on?(k?COL.g:COL.b):'#3a3d44';
+    plot(u=>yc-lfoShape(sh,u*cyc+vp,R)*A,64,W-26,c,on?1.5:1,220);circ(W-26,yc-lfoShape(sh,cyc+vp,R)*A,on?2.6:1.8,on?COL.o:'#4a4d54',true);
+    txt('LFO '+(k+1),8,yc-1,on?COL.w:'#4a4d54',7.5);txt(LFS[sh]+' → '+lfoDN(lfoDi(L)),8,yc+8,on?c:'#3a3d44',5.5);if(L[1]<.005)txt('OFF',W-8,yc+2,'#4a4d54',5.5,'right')});
+  ln(0,60,W,60,'#1c1e22',.6);txt(S.shift?'EDITING LFO 2':'SHIFT ▸ LFO 2',W-8,24,S.shift?COL.o:'#4a4d54',5.5,'right')}
+// the macro page (Shift + T1): the MACRO dial, and how far it moves each engine knob (grey tick = the knob, white line = with the macro)
+function drawMacro(t,P){const M=P.mac||MACD,E=ENG[P.e],W4=MACW[P.e]||[0,0,0,0],dm=M[0]*(2*M[1]-1),cx=48,cy=54,r=22;
+  for(let k=0;k<=20;k++){const a=Math.PI*(.75+k*.075),r2=r+(k%5?5:8);ln(cx+Math.cos(a)*(r+3),cy+Math.sin(a)*(r+3),cx+Math.cos(a)*r2,cy+Math.sin(a)*r2,k/20<=M[0]+1e-6?COL.b:'#33363d',1)}
+  circ(cx,cy,r,COL.w);const a=Math.PI*(.75+M[0]*1.5);ln(cx,cy,cx+Math.cos(a)*(r-4),cy+Math.sin(a)*(r-4),COL.o,2);txt('MACRO '+pct(M[0]),cx,cy+r+15,COL.b,6.5,'center');
+  ln(96,18,96,96,'#26282e',.8);
+  for(let i=0;i<4;i++){const y=24+i*14,b=P.eng[i],v=clamp(b+dm*W4[i]),x0=150,ww=160;txt(E.pn[i],102,y+5,COL.w,5.5);
+    g.fillStyle='#16181c';g.fillRect(x0,y,ww,5);g.fillStyle=TC[i];g.globalAlpha=.85;g.fillRect(x0+Math.min(b,v)*ww,y,Math.abs(v-b)*ww,5);g.globalAlpha=1;
+    ln(x0+b*ww,y-1.5,x0+b*ww,y+6.5,COL.dim,1);ln(x0+v*ww,y-2,x0+v*ww,y+7,COL.w,1.4)}
+  txt('TONE '+bipF(M[2])+' · FX '+bipF(M[3])+' · ENGINE '+bipF(M[1]),102,88,COL.dim,5.5);txt('KNOB MOVES APPLY TO NEW NOTES',102,95,'#4a4d54',4.8)}
 function drawDrum(){const now=performance.now();for(let k=0;k<24;k++){const c=k%12,r=k<12?1:0,x=22+c*26.4,y=38+r*36,f=clamp(1-(now-S.flash[k])/220);
   const ps=padSmp[S.kit][k];circ(x,y,9+f*3,f>0?TC[DG[c]]:ps?TC[DG[c]]:COL.dim,f>0);if(f<=0){if(ps){g.fillStyle=TC[DG[c]];g.fillRect(x-3,y-3,6,6)}else circ(x,y,2,TC[DG[c]],true)}if(k===(S.pad|0))circ(x,y,13.5,COL.w);if(r)txt(DN[c],x,96,COL.dim,5.5,'center')}}
 const DMW=['SINE','TRI','SQR','NOISE'],DMF=['OFF','LOW','HIGH','BAND','NOTCH','PEAK','RING','CRUSH'],DMFS=['OFF','LP','HP','BP','NT','PK','RG','CR'];
 const dmFr=v=>30*2**(v*8),dmDec=v=>.02+v*v*1.5,dmCut=v=>Math.min(18000,40*2**(v*9)),dmLen=()=>DM.pats[DM.pe].len;
-function dmHit(k,t,vel=1){const ty=k%12,hi=k>=12,P=DM.pads[ty],[m,c,r,mx]=P.f,mode=idx(m,8),fc=dmCut(c);
+function dmHit(k,t,vel=1,lk){const ty=k%12,hi=k>=12,P=lk?dmLocked(DM.pads[ty],lk):DM.pads[ty],[m,c,r,mx]=P.f,mode=idx(m,8),fc=dmCut(c);
   const out=gn(.9*DM.sq[2]*1.25*(.25+.75*vel)*[1,1,1.2,3,1,1,2.6,1][mode]);out.connect(N.drumBus);let dest=out,end=0;
   if(ty===6){if(dmOH)choke(dmOH,t);dmOH=null}else if(ty===8)dmOH=out;  // the closed hat cuts the open one
   if(ty===0&&N.kickKey)out.connect(N.kickKey);
@@ -2278,18 +2515,18 @@ function dmHit(k,t,vel=1){const ty=k%12,hi=k>=12,P=DM.pads[ty],[m,c,r,mx]=P.f,mo
     const e=gn(0);e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(lv*(w===2?.45:w===3?.7:1),t+.002);e.gain.exponentialRampToValueAtTime(.0001,t+.002+dec);src.connect(e);src.stop(t+dec+.05);return e});
   if(mode===6){const rg=gn(0),lp=flt('lowpass',fc,.7);vox[0].connect(rg);vox[1].connect(rg.gain);rg.connect(lp);lp.connect(out)}else vox.forEach(v=>v.connect(dest));
   setTimeout(()=>out.disconnect(),(t-AC.currentTime+end)*1000+600);setTimeout(()=>DM.hit=[ty,performance.now()],Math.max(0,(t-AC.currentTime)*1000))}
-function dmKey(k,now,vel){if(DM.page===3&&!S.shift){const st=k%16,pt=DM.pats[DM.pe];if(st<pt.len){const row=pt.s[DM.pad],was=!!row[st];if(!was){row[st]=1;dmHit(DM.pad,now,pt.v[DM.pad][st])}DM.hold={st,was,turned:false}}return}
+function dmKey(k,now,vel){if(DM.page===3&&!S.shift){const st=k%16,pt=DM.pats[DM.pe];if(st<pt.len){const row=pt.s[DM.pad],was=!!row[st];if(!was){row[st]=1;dmHit(DM.pad,now,pt.v[DM.pad][st])}DM.hold={st,was,turned:false,pg:3}}return}
   DM.pad=k%12;DM.sq[0]=(DM.pad+.5)/12;dmHit(k,qt(now),vel)}
-function drawDM(t){const P=DM.pads[DM.pad],pg=DM.page,fl=DM.hit&&DM.hit[0]===DM.pad?clamp(1-(performance.now()-DM.hit[1])/200):0;
+function drawDM(t){const H=DM.hold,lkd=H&&H.pg<3,P=lkd?dmLocked(DM.pads[DM.pad],DM.pats[DM.pe].lk[DM.pad][H.st]||{}):DM.pads[DM.pad],pg=lkd?H.pg:DM.page,fl=DM.hit&&DM.hit[0]===DM.pad?clamp(1-(performance.now()-DM.hit[1])/200):0;
   for(let i=0;i<12;i++){const x=10+(i%6)*10.6,y=20+Math.floor(i/6)*10.6,on=i===DM.pad,has=DM.pat[i].some(v=>v),hit=DM.hit&&DM.hit[0]===i&&performance.now()-DM.hit[1]<120;
     g.fillStyle=on?COL.o:hit?TC[DG[i]]:'#14161a';g.fillRect(x,y,9,9);if(!on){g.strokeStyle=has?TC[DG[i]]:'#33363d';g.lineWidth=.7;g.strokeRect(x+.5,y+.5,8,8)}}
   bigN(DN[DM.pad],10,58,fl>0?COL.o:COL.w,14);
-  if(pg===3)txt('PAT '+(DM.pe+1)+(DM.cur<0||DM.sq[3]<=.5?' · STOPPED':DM.cp===DM.pe?' · STEP '+(DM.cur+1):' · PLAYS '+(DM.cp+1)),10,68,DM.cur>=0&&DM.sq[3]>.5?COL.o:COL.dim,6);
+  if(fillOn(DM.loopN)&&DM.sq[3]>.5)txt('FILL',78,68,COL.o,6,'right');if(lkd)txt('STEP '+(H.st+1)+' LOCKS',10,68,COL.o,6);else if(pg>=3)txt('PAT '+(DM.pe+1)+(DM.cur<0||DM.sq[3]<=.5?' · STOPPED':DM.cp===DM.pe?' · STEP '+(DM.cur+1):' · PLAYS '+(DM.cp+1)),10,68,DM.cur>=0&&DM.sq[3]>.5?COL.o:COL.dim,6);
   else txt(DMW[idx(P.v[pg===1?1:0][1],4)]+' · '+DMF[idx(P.f[0],8)],10,68,COL.dim,6);
   if(pg===3){const C=dmChain();for(let k=0;k<8;k++){const x=10+k*8.4,has=DM.pats[k].s.some(r=>r.some(Boolean)),play=DM.sq[3]>.5&&DM.cur>=0&&DM.cp===k;
       g.fillStyle=play?COL.o:has?'#3a3d44':'#16181c';g.fillRect(x,76,7,9);if(k===DM.pe){g.strokeStyle=COL.w;g.lineWidth=.8;g.strokeRect(x-.5,75.5,8,10)}txt(''+(k+1),x+3.5,83.5,play?'#07080a':k===DM.pe?COL.w:'#5d6169',5,'center');
       if(C>1&&k<C){g.fillStyle=COL.g;g.fillRect(x,88,7,1.2)}}txt(C>1?'CHAIN 1–'+C:'NO CHAIN',10,96,C>1?COL.g:'#4a4d54',5)}
-  else scope(10,74,84,22,COL.g,1.2);ln(80,18,80,96,'#26282e',.8);
+  else if(pg===4)dmDiceInfo();else scope(10,74,84,22,COL.g,1.2);ln(80,18,80,96,'#26282e',.8);
   if(pg<2)for(let j=0;j<2;j++){const v=P.v[j],x=86+j*121,y=18,act=j===pg,c=act?(j?COL.g:COL.b):COL.dim,w=idx(v[1],4),fg=act?COL.w:COL.dim;
     g.strokeStyle=act?c:'#2a2d34';g.lineWidth=act?1.2:.8;g.strokeRect(x+.5,y+.5,114,77);bigN(''+(j+1),x+6,y+21,c,19);
     plot(u=>y+12-(w===0?Math.sin(u*12.566):w===1?1-4*Math.abs((u*2+.25)%1-.5):w===2?((u*2)%1<.5?1:-1):(hash(Math.floor(u*40)+j*7)*2-1))*5,x+66,x+108,c,1,80);
@@ -2316,7 +2553,8 @@ function drawDM(t){const P=DM.pads[DM.pad],pg=DM.page,fl=DM.hit&&DM.hit[0]===DM.
     for(let r2=0;r2<12;r2++)for(let i=0;i<16;i++){const y=y0+r2*rh,on=pt.s[r2][i];g.fillStyle=i%4===0?'#1b1d22':'#121418';g.fillRect(x0+i*cw,y,cw-1.5,rh-1.2);if(!on)continue;
       const x=x0+i*cw+(pt.n[r2][i]-.5)*cw*.5,c=i>=L?'#3a3d44':TC[DG[r2]],a=(.35+.65*pt.v[r2][i])*(r2===DM.pad?1:.6),rt=1+idx(pt.r[r2][i],4);
       if(pt.p[r2][i]<.99){g.strokeStyle=c;g.globalAlpha=a;g.lineWidth=.8;g.strokeRect(x+.4,y+.4,cw-2.3,rh-2);g.fillStyle=c;g.fillRect(x,y,(cw-1.5)*pt.p[r2][i],rh-1.2)}else{g.fillStyle=c;g.globalAlpha=a;g.fillRect(x,y,cw-1.5,rh-1.2)}g.globalAlpha=1;
-      for(let q=1;q<rt;q++){g.fillStyle='#07080a';g.fillRect(x+q*(cw-1.5)/rt-.4,y,.8,rh-1.2)}}
+      for(let q=1;q<rt;q++){g.fillStyle='#07080a';g.fillRect(x+q*(cw-1.5)/rt-.4,y,.8,rh-1.2)}
+      if(pt.c[r2][i]){g.fillStyle=pt.c[r2][i]>=10?COL.o:COL.w;g.fillRect(x,y,1.8,1.8)}if(pt.lk[r2][i]){g.fillStyle='#07080a';g.fillRect(x+cw-4.4,y+rh-3.9,2.6,2.6);g.fillStyle=COL.o;g.fillRect(x+cw-4,y+rh-3.5,1.8,1.8)}}
     if(DM.hold){g.strokeStyle=COL.w;g.lineWidth=1.2;g.strokeRect(x0+DM.hold.st*cw-1,y0+DM.pad*rh-1.2,cw+.5,rh+1.2)}
     if(L<16){g.fillStyle='rgba(0,0,0,.55)';g.fillRect(x0+L*cw,y0,(16-L)*cw,12*rh)}
     g.strokeStyle=COL.w;g.lineWidth=.8;g.strokeRect(x0-1,y0+DM.pad*rh-1,16*cw+.5,rh+.8);
@@ -2359,6 +2597,7 @@ function drawTape(){const sr=AC.sampleRate,pos=S.tpos/sr,u=pos/TAPE_SECS;S.reel+
   const xe0=CX-pos*pps,xe1=CX+(TAPE_SECS-pos)*pps;g.fillStyle='rgba(0,0,0,.6)';if(xe0>0)g.fillRect(0,ty,xe0,yb-ty);if(xe1<W)g.fillRect(xe1,ty,W-xe1,yb-ty);
   if(S.loop){const a=CX+(S.li/sr-pos)*pps,b=CX+(S.lo/sr-pos)*pps;g.strokeStyle=COL.g;g.lineWidth=1;g.strokeRect(a,ty-1.5,b-a,yb-ty+1);circ(a,ty-1.5,1.6,COL.g,true);circ(b,ty-1.5,1.6,COL.g,true)}
   if(S.shift&&!S.loop){const A=snapTo(S.tpos,barS()/beats()),x=CX+(A/sr-pos)*pps,y=ty+S.track*tg;g.strokeStyle=COL.o;g.lineWidth=1;g.strokeRect(x,y-1,barS()/sr*pps,th+2)}
+  S.mk.forEach((m,i)=>{if(m==null)return;const x=CX+(m-pos)*pps;if(x<-30||x>W+2)return;const c=TC[i%4];g.fillStyle=c;g.beginPath();g.moveTo(x,ty-2);g.lineTo(x+4,ty-5);g.lineTo(x,ty-8);g.fill();ln(x,ty-8,x,yb,c,.6);txt(mkName(i),x+5,ty-4.5,c,4.4)});
   ln(CX,65.5,CX,99,COL.red,1)}
 function peak(an){an.getFloatTimeDomainData(mBuf);let p=0;for(let i=0;i<mBuf.length;i++){const a=Math.abs(mBuf[i]);if(a>p)p=a}return p}
 const mPk=[0,0,0,0,0];
@@ -2402,7 +2641,19 @@ function drawMixer(){const pg=S.page,sh=S.shift;
   grB('COMP',N.comp.reduction||0,56,COL.g,S.ms[1]>.01);grB('LIMIT',N.lim.reduction||0,70,COL.o,lon);
   N.outAn.getFloatTimeDomainData(mBuf);plot(u=>91-mBuf[Math.floor(u*255)]*7,70,W-16,'rgba(255,255,255,.6)',1);
   txt('WIDTH '+Math.round(S.ms2[3]*200)+'%',16,85,sh?COL.o:COL.dim,5.5)}
-function drawRack(t){const sel=S.rkSel,on=rkO(),p=rkP()[sel],c=TC[sel],vy=68,NM=S.rkB?RKN2:RKN;
+/* ── LIVE FX (hold 1–8 while the FX screen is open): 1–4 repeat the last 1/4, 1/8, 1/16 or 1/32 in time, 5 freezes the sound,
+   6 closes a low-pass and 7 opens a high-pass over two beats, 8 slows everything to a stop. They work on everything you hear ── */
+const LVN=['REPEAT 1/4','REPEAT 1/8','REPEAT 1/16','REPEAT 1/32','FREEZE','SWEEP DOWN','SWEEP UP','TAPE STOP'],LVS=['1/4','1/8','1/16','1/32','FRZ','LP','HP','STOP'],LV={held:[]};
+function liveKey(i,on){if(!N.live)return;const H=LV.held,j=H.indexOf(i);if(on&&j<0)H.push(i);if(!on&&j>=0)H.splice(j,1);
+  const P=N.live.port,bd=60/S.bpm;
+  if(i===5||i===6){P.postMessage(i===5?{lp:on?1:0,T:bd*2}:{hp:on?1:0,T:bd*2});return}
+  const top=[...H].reverse().find(k=>k<5||k===7);if(top===undefined){P.postMessage({off:1});return}
+  if(top<4){const div=[1,.5,.25,.125][top],len=Math.round(div*bd*AC.sampleRate),b=beatNow().b/div;P.postMessage({rep:len,off:Math.round((b-Math.floor(b))*len)})}
+  else if(top===4)P.postMessage({frz:1});else P.postMessage({stop:1,T:bd*1.5})}
+function drawLive(t){const H=LV.held,x0=84,w=26;for(let i=0;i<8;i++){const on=H.includes(i),x=x0+i*w;if(on){g.fillStyle=COL.o;g.fillRect(x,89,w-2,9)}txt((i+1)+' '+LVS[i],x+(w-2)/2,95.6,on?'#07080a':'#4a4d54',4.6,'center')}
+  if(H.length){const k=H[H.length-1],nm=H.filter(i=>i!==k).map(i=>LVS[i]);g.fillStyle='rgba(7,8,10,.86)';g.fillRect(CX-70,42,140,30);txt(LVN[k],CX,58,COL.o,11,'center');txt(nm.length?'+ '+nm.join(' + '):'LIVE FX',CX,67,COL.dim,5.5,'center')}}
+function drawRack(t){drawRack0(t);drawLive(t)}
+function drawRack0(t){const sel=S.rkSel,on=rkO(),p=rkP()[sel],c=TC[sel],vy=68,NM=S.rkB?RKN2:RKN;
   for(let i=0;i<4;i++){const x=15+i*79,y=20,w=67,h=17;
     if(i)ln(x-12,y+h/2,x-1,y+h/2,on[i-1]&&on[i]?COL.w:COL.dim,1);
     if(on[i]){g.fillStyle=TC[i];g.globalAlpha=.16;g.fillRect(x,y,w,h);g.globalAlpha=1}
@@ -2459,9 +2710,11 @@ function drawSeq(){if(seq.type===3){drawChain();return}txt('T1–T4 ▸ TYPE',W-
   if(seq.type===1){const L=patLen(),cs=patStep(),all=seq.pat.flat();let lo=all.length?Math.min(...all):60,hi=all.length?Math.max(...all):72;if(hi-lo<12)hi=lo+12;const w=(W-40)/16;
     for(let i=0;i<16;i++){const x=20+i*w;g.fillStyle=i===seq.cur&&seq.playing?'#3a2416':i%4===0?'#15171b':'#0e0f12';g.fillRect(x,30,w-2,64);
       if(i>=L){g.fillStyle='rgba(0,0,0,.55)';g.fillRect(x,30,w-2,64)}
-      seq.pat[i].forEach(n=>{g.fillStyle=i>=L?COL.dim:i===seq.cur&&seq.playing?COL.o:COL.b;g.fillRect(x+1,90-(n-lo)/(hi-lo)*56-2,w-4,4)});
+      g.globalAlpha=.35+.65*seq.ps.v[i];seq.pat[i].forEach(n=>{g.fillStyle=i>=L?COL.dim:i===seq.cur&&seq.playing?COL.o:COL.b;g.fillRect(x+1,90-(n-lo)/(hi-lo)*56-2,w-4,4)});g.globalAlpha=1;
       if(i===cs){g.strokeStyle=COL.w;g.lineWidth=1;g.strokeRect(x-.5,29.5,w-1,65)}}
-    if(!all.length)txt('PICK A STEP · TAP KEYS',CX,24,COL.dim,6,'center');return}
+    {const ps=seq.ps,c=ps.c[cs],lk=ps.lk[cs];for(let i=0;i<16;i++){const x=20+i*w;if(ps.c[i]){g.fillStyle=ps.c[i]>=10?COL.o:COL.w;g.fillRect(x+1,31,2,2)}if(ps.lk[i]){g.fillStyle=COL.o;g.fillRect(x+w-5,31,2,2)}if(ps.p[i]<.99&&seq.pat[i].length){g.fillStyle=COL.dim;g.fillRect(x+1,92,(w-4)*ps.p[i],1.2)}}
+      txt(seq.lkPg?'LOCKS · STEP '+(cs+1)+' · ← → STEP · PUSH A KNOB TO CLEAR':S.shift?'STEP '+(cs+1)+' · VEL '+pct(ps.v[cs])+' · '+pct(ps.p[cs])+'% · '+(1+idx(ps.r[cs],4))+'× · '+CONDN[c|0]+(lk?' · LOCKED':''):'SHIFT ▸ VEL · CHANCE · ROLL · COND   T2 AGAIN ▸ LOCKS',20,26,seq.lkPg||S.shift?COL.o:'#4a4d54',5.2)}
+    if(!all.length)txt('PICK A STEP · TAP KEYS',CX,62,COL.dim,7,'center');return}
   if(seq.type===2){const hs=[...seq.held].sort((x,y)=>x-y);if(!hs.length){txt('HOLD A CHORD',CX,58,COL.w,10,'center');return}
     const oc=1+idx(S.sqp[2][3],3),list=[];for(let o=0;o<oc;o++)hs.forEach(n=>list.push(n+12*o));const lo=list[0],hi=Math.max(lo+12,list[list.length-1]),w=Math.min(22,(W-40)/list.length);
     list.forEach((n,i)=>{const h=10+(n-lo)/(hi-lo)*54;g.fillStyle=i===seq.cur?COL.o:COL.b;g.fillRect(CX-list.length*w/2+i*w,94-h,w-3,h)});return}
@@ -2482,6 +2735,77 @@ function drawSampleView(label,lit,pk,q,heads,flash){const x0=20,ww=W-40,w=ww/160
     g.shadowColor=COL.o;g.shadowBlur=5;ln(x,30,x,96,COL.o,1.4);g.shadowBlur=0;circ(x,30,2,COL.o,true)});
   circ(W-14,24,3,COL.o,!!flash);txt(SMODE[md]+(rv?' · REVERSE':''),W-24,26,COL.w,6,'right');
   txt(S.shift?'SHIFT ▸ PLAY · FADES · LEVEL':'SHIFT ▸ PLAY MODE',W-8,99,S.shift?COL.o:'#4a4d54',5.5,'right')}
+/* ── SAMPLER (T1 again in synth or drum mode, Shift + 4 in drum mode): T1 EDIT · T2 SLICE · T3 RECORD · T4 FROM TAPE ──
+   it works on the selected pad (drum mode) or on the synth slot (synth mode) */
+const SMPX={to:'pad',pg:0,sl:[0,6,0,.5],rc:[0,2,0,0],tp:[0,4,0],go:0,ck:'',cp:null},RS={on:0,at:0,end:0,st:null,node:null,to:null};
+const RLN=['1 BEAT','2 BEATS','1 BAR','2 BARS','4 BARS'],RLB=[1,2,4,8,16];
+function smpOpen(){S.overlay='pse';SMPX.pg=0;SMPX.go=0;SMPX.to=S.inst==='drum'?'pad':'slot'}
+const smpTarget=()=>SMPX.to==='pad'?'DRUM '+(S.kit+1)+' · '+padNm(S.pad|0):'SYNTH '+slotNm(S.slot);
+function smpKnobs(P){return S.shift?[mk(P.smp,4,'PLAY',v=>SMODE[idx(v,3)]),mk(P.smp,6,'FADE IN',fadeF),mk(P.smp,7,'FADE OUT',fadeF),mk(P.smp,3,'LEVEL')]
+  :[mk(P.smp,0,'START'),mk(P.smp,1,'END'),mk(P.smp,2,'TUNE',tuneF),mk(P.smp,5,'REVERSE',v=>v>.5?'ON':'OFF')]}
+// a knob that does something when pushed, or turned all the way to YES
+function goK(label,fn,busy){return{n:label,val:()=>(busy&&busy())||(SMPX.go<.02?(HW.ok?'PUSH':'TURN ▸'):'YES ▸'),push(){SMPX.go=0;fn()},turn(d){SMPX.go=clamp(SMPX.go+d*1.6);if(SMPX.go>=1){SMPX.go=0;fn()}}}}
+function smpSrc(){if(SMPX.to==='pad'){const ps=padSmp[S.kit][S.pad|0];if(!ps)return null;const q=padPar(S.kit,S.pad|0),d=ps.buf.getChannelData(0),n=d.length;return{d,sr:ps.buf.sampleRate,a:Math.floor(clamp(q[0],0,.98)*n),b:Math.floor(Math.min(1,q[1])*n)}}
+  const sm=slotSmp[S.slot];if(!sm)return null;const p=synthP[S.slot].smp,d=sm.buf.getChannelData(0),n=d.length;return{d,sr:sm.buf.sampleRate,a:Math.floor(clamp(p[0],0,.98)*n),b:Math.floor(Math.min(1,p[1])*n)}}
+// SLICE: EVEN cuts the part between START and END into equal slices; AT HITS cuts where the sound jumps up (SENSE sets how small a jump counts)
+function slicePts(s){const n=2+(SMPX.sl[1]|0),{d,sr,a,b}=s,key=[d.length,a,b,n,SMPX.sl[0]|0,SMPX.sl[3].toFixed(2),SMPX.to,S.kit,S.pad,S.slot].join();if(SMPX.ck===key)return SMPX.cp;let pts;
+  if(!(SMPX.sl[0]|0))pts=Array.from({length:n},(_,k)=>Math.round(a+(b-a)*k/n));
+  else{const F=Math.round(sr*.01),E=[];for(let i=a;i<b;i+=F){let e=0;const j1=Math.min(b,i+F);for(let j=i;j<j1;j++)e+=d[j]*d[j];E.push(10*Math.log10(e/F+1e-12))}
+    const top=Math.max(...E),need=7-6*SMPX.sl[3],cand=[];for(let j=1;j<E.length;j++){const lo=Math.min(E[j-1],E[Math.max(0,j-2)],E[Math.max(0,j-3)]);if(E[j]>top-45&&E[j]-lo>need)cand.push([E[j]-lo,j])}
+    cand.sort((x,y)=>y[0]-x[0]);const pick=[0];for(const[,j]of cand){if(pick.length>=n)break;if(pick.every(p=>Math.abs(p-j)>=6))pick.push(j)}pts=pick.sort((x,y)=>x-y).map(j=>a+j*F)}
+  SMPX.ck=key;SMPX.cp=pts;return pts}
+function sliceParams(){return[stepK(SMPX.sl,0,'MODE',['EVEN','AT HITS']),stepK(SMPX.sl,1,'SLICES',Array.from({length:23},(_,i)=>''+(i+2))),goK('SLICE',sliceGo),mk(SMPX.sl,3,'SENSE',pct)]}
+function sliceGo(){const s=smpSrc();if(!s){status('nothing to slice: record a sample on T3, or take one from the tape on T4');return}
+  const pts=slicePts(s),e=[...pts.slice(1),s.b],d=s.d.slice(),kt=S.kit;pts.forEach((p,k)=>{if(e[k]-p>64)setPadSample(kt,k,d.subarray(p,e[k]),s.sr,false,'SLICE '+(k+1),true)});
+  SMPX.ck='';if(SMPX.to==='pad')S.pad=0;status(pts.length+' slices on kit '+(kt+1)+' '+KITS[kt]+' — play them in drum mode, slice 1 on the lowest key');leds()}
+// RECORD (resampling): MASTER records what you hear, INPUT the mic or line in (INPUT in advanced REC); NOW or on the NEXT BAR, for a set length
+function recParams(){return[stepK(SMPX.rc,0,'SOURCE',['MASTER','INPUT']),stepK(SMPX.rc,1,'LENGTH',RLN),goK('REC',smpRec,()=>RS.on?(AC.currentTime<RS.at?'WAIT · STOP':'STOP'):''),stepK(SMPX.rc,3,'START',['NOW','NEXT BAR'])]}
+const recSecs=()=>Math.min(RLB[SMPX.rc[1]|0]*60/S.bpm,SMPX.to==='pad'?6:10);
+async function smpRec(){if(!AC||!N.grab){status('recording needs a browser with audio worklets');return}
+  if(RS.on){N.grab.port.postMessage({stop:1});return}
+  const sr=AC.sampleRate,secs=recSecs(),inp=SMPX.rc[0]|0;
+  if(inp){try{RS.st=await openInput();RS.node=AC.createMediaStreamSource(RS.st);RS.node.connect(N.grabIn)}catch(_){status('no input: allow the microphone, or record the MASTER');return}}
+  N.grabM.gain.value=inp?0:1;let at=AC.currentTime+.05;
+  if(SMPX.rc[3]|0){const bn=beatNow(),bd=60/S.bpm/bn.r,bpb=beats(),nb=Math.ceil(bn.b/bpb-1e-6)*bpb;at=AC.currentTime+(nb-bn.b)*bd;if(at<AC.currentTime+.03)at+=bpb*bd}
+  RS.on=1;RS.at=at;RS.end=at+secs;RS.to={to:SMPX.to,kit:S.kit,pad:S.pad|0,slot:S.slot};N.grab.port.postMessage({at:Math.round(at*sr),n:Math.round(secs*sr)});
+  status('recording '+(inp?'the input':'what you hear')+' into '+smpTarget()+(SMPX.rc[3]|0?' from the next bar':'')+'…')}
+function grabDone(d){const R2=RS.to;RS.on=0;if(RS.node){try{RS.node.disconnect()}catch(_){}RS.node=null}if(RS.st){RS.st.getTracks().forEach(x=>x.stop());RS.st=null}
+  if(!R2||!d||d.length<64){status('nothing was recorded');return}putNorm(R2,d,'RESAMPLE')}
+function putNorm(R2,d,name){let pk=0;for(let i=0;i<d.length;i++){const v=Math.abs(d[i]);if(v>pk)pk=v}if(pk<1e-4){status('that is silent: nothing to put in the sampler');return false}
+  const g=.9/pk;for(let i=0;i<d.length;i++)d[i]*=g;if(R2.to==='pad')setPadSample(R2.kit,R2.pad,d,AC.sampleRate,false,name,true);else setSample(R2.slot,d,AC.sampleRate,false,true);SMPX.ck='';leds();return true}
+// FROM TAPE: the lifted piece (LIFT or COPY), the loop area or the bar at the head; one track or all four mixed
+const clipQ=[],getClip=()=>new Promise(r=>{clipQ.push(r);tape.port.postMessage({t:'getclip'})});
+function tapeParams(){return[stepK(SMPX.tp,0,'FROM',['LIFTED','LOOP','BAR']),stepK(SMPX.tp,1,'TRACK',['1','2','3','4','ALL']),goK('TAKE',tapeTake),null]}
+function tapeSpan(from){const sr=AC.sampleRate;if(from===0)return[0,S.clipLen||0];if(from===1)return S.loop?[S.li,S.lo]:null;const A=Math.floor(snapTo(S.tpos,barS()/beats()));return[A,Math.min(A+Math.floor(barS()),TAPE_SECS*sr)]}
+async function tapeTake(){if(!tape)return;const R2={to:SMPX.to,kit:S.kit,pad:S.pad|0,slot:S.slot},from=SMPX.tp[0]|0,tr=SMPX.tp[1]|0;let d;
+  if(from===0){const c=await getClip();if(!c||!c.length){status('nothing lifted yet: press LIFT, or Shift + T1 (COPY), in tape mode');return}d=c.slice()}
+  else{const sp=tapeSpan(from);if(!sp){status('no loop set: press LOOP in tape mode first, or take the BAR');return}const D=await dumpTape(),A=Math.floor(sp[0]),B=Math.floor(sp[1]);d=new Float32Array(Math.max(0,B-A));
+    for(let t=0;t<4;t++){if(tr<4&&t!==tr)continue;const a=D.dump[t],k=tr<4?1:S.lv[t]*(trackOn(t)?1:0);if(!k)continue;for(let i=0;i<d.length;i++)d[i]+=(a[A+i]||0)*k}}
+  if(putNorm(R2,d,'TAPE'))status('took '+(d.length/AC.sampleRate).toFixed(2)+' s of tape into '+(R2.to==='pad'?padNm(R2.pad)+' · kit '+(R2.kit+1):'synth '+slotNm(R2.slot)))}
+// tape mode: Shift + 4 sends the lifted piece straight to the sampler (the synth slot, or the selected pad in drum mode)
+async function clipToSampler(){if(!tape)return;if(!S.clipLen){status('LIFT or COPY a piece of tape first; then Shift + 4 sends it to the sampler');return}
+  const R2={to:S.inst==='drum'?'pad':'slot',kit:S.kit,pad:S.pad|0,slot:S.slot},c=await getClip();if(!c||!c.length)return;
+  if(putNorm(R2,c.slice(),'TAPE'))status('the lifted piece is now on '+(R2.to==='pad'?padNm(R2.pad)+' in kit '+(R2.kit+1)+' — press DRUM to play it':'synth '+slotNm(R2.slot)+' — press SYNTH to play it'))}
+function drawSampler(t){const pg=SMPX.pg;
+  if(pg===0){if(SMPX.to==='pad')drawPadSmp();else if(slotSmp[S.slot])drawSmp(synthP[S.slot].smp);else{txt('NO SAMPLE IN '+slotNm(S.slot),CX,48,COL.w,9,'center');txt('T3 RECORDS ONE (RESAMPLE OR INPUT) · T4 TAKES ONE FROM THE TAPE',CX,62,COL.dim,5.5,'center');txt('OR: LOAD SAMPLE · DROP A FILE ON THE PAGE',CX,72,COL.dim,5.5,'center')}return}
+  if(pg===1){const s=smpSrc();if(!s){txt('NOTHING TO SLICE YET',CX,48,COL.w,9,'center');txt('T3 RECORDS A SAMPLE · T4 TAKES ONE FROM THE TAPE',CX,62,COL.dim,6,'center');return}
+    const pts=slicePts(s),x0=20,ww=W-40,A=s.a,B=s.b,X=i=>x0+(i-A)/Math.max(1,B-A)*ww;
+    for(let i=0;i<160;i++){const j0=Math.floor(A+(B-A)*i/160),j1=Math.floor(A+(B-A)*(i+1)/160);let m=0;for(let j=j0;j<j1;j+=8)m=Math.max(m,Math.abs(s.d[j]));const h=1+m*28;g.fillStyle='#6a6e76';g.fillRect(x0+i*ww/160,CY+4-h,ww/160-.4,h*2)}
+    pts.forEach((p,k)=>{const x=X(p);ln(x,29,x,94,TC[k%4],1);txt(''+(k+1),x+1.5,35,TC[k%4],5)});
+    txt(pts.length+' SLICES → KIT '+(S.kit+1)+' '+KITS[S.kit]+' · PADS 1–'+pts.length,8,24,COL.w,6);txt('SLICE 1 = LOWEST KEY',W-8,24,COL.dim,5.5,'right');return}
+  if(pg===2){const now=AC.currentTime,inp=SMPX.rc[0]|0,secs=recSecs(),rec=RS.on&&now>=RS.at,wait=RS.on&&now<RS.at;
+    circ(42,50,15,rec||(wait&&Math.sin(t*12)>0)?COL.red:'#3a3d44',rec);txt(rec?'RECORDING':wait?'WAITING FOR THE BAR':'READY',42,80,rec||wait?COL.red:COL.w,6,'center');
+    txt(inp?'INPUT · '+(S.rm2[3]>.5?'LINE IN':'MIC'):'MASTER · WHAT YOU HEAR',90,30,COL.w,7);txt(secs.toFixed(2)+' S · '+RLN[SMPX.rc[1]|0]+' AT '+S.bpm+' BPM'+(SMPX.rc[3]|0?' · FROM THE NEXT BAR':''),90,40,COL.dim,5.5);
+    const x0=90,ww=W-100,f=rec?clamp((now-RS.at)/(RS.end-RS.at)):0;g.strokeStyle='#33363d';g.lineWidth=1;g.strokeRect(x0+.5,54.5,ww,10);g.fillStyle=COL.red;g.fillRect(x0+1,55,(ww-1)*f,9);
+    txt('INTO '+smpTarget(),90,78,COL.o,6);txt(SMPX.to==='pad'?'UP TO 6 S ON A PAD':'UP TO 10 S IN A SLOT',90,87,COL.dim,5);return}
+  const from=SMPX.tp[0]|0,tr=SMPX.tp[1]|0,sp=tapeSpan(from),sr=AC.sampleRate;
+  txt(['THE LIFTED PIECE (LIFT OR COPY)','THE LOOP AREA','THE BAR AT THE TAPE HEAD'][from],20,28,COL.w,7);if(from)txt(tr<4?'TRACK '+(tr+1):'ALL FOUR TRACKS, MIXED',20,37,COL.dim,6);
+  if(!sp||sp[1]<=sp[0]){txt(from===0?'NOTHING LIFTED YET':'NO LOOP SET',CX,64,COL.dim,8,'center')}
+  else{const b0=Math.floor(sp[0]/sr*10),b1=Math.max(b0+1,Math.ceil(sp[1]/sr*10)),x0=20,ww=W-40,nb=b1-b0;
+    for(let k=0;k<4;k++){const y=46+k*9,src=from===0?(k===S.track?clipOv:null):ov[k],use=from===0?k===S.track:tr===4||tr===k;g.fillStyle='#121418';g.fillRect(x0,y,ww,6);if(!src)continue;
+      g.fillStyle=TC[k];g.globalAlpha=use?1:.2;for(let b=0;b<nb;b++){const v=from===0?src[b]:src[b0+b];if(v>0){const h=1+v*4.5;g.fillRect(x0+b*ww/nb,y+3-h/2,Math.max(.6,ww/nb-.3),h)}}g.globalAlpha=1}
+    txt(((sp[1]-sp[0])/sr).toFixed(2)+' S',W-8,28,COL.dim,6,'right')}
+  txt('INTO '+smpTarget(),20,96,COL.o,6)}
 function drawPadSmp(){const k=S.pad|0,ps=padSmp[S.kit][k];
   if(!ps){txt(padNm(k),8,24,COL.dim,6);txt('NO SAMPLE ON '+padNm(k),CX,52,COL.w,9,'center');txt('HIT A PAD, THEN LOAD SAMPLE',CX,66,COL.dim,7,'center');return}
   const p=padPar(S.kit,k);drawSampleView(padNm(k)+' · '+ps.name.slice(0,22),1,ps.pk,{a:p[0],b:p[1],rv:p[3]>.5,md:idx(p[4],3),fi:fadeS(p[5]),fo:fadeS(p[6]),D:ps.buf.duration},
@@ -2509,9 +2833,9 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PER
   if(S.sys.sleep&&performance.now()-lastIn>S.sys.sleep*60000){g.fillStyle='#000';g.fillRect(0,0,W,H);return}
   readScope();const P=cur();let title;
   g.save();g.beginPath();g.rect(0,14,W,86);g.clip();
-  if(S.overlay==='dm'){title='DRUM MACHINE · '+['VOICE 1','VOICE 2','FILTER','STEPS'][DM.page]+(DM.page===3?' · PATTERN '+(DM.pe+1)+(dmChain()>1?' · CHAIN 1–'+dmChain():'')+(DM.hold?' · STEP '+(DM.hold.st+1):''):'');drawDM(t)}
-  else if(S.overlay==='pse'){title=`DRUM ${S.kit+1} · SAMPLE`;drawPadSmp()}
-  else if(S.overlay==='key'){title='KEY & CHORDS';drawKey(t)}
+  if(S.overlay==='dm'){const H=DM.hold;title=H&&H.pg<3?'DRUM MACHINE · STEP '+(H.st+1)+' LOCKS · '+['VOICE 1','VOICE 2','FILTER'][H.pg]:'DRUM MACHINE · '+['VOICE 1','VOICE 2','FILTER','STEPS','DICE & FILL'][DM.page]+(DM.page>=3?' · PATTERN '+(DM.pe+1)+(DM.page===3&&dmChain()>1?' · CHAIN 1–'+dmChain():'')+(H?' · STEP '+(H.st+1):''):'');drawDM(t)}
+  else if(S.overlay==='pse'){title='SAMPLER · '+smpTarget()+' · '+['EDIT','SLICE','RECORD','FROM TAPE'][SMPX.pg];drawSampler(t)}
+  else if(S.overlay==='key'){title='KEY & CHORDS · '+['KEY','PROGRESSION','FOLLOW BASS'][KC.pg];if(KC.pg===1)drawProg(t);else if(KC.pg===2)drawBass(t);else drawKey(t)}
   else if(S.overlay==='recm'){title='ADVANCED REC · TRACK '+(S.track+1);drawRecm(t)}
   else if(S.overlay==='erase'){title='ERASE TAPE';drawErase(t)}
   else if(S.overlay==='sys'){title='SYSTEM · '+SYSN[SYS.s];drawSys(t)}
@@ -2520,24 +2844,25 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PER
   else if(S.overlay==='proj'){title='PROJECTS · '+(pjCur()||{name:''}).name;drawProj(t)}
   else if(S.overlay==='menu'){title='SYNTHS & PRESETS · '+engOf().name+' · '+(synthP[S.slot].rnd?'RANDOM #'+synthP[S.slot].rnd:presetsSl(S.slot)[S.pre[S.slot]][0]);drawMenu(t)}
   else if(S.overlay==='tempo'){title='TEMPO';drawTempo(t)}
-  else if(S.overlay==='seq'){title='SEQ · '+SEQT[seq.type];drawSeq()}
+  else if(S.overlay==='seq'){title='SEQ · '+SEQT[seq.type]+(seq.type===1&&seq.lkPg?' · LOCKS':'');drawSeq()}
   else if(S.overlay==='fx'){title=(S.rkB?'FX RACK B · '+RKN2[S.rkSel]:'FX RACK · '+RKN[S.rkSel])+'  ·  SHIFT+FX ▸ BANK '+(S.rkB?'A':'B');drawRack(t)}
+  else if(S.overlay==='mk'){title='SECTIONS · '+mkSorted().length+' MARKER'+(mkSorted().length===1?'':'S');drawMarkers(t)}
   else if(S.mode==='tape'){title='TAPE · '+(pjCur()||{name:''}).name+' · TRACK '+(S.track+1);drawTape()}
   else if(S.mode==='mixer'&&S.mxB){title='MIXER B · '+['SENDS','SIDECHAIN','BOUNCE','EXPORT'][S.page]+(S.page===0?(S.shift?' ▸ DELAY':'  ·  SHIFT ▸ DELAY'):'');drawMixerB(t)}
   else if(S.mode==='mixer'){title='MIXER · '+['LEVEL & PAN','MULTIBAND COMP','EQ','MASTER'][S.page]+(S.shift?' ▸ '+['PAN','X-OVER & SPEED','FREQUENCY','LIMITER & WIDTH'][S.page]:'  ·  SHIFT ▸ '+['PAN','X-OVER','FREQ','MORE'][S.page]);drawMixer()}
   else{const nm=S.inst==='synth'?`SYNTH ${slotNm(S.slot)} · ${engOf().name}`:`DRUM ${S.kit+1} · ${KITS[S.kit]}`+(idx(drumP[S.kit].km[0],4)?' · '+KMODEL[idx(drumP[S.kit].km[0],4)]:'');
-    if(S.page===0){title=nm;if(S.inst==='drum'){drawDrum();drawPadInfo()}else if(slotSmp[S.slot]&&engOf()===SMP){drawSmp(P.smp)}else{ENGDRAW[slE(S.slot)](t,P.eng,S.lvl);if(!NOSCOPE.has(slE(S.slot)))scope(20,W-20,92,6,'rgba(255,255,255,.28)')}}
+    if(S.page===0){title=nm;if(S.inst==='drum'){drawDrum();drawPadInfo()}else if(slotSmp[S.slot]&&engOf()===SMP){drawSmp(P.smp)}else if(S.shift){title=nm+' · MACRO';drawMacro(t,P)}else{ENGDRAW[slE(S.slot)](t,P.eng,S.lvl);if(!NOSCOPE.has(slE(S.slot)))scope(20,W-20,92,6,'rgba(255,255,255,.28)')}}
     else if(S.page===1){title=nm+(S.inst==='drum'?' · MIX':' · ENVELOPE');if(S.inst==='drum'){P.env.forEach((v,i)=>{const x=60+i*72;g.strokeStyle=COL.dim;g.lineWidth=.6;g.strokeRect(x-10,22,20,70);g.fillStyle=TC[i];g.fillRect(x-8,90-v*66,16,v*66)})}else{drawEnv(P.env);const pm=P.pm||[0,.25,0,.8];
       txt(S.shift?PMN[pmOf(P)]+' · GLIDE '+(glideT(P)<.003?'OFF':Math.round(glideT(P)*1000)+' MS')+' · DRIFT '+pct(pm[2])+' · VELOCITY '+pct(pm[3]):'SHIFT ▸ PLAY MODE · GLIDE · DRIFT · VELOCITY',W-8,24,S.shift?COL.o:'#4a4d54',5.5,'right')}}
     else if(S.page===2){title='FX · '+FXN[P.fxType];drawFx(t,P)}
-    else{title='LFO';drawLfo(t,P.lfo)}}
+    else{title='LFO '+(S.shift?'2':'1')+' · '+(S.inst==='synth'?slotNm(S.slot):'DRUM '+(S.kit+1));drawLfo(t,P)}}
   if(S.count){const left=Math.max(1,Math.ceil(S.count.b0-beatNow().b-1e-6));g.fillStyle='rgba(5,5,7,.86)';g.fillRect(0,14,W,86);
     txt(''+left,CX,80,COL.red,48,'center');txt('COUNT-IN · TRACK '+(S.track+1),CX,28,COL.dim,7,'center');title='REC'}
   if(S.shift&&!S.shiftUsed&&performance.now()-(S.shiftAt||0)>500&&S.overlay!=='save'){drawShiftMap();title='SHIFT MAP'}
   g.restore();
   txt(title,6,10,COL.w,7);
   let hx=W-6;const hd=(s,c)=>{txt(s,hx,10,c,7,'right');hx-=g.measureText(s).width+8};
-  hd('♩'+S.bpm,COL.dim);if(HW.power&&HW.power.ok)hd((HW.power.charging?'⚡':'')+Math.round(HW.power.soc)+'%',HW.power.soc<15?COL.red:COL.dim);if(!S.sys.vl&&PERF.vmax<10)hd('CPU',COL.o);if(S.inst==='synth'&&synthP[S.slot].pm&&pmOf(synthP[S.slot]))hd(PMN[pmOf(synthP[S.slot])],COL.b);if(kOn())hd(kTag(),COL.g);if(S.sys.clk)hd(clockStr(),COL.w);if(S.oct)hd('OCT'+(S.oct>0?'+':'')+S.oct,COL.g);if(seq.on)hd('SEQ',COL.g);if(S.rkOn.some(x=>x)||S.rkOn2.some(x=>x))hd('FX',COL.o);if(qStep())hd('Q'+QZN[idx(S.tq[1],5)],COL.w);if(S.loop)hd('LOOP',COL.b);if(S.playing)hd(S.rec?'●REC':'▶',S.rec?COL.red:COL.w);if(MIX.rec)hd('●MIX',COL.red);if(SCENE.msg&&performance.now()-SCENE.at<1600)hd(SCENE.msg,COL.o);if(S.solo.some(Boolean)||S.mute.some(Boolean))hd(S.solo.some(Boolean)?'SOLO':'MUTE',S.solo.some(Boolean)?COL.g:COL.o);if(S.shift)hd('SHIFT',COL.o);
+  hd('♩'+S.bpm,COL.dim);if(HW.power&&HW.power.ok)hd((HW.power.charging?'⚡':'')+Math.round(HW.power.soc)+'%',HW.power.soc<15?COL.red:COL.dim);if(!S.sys.vl&&PERF.vmax<10)hd('CPU',COL.o);if(S.inst==='synth'&&synthP[S.slot].pm&&pmOf(synthP[S.slot]))hd(PMN[pmOf(synthP[S.slot])],COL.b);if(kOn())hd(kTag(),COL.g);if(S.sys.clk)hd(clockStr(),COL.w);if(S.oct)hd('OCT'+(S.oct>0?'+':'')+S.oct,COL.g);if(seq.on)hd('SEQ',COL.g);if((S.bs[0]|0)&&S.inst==='synth')hd('BASS '+slotNm((S.bs[0]|0)-1),COL.b);if(S.rkOn.some(x=>x)||S.rkOn2.some(x=>x))hd('FX',COL.o);if(qStep())hd('Q'+QZN[idx(S.tq[1],5)],COL.w);if(S.loop)hd('LOOP',COL.b);if(S.playing)hd(S.rec?'●REC':'▶',S.rec?COL.red:COL.w);if(MIX.rec)hd('●MIX',COL.red);if(SCENE.msg&&performance.now()-SCENE.at<1600)hd(SCENE.msg,COL.o);if(S.solo.some(Boolean)||S.mute.some(Boolean))hd(S.solo.some(Boolean)?'SOLO':'MUTE',S.solo.some(Boolean)?COL.g:COL.o);if(S.shift)hd('SHIFT',COL.o);
   ln(0,14,W,14,'#1c1e22',.6);ln(0,100,W,100,'#1c1e22',.6);
   params().forEach((p,i)=>{if(!p)return;const x=i*W/4+W/8;txt(p.n,x,111,COL.dim,6.5,'center');txt(p.val(),x,123,TC[i],9.5,'center')});
   if(S.sys.bri<1){g.fillStyle=`rgba(0,0,0,${(1-S.sys.bri)*.8})`;g.fillRect(0,0,W,H)}}
