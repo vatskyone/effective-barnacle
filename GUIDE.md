@@ -31,7 +31,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 - **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
 - **Mode keys:** SYNTH, DRUM, TAPE and MIXER. SYNTH lights orange while the synths & presets menu is open (Shift + SYNTH), DRUM while the drum machine is open (Shift + DRUM).
 - **T1–T4:** pick the page inside a mode.
-- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the drum-mode sample editor (Shift + 4). All eight numbers sit at the same height in their rings, labelled or not.
+- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the sampler (Shift + 4). All eight numbers sit at the same height in their rings, labelled or not.
 - **Transport:** REC (a red disc inside the key's ring, Shift + REC for advanced recording), PLAY and STOP, plus the ← → arrows: pitch bend in synth mode, tape winding in the other modes.
 - **Musical keys:** the keyboard along the bottom, with white and black keys.
 - **Lights on the right edge:** the output level meter. The red light at the top means you are near the maximum level.
@@ -83,7 +83,8 @@ There are about 40 Shift combinations, so WEB-1 shows them for you. Hold **Shift
 | **B N M ,** | T1 · T2 · T3 · T4 |
 | **1 – 8** | Sound slot (synth bank A, or drum kit) |
 | **Shift + 1 – 8** | Synth bank B (in synth mode) |
-| **Shift + 4** | Pad sample editor (in drum mode); hold Shift on its knobs for PLAY · FADE IN · FADE OUT · LEVEL |
+| **Shift + 4** | In drum mode: the sampler for the selected pad (EDIT · SLICE · RECORD · FROM TAPE on T1–T4). In tape mode: sends the piece you lifted or copied to the sampler |
+| **B** again (T1 on the T1 page) | The sampler: for the synth slot, or for the selected pad in drum mode |
 | **Shift + M** | Shift + T3: effect bank B (BOUNCE · COIL · CUBE · RADIO) |
 | **R** | REC |
 | **Shift + R** | Advanced REC (Shift + REC) |
@@ -94,6 +95,10 @@ There are about 40 Shift combinations, so WEB-1 shows them for you. Hold **Shift
 | **Enter** | STOP (press twice to rewind) |
 | **← →** | In synth mode: pitch bend. In the other modes: hold to wind the tape |
 | **Q** | Loop on/off |
+| **Shift + Q** (tape mode) | SECTIONS: song markers. Then 1–6 set a marker or jump to it |
+| **1 – 8** (FX screen open) | Hold for live FX: REPEAT 1/4–1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP |
+| **1 – 8** (drum machine) | Pick the pattern; Shift + 1–8 copies the pattern there |
+| **→** (drum machine) | Hold for a fill |
 | **[ ]** | LIFT · DROP (Shift + LIFT erases the track) |
 | **Shift + ]** | Undo the last tape change (Shift + DROP); again to redo |
 | **Shift + B N M ,** (tape mode) | Tape edits: COPY · CROP · DOUBLE · ERASE |
@@ -109,12 +114,38 @@ Press **SYNTH** (Z). The T keys choose the page:
 
 | Page | Knobs |
 |---|---|
-| **T1 ENGINE** | The engine's own four parameters (listed below) |
+| **T1 ENGINE** | The engine's own four parameters (listed below). Hold Shift for the **MACRO** (see below). Press T1 again for the **SAMPLER** (section 5) |
 | **T2 ENVELOPE** | ATTACK · DECAY · SUSTAIN · RELEASE. Hold Shift for PLAY · GLIDE · DRIFT · VELOCITY (see below) |
 | **T3 FX** | The sound's own effect. Press T3 again to switch between ECHO, ROOM, CRUSH and SWIRL. Shift + T3 switches to the bank B effects (see below). |
-| **T4 LFO** | RATE · AMOUNT · DEST (PITCH, AMP, PAN, TONE) · SHAPE (SINE, TRI, SQR, SAW) |
+| **T4 LFO** | **LFO 1**: RATE · AMOUNT · DEST · SHAPE. Hold Shift for **LFO 2** (see below) |
 
-Each slot remembers its own engine settings, envelope, effect and LFO.
+Each slot remembers its own engine settings, envelope, effect, LFOs and macro.
+
+### LFO 1 and LFO 2: T4
+
+Each sound has two LFOs. The T4 knobs set **LFO 1**; hold **Shift** for **LFO 2**. The screen shows both, LFO 1 on top and LFO 2 underneath, with the one you are editing lit.
+
+| Knob | Job |
+|---|---|
+| **Blue: RATE** | 0.05 to 19 Hz |
+| **Green: AMOUNT** | How much it moves its target. At 0 the LFO is off |
+| **White: DEST** | **PITCH** (vibrato) · **AMP** (tremolo) · **PAN** · **TONE** (a filter sweep) · **FX MIX** (the sound's effect breathes in and out) · or any of the **engine's four knobs**, shown by name (CUTOFF, DETUNE, VOWEL…) |
+| **Orange: SHAPE** | SINE · TRI · SQR · SAW · **RANDOM** (a new random level on each step, like sample and hold) · **DRIFT** (a smooth random wander) |
+
+PITCH, AMP, PAN, TONE and FX MIX move all the time. An engine knob is read as each note starts, so the LFO changes the notes one by one. That is great on sequences and arpeggios, where every note comes out a little different. Both LFOs can run at once, for example a slow DRIFT on TONE and a fast SINE on PITCH.
+
+### The macro: Shift + knobs on T1
+
+Hold **Shift** on the T1 page to turn the sound's **MACRO**: one knob that moves several things at once. Each engine has its own macro, chosen so that turning it up makes the sound bigger, brighter or wilder. On NEON it adds detune and opens the cutoff; on ACID it opens the filter and adds resonance and envelope.
+
+| Knob | Job |
+|---|---|
+| **Blue: MACRO** | The macro itself, 0–100 |
+| **Green: ENGINE** | How far, and which way, the macro moves the engine's knobs (−100 to +100) |
+| **White: TONE** | A low-pass that the macro opens (+) or closes (−) |
+| **Orange: FX** | How much effect the macro adds (+) or takes away (−) |
+
+The screen shows the macro dial and, for each engine knob, where it is (grey tick) and where the macro takes it (white line). Engine knobs change on the next notes you play; TONE and FX change at once. The macro is saved with the sound and in your presets. Sample slots keep Shift + T1 for the sample's own settings.
 
 ### Effects
 
@@ -208,6 +239,34 @@ With SCALE set to OFF, the chord types still follow the key's major scale, and t
 
 **With the sequencers:** with ARP, holding one key arpeggiates its chord. In CHAIN, Shift + a key adds the whole chord as one step. ENDLESS and CHAIN take the scale note when you transpose them, and PATTERN toggles the whole chord on a step.
 
+**Pages:** T1–T3 pick the page of KEY & CHORDS: T1 KEY (above), T2 PROGRESSION, T3 FOLLOW BASS. T4 closes it.
+
+#### T2: PROGRESSION
+
+Makes a chord progression in your key and puts it into the **CHAIN** sequencer, ready to play.
+
+| Knob | Job |
+|---|---|
+| **Blue: STYLE** | POP (I–V–vi–IV) · DREAMY (I–iii–vi–IV) · SAD (vi–IV–I–V) · EPIC (i–VI–III–VII) · FIFTIES (I–vi–IV–V) · JAZZY (ii–V–I–vi) · CIRCLE (eight chords around the circle of fifths) · DICE (a new progression each time, from chords that lead well into each other) |
+| **Green: CHORDS** | 4 or 8 |
+| **White: MAKE** | Push it, or turn it all the way to YES, to write the progression |
+| **Orange: EACH** | How long each chord lasts: 2 beats, 1 bar or 2 bars |
+
+The chords are built from the scale of your key, with the CHORD type (TRIAD, SEVENTH or NINTH; triads otherwise) and the VOICING. The style names describe the steps in a major key; in a minor key the same steps give the minor version, so POP in A minor is Am – Em – F – Dm. The screen shows the chords as boxes with their names and steps, and lights the one that plays. Tap the **low C** to play the progression: HOLD is turned on, so it keeps going until you press STOP. Another key transposes it. Making a progression replaces what was in CHAIN.
+
+#### T3: FOLLOW BASS
+
+Another synth slot plays a bass line under whatever you play: your chords on the keys, or the CHAIN, PATTERN and ARP sequencers. It follows the lowest note that sounds, in time with the tempo.
+
+| Knob | Job |
+|---|---|
+| **Blue: SLOT** | OFF, or the synth slot that plays the bass (A1–B8), with its own sound and envelope |
+| **Green: STYLE** | **ROOT** (one long note per chord) · **PULSE** (every 8th) · **OFFBEAT** (between the beats) · **OCTAVES** (low and high) · **WALK** (root, fifth, octave, fifth on the beats) |
+| **White: OCTAVE** | −2, −1 or 0 octaves from the keyboard's low C |
+| **Orange: LEVEL** | How loud the bass plays |
+
+The title bar shows **BASS B1**, for example, while it is on. The bass plays through the current sound's effect, and it records onto the tape together with what you play. Make a progression on T2, pick a bass slot on T3, tap the low C, and you have chords and a bass line from one key.
+
 ### The engine library: 24 engines for 16 slots
 
 Any engine can play in any slot. The 16 slots start with the engines in the tables above, and eight more engines are in the library. To put one in a slot, open the synths & presets menu (Shift + SYNTH) and turn the **white knob**.
@@ -248,10 +307,10 @@ Every musical key plays a different drum sound, and the screen flashes the pad y
 
 | Page | Knobs |
 |---|---|
-| **T1** | TUNE · DECAY · TONE · DRIVE. Hold Shift for **MODEL** and **CHOKE** (see below) |
+| **T1** | TUNE · DECAY · TONE · DRIVE. Hold Shift for **MODEL** and **CHOKE** (see below). Press T1 again for the **SAMPLER** of the selected pad |
 | **T2 MIX** | KICK · SNARE · HATS · PERC levels |
 | **T3 FX** | The kit's effect (press T3 again to change it, or Shift + T3 for bank B) |
-| **T4 LFO** | Same as for synths |
+| **T4 LFO** | Same as for synths: LFO 1, and LFO 2 with Shift |
 
 ### Kit models and choke
 
@@ -278,7 +337,7 @@ The kit's TUNE changes its pitch and TONE how bright it is. How long it plays is
 
 #### Editing a pad sample: Shift + 4
 
-Key 4 is labelled **SAMPLE** in orange. In drum mode, hold **Shift** and press **4** to open the sample editor for the selected pad, as you would edit a sample in synth mode. Key 4 lights orange while it is open, and the screen shows the sample's waveform with the part that plays in white. While the pad plays, an orange line runs through the waveform, one for each hit that is still sounding. The play mode is shown in the top corner, fades are drawn as orange ramps, and a green line under the waveform marks a loop.
+Key 4 is labelled **SAMPLE** in orange. In drum mode, hold **Shift** and press **4** (or press T1 again on the T1 page) to open the **SAMPLER** for the selected pad. Its T1 EDIT page is the sample editor below; T2–T4 slice, record and take samples from the tape (see section 5). On EDIT it works as you would edit a sample in synth mode. Key 4 lights orange while it is open, and the screen shows the sample's waveform with the part that plays in white. While the pad plays, an orange line runs through the waveform, one for each hit that is still sounding. The play mode is shown in the top corner, fades are drawn as orange ramps, and a green line under the waveform marks a loop.
 
 | Knob | What it does | Shift + knob | What it does |
 |---|---|---|---|
@@ -289,7 +348,7 @@ Key 4 is labelled **SAMPLE** in orange. In drum mode, hold **Shift** and press *
 
 The kit's TUNE, TONE and level still shape a sampled pad. Its length now comes from START, END and the play mode, so the kit's DECAY knob no longer cuts samples short. When a sequencer plays a GATE or LOOP pad, the pad stops at the end of each step.
 
-Hit another pad to edit that pad's sample; pads without a sample show a reminder to load one. Loading a sample while the editor is open puts it on the selected pad. Press **Shift + 4** again, or any T key, to close the editor. The settings are saved with the pad, and loading a new sample on a pad resets them.
+Hit another pad to edit that pad's sample; pads without a sample show a reminder to load one. Loading a sample while the editor is open puts it on the selected pad. Press **Shift + 4** again, or T1 on the EDIT page, to close the sampler. The settings are saved with the pad, and loading a new sample on a pad resets them.
 
 ### Drum machine
 
@@ -310,7 +369,16 @@ Press **Shift + DRUM** (Shift + X) to open the drum machine. The DRUM light turn
 - **HITS** spreads that many hits as evenly as possible over the pattern for the selected pad, a quick way to build rhythms (3 hits over 8 steps gives a classic syncopated rhythm). **ROTATE** moves the pad's steps one step later or earlier.
 - The closed hat (HAT) cuts off a ringing open hat (OPEN).
 - The pattern follows the tempo and swing. It keeps playing after you close the drum machine, and it records onto the tape like anything else.
-- Press **Shift + DRUM** again to close it. Your pads and all 8 patterns are saved with the project.
+- **Patterns on the keys:** with the drum machine open, **1–8** pick the pattern to edit, and **Shift + 1–8** copies the pattern you are on to that number (handy for a variation or a fill).
+- **Step locks:** hold a step, then press **T1**, **T2** or **T3**. The knobs become that page's knobs (VOICE 1, VOICE 2 or FILTER) for this step only. Turn one to lock its value on the step, for example a higher TUNE on one snare hit or another filter on one hat. Locked values show a dot, and the voice and filter pictures show the step's sound. Push a knob (double-click) to clear its lock. A step with locks has an orange dot on the grid. Press **T4** while holding to go back to VELOCITY · CHANCE · ROLL · NUDGE.
+- **Conditions:** while holding a step, hold **Shift** too and turn the blue knob. **COND** makes the step play only on some passes of the pattern: **1 OF 2** (the first of every two passes), **2 OF 2**, **1 OF 3** … **4 OF 4**, **FILL** (only during a fill), **NO FILL** (never during a fill) or **FIRST** (only the first pass after you start). Steps with a condition have a small mark in the corner, orange for FILL ones.
+- **DICE & FILL:** press **T4** again on STEPS for the **DICE & FILL** page (T4 lights orange):
+  - **Blue: DICE** rolls a new pattern: kick on the one, snare on the backbeat, hats on the 8ths (16ths when it is busy), an open hat now and then, and tom fills marked FILL at the end. Turn it back to return to earlier rolls, and forward again to replay them; past the last one it rolls a new one. Push it to roll at once.
+  - **Green: WHAT:** ALL PADS, or THIS PAD to roll only the selected pad.
+  - **White: DENSITY:** how busy the rolls are.
+  - **Orange: FILL:** OFF, or EVERY 2, 4 or 8 passes: the last pass of each group is a fill.
+- **Fills by hand:** hold **→** while the drum machine is open. FILL steps play, NO FILL steps rest, and FILL lights up in orange on the screen. Fills also work for the PATTERN sequencer's FILL steps.
+- Press **Shift + DRUM** again to close it. Your pads and all 8 patterns, with their locks and conditions, are saved with the project.
 
 ## 5. Sampler
 
@@ -330,6 +398,21 @@ The sample plays across the keys at different pitches. While it plays, an orange
 | **Orange: REVERSE** | Plays backwards | **LEVEL** | Volume |
 
 The screen and knobs work exactly like the drum pad editor (Shift + 4 in drum mode): the slot and the sample's length at the top left, the play mode and a light that blinks on each note at the top right, fades as orange ramps, a green line under the waveform for a loop, and the waveform flipped when REVERSE is on, so the part that plays always reads from left to right.
+
+### The SAMPLER pages: T1 again
+
+Press **T1** again on the T1 page to open the **SAMPLER**: in synth mode it works on the slot, in drum mode on the selected pad (Shift + 4 in drum mode opens it too). T1–T4 pick its page; T1 on the EDIT page closes it.
+
+| Page | Knobs | What it does |
+|---|---|---|
+| **T1 EDIT** | START · END · TUNE · REVERSE; Shift: PLAY · FADE IN · FADE OUT · LEVEL | The sample editor described above |
+| **T2 SLICE** | MODE · SLICES · SLICE · SENSE | Cuts the sample (between START and END) into slices and puts them on the pads of the current kit, slice 1 on the lowest key. **EVEN** cuts 2 to 24 equal parts; **AT HITS** cuts where the sound jumps up, such as each hit of a drum loop, up to the SLICES number. **SENSE** sets how small a jump counts. The screen shows the cuts on the waveform. Push SLICE, or turn it to YES, to do it |
+| **T3 RECORD** | SOURCE · LENGTH · REC · START | Resampling: records **MASTER** (everything you hear, effects and all) or the **INPUT** (the mic or line in, as set in advanced REC) into the slot or the pad. LENGTH: 1 BEAT, 2 BEATS, 1 BAR, 2 BARS or 4 BARS at the tempo (up to 10 s in a slot, 6 s on a pad). START: NOW, or on the NEXT BAR so the sample starts on the beat. Push REC to start; push it again to stop early |
+| **T4 FROM TAPE** | FROM · TRACK · TAKE | Takes a piece of the tape into the sampler: the **LIFTED** piece (the last LIFT or COPY), the **LOOP** area or the **BAR** at the tape head, from one **TRACK** or ALL four mixed at their levels. Push TAKE |
+
+**Straight from the tape:** in tape mode, **Shift + 4** sends the piece you just lifted (LIFT) or copied (Shift + T1) to the sampler: to the synth slot you are on, or to the selected pad when DRUM is the instrument.
+
+A recorded or taken sample is set to full level and starts exactly where it was cut, so loops stay in time. Slices keep their levels relative to each other.
 
 ## 6. Tape mode
 
@@ -413,6 +496,23 @@ Thin vertical lines on the tracks mark every bar (every fourth bar is brighter),
 - **2:** STUTTER, repeats a tiny slice.
 - **3:** REVERSE, plays backwards while held.
 
+### Sections: Shift + LOOP
+
+Mark the parts of your song (intro, verse, chorus…) and jump or loop between them while it plays. In tape mode, hold **Shift** and press **LOOP** (Shift + Q) to open **SECTIONS**.
+
+- Press **1–6** to set a marker at the tape head, on the nearest bar line. Press a number that is already set to **jump** there: while the tape plays, the jump happens on the next bar line so it stays in time; when the tape is stopped, the head goes there at once.
+- With **LOOP** on, pressing a marker's number loops that section, from its marker to the next one.
+- The screen shows the whole tape as a song map: each section in its colour with its name, the recorded audio, the loop in green and the tape head in red. Under it, the six keys show which markers are set; the one waiting to jump blinks.
+
+| Knob | Job |
+|---|---|
+| **Blue: MARKER** | The marker the other knobs change (1–6) |
+| **Green: NAME** | INTRO · VERSE · CHORUS · BRIDGE · BREAK · OUTRO · BUILD · DROP · HOOK · SOLO · A · B · C · D |
+| **White: MOVE** | Moves the marker by a bar |
+| **Orange: CLEAR** | Push twice, or turn to YES, to remove the marker |
+
+The markers also show as small flags with their names on the tape screen. They are saved with the project, and erasing the whole tape clears them. You can't jump while recording.
+
 ## 7. Mixer mode
 
 Press **MIXER** (V). Each T page gives the four knobs a different job, and holding **Shift** while you turn a knob reaches a second set of settings on every page. The title bar shows what Shift does on the page.
@@ -462,6 +562,9 @@ Press **=** to open the sequencer screen, then choose a type with T1, T2, T3 or 
   - A step grid. The blue knob picks a step; tap keys to switch notes on or off on that step.
   - The orange knob starts and stops the pattern.
   - Knobs: STEP · RATE · LENGTH · RUN.
+  - **Step settings:** hold **Shift** and the knobs set the selected step's **VELOCITY** · **CHANCE** · **ROLL** (1–4 quick repeats) · **COND** (the same conditions as the drum machine: 1 OF 2 … 4 OF 4, FILL, NO FILL, FIRST). Quiet steps are drawn dimmer, a line under a step shows its chance, and a corner mark shows a condition.
+  - **Locks:** press **T2** again for **LOCKS**: the knobs become the sound's four engine knobs (CUTOFF, DETUNE…) for the selected step only. Turn one to lock it; push it (double-click) to clear it. Press T2 again to go back. Steps with locks have an orange dot.
+  - **←** and **→** pick the step (on both pages), so they don't bend the pitch while PATTERN is on screen.
 - **ARP (T3):**
   - Hold a chord and it is played as an arpeggio.
   - Knobs: RATE · GATE · MODE (UP, DOWN, UPDN, RND) · RANGE (1–3 octaves).
@@ -503,6 +606,20 @@ Press **I** for the master rack. It has four effects in a chain:
 | **LO-FI** | CRUSH (12 down to 3 bits, with hiss) · TONE · WOW · MIX |
 
 Delay and reverb tails ring out when you switch them off. Both banks are included in the WAV export.
+
+### Live FX: hold 1–8
+
+With the FX screen open, hold the number keys for performance effects on everything you hear: the tape, your playing and the drums. Each one works while you hold its key and stops when you let go.
+
+| Key | Effect |
+|---|---|
+| **1–4** | **REPEAT** 1/4 · 1/8 · 1/16 · 1/32: the beat you are on plays once, then repeats in time with the tempo |
+| **5** | **FREEZE**: holds the sound as a steady texture |
+| **6** | **SWEEP DOWN**: a resonant low-pass closes over two beats |
+| **7** | **SWEEP UP**: a high-pass rises over two beats, for build-ups |
+| **8** | **TAPE STOP**: everything slows down to a stop |
+
+You can hold several at once, such as a sweep with a repeat. Of the repeats, FREEZE and TAPE STOP, the last one you pressed wins. The bottom of the screen shows the eight effects with the ones you hold lit, and the effect's name appears big while you hold it. Live FX are for performing: they are in LIVE MIXDOWN and in resampling (sampler RECORD, MASTER), but they are not recorded on the tape.
 
 ## 10. Tempo, count-in and quantize
 
@@ -632,6 +749,8 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 9. Press **I**, then switch on DELAY (T3) and REVERB (T4) for space.
 10. Click **export tape as wav** to download your song.
 
+**A shortcut for chords and bass:** in step 6, open KEY & CHORDS (Shift + -), press T2 and push MAKE for a progression, then press T3 and pick a slot for the bass. Tap the low C while recording, and the chords and a bass line go onto the track in one take.
+
 ## 15. Troubleshooting
 
 | Problem | Fix |
@@ -654,6 +773,10 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 | Crackles | Close other heavy tabs. Very big chords on NEON or HOOVER use the most CPU. The system menu's CPU section shows the audio load and dropouts. |
 | Fewer notes sound than I play, and the title bar shows CPU | The device is busy, so the AUTO voice limit is holding back. Close other tabs, or set VOICE LIMIT in the system menu (CPU). |
 | A list of Shift combinations covers the screen | That is the Shift map: you held Shift for half a second. Let go to close it, or press the other key sooner. |
+| A bass plays along by itself | FOLLOW BASS is on (the title bar shows BASS A1, for example). Open KEY & CHORDS (Shift + -), press T3 and set SLOT to OFF. |
+| Pressing T1 opened the sampler | Pressing T1 on the T1 page opens the SAMPLER. Press T1 on its EDIT page to go back. |
+| Some steps only play now and then | They have a CHANCE below 100% or a condition (1 OF 2, FILL…). Hold the step, turn CHANCE up, or hold Shift and set COND to ALWAYS. |
+| ← and → don't bend the pitch | The PATTERN sequencer is on screen: there the arrows pick the step. Close the sequencer screen to bend. |
 | I want a fresh start | Click **reset all**. |
 
 ## 16. On the WEB-1 hardware
