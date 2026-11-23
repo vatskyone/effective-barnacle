@@ -1,0 +1,73 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>WEB-1 hardware</title>
+<!-- WEB-1 on the device. The helper (web1-helper.py) serves this page at http://localhost:8000/hw.html.
+     It runs WEB-1 in a hidden frame, shows only its screen on the 800x480 panel, and links the
+     controller (the RP2040 on USB serial) to the app: keys, knob clicks and pushes, volume, and the key lights. -->
+<style>html,body{margin:0;height:100%;background:#000;overflow:hidden;cursor:none}
+#f{position:fixed;inset:0;width:100%;height:100%;border:0}
+#out{position:fixed;inset:0;width:100vw;height:100vh;background:#000;pointer-events:none}
+#go{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:none;font:16px sans-serif;padding:12px 20px;cursor:default}</style></head>
+<body><iframe id="f" src="index.html?web1&hw"></iframe><canvas id="out" width="800" height="480"></canvas><button id="go">connect controller</button>
+<script>
+// The case window shows a 94.7 x 41.5 mm band of the panel: move it with BAND_TOP.
+var BAND_TOP = 20, BAND_H = 369;
+// LED chain order (must match code.py): 29 key lights, then 5 VU lights (top = red)
+var ACTS = ['fx','tempo','metro','synth','drum','tape','mixer','t0','t1','t2','t3','s0','s1','s2','s3','s4','s5','s6','s7','seq','lift','drop','loop','rec','play','stop','left','right','shift'];
+var f = document.getElementById('f'), out = document.getElementById('out'), g = out.getContext('2d');
+var W = null, writer = null, lastLed = '';
+f.addEventListener('load', function () {
+  W = f.contentWindow; W.focus();
+  setInterval(function () { if (document.activeElement !== f) W.focus(); }, 2000);
+  requestAnimationFrame(draw); setInterval(leds, 50); connect();
+});
+function draw() {
+  var s = f.contentDocument.getElementById('scr');
+  g.fillStyle = '#000'; g.fillRect(0, 0, 800, 480);
+  if (s && s.width) {
+    var h = Math.min(BAND_H, 800 * s.height / s.width), w = h * s.width / s.height;
+    g.drawImage(s, (800 - w) / 2, BAND_TOP + (BAND_H - h) / 2, w, h);
+  }
+  requestAnimationFrame(draw);
+}
+function fire(el, type, init) {
+  var C = type.indexOf('pointer') === 0 ? PointerEvent : type === 'wheel' ? WheelEvent : MouseEvent;
+  el.dispatchEvent(new C(type, Object.assign({ bubbles: true, cancelable: true }, init || {})));
+}
+// Lines from the controller: K <semitone 0-23> <1|0> · E <knob 0-3> <clicks> · P <knob 0-3> · V <0-1000>
+// Knob clicks and pushes go straight to WEB-1 (encStep / encPush): one click moves a menu or list exactly one step,
+// and a push confirms the action on that knob. Older copies of index.html get the wheel and double-click instead.
+function onLine(line) {
+  var p = line.trim().split(' '), i = +p[1], el;
+  if (p[0] === 'K') { el = W.eval('keyEl')[i]; if (el) fire(el, p[2] === '1' ? 'pointerdown' : 'pointerup', { pointerId: 10 + i }); }
+  else if (p[0] === 'E') { if (W.encStep) W.encStep(i, +p[2]); else { el = W.eval('encEl')[i]; if (el) fire(el, 'wheel', { deltaY: -(+p[2]) * 45 }); } }
+  else if (p[0] === 'P') { if (W.encPush) W.encPush(i); else { el = W.eval('encEl')[i]; if (el) fire(el, 'dblclick'); } }
+  else if (p[0] === 'V') { var cur = W.eval('S.ms[0]'); fire(W.eval('volEl'), 'wheel', { deltaY: -(i / 1000 - cur) * 1500 }); }
+}
+async function connect() {
+  if (!('serial' in navigator)) return;
+  var ports = await navigator.serial.getPorts();
+  if (ports[0]) return open(ports[0]);
+  var b = document.getElementById('go'); b.style.display = 'block';
+  b.onclick = async function () { var p = await navigator.serial.requestPort(); b.style.display = 'none'; open(p); };
+}
+async function open(port) {
+  await port.open({ baudRate: 115200 });
+  writer = port.writable.getWriter();
+  var rd = port.readable.pipeThrough(new TextDecoderStream()).getReader(), buf = '', n;
+  for (;;) {
+    var r = await rd.read(); if (r.done) break; buf += r.value;
+    while ((n = buf.indexOf('\n')) >= 0) { onLine(buf.slice(0, n)); buf = buf.slice(n + 1); }
+  }
+}
+function hex(c) { var m = c.match(/[\d.]+/g) || [0, 0, 0]; return m.slice(0, 3).map(function (x) { return ('0' + Math.round(+x).toString(16)).slice(-2); }).join(''); }
+function leds() {
+  if (!writer) return;
+  var d = f.contentDocument, s = 'L';
+  ACTS.forEach(function (a) {
+    var k = d.querySelector('.k[data-a="' + a + '"]');
+    s += k && k.classList.contains('lit') ? hex(getComputedStyle(k.querySelector('.led')).backgroundColor) : '000000';
+  });
+  d.querySelectorAll('.vu').forEach(function (v) { s += v.classList.contains('on') ? (v.classList.contains('r') ? 'ff2010' : 'ffffff') : '000000'; });
+  if (s !== lastLed) { lastLed = s; writer.write(new TextEncoder().encode(s + '\n')); }
+}
+</script></body></html>

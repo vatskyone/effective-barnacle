@@ -127,13 +127,14 @@ code{font:12px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--chip
 window.SRC = {
 hw: `<!doctype html>
 <html><head><meta charset="utf-8"><title>WEB-1 hardware</title>
-<!-- Save as hw.html next to index.html. Runs WEB-1 in a hidden frame, shows only its
-     screen on the 800x480 panel, and links the controller (USB serial) to the app. -->
+<!-- WEB-1 on the device. The helper (web1-helper.py) serves this page at http://localhost:8000/hw.html.
+     It runs WEB-1 in a hidden frame, shows only its screen on the 800x480 panel, and links the
+     controller (the RP2040 on USB serial) to the app: keys, knob clicks and pushes, volume, and the key lights. -->
 <style>html,body{margin:0;height:100%;background:#000;overflow:hidden;cursor:none}
 #f{position:fixed;inset:0;width:100%;height:100%;border:0}
 #out{position:fixed;inset:0;width:100vw;height:100vh;background:#000;pointer-events:none}
 #go{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:none;font:16px sans-serif;padding:12px 20px;cursor:default}</style></head>
-<body><iframe id="f" src="index.html?web1"></iframe><canvas id="out" width="800" height="480"></canvas><button id="go">connect controller</button>
+<body><iframe id="f" src="index.html?web1&hw"></iframe><canvas id="out" width="800" height="480"></canvas><button id="go">connect controller</button>
 <script>
 // The case window shows a 94.7 x 41.5 mm band of the panel: move it with BAND_TOP.
 var BAND_TOP = 20, BAND_H = 369;
@@ -159,12 +160,14 @@ function fire(el, type, init) {
   var C = type.indexOf('pointer') === 0 ? PointerEvent : type === 'wheel' ? WheelEvent : MouseEvent;
   el.dispatchEvent(new C(type, Object.assign({ bubbles: true, cancelable: true }, init || {})));
 }
-// Lines from the Pico: K <semitone 0-23> <1|0> · E <knob 0-3> <steps> · P <knob 0-3> · V <0-1000>
+// Lines from the controller: K <semitone 0-23> <1|0> · E <knob 0-3> <clicks> · P <knob 0-3> · V <0-1000>
+// Knob clicks and pushes go straight to WEB-1 (encStep / encPush): one click moves a menu or list exactly one step,
+// and a push confirms the action on that knob. Older copies of index.html get the wheel and double-click instead.
 function onLine(line) {
   var p = line.trim().split(' '), i = +p[1], el;
   if (p[0] === 'K') { el = W.eval('keyEl')[i]; if (el) fire(el, p[2] === '1' ? 'pointerdown' : 'pointerup', { pointerId: 10 + i }); }
-  else if (p[0] === 'E') { el = W.eval('encEl')[i]; if (el) fire(el, 'wheel', { deltaY: -(+p[2]) * 45 }); }
-  else if (p[0] === 'P') { el = W.eval('encEl')[i]; if (el) fire(el, 'dblclick'); }
+  else if (p[0] === 'E') { if (W.encStep) W.encStep(i, +p[2]); else { el = W.eval('encEl')[i]; if (el) fire(el, 'wheel', { deltaY: -(+p[2]) * 45 }); } }
+  else if (p[0] === 'P') { if (W.encPush) W.encPush(i); else { el = W.eval('encEl')[i]; if (el) fire(el, 'dblclick'); } }
   else if (p[0] === 'V') { var cur = W.eval('S.ms[0]'); fire(W.eval('volEl'), 'wheel', { deltaY: -(i / 1000 - cur) * 1500 }); }
 }
 async function connect() {
@@ -283,9 +286,9 @@ while True:
 service: `mkdir -p ~/.config/systemd/user
 cat > ~/.config/systemd/user/web1.service <<'EOF'
 [Unit]
-Description=WEB-1 local web server
+Description=WEB-1 helper: local web server, battery, USB stick, clock, updates
 [Service]
-ExecStart=/usr/bin/python3 -m http.server 8000 --bind 127.0.0.1 --directory %h/web1
+ExecStart=/usr/bin/python3 %h/web1/hardware/pi/web1-helper.py --root %h/web1
 Restart=always
 [Install]
 WantedBy=default.target
@@ -310,7 +313,10 @@ usb_max_current_enable=1
 # Display: use the overlay line from your panel's wiki, for example
 dtoverlay=vc4-kms-dsi-waveshare-panel,4_3_inch`,
 clone: `git clone https://github.com/vatskyone/effective-barnacle.git ~/web1
-# then save hw.html (above) into ~/web1/hw.html`
+# the hardware page and the helper are in ~/web1/hardware/pi/`,
+helpertry: `# on a computer: a pretend battery, and a folder standing in for the USB stick
+WEB1_FAKE_BATTERY=1 python3 hardware/pi/web1-helper.py --dev
+# then open http://localhost:8000/hw.html`
 };
 </script>
 
@@ -1254,9 +1260,10 @@ ${HW.map(h => `<tr data-part="${h[0]}"><td class="id">${h[0]}</td><td>${esc(h[1]
 </tbody></table>
 <h2>How it works</h2>
 <p>WEB-1 is a web page, so the physical instrument runs the real app. A <b>Raspberry Pi Compute Module 5</b>, plugged in under the main PCB, runs <code>index.html</code> in Chromium in kiosk mode, and a small page (<code>hw.html</code>) shows only the app's screen on the 4.3" panel behind the window.</p>
-<p>An <b>RP2040</b> on the main PCB (the Raspberry Pi Pico circuit, without the module) scans the 53 keys and 4 knob pushes as an 8 × 8 diode matrix. The function keys type the same keyboard shortcuts as the desktop app (Z X C V, B N M, 1–8, R, Space…), so they work with no change to WEB-1. The musical keys, the knobs and the volume send short lines over USB serial, which <code>hw.html</code> turns into presses and turns on the app's own controls. The same link sends the key lights and the level meter back to 34 RGB LEDs.</p>
+<p>An <b>RP2040</b> on the main PCB (the Raspberry Pi Pico circuit, without the module) scans the 53 keys and 4 knob pushes as an 8 × 8 diode matrix. The function keys type the same keyboard shortcuts as the desktop app (Z X C V, B N M, 1–8, R, Space…), so they work with no change to WEB-1. The musical keys, the knobs and the volume send short lines over USB serial, which <code>hw.html</code> passes to the app: one click of a knob moves a menu or a value exactly one step, and pushing a knob confirms (SAVE, ERASE, BOUNCE…). The same link sends the key lights and the level meter back to 34 RGB LEDs.</p>
 <p>Sound goes over I²S to a <b>WM8960</b> codec on the PCB. It drives the OUT jack (line or headphones) and, through its own 1 W amplifier, the slim 40 mm speaker under the grille. It also records from the IN jack and from the built-in MEMS microphone under the four dots on the right rail.</p>
-<p><b>Battery:</b> five 2000 mAh LiPo cells in parallel (10 000 mAh, 37 Wh) lie in a row under the keys. The synth draws about 5.3 W (CM5 running Chromium 3.5 W, display 0.9 W, LEDs 0.3 W, audio 0.4 W), about 5.8 W from the cells through the boost, so a full charge plays for <b>about 6 hours</b>: about 4.5 h with the CPU flat out, 7 h or more with the screen dimmed. A BQ25895 charges them at up to 3 A from the USB-C port (about 3.5 hours from empty) and boosts them to 5.1 V for the CM5; a MAX17048 reports the charge level, and a light beside the USB-C port shows charging. The ON/OFF slide switch on the right side cuts power to the CM5 but lets the cells keep charging.</p>
+<p>A small <b>helper program</b> on the CM5 (<code>hardware/pi/web1-helper.py</code>) serves the app and does what a web page can't do on its own. It reads the battery level and charging state from the fuel gauge and the charger, and sets the clock and timezone. It reads and writes a USB stick, switches the codec between the mic and the IN jack, and installs updates. It also saves your work before powering off.</p>
+<p><b>Battery:</b> five 2000 mAh LiPo cells in parallel (10 000 mAh, 37 Wh) lie in a row under the keys. The synth draws about 5.3 W (CM5 running Chromium 3.5 W, display 0.9 W, LEDs 0.3 W, audio 0.4 W), about 5.8 W from the cells through the boost, so a full charge plays for <b>about 6 hours</b>: about 4.5 h with the CPU flat out, 7 h or more with the screen dimmed. A BQ25895 charges them at up to 3 A from the USB-C port (about 3.5 hours from empty) and boosts them to 5.1 V for the CM5; a MAX17048 reports the charge level, and a light beside the USB-C port shows charging. The ON/OFF slide switch on the right side cuts power to the CM5 but lets the cells keep charging. To turn off without losing anything, choose SYSTEM → BATTERY → POWER OFF first: WEB-1 saves and shuts down, and then you slide the switch.</p>
 <p><b>Built to feel solid:</b> 3 mm walls and a 2 mm floor. The cells sit in 1 mm floor pockets between 1.2 mm fences, and the posts in the 7.2 mm gaps between them hold them sideways and carry the PCB; 18 supports in all. A 1.2 mm steel switch plate and a 4 mm steel plate at the back bring it to about 1.14 kg, with the centre of mass within 4 mm of the middle. The case halves join at a gap between two cells, tied by the back steel, a seam joiner and the steel plate. Poron foam between the PCB and the plate, foam on the floor and gaskets around the speaker, mic, cells and display take out the hollow click.</p>
 <p>The keys use <b>Kailh Choc v2</b> switches: low-profile like Choc v1, but with the MX-style "+" cross stem, so the printed keycaps press onto a round socket with a cross hole.</p>
 <h2>Fit notes</h2>
@@ -1313,9 +1320,15 @@ document.getElementById('t-soft').innerHTML = `
 <p>The CM5 boots from its eMMC. Hold the boot button under the case, connect the power USB-C port to a computer, and run <code>rpiboot</code> so the eMMC shows up as a drive. Then flash <b>Raspberry Pi OS (64-bit)</b> with Raspberry Pi Imager and set up your user and Wi-Fi. Add the audio and display overlays:</p>${codeBlock('config')}
 <p>Then pick the DAC as the default output in the audio menu, or with <code>wpctl</code>.</p>
 <h2>2 · WEB-1 and the hardware page</h2>${codeBlock('clone')}
-<p>Save this as <code>~/web1/hw.html</code>:</p>${codeBlock('hw')}
-<h2>3 · Local web server</h2>
-<p>Web MIDI, the microphone and Web Serial need <code>localhost</code>, so serve the folder:</p>${codeBlock('service')}
+<p>The clone has everything the device runs: the app, the hardware page and the helper. Keep it a git clone, because SYSTEM → ABOUT → INSTALL UPDATE pulls new versions into it.</p>
+<p>The hardware page (<code>hardware/pi/hw.html</code>) runs WEB-1 in a hidden frame, shows only its screen on the panel, and links the controller to the app. There is nothing to save: the helper serves it at <code>http://localhost:8000/hw.html</code>. Here it is for reference:</p>${codeBlock('hw')}
+<h2>3 · The helper</h2>
+<p>Web MIDI, the microphone and Web Serial need <code>localhost</code>, so the helper serves the folder there. It also gives the app what a browser can't reach: the battery level and charging state (MAX17048 and BQ25895 on I²C), the clock and timezone, a USB stick, the mic / line-in switch on the codec, updates, and a clean power off. It is Python 3 with the standard library only, so there is nothing to install. Run it as a user service:</p>${codeBlock('service')}
+<p class="note">The helper uses <code>sudo -n</code> to set the clock and timezone, to mount a USB stick and to power off. Raspberry Pi OS gives the first user passwordless sudo, so this works as it is.</p>
+<p class="note">The mic / line-in switch uses the codec driver's mixer controls. List them with <code>amixer -c wm8960soundcard scontrols</code>; if the names differ, edit <code>INPUT_CMDS</code> at the top of the helper. The fuel gauge and charger addresses are there too.</p>
+<p class="note">A USB stick needs a USB host port. The USB-C port is the charging port and can't take a stick, so the PCB needs a second port wired to one of the CM5's free USB ports. WEB-1 keeps its files in a WEB-1 folder on the stick.</p>
+<p class="note">The ON/OFF switch cuts the power directly, so nothing can save at that moment. Use SYSTEM → BATTERY → POWER OFF, which saves and shuts down, then slide the switch. For the switch to save on its own, the PCB needs two changes: the switch also goes to a GPIO, and a second GPIO keeps the load switch on until the CM5 has shut down (for example <code>dtoverlay=gpio-poweroff,gpiopin=…,active_low=1</code>). Then set <code>POWER_GPIO</code> in the helper.</p>
+<p>To try the helper on a computer first:</p>${codeBlock('helpertry')}
 <h2>4 · Chromium permissions</h2>
 <p>These policies let the page open the controller's serial port, use the microphone and play sound without a click:</p>${codeBlock('policy')}
 <h2>5 · Start in kiosk mode</h2>${codeBlock('kiosk')}
@@ -1323,7 +1336,7 @@ document.getElementById('t-soft').innerHTML = `
 <p>The RP2040 on the PCB is wired like a Pico, so it runs the Pico build of CircuitPython. Hold the BOOTSEL button on the PCB (reach it before closing the case) while powering on, and the RP2040 shows up as a drive: copy the CircuitPython 9 UF2 for the Pico onto it. Copy <code>adafruit_hid/</code> and <code>neopixel.mpy</code> from the Adafruit CircuitPython bundle into <code>CIRCUITPY/lib</code>, then save these two files to the drive:</p>
 ${codeBlock('boot')}${codeBlock('code')}
 <p class="note">boot.py turns the REPL off, so the only serial port is the data link. To get the REPL back, start the RP2040 in safe mode and delete boot.py.</p>
-<p class="note">The firmware and hw.html are a starting point and have not been tested on assembled hardware. hw.html uses WEB-1's own globals (keyEl, encEl, volEl, S), so check them again if index.html changes.</p>`;
+<p class="note">The firmware, hw.html and the helper are a starting point and have not been tested on assembled hardware. hw.html calls WEB-1's encStep and encPush for the knobs, and uses its keyEl, volEl and S for the keys and the volume, so check them again if index.html changes.</p>`;
 
 document.getElementById('t-build').innerHTML = `
 <h2>Assembly</h2>

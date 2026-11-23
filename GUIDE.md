@@ -19,13 +19,14 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 13. [Saving and exporting](#13-saving-and-exporting)
 14. [Your first song in 10 steps](#14-your-first-song-in-10-steps)
 15. [Troubleshooting](#15-troubleshooting)
+16. [On the WEB-1 hardware](#16-on-the-web-1-hardware)
 
 ---
 
 ## 1. The device at a glance
 
 - **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge, the picture sits in the middle, and the four coloured values along the bottom edge belong to the four knobs. It is always a black display, whichever finish you choose.
-- **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click resets it.
+- **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click (double-tap on a phone) **pushes** the knob: it resets the value, or does the knob's action, such as SAVE. See [Knob clicks and pushes](#knob-clicks-and-pushes).
 - **Volume knob** (small white knob, top left): the master output level.
 - **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
 - **Mode keys:** SYNTH, DRUM, TAPE and MIXER. SYNTH lights orange while the synths & presets menu is open (Shift + SYNTH), DRUM while the drum machine is open (Shift + DRUM).
@@ -41,11 +42,35 @@ All the controls sit in one block, separated by thin black lines, so each key re
 
 Everything on the device can be clicked or tapped, and almost everything also has a computer-keyboard shortcut. The controls card opens from the **guide** button under the device, or with **/**.
 
+### Knob clicks and pushes
+
+On the WEB-1 hardware the knobs click as they turn, and **each click is one step**: one item in a menu or list, one letter, one choice such as a key or a scale, one beat of the tape. Values such as levels move by the smallest step the screen shows, and speed up when you turn quickly. Pressing a knob **pushes** it. On a computer, double-click the knob to push it (double-tap on a phone).
+
+A push does the action shown on that knob, or puts the value back where it was before you turned it:
+
+| Where | Knob | Push |
+|---|---|---|
+| Save preset (Shift + T1) | White: SAVE | Saves the preset |
+| | Orange: DELETE | Push twice to delete: the first push shows PUSH AGAIN, and the second must come within 3 seconds |
+| Projects (Shift + 7) | White: DO IT | Does the chosen action. DELETE takes two pushes |
+| System menu (Shift + 8) | White: SET · CONFIRM · OPEN | Steps the setting, runs the item, or opens it. The ERASE items, POWER OFF and INSTALL UPDATE take two pushes |
+| Mixer bank B, T3 | White: BOUNCE | Bounces the chosen tracks |
+| Mixer bank B, T4 | Green: GO | Exports, or starts and stops a live mixdown |
+| USB stick list | White: LOAD | Loads the file |
+| Everywhere else | Any knob | Resets the value |
+
+Turning a knob all the way to YES still works everywhere. On the hardware, the screen's hints say PUSH WHITE instead of TURN WHITE.
+
+### The Shift map
+
+There are about 40 Shift combinations, so WEB-1 shows them for you. Hold **Shift** for half a second without pressing anything else, and the screen shows the **SHIFT MAP**: what every key does with Shift in the mode you are in (synth, drum, tape, mixer…), plus the ones that work everywhere. Let go of Shift to close it. If you press the other key before half a second has passed, the map doesn't appear, so quick Shift combinations are never interrupted.
+
 ## 2. Keyboard map
 
 | Key | Action |
 |---|---|
 | **A W S E D F T G Y H U J K O L P ; '** | Musical keys (W E T Y U O P are the black keys) |
+| **Hold Shift** | After half a second, the Shift map shows every Shift combination in this mode |
 | **Shift + ← / →** | Octave down / up |
 | **← / →** (synth mode) | Hold for pitch bend down / up (2 semitones) |
 | **Z X C V** | Mode: SYNTH · DRUM · TAPE · MIXER |
@@ -161,8 +186,8 @@ In synth mode, hold **Shift** and press **T1** (Shift + B) to open **SAVE PRESET
 |---|---|
 | **Blue: LETTER** | Picks the letter at the cursor: A–Z, 0–9, - or a space |
 | **Green: CURSOR** | Moves along the name (10 characters) |
-| **White: SAVE** | Turn it all the way right (from NO to YES) to save. A preset with the same name is overwritten |
-| **Orange: DELETE** | When the name matches one of your presets, turn it all the way right to delete that preset |
+| **White: SAVE** | Push it, or turn it all the way right (from NO to YES), to save. A preset with the same name is overwritten |
+| **Orange: DELETE** | When the name matches one of your presets, push it twice (the first push shows PUSH AGAIN), or turn it all the way right, to delete that preset |
 
 On a computer you can also type the name on the keyboard (Backspace and ← → work too). **Enter** saves and closes, **Esc** closes without saving. While the screen is open the letter keys type instead of playing. If the current sound is one of your presets, its name is already filled in, so you can overwrite or delete it straight away. Each synth holds up to 16 of your presets.
 
@@ -292,7 +317,7 @@ Press **Shift + DRUM** (Shift + X) to open the drum machine. The DRUM light turn
 Any synth slot can hold a sample instead of its engine.
 
 - **load sample:** pick an audio file. You can also drag an audio file onto the page.
-- **record sample:** record from the microphone.
+- **record sample:** record from the microphone, or from the line input when INPUT is set to LINE IN in advanced REC (Shift + REC, then Shift + orange knob).
 - **clear sample:** removes the sample and brings the slot's engine back.
 
 The sample plays across the keys at different pitches. While it plays, an orange line runs through the waveform, one for each note that sounds.
@@ -328,12 +353,12 @@ Hold **Shift** and press **REC** (Shift + R) to open **ADVANCED REC**. The REC l
 
 | Knob | Job | Shift + knob | Job |
 |---|---|---|---|
-| **Blue: SOURCE** | What is recorded: INSTRUMENT (what you play), MIC, or BOTH. The panel shows the input level | **THRESHOLD** | How loud the input must get to start an ON SOUND recording (the white line on the level meter) |
-| **Green: KEEP OLD** | What happens to what is already on the track where you record: 100% overdubs (the default), 0% replaces it, in between fades it a little more with each pass | **MONITOR** | How loud you hear the microphone while you record |
+| **Blue: SOURCE** | What is recorded: INSTRUMENT (what you play), MIC (or LINE IN, see INPUT), or BOTH. The panel shows the input level | **THRESHOLD** | How loud the input must get to start an ON SOUND recording (the white line on the level meter) |
+| **Green: KEEP OLD** | What happens to what is already on the track where you record: 100% overdubs (the default), 0% replaces it, in between fades it a little more with each pass | **MONITOR** | How loud you hear the microphone or line in while you record |
 | **White: START** | KEY starts as soon as you press REC · ON SOUND rolls the tape and starts recording when the input passes the threshold · NEXT BAR rolls the tape and starts on the next bar line | **PUNCH** | LOOP AREA records only between the loop markers, even with LOOP off |
-| **Orange: AUTO STOP** | OFF, or stop recording after 1, 2, 4 or 8 bars; the tape keeps playing | **COUNT-IN** | The same count-in as on the tempo screen |
+| **Orange: AUTO STOP** | OFF, or stop recording after 1, 2, 4 or 8 bars; the tape keeps playing | **INPUT** | **MIC** or **LINE IN**: which input SOURCE records from. On the WEB-1 hardware, LINE IN is the IN jack; on a computer it picks your audio interface, or else the second input. The sampler's **record sample** uses it too, and the REC panel shows a jack instead of a microphone |
 
-Press **REC** again while it waits to cancel, or **STOP**. The settings are saved, and any that are not the usual ones are listed in small text at the top right of the tape screen, for example REPLACE, MIC or STOP 2 BAR. The microphone needs your permission and works on `localhost` or HTTPS.
+Press **REC** again while it waits to cancel, or **STOP**. The settings are saved, and any that are not the usual ones are listed in small text at the top right of the tape screen, for example REPLACE, MIC or STOP 2 BAR. The microphone and line in need your permission and work on `localhost` or HTTPS. The count-in is on the tempo screen (green knob).
 
 ### Erasing the whole tape: Shift + TAPE
 
@@ -345,21 +370,22 @@ In tape mode, hold **Shift** and press **8** (labelled **MENU**) to open the sys
 
 | Knob | Job |
 |---|---|
-| **Blue: SECTION** | BATTERY · TIME · TIMEZONE · STORAGE · DISPLAY · MIDI · ABOUT |
+| **Blue: SECTION** | BATTERY · TIME · TIMEZONE · STORAGE · DISPLAY · MIDI · CPU · ABOUT |
 | **Green: ITEM** | The setting inside the section |
-| **White: SET / CONFIRM / OPEN** | Changes the setting; for an erase, turn it all the way to YES to confirm |
+| **White: SET / CONFIRM / OPEN** | Changes the setting. To confirm an action, turn it all the way to YES or push it; the ERASE items, POWER OFF and INSTALL UPDATE take two pushes |
 
 | Section | Items |
 |---|---|
-| **BATTERY** | Level, charging or on battery, time left (shown where the browser reports a battery) |
-| **TIME** | Hour, minute, 12 or 24 hour clock, date, and USE DEVICE TIME to go back to the real clock |
-| **TIMEZONE** | AUTO (this device) or a city from UTC−10 to UTC+12, with the local time |
-| **STORAGE** | Space used, number of samples and user presets, ERASE SAMPLES, ERASE PRESETS, ERASE TAPE (opens the erase prompt) and ERASE EVERYTHING |
+| **BATTERY** | Level, charging or on battery, and time left, where the browser reports a battery. On the hardware: the real level and charging state from the charger, the cell voltage, and **POWER OFF**, which saves everything and then turns WEB-1 off |
+| **TIME** | Hour, minute, 12 or 24 hour clock, date, and USE DEVICE TIME to go back to the real clock. On the hardware, these set the device's own clock |
+| **TIMEZONE** | AUTO (this device) or a city from UTC−10 to UTC+12, with the local time. Summer time follows each city's own rules. On the hardware, this sets the device's timezone |
+| **STORAGE** | Projects, space used, number of samples and user presets, ERASE SAMPLES, ERASE PRESETS, ERASE TAPE (opens the erase prompt) and ERASE EVERYTHING. On the hardware, also the USB stick: its name and free space, LOAD SAMPLE FROM USB (into the synth slot you were on), BACKUP TO USB (every project in one .web1 file) and EJECT USB |
 | **DISPLAY** | Brightness (20–100%), screen sleep after 1, 5, 10 or 30 minutes (any key or knob wakes it), and a clock in the title bar |
 | **MIDI** | CONNECT (the same as the connect midi button), CLOCK OUT, CLOCK IN, NOTES OUT and CHANNEL (see MIDI below) |
-| **ABOUT** | Device, version, engines, tape size and MIDI status |
+| **CPU** | AUDIO LOAD (how busy the sound engine is, with its peak), SCREEN (frames per second), VOICES (notes sounding, out of the limit), VOICE LIMIT and DROPOUTS (audio that came too late). Audio load and dropouts show where the browser reports them. With VOICE LIMIT on AUTO, WEB-1 plays fewer notes at once when the device struggles, and gives them back when it recovers; the title bar shows CPU while it holds back. Or pick a fixed limit from 4 to 16 voices |
+| **ABOUT** | Device, version, design, engines, tape size and MIDI status. On the hardware: CHECK FOR UPDATE, and INSTALL UPDATE, which fetches the new version and restarts WEB-1 |
 
-The settings are saved. The menu is built for the hardware version to come: in the browser, battery and storage show what the browser can see, and the timezones are fixed offsets without summer time.
+The settings are saved. In the browser, battery and storage show what the browser can see. The items marked "on the hardware" appear when WEB-1 runs on the device (see [On the WEB-1 hardware](#16-on-the-web-1-hardware)).
 
 **Looping:** **Q** sets a loop starting at the tape head, with the length set by the green knob.
 
@@ -416,12 +442,12 @@ Hold **Shift** and press **MIXER** (Shift + V) for a second set of pages. The MI
 |---|---|---|
 | **T1 SENDS** | REVERB 1–4: how much of each track goes to a reverb | DELAY 1–4: how much goes to a delay of 3/16 note that follows the tempo |
 | **T2 SIDECHAIN** | SOURCE · DEPTH · RELEASE · THRESHOLD | |
-| **T3 BOUNCE** | ONTO (the track to mix onto) · LEVEL · BOUNCE (turn to YES) | |
-| **T4 EXPORT** | EXPORT (TAPE MIX · STEMS · LIVE MIXDOWN) · GO (turn to YES) | |
+| **T3 BOUNCE** | ONTO (the track to mix onto) · LEVEL · BOUNCE (push, or turn to YES) | |
+| **T4 EXPORT** | EXPORT (TAPE MIX · STEMS · LIVE MIXDOWN) · GO (push, or turn to YES) | |
 
 - **Sends:** the reverb and delay come back into the master, before the FX rack. Each track's two bars show its sends; Shift switches the knobs between reverb and delay.
 - **Sidechain:** pick a **SOURCE**, either a tape track (for example the drums on track 1) or **LIVE KICK** (the kick of the kits and the drum machine as you play), and every other tape track dips each time the source hits, then comes back: the classic pumping sound. **DEPTH** is how far they dip, **RELEASE** how fast they come back, **THRESHOLD** how loud the source has to be. The screen draws the shape of one dip and shows each track dipping live; the source track is marked KEY. Live playing isn't ducked.
-- **Bounce:** press keys **1–4** to choose the tracks to mix (they light up), pick the track to mix them **ONTO** and the **LEVEL**, then turn **BOUNCE** all the way to YES. The chosen tracks are mixed with their levels onto that track, added to what it already holds, so you can free tracks for more recording: clear the old ones afterwards with Shift + LIFT. **Shift + DROP** undoes a bounce.
+- **Bounce:** press keys **1–4** to choose the tracks to mix (they light up), pick the track to mix them **ONTO** and the **LEVEL**, then push **BOUNCE** (or turn it all the way to YES). The chosen tracks are mixed with their levels onto that track, added to what it already holds, so you can free tracks for more recording: clear the old ones afterwards with Shift + LIFT. **Shift + DROP** undoes a bounce.
 - **Export:** **TAPE MIX** saves the whole tape as one stereo WAV with levels, pans, mutes, sends, a track sidechain and the master. **STEMS** saves each track that has audio as its own WAV, dry and all the same length, to finish the song in another app (the browser may ask once to allow several downloads). **LIVE MIXDOWN** records exactly what you hear, playing and knob moves included, until you turn GO again (up to 10 minutes); the title bar shows **●MIX** while it records.
 
 ## 8. Sequencers
@@ -561,6 +587,8 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **export tape as wav** downloads the full tape mix, including the master FX.
 - **reset all** erases every saved sound, sequence, sample and the tape. You are asked to confirm first.
 - The **system menu** (Shift + 8 in tape mode) can erase just the samples, just your presets, just the tape, or everything, and shows how much space is used.
+- **Offline:** once you have opened WEB-1, it opens again with no internet connection, and so does OS-1 from the home screen. When you are online, it loads the newest version.
+- **USB stick (WEB-1 hardware):** with a stick plugged in, WAV exports, stems and .web1 files are saved into the WEB-1 folder on the stick instead of downloading. See [On the WEB-1 hardware](#16-on-the-web-1-hardware).
 
 Your work lives in the browser you made it in. Clearing that site's data, or using a private window, starts fresh. Save a **.web1** backup of anything you want to keep, and export WAVs to use the audio elsewhere.
 
@@ -572,18 +600,18 @@ A project is one whole song: its tape, every sound and kit setting, the sequence
 |---|---|
 | **Blue: PROJECT** | Picks a project. The open one has a ▸ |
 | **Green: ACTION** | Picks what to do |
-| **White: DO IT** | Turn it all the way to YES to do it |
+| **White: DO IT** | Turn it all the way to YES, or push it, to do it. DELETE takes two pushes |
 
 | Action | What it does |
 |---|---|
 | **OPEN** | Opens the selected project. The one you were in is kept exactly as it was, and the page reloads with the new one |
 | **NEW** | Starts an empty project (and keeps the one you were in) |
 | **DUPLICATE** | Makes a copy of the selected project, for trying ideas without losing the original |
-| **RENAME** | Opens the naming screen: blue picks a letter, green moves along, white to YES renames (or type the name and press Enter) |
+| **RENAME** | Opens the naming screen: blue picks a letter, green moves along, white renames (push it or turn it to YES, or type the name and press Enter) |
 | **DELETE** | Deletes the selected project. You can't delete the one that is open: open another one first |
 | **SAVE FILE** | Saves the selected project as a **.web1** file |
 | **BACKUP ALL** | Saves every project in one **.web1** file |
-| **LOAD FILE** | Adds the projects from a **.web1** file. Nothing is overwritten: a name that is already taken gets a letter, for example PROJECT 1B |
+| **LOAD FILE** | Adds the projects from a **.web1** file. Nothing is overwritten: a name that is already taken gets a letter, for example PROJECT 1B. On the hardware, it lists the .web1 files on the USB stick |
 
 Your saved presets and the system settings (time, display) are shared by every project. The **save project** and **load project** buttons under the device save the open project and load a file in one click. A .web1 file keeps the audio at 16 bits and is compressed, so a short song is small; four full tracks of 60 seconds come to at most about 23 MB. Files made on a device with another sample rate are converted when you open them. **reset all** now erases every project.
 
@@ -623,5 +651,21 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 | Recording stops by itself | AUTO STOP is on in ADVANCED REC. Set it to OFF. |
 | Microphone or MIDI doesn't work | Serve the page from `localhost` or HTTPS, and use Chrome or Edge for MIDI. |
 | The letter keys type instead of playing notes | The SAVE PRESET screen is open. Press **Esc** to close it, or **Enter** to save. |
-| Crackles | Close other heavy tabs. Very big chords on NEON or HOOVER use the most CPU. |
+| Crackles | Close other heavy tabs. Very big chords on NEON or HOOVER use the most CPU. The system menu's CPU section shows the audio load and dropouts. |
+| Fewer notes sound than I play, and the title bar shows CPU | The device is busy, so the AUTO voice limit is holding back. Close other tabs, or set VOICE LIMIT in the system menu (CPU). |
+| A list of Shift combinations covers the screen | That is the Shift map: you held Shift for half a second. Let go to close it, or press the other key sooner. |
 | I want a fresh start | Click **reset all**. |
+
+## 16. On the WEB-1 hardware
+
+WEB-1 is also designed as a physical instrument: a Raspberry Pi Compute Module 5 runs this same app on a 4.3" screen, with real keys, clicking knobs, a speaker and a battery. The [build guide](https://vatskyone.github.io/effective-barnacle/web1-3d.html) has the 3D model, the parts, the wiring and the software setup. Everything in this guide works the same on the device, with these extras:
+
+- **It starts in your last project.** Switch it on and WEB-1 opens where you left off, with the sound ready and no click needed.
+- **The knobs click.** One click is one step, and pressing a knob pushes it (see [Knob clicks and pushes](#knob-clicks-and-pushes)).
+- **Battery.** The title bar shows the charge, with ⚡ while charging. SYSTEM → BATTERY shows the level, the charging state and the cell voltage.
+- **Turning off.** Choose SYSTEM → BATTERY → **POWER OFF** and push the white knob twice: WEB-1 saves everything, shows SAVED, and shuts down. Then slide the switch to OFF. The switch on its own cuts the power at once, so use POWER OFF first.
+- **Clock and timezone.** TIME and TIMEZONE in the system menu set the device's own clock.
+- **USB stick.** WAV exports, stems, SAVE FILE and BACKUP ALL go to the WEB-1 folder on the stick when one is in. PROJECTS → LOAD FILE lists the .web1 files on it, and SYSTEM → STORAGE → LOAD SAMPLE FROM USB loads a sample (WAV, MP3, AIFF or FLAC) into the synth slot you were on. Choose STORAGE → EJECT USB before you pull it out.
+- **Line in.** The IN jack records like the microphone: set INPUT to LINE IN in advanced REC (Shift + REC, then Shift + orange knob).
+- **Updates.** SYSTEM → ABOUT → CHECK FOR UPDATE, then INSTALL UPDATE (two pushes, needs Wi-Fi). WEB-1 restarts with the new version and keeps your work.
+- **The CPU section** of the system menu shows how hard the device is working, and the AUTO voice limit keeps the sound clean when it is busy.

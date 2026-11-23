@@ -32,11 +32,17 @@ Then open <http://localhost:8000>.
 Open the same link on an iPhone and WEB-1 becomes **OS-1**: the same instrument re-laid out for touch in landscape, sized to fill the phone's screen: the display and the four knobs on top, two rows of keys, and two octaves along the bottom. Hold the phone sideways (with rotation lock on it still fills the screen, drawn turned).
 
 - Tap **?** on the device for the controls card and the tools (export, samples, dark mode, OLED, line art, reset).
-- Drag the knobs up or down; double-tap one to reset it. Hold **shift** with one finger and tap with another.
-- For full screen, tap Share in Safari and choose **Add to Home Screen**. OS-1 then opens like an app.
+- Drag the knobs up or down; double-tap one to push it (it resets the value, or confirms an action such as SAVE). Hold **shift** with one finger and tap with another.
+- For full screen, tap Share in Safari and choose **Add to Home Screen**. OS-1 then opens like an app, and works with no connection.
 - If you hear nothing, turn the volume up and switch silent mode off.
 
 OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it in a desktop browser, or `?web1` to get the desktop device on a phone. It shares its saved sounds and tape with WEB-1 in the same browser.
+
+## WEB-1 hardware
+
+WEB-1 is also designed as a physical instrument: a Raspberry Pi Compute Module 5 runs this same page on a 4.3" screen, with 53 real keys, four clicking knobs, a speaker, a line input and a battery that lasts about 6 hours. The **[build guide](https://vatskyone.github.io/effective-barnacle/web1-3d.html)** has the 3D model, the parts list, the wiring and the software setup.
+
+The device software is in [`hardware/pi/`](hardware/pi/). `hw.html` shows WEB-1's screen on the panel and links the key and knob controller. `web1-helper.py` is a small Python helper (standard library only) that serves the app and handles the battery, the clock and timezone, a USB stick, the line input, updates, and saving before power off. On the device, WEB-1 opens straight into your last project, each knob click is one step, and pushing a knob confirms. See [On the WEB-1 hardware](GUIDE.md#16-on-the-web-1-hardware) in the guide.
 
 ## What's inside
 
@@ -50,11 +56,12 @@ OS-1 switches on by itself on touch phones. Add `?os1` to the address to try it 
 | **Drums** | 8 kits: BOX · DEEP · TINY · DIRT · TAPE · CLICK · AIR · ROOM, with your own sample on any pad, trimmed, tuned, reversed, faded and played as one shot, gated or looped in the pad sample editor (Shift + 4), with a playhead that follows each hit. Each kit can switch between four sound models: CLASSIC, ANALOG (classic analog drum machine), PUNCH and DUSTY (lo-fi), and the closed hat chokes the open hat |
 | **Drum machine** (Shift + DRUM) | 12 pads built from 2 synth voices and a filter each, 8 patterns of 16 steps that chain together, and per-step velocity, chance, rolls and nudge, plus a hits generator for quick rhythms |
 | **Sampler** | Load, drop or record a sound into any synth slot and play it across the keys, as one shot, gated or looped, forwards or reversed, with fades and a playhead that follows each note, on the same screen and knobs as the drum pad editor |
-| **Tape** | 4 tracks × 60 s with big turning reels, bar lines, an FX box that turns orange while effects are on, advanced recording (Shift + REC: mic or instrument, overdub or replace, start on sound or on the next bar, auto stop, punch), erase-all by holding T1–T4 together (Shift + TAPE), overdub, loop, lift and drop, copy, crop, double and erase (Shift + T1–T4), variable speed, reverse, brake and stutter tricks |
+| **Tape** | 4 tracks × 60 s with big turning reels, bar lines, an FX box that turns orange while effects are on, advanced recording (Shift + REC: instrument, mic or line in, overdub or replace, start on sound or on the next bar, auto stop, punch), erase-all by holding T1–T4 together (Shift + TAPE), overdub, loop, lift and drop, copy, crop, double and erase (Shift + T1–T4), variable speed, reverse, brake and stutter tricks |
 | **Sequencers** | ENDLESS · PATTERN · ARP · CHAIN (an endless step sequencer with chords, long notes and rests) |
 | **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX. Each of the 8 per-sound effects has its own animated screen with its two main values in big numbers |
 | **Mixer** | Mute and solo on keys 1–8, four scenes that store and glide between whole mixes (Shift + 1–8), reverb and delay sends per track, a sidechain that makes the tracks pump with the drums, bouncing tracks together, and export as a tape mix, stems or a live mixdown (Shift + MIXER). Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
-| **System menu** (Shift + 8 in tape mode) | Battery, time and timezone, storage (erase samples, presets, the tape or everything), display brightness and sleep, and about. Built now to try out the hardware version's settings |
+| **System menu** (Shift + 8 in tape mode) | Battery, time and timezone, storage (erase samples, presets, the tape or everything), display brightness and sleep, MIDI, a CPU page with a voice limit that adapts when the device is busy, and about. On the hardware it also powers off safely, uses a USB stick and installs updates |
+| **Knobs and Shift** | Double-click a knob to push it: it confirms SAVE, BOUNCE, export and the system menu's actions (two pushes to delete or erase), or resets the value. Hold Shift for half a second for the Shift map: every Shift combination in the mode you are in |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
 | **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen with full-screen animated pictures, light or dark finish, a flat line-art finish, and a subtle OLED glow option. The REC key is a red disc set inside its ring |
 | **MIDI** | Velocity, pitch bend, mod wheel and sustain from any connected keyboard; MIDI clock out and in, and notes out from the sequencers or everything you play (system menu) |
@@ -75,11 +82,12 @@ Read **[GUIDE.md](GUIDE.md)** for the full manual: every mode, key and knob, plu
 - Audio is the Web Audio API. Some engines and the tape run as AudioWorklets loaded from inline code.
 - The screen is a canvas drawn at 3× resolution.
 - Settings are saved in `localStorage`. The tape and samples are saved in IndexedDB.
+- Once opened, WEB-1 works offline: a small service worker ([`sw.js`](sw.js)) keeps a copy, and loads from the network first, so updates show up at once. A web app manifest lets it be installed.
 - Nothing is sent anywhere: everything runs and stays on your machine.
 
 ## Browser support
 
-WEB-1 works best in a recent Chromium-based browser (Chrome, Edge, Arc, Brave). Firefox and Safari work too. Web MIDI needs Chrome or Edge, and the microphone needs `localhost` or HTTPS. The desktop device is built for a computer keyboard; on a phone it turns into OS-1, the touch layout (a recent iOS and Safari recommended).
+WEB-1 works best in a recent Chromium-based browser (Chrome, Edge, Arc, Brave). Firefox and Safari work too. Web MIDI needs Chrome or Edge, and the microphone and line in need `localhost` or HTTPS. The desktop device is built for a computer keyboard; on a phone it turns into OS-1, the touch layout (a recent iOS and Safari recommended).
 
 ## Credits
 
