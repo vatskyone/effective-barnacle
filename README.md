@@ -19,6 +19,8 @@ The fastest way is the **[live version](https://vatskyone.github.io/effective-ba
 3. Click the device or press any key to switch the sound on.
 4. Play notes with the **A W S E D F T G Y H U J K** keys, and press **/** (or click **guide**) for the controls card.
 
+The first time you open it, WEB-1 makes a **demo song** with its own sounds on the four tape tracks and starts a short **guided tour** that points at each key to press. Small tips show the first few times you open each screen. Start the tour again from SYSTEM → ABOUT, and make the demo again from PROJECTS → DEMO SONG.
+
 To serve it locally instead, for example to use MIDI or the microphone:
 
 ```bash
@@ -62,7 +64,7 @@ The device software is in [`hardware/pi/`](hardware/pi/). `hw.html` shows WEB-1'
 | **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX. Each of the 8 per-sound effects has its own animated screen with its two main values in big numbers. LIVE FX on the number keys while the FX screen is open: beat repeat (1/4 to 1/32), freeze, filter sweeps and tape stop |
 | **Mixer** | Mute and solo on keys 1–8, four scenes that store and glide between whole mixes (Shift + 1–8), reverb and delay sends per track, a sidechain that makes the tracks pump with the drums, bouncing tracks together, and export as a tape mix, stems or a live mixdown (Shift + MIXER). Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
 | **System menu** (Shift + 8 in tape mode) | Battery, time and timezone, storage (erase samples, presets, the tape or everything), display brightness and sleep, MIDI, a CPU page with a voice limit that adapts when the device is busy, and about. On the hardware it also powers off safely, uses a USB stick and installs updates |
-| **Knobs and Shift** | Double-click a knob to push it: it confirms SAVE, BOUNCE, export and the system menu's actions (two pushes to delete or erase), or resets the value. Hold Shift for half a second for the Shift map: every Shift combination in the mode you are in |
+| **Knobs and Shift** | Double-click a knob to push it: it confirms SAVE, BOUNCE, export and the system menu's actions (two pushes to delete or erase), or resets the value. |
 | **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
 | **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen with full-screen animated pictures, light or dark finish, a flat line-art finish, and a subtle OLED glow option. The REC key is a red disc set inside its ring |
 | **MIDI** | Velocity, pitch bend, mod wheel and sustain from any connected keyboard; MIDI clock out and in, and notes out from the sequencers or everything you play (system menu) |
