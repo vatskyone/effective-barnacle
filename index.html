@@ -31,6 +31,8 @@ body{background:radial-gradient(ellipse at 50% 30%,color-mix(in srgb,var(--bg) 8
 .led{position:absolute;top:5px;right:5px;width:4px;height:4px;border-radius:50%;background:transparent;pointer-events:none}
 .k.lit .led{background:var(--c,var(--o));box-shadow:0 0 5px var(--c,var(--o))}
 .k.lit.alt .led{background:var(--o);box-shadow:0 0 5px var(--o)}
+.k.tourk,.enc.tourk{outline:3px solid rgba(255,106,43,.2);outline-offset:2px;animation:tourp 1s ease-in-out infinite}
+@keyframes tourp{50%{outline-color:rgba(255,106,43,1)}}
 .wk{grid-row:5/7}
 .wk::before{content:"";position:absolute;inset:9px 13px 11px;border-radius:999px;background:linear-gradient(#e2e3e2,#ebeceb);box-shadow:inset 0 1px 2px rgba(0,0,0,.2),0 1px 0 rgba(255,255,255,.85);pointer-events:none}
 .bkrow{grid-column:4/18;grid-row:4;position:relative}
@@ -212,7 +214,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <h2>OS-1 · CONTROLS</h2>
 <table>
 <tr><td>Knobs</td><td>Drag up or down on the four coloured knobs. Each matches the same-coloured value on the screen. Double-tap pushes the knob: it resets the value, or does that knob's action (SAVE, BOUNCE, export GO, the system menu's confirm). Deleting and erasing take two pushes. The small white knob is the volume.</td></tr>
-<tr><td>Hold SHIFT</td><td>After half a second the SHIFT MAP shows what every key does with SHIFT in this mode. Let go to close it.</td></tr>
+<tr><td>Learning</td><td>On first launch WEB-1 makes a DEMO SONG on the tape and starts a short GUIDED TOUR (SHIFT + STOP ends it). SYSTEM → ABOUT starts the tour again or makes another demo (so does PROJECTS → DEMO SONG). Tips show the first few times you open a screen: SYSTEM → DISPLAY → TIPS.</td></tr>
 <tr><td>Modes</td><td>The first four keys under the screen: SYNTH · DRUM · TAPE · MIXER. FX is at the end of that row, SEQ (green steps) in the row below.</td></tr>
 <tr><td>T1 – T4</td><td>In synth/drum: ENGINE · ENVELOPE · FX · LFO (tap T3 again to change effect, T1 again for the SAMPLER; SHIFT + knobs on T1: MACRO, on T4: LFO 2). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. In synth mode, hold SHIFT and tap 1–8 for synth bank B (orange light). In drum mode, SHIFT + 4 (SAMPLE) edits the selected pad's sample.</td></tr>
@@ -244,7 +246,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <h2>WEB-1 · CONTROLS</h2>
 <table>
 <tr><td>Encoders</td><td>Drag up/down or scroll over the four coloured knobs. Each matches the same-coloured value on the screen. Double-click pushes the knob: it resets the value, or does that knob's action (SAVE, BOUNCE, export GO, the system menu's confirm). Deleting and erasing take two pushes. On the WEB-1 hardware each knob click is one step, and pressing a knob pushes it.</td></tr>
-<tr><td>Hold SHIFT</td><td>After half a second the SHIFT MAP shows what every key does with SHIFT in this mode. Let go to close it.</td></tr>
+<tr><td>Learning</td><td>On first launch WEB-1 makes a DEMO SONG on the tape and starts a short GUIDED TOUR (SHIFT + STOP ends it). SYSTEM → ABOUT starts the tour again or makes another demo (so does PROJECTS → DEMO SONG). Tips show the first few times you open a screen: SYSTEM → DISPLAY → TIPS.</td></tr>
 <tr><td>Z X C V</td><td>Modes: SYNTH · DRUM · TAPE · MIXER</td></tr>
 <tr><td>B N M ,</td><td>T1–T4. In synth/drum: ENGINE · ENVELOPE · FX · LFO (press T3 again to change effect, T1 again for the SAMPLER; SHIFT + knobs on T1: MACRO, on T4: LFO 2). In tape: select track 1–4. In mixer: LEVEL &amp; PAN · MULTIBAND COMP · EQ · MASTER (hold SHIFT on any mixer page for its extra knobs).</td></tr>
 <tr><td>1 – 8</td><td>Sound slot: 8 synth engines, or 8 drum kits in drum mode. The screen names them A1–A8 (bank B is B1–B8). A3 is STRINGS, a vintage string machine with phaser and cello layer; A7 is HERO, an 80s–90s solo lead with glide and delayed vibrato.</td></tr>
@@ -309,7 +311,7 @@ const S={mode:'synth',inst:'synth',page:0,slot:0,kit:0,oct:0,shift:false,overlay
   rk:[[.35,0,.6,1],[.3,.5,.8,.5],[.55,.4,.3,.3],[.45,.5,.5,.3]],rkOn:[false,false,false,false],rkSel:0,
   rk2:[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]],rkOn2:[false,false,false,false],rkB:false, // FX rack bank B: FILTER GATE FLANGER LO-FI
   tq:[.5,0,1],count:null,fb:0,fbT:0,lastBeat:-1e9,tposAt:0,
-  metro:false,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],mk:Array(6).fill(null),mkn:[0,1,2,3,4,5],kp:[0,0,1],bs:[0,0,1,.8],rm:[0,1,0,0],rm2:[.3,0,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
+  metro:false,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],mk:Array(6).fill(null),mkn:[0,1,2,3,4,5],kp:[0,0,1],bs:[0,0,1,.8],rm:[0,1,0,0],rm2:[.3,0,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0,tips:1},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
 const seq={on:false,type:0,pat:Array.from({length:16},()=>[]),ps:{v:Array(16).fill(.9),p:Array(16).fill(1),c:Array(16).fill(0),r:Array(16).fill(0),lk:Array(16).fill(null)},lkPg:false,loopN:0,steps:[],ch:[],ins:new Set(),sub:0,held:new Set(),playing:false,i:0,cnt:0,next:0,tr:0,dirS:1,cur:-1};
 /* ── drum machine (Shift + DRUM): 12 pads, each built from 2 synth voices + a filter, and a 16-step pattern ──
    voice v=[TUNE, WAVE, DECAY, BEND] · filter f=[MODE, CUTOFF, RESO, MIX] · sq=[PAD, LENGTH, LEVEL, RUN] */
@@ -492,7 +494,9 @@ const mod24=x=>((x%24)+24)%24;
 const padP={}; // drum pad sample settings: padP['kit_pad'] = [START, END, TUNE, REVERSE, PLAY, FADE IN, FADE OUT, LEVEL]
 const LSK='web1.v1',SKEYS=['inst','slot','kit','oct','bpm','tm','sqp','tp','lv','pn','eq','ms','rk','rkOn','rkSel','tq','rk2','rkOn2','rkB','pre','eqf','mb','mb2','ms2','up','sys','rm','rm2','kc','kc2','mute','solo','srv','sdl','sc','mxB','scn','midi','mk','mkn','kp','bs'];
 const snapshot=()=>JSON.stringify({S:Object.fromEntries(SKEYS.map(k=>[k,S[k]])),synthP,drumP,seq:{type:seq.type,steps:seq.steps,pat:seq.pat,ch:seq.ch,ps:seq.ps},dm:{pads:DM.pads,pats:DM.pats,sq:DM.sq,sq2:DM.sq2,gz:DM.gz},pp:padP,ver:4});
-try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){const old=!(d.ver>=2),eq4=!d.S.eqf;Object.assign(S,d.S);if(eq4)S.eq[3]=.5;const o3=!(d.ver>=3);d.synthP.forEach((p,i)=>{if(!(old&&[6,11,12].includes(i))&&!(o3&&i===2))Object.assign(synthP[i],p)});if(o3)S.pre[2]=0;synthP.forEach(P=>{const o=P.smp;if(o.length<8)P.smp=[o[0],o[1],o[3],.5,o[2]>.5?.9:.5,0,0,.1]});['mute','solo','srv','sdl','midi'].forEach(k=>{if(!S[k])S[k]=[0,0,0,0]});if(!S.scn)S.scn=[null,null,null,null];if(!S.mk)S.mk=Array(6).fill(null);if(!S.kp)S.kp=[0,0,1];if(!S.bs)S.bs=[0,0,1,.8];if(!S.mkn)S.mkn=[0,1,2,3,4,5];synthP.forEach(P=>{if(!P.pm)P.pm=[0,.25,0,.8]});if(!S.sc)S.sc=[0,.5,.35,.4];if(!S.kc)S.kc=[0,0,0,0];if(!S.kc2)S.kc2=[0,0,0,1];if(!S.rm)S.rm=[0,1,0,0];if(!S.rm2)S.rm2=[.3,0,0,0];if(S.rm2.length<4)S.rm2.push(0);S.sys=Object.assign({tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0},S.sys||{});synthP.forEach((P,i)=>{if(!(P.e>=0&&P.e<NENG))P.e=i});if(!S.up||S.up.length<NENG)S.up=Array.from({length:NENG},(_,i)=>(S.up&&S.up[i])||[]);S.pre=S.pre.map((k,i)=>k<presetsSl(i).length?k:0);d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));drumP.forEach(P=>{if(!P.km)P.km=[0,1]});Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));if(d.dm.pats)d.dm.pats.forEach((P,k)=>{const Q=DM.pats[k];if(!Q||!P)return;['s','v','p','r','n','c','lk'].forEach(f=>P[f]&&P[f].forEach((row,i)=>Q[f][i]&&row.forEach((v,j)=>Q[f][i][j]=v)));if(P.rot)Q.rot=P.rot.slice(0,12);if(P.len)Q.len=P.len});else if(d.dm.pat){d.dm.pat.forEach((r,i)=>DM.pats[0].s[i]&&r.forEach((v,j)=>DM.pats[0].s[i][j]=v));DM.pats[0].len=1+idx(d.dm.sq[1],16)}DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12);if(d.dm.sq2)DM.sq2=d.dm.sq2;if(d.dm.gz)DM.gz=d.dm.gz;DM.pe=idx(DM.sq2[0],8)}if(d.pp)Object.assign(padP,d.pp);if(!S.rk2){S.rk2=[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]];S.rkOn2=[false,false,false,false]}if(S.sqp.length<4)S.sqp.push([.3,.55,.5,0]);
+// first launch (nothing saved yet): WEB-1 makes the demo song and starts the guided tour once the sound is on
+const FIRST=!localStorage.getItem(LSK)&&!localStorage.getItem('web1.projects')&&!localStorage.getItem('web1.intro'),DEMOREQ=localStorage.getItem('web1.demo')==='1';localStorage.removeItem('web1.demo');
+try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){const old=!(d.ver>=2),eq4=!d.S.eqf;Object.assign(S,d.S);if(eq4)S.eq[3]=.5;const o3=!(d.ver>=3);d.synthP.forEach((p,i)=>{if(!(old&&[6,11,12].includes(i))&&!(o3&&i===2))Object.assign(synthP[i],p)});if(o3)S.pre[2]=0;synthP.forEach(P=>{const o=P.smp;if(o.length<8)P.smp=[o[0],o[1],o[3],.5,o[2]>.5?.9:.5,0,0,.1]});['mute','solo','srv','sdl','midi'].forEach(k=>{if(!S[k])S[k]=[0,0,0,0]});if(!S.scn)S.scn=[null,null,null,null];if(!S.mk)S.mk=Array(6).fill(null);if(!S.kp)S.kp=[0,0,1];if(!S.bs)S.bs=[0,0,1,.8];if(!S.mkn)S.mkn=[0,1,2,3,4,5];synthP.forEach(P=>{if(!P.pm)P.pm=[0,.25,0,.8]});if(!S.sc)S.sc=[0,.5,.35,.4];if(!S.kc)S.kc=[0,0,0,0];if(!S.kc2)S.kc2=[0,0,0,1];if(!S.rm)S.rm=[0,1,0,0];if(!S.rm2)S.rm2=[.3,0,0,0];if(S.rm2.length<4)S.rm2.push(0);S.sys=Object.assign({tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0,tips:1},S.sys||{});synthP.forEach((P,i)=>{if(!(P.e>=0&&P.e<NENG))P.e=i});if(!S.up||S.up.length<NENG)S.up=Array.from({length:NENG},(_,i)=>(S.up&&S.up[i])||[]);S.pre=S.pre.map((k,i)=>k<presetsSl(i).length?k:0);d.drumP.forEach((p,i)=>Object.assign(drumP[i],p));drumP.forEach(P=>{if(!P.km)P.km=[0,1]});Object.assign(seq,d.seq);if(d.dm){d.dm.pads.forEach((p,i)=>DM.pads[i]&&Object.assign(DM.pads[i],p));if(d.dm.pats)d.dm.pats.forEach((P,k)=>{const Q=DM.pats[k];if(!Q||!P)return;['s','v','p','r','n','c','lk'].forEach(f=>P[f]&&P[f].forEach((row,i)=>Q[f][i]&&row.forEach((v,j)=>Q[f][i][j]=v)));if(P.rot)Q.rot=P.rot.slice(0,12);if(P.len)Q.len=P.len});else if(d.dm.pat){d.dm.pat.forEach((r,i)=>DM.pats[0].s[i]&&r.forEach((v,j)=>DM.pats[0].s[i][j]=v));DM.pats[0].len=1+idx(d.dm.sq[1],16)}DM.sq=d.dm.sq;DM.sq[3]=0;DM.pad=idx(DM.sq[0],12);if(d.dm.sq2)DM.sq2=d.dm.sq2;if(d.dm.gz)DM.gz=d.dm.gz;DM.pe=idx(DM.sq2[0],8)}if(d.pp)Object.assign(padP,d.pp);if(!S.rk2){S.rk2=[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]];S.rkOn2=[false,false,false,false]}if(S.sqp.length<4)S.sqp.push([.3,.55,.5,0]);
   // version 4: the LFO has 9 destinations and 6 shapes (was 4 and 4)
   if(!(d.ver>=4)){const m4=L=>{if(L&&L.length>=4){L[2]=(idx(L[2],4)+.5)/9;L[3]=(idx(L[3],4)+.5)/6}};synthP.forEach(P=>m4(P.lfo));drumP.forEach(P=>m4(P.lfo));(S.up||[]).forEach(U=>(U||[]).forEach(u=>m4(u.lfo)))}
   S.mode=S.inst}}catch(_){}
@@ -759,6 +763,7 @@ async function initAudio(){
     if(d){tape.port.postMessage({t:'load',tr:d.tr});d.ov.forEach((a,i)=>ov[i].set(a))}}).catch(()=>{});
     n.grabIn=gn(1);n.grabM=gn(1);n.clip.connect(n.grabM);n.grabM.connect(n.grabIn);n.grab=new AudioWorkletNode(AC,'grab',{numberOfInputs:1,numberOfOutputs:1,channelCount:2,channelCountMode:'explicit'});n.grabIn.connect(n.grab);{const z=gn(0);n.grab.connect(z);z.connect(AC.destination)}n.grab.port.onmessage=e=>grabDone(e.data.d);
     n.live=new AudioWorkletNode(AC,'live',{numberOfInputs:1,numberOfOutputs:1,outputChannelCount:[2],channelCount:2,channelCountMode:'explicit'});n.rack.out.disconnect(n.eqB[0]);n.rack.out.connect(n.live);n.live.connect(n.eqB[0]);
+    if(FIRST||DEMOREQ)setTimeout(()=>demoMake(FIRST),60);
     n.cap=new AudioWorkletNode(AC,'cap',{numberOfInputs:1,numberOfOutputs:1,channelCount:2,channelCountMode:'explicit'});n.capI=gn(1);n.capO=gn(0);
     n.inst.connect(n.capI);n.clip.connect(n.capO);n.capI.connect(n.cap);n.capO.connect(n.cap);const z=gn(0);n.cap.connect(z);z.connect(AC.destination);
     n.rdLofi=new AudioWorkletNode(AC,'lofi',{numberOfInputs:1,numberOfOutputs:1,outputChannelCount:[2]});n.rdSh.disconnect();n.rdSh.connect(n.rdLofi);n.rdLofi.connect(n.wet[7]);applyFx();
@@ -1417,7 +1422,7 @@ function midiClock(now){if(!S.midi[0]||!MIDI.out.length){MIDI.next=0;MIDI.was=S.
   if(S.playing!==MIDI.was){MIDI.was=S.playing;midiSend([S.playing?0xFA:0xFC],now)}while(MIDI.next<now+.1){midiSend([0xF8],MIDI.next);MIDI.next+=tick}}
 function midiNote(n,vel,t,dur){if(!MIDI.out.length)return;const ch=S.midi[3];midiSend([0x90|ch,clamp(n,0,127),clamp(Math.round(vel*127),1,127)],t);if(dur!=null)midiSend([0x80|ch,clamp(n,0,127),0],t+dur)}
 
-/* ───────────── Shift map: hold Shift on its own for half a second and the screen lists what each key does with Shift here ───────────── */
+/* ───────────── Shift map: lists what each key does with Shift. Not shown for now (holding Shift kept bringing it up); it will come back on a key of its own ───────────── */
 function shiftMap(){const m=S.mode,o=S.overlay,A=[];
   if(o==='dm')A.push(['DRUM','CLOSE THE DRUM MACHINE'],['KNOBS ON T4','PATTERN · CHAIN · HITS · ROTATE'],['A KEY','PICK A PAD (ON STEPS)'],['1–8','COPY THIS PATTERN TO 1–8'],['KNOBS (STEP HELD)','CONDITION (1 OF 2, FILL…)']);
   else if(o==='seq')A.push(['KEYS','ADD STEPS (ENDLESS, CHAIN)'],['→ / ←','REST / REMOVE (CHAIN)'],['SEQ','CLEAR THE SEQUENCE'],['KNOBS (PATTERN)','VEL · CHANCE · ROLL · COND']);
@@ -1444,7 +1449,7 @@ async function wipeAll(){clearInterval(saveTimer);localStorage.removeItem(LSK);c
 /* ───────────── projects (Shift + 7 in tape mode): several songs, each with its own tape, sounds, samples and settings ─────────────
    The open project lives in the usual storage; the others are kept whole in IndexedDB as 'proj:<id>'. Switching archives the open one,
    writes the chosen one in its place and reloads. Your preset library (S.up) and system settings (S.sys) are shared by every project. */
-const PJK='web1.projects',PJA=['OPEN','NEW','DUPLICATE','RENAME','DELETE','SAVE FILE','BACKUP ALL','LOAD FILE'],PJ={sel:0,act:0,sa:0,aa:0,arm:0,msg:'',at:0,busy:false};let PJM=null;
+const PJK='web1.projects',PJA=['OPEN','NEW','DUPLICATE','RENAME','DELETE','SAVE FILE','BACKUP ALL','LOAD FILE','DEMO SONG'],PJ={sel:0,act:0,sa:0,aa:0,arm:0,msg:'',at:0,busy:false};let PJM=null;
 function pjm(){if(!PJM){try{PJM=JSON.parse(localStorage.getItem(PJK)||'null')}catch(_){PJM=null}
   if(!PJM||!Array.isArray(PJM.list)||!PJM.list.length){PJM={cur:'p1',list:[{id:'p1',name:'PROJECT 1',t:Date.now()}]};pjSave()}if(!PJM.list.some(p=>p.id===PJM.cur))PJM.cur=PJM.list[0].id}return PJM}
 function pjSave(){try{localStorage.setItem(PJK,JSON.stringify(PJM))}catch(_){}}
@@ -1463,10 +1468,10 @@ async function pjWrite(b){// make a bundle the open project (the caller reloads)
   localStorage.setItem(LSK,snap);await idb.del('tape').catch(()=>{});if(b.tape)await idb.set('tape',b.tape);
   for(let i=0;i<16;i++){await idb.del('smp'+i).catch(()=>{});if(b.smp&&b.smp[i])await idb.set('smp'+i,b.smp[i])}
   for(let kt=0;kt<8;kt++)for(let p=0;p<24;p++){const k=kt+'_'+p;await idb.del(padK(kt,p)).catch(()=>{});if(b.pad&&b.pad[k])await idb.set(padK(kt,p),b.pad[k])}}
-async function pjSwitch(target,label){// archive the open project first, then bring in the target (null = a new, empty project)
+async function pjSwitch(target,label,nm){// archive the open project first, then bring in the target (null = a new, empty project)
   if(PJ.busy)return;PJ.busy=true;pjMsg(label);const M=pjm();
   try{const t=target?await idb.get('proj:'+target):{};if(!t)throw new Error('missing');const b=await pjLive();await idb.set('proj:'+M.cur,b);
-    const c=pjCur();if(c)c.t=Date.now();let id=target;if(!id){id=pjId();M.list.push({id,name:pjName('PROJECT '+(M.list.length+1)),t:Date.now()})}
+    const c=pjCur();if(c)c.t=Date.now();let id=target;if(!id){id=pjId();M.list.push({id,name:pjName(nm||'PROJECT '+(M.list.length+1)),t:Date.now()})}
     await pjWrite(t);if(target)await idb.del('proj:'+target).catch(()=>{});M.cur=id;pjSave();location.reload()}
   catch(e){console.warn(e);pjMsg('COULD NOT SWITCH');PJ.busy=false}}
 async function pjDup(){const M=pjm(),p=M.list[PJ.sel];if(!p||PJ.busy)return;PJ.busy=true;pjMsg('COPYING…');
@@ -1512,6 +1517,7 @@ function pjDo(){const M=pjm(),p=M.list[PJ.sel];switch(PJA[PJ.act]){
   case'DELETE':pjDel();break;
   case'SAVE FILE':pjSaveFile([p],'project');break;
   case'BACKUP ALL':pjSaveFile(M.list.slice(),'backup');break;
+  case'DEMO SONG':demoProject();break;
   case'LOAD FILE':if(HW.ok){usbOpen('project');break}if(navigator.userActivation&&!navigator.userActivation.isActive)pjMsg('USE LOAD PROJECT BELOW');else $('#pfile').click()}}
 function pjParams(){const M=pjm(),n=M.list.length,step=(k,d,f)=>{PJ[k]+=d*15;while(Math.abs(PJ[k])>=1){const s2=Math.sign(PJ[k]);PJ[k]-=s2;f(s2);PJ.arm=0}};return[
   {n:'PROJECT',val:()=>(PJ.sel+1)+'/'+n,turn(d){step('sa',d,k=>PJ.sel=clamp(PJ.sel+k,0,pjm().list.length-1))}},
@@ -1600,14 +1606,14 @@ function sysItems(){const y=S.sys,b=SYS.bat;switch(SYS.s){
     {n:'ERASE PRESETS',v:()=>nUp()?TW():'EMPTY',act:()=>{if(!nUp())return;S.up.forEach(u=>u.length=0);S.pre.forEach((k,sl)=>{if(k>PRESETS[slE(sl)].length)S.pre[sl]=0});sysMsg('PRESETS ERASED')}},
     {n:'ERASE TAPE',v:()=>'OPEN',go:eraseOpen},{n:'ERASE EVERYTHING',v:()=>TW(),act:()=>{sysMsg('ERASING…');setTimeout(wipeAll,400)}}];
   case 4:return[{n:'BRIGHTNESS',v:()=>Math.round(y.bri*100)+'%',adj:k=>y.bri=clamp(Math.round((y.bri+k*.1)*10)/10,.2,1)},
-    {n:'SCREEN SLEEP',v:()=>y.sleep?y.sleep+' MIN':'OFF',adj:k=>y.sleep=SLEEPS[clamp(SLEEPS.indexOf(y.sleep)+k,0,SLEEPS.length-1)]},{n:'CLOCK IN TITLE',v:()=>y.clk?'ON':'OFF',adj:()=>y.clk=y.clk?0:1}];
+    {n:'SCREEN SLEEP',v:()=>y.sleep?y.sleep+' MIN':'OFF',adj:k=>y.sleep=SLEEPS[clamp(SLEEPS.indexOf(y.sleep)+k,0,SLEEPS.length-1)]},{n:'CLOCK IN TITLE',v:()=>y.clk?'ON':'OFF',adj:()=>y.clk=y.clk?0:1},{n:'TIPS',v:()=>y.tips?'ON':'OFF',adj:()=>{y.tips=y.tips?0:1;if(y.tips){TIPN={};try{localStorage.removeItem('web1.tips')}catch(_){}}}}];
   case 5:return[{n:'CONNECT',v:()=>midiOK?MIDI.ins+' IN · '+MIDI.out.length+' OUT':TW(),go:initMidi},{n:'CLOCK OUT',v:()=>S.midi[0]?'ON':'OFF',adj:()=>S.midi[0]=S.midi[0]?0:1},
     {n:'CLOCK IN',v:()=>S.midi[1]?'FOLLOW':'OFF',adj:()=>S.midi[1]=S.midi[1]?0:1},{n:'NOTES OUT',v:()=>['OFF','SEQUENCERS','EVERYTHING'][S.midi[2]],adj:k=>S.midi[2]=clamp(S.midi[2]+k,0,2)},
     {n:'CHANNEL',v:()=>''+(S.midi[3]+1),adj:k=>S.midi[3]=clamp(S.midi[3]+k,0,15)}];
   case 6:return[{n:'AUDIO LOAD',v:()=>PERF.load!=null?Math.round(PERF.load*100)+'% · PEAK '+Math.round((PERF.peak||0)*100)+'%':'NOT REPORTED'},{n:'SCREEN',v:()=>Math.round(PERF.fps)+' FPS'},
     {n:'VOICES',v:()=>voices.filter(v=>!v.off).length+' OF '+vmax()},{n:'VOICE LIMIT',v:()=>S.sys.vl?S.sys.vl+' VOICES':'AUTO ('+PERF.vmax+')',adj:k=>S.sys.vl=VLIM[clamp(VLIM.indexOf(S.sys.vl)+k,0,VLIM.length-1)]},
     {n:'DROPOUTS',v:()=>PERF.under!=null?(PERF.under*100).toFixed(1)+'%':'NOT REPORTED'}];
-  default:return[{n:'DEVICE',v:()=>NAME},{n:'VERSION',v:()=>'0.40 · 2026'+(HW.upd&&HW.upd.current?' · '+HW.upd.current:'')},{n:'DESIGN',v:()=>'SNOW BAYLES'},{n:'ENGINES',v:()=>NENG+' ENGINES · 16 SLOTS · 8 KITS'},
+  default:return[{n:'DEVICE',v:()=>NAME},{n:'VERSION',v:()=>'0.40 · 2026'+(HW.upd&&HW.upd.current?' · '+HW.upd.current:'')},{n:'DESIGN',v:()=>'SNOW BAYLES'},{n:'ENGINES',v:()=>NENG+' ENGINES · 16 SLOTS · 8 KITS'},{n:'GUIDED TOUR',v:()=>TOUR.on?'RUNNING':'START ▸',go:()=>{S.overlay=null;tourStart()}},{n:'DEMO SONG',v:()=>'NEW PROJECT',act:demoProject},
     ...(HW.ok?[{n:'CHECK FOR UPDATE',v:()=>!HW.upd?TW():HW.upd.ok?(HW.upd.behind?HW.upd.behind+' NEW':'UP TO DATE'):'NO CONNECTION',go:()=>{sysMsg('CHECKING…');hwApi('/api/update').then(u=>{HW.upd=u;sysMsg(u.ok?(u.behind?u.behind+' UPDATES':'UP TO DATE'):'NO CONNECTION')}).catch(()=>sysMsg('NO CONNECTION'))}},
       {n:'INSTALL UPDATE',v:()=>HW.upd&&HW.upd.behind?TW():'—',act:()=>{if(!(HW.upd&&HW.upd.behind))return;sysMsg('UPDATING…');hwPost('/api/update',{}).then(r=>{if(r&&r.ok){sysMsg('UPDATED · RESTARTING');setTimeout(()=>location.reload(),2500)}else sysMsg('UPDATE FAILED')})}}]:[]),{n:'TAPE',v:()=>'4 TRACKS × '+TAPE_SECS+' S'},{n:'MIDI',v:()=>midiOK?'CONNECTED':'NOT CONNECTED'}]}}
 function sysEst(){if(navigator.storage&&navigator.storage.estimate)navigator.storage.estimate().then(e=>SYS.est=e).catch(()=>{})}
@@ -1964,7 +1970,7 @@ leds();
 
 /* ───────────── actions ───────────── */
 const downNote={};
-function noteOn1(n,vel=1){const now=AC.currentTime,ty=seq.type;wake();if(S.overlay==='erase')return;
+function noteOn1(n,vel=1){const now=AC.currentTime,ty=seq.type;wake();if(S.overlay==='erase')return;TOUR.notes++;
   if(S.overlay==='dm'){dmKey(mod24(n-base()),now,vel);return}
   if(seq.on){
     if(ty===0){
@@ -2015,6 +2021,8 @@ function trick(i,on){if(!tape)return;S.trick=on?i:-1;
   else{S.revHold=on;tapeSet()}}
 function press(a){initAudio();wake();
   if(a!=='shift'&&S.shift)S.shiftUsed=true;
+  if(TOUR.on&&a==='stop'&&S.shift){tourEnd();leds();return}
+  if(TOUR.on&&TST[TOUR.i].end&&a!=='shift'&&performance.now()-TOUR.at>1500)tourEnd();
   if(a==='shift'){if(!S.shift){S.shiftAt=performance.now();S.shiftUsed=false}S.shift=true}
   else if(a==='help'){$('#help').classList.toggle('show')}
   else if(a==='synth'&&S.shift){S.mode='synth';S.inst='synth';applyPatch();S.overlay=S.overlay==='menu'?null:'menu';MENU.e=(S.slot+.5)/16;MENU.p=(S.pre[S.slot]+.5)/presetsSl(S.slot).length}
@@ -2826,6 +2834,98 @@ function drawSave(t){const sl=S.slot,U=S.up[sl],hit=svHit(),now=performance.now(
 function drawSmp(p){const sm=slotSmp[S.slot],D=sm.buf.duration;
   drawSampleView(slotNm(S.slot)+' · SAMPLE · '+D.toFixed(1)+' S',1,sm.pk,{a:p[0],b:p[1],rv:p[5]>.5,md:idx(p[4],3),fi:fadeS(p[6]),fo:fadeS(p[7]),D},
     voices.map(v=>v.e.sp).filter(Boolean),AC.currentTime-lastOn.t<.18&&AC.currentTime>=lastOn.t)}
+/* ───────────── demo song: written here as notes, played by WEB-1's own sounds into an offline render, one track each:
+   1 drums (kit 1 BOX, ANALOG model) · 2 bass (B2 LADDER) · 3 pads (B4 VELVET) · 4 lead (B1 NEON). A minor, 108 BPM, 25 bars:
+   INTRO (bars 1–4) · VERSE (5–12) · CHORUS (13–20) · OUTRO (21–24) and a last chord. Made on first launch, or with PROJECTS → DEMO SONG ───────────── */
+const DEMO={bpm:108,busy:false};
+function demoScore(){const E=[],add=(tr,n,b,l,v)=>E.push([tr,n,b,l,v]),CH=[[57,60,64],[57,60,65],[55,60,64],[55,59,62]],RT=[45,41,36,43],  // Am F C G, and their bass roots
+    MEL=[[[0,76,1],[1,74,.5],[1.5,72,.5],[2,69,1.5],[3.5,72,.5]],[[0,72,1],[1,69,.5],[1.5,72,.5],[2,77,1.5],[3.5,76,.5]],[[0,76,1.5],[1.5,74,.5],[2,72,1],[3,67,1]],[[0,71,1],[1,74,1],[2,79,1.5],[3.5,76,.5]]];
+  for(let bar=0;bar<25;bar++){const c=bar%4,b0=bar*4,last=bar===24,intro=bar<4,verse=bar>=4&&bar<12,chorus=bar>=12&&bar<20,outro=bar>=20&&bar<24,r=RT[c],D=(p,b,v)=>add(0,p,b0+b,0,v);
+    (last?CH[0]:CH[c]).forEach(n=>add(2,n,b0,last?6:3.92,chorus?.8:.65));                                   // pads: a chord per bar
+    if((bar>=2&&intro)||outro)add(1,r,b0,3.8,.8);if(last)add(1,45,b0,4,.8);                                   // bass: long notes in the intro and outro
+    if(verse||chorus)for(let k=0;k<8;k++)add(1,k%4===3?r+12:r,b0+k*.5,.42,k%2?.7:.9);                       // 8ths in the verse and chorus
+    if(intro&&bar>=2){for(let k=0;k<8;k++)D(6,k*.5,k%2?.3:.45);if(bar===3){D(0,0,.8);D(0,2,.7)}}
+    if(verse){D(0,0,1);D(0,2,.9);D(0,2.5,.6);D(2,1,.9);D(2,3,.9);for(let k=0;k<7;k++)D(6,k*.5,k%2?.35:.55);D(8,3.5,.5);if(bar===11)[[4,3],[4,3.25],[5,3.5],[7,3.75]].forEach(([p,b])=>D(p,b,.8))}
+    if(chorus){for(let k=0;k<4;k++)D(0,k,1);[1,3].forEach(b=>{D(2,b,.95);D(3,b,.7)});for(let k=0;k<16;k++)if(k%4!==2)D(6,k*.25,k%2?.28:.45);for(let k=0;k<4;k++)D(8,k+.5,.45);if(bar===12||bar===16)D(10,0,.8);if(bar===19){D(2,3.5,.6);D(2,3.75,.7)}}
+    if(outro){D(0,0,.9);if(bar<23)D(0,2,.7);D(2,3,.7);for(let k=0;k<8;k++)D(6,k*.5,k%2?.25:.4);if(bar===23)[[4,3],[5,3.25],[7,3.5],[7,3.75]].forEach(([p,b])=>D(p,b,.7))}
+    if(last){D(10,0,.9);D(0,0,1)}
+    if(chorus)(bar===19?[[0,71,1],[1,74,1],[2,76,2]]:MEL[c]).forEach(([b,n,l])=>add(3,n,b0+b,l*.92,.85));    // lead: the chorus tune
+    if(outro)add(3,[76,72,76,74][c],b0,3.6,.7);if(last)add(3,69,b0,4,.7)}
+  return E}
+// one note of a slot, for the offline render (like voiceOn1 + voiceOff1, without the live voice list)
+function rNote(sl,note,t,dur,vel,dest){const P=synthP[sl],E=engOfSl(sl),f=440*2**((note-69)/12);BSL=sl;const e=E.build(f,E===SMP?P.smp:modEng(P,sl,t,null),t),vg=gn(0),[a,d,s,r]=envVals(P.env),vs=P.pm?P.pm[3]:.8,pk=.26*((1-vs)+vs*vel);
+  lastOn={t,f,pf:lastOn.f};e.out.connect(vg);vg.connect(dest);const G=vg.gain,te=t+dur;G.setValueAtTime(0,t);G.linearRampToValueAtTime(pk,t+a);G.setTargetAtTime(pk*s,t+a,d/3);
+  if(G.cancelAndHoldAtTime)G.cancelAndHoldAtTime(te);else G.cancelScheduledValues(te);G.setTargetAtTime(0,te,r/5);if(e.off)e.off(te,r);e.srcs.forEach(x=>{try{x.stop(te+r*1.6+.05)}catch(_){}})}
+// rendered in 2-bar pieces (all at once, each with room for its tails) and added into the four tracks: one long render keeps every
+// finished note connected and slows down as it goes
+async function demoRender(sr){const bd=60/DEMO.bpm,total=Math.ceil((TAPE_SECS-.2)*sr),outs=[0,1,2,3].map(()=>new Float32Array(total)),ev=demoScore().sort((x,y)=>x[2]-y[2]),CB=8,jobs=[];
+  for(let b0=0;b0<100;b0+=CB){const evs=ev.filter(e=>e[2]>=b0&&e[2]<b0+CB);if(!evs.length)continue;
+    const len=Math.ceil((CB*bd+(b0+CB>=96?4.5:3))*sr),ctx=new OfflineAudioContext(4,len,sr),mg=new ChannelMergerNode(ctx,{numberOfInputs:4}),tg=[0,1,2,3].map(i=>{const g2=new GainNode(ctx);g2.connect(mg,0,i);return g2});mg.connect(ctx.destination);
+    const keep={AC,N,lastOn,ohOut,kit:S.kit};AC=ctx;N={drumBus:tg[0],kickKey:null};ohOut=null;S.kit=0;
+    try{for(const[tr,n,b,l,v]of evs){const t=(b-b0)*bd;if(tr===0)drumHit(n,t,v);else rNote([0,9,11,8][tr],n,t,l*bd,v,tg[tr])}}
+    finally{AC=keep.AC;N=keep.N;lastOn=keep.lastOn;ohOut=keep.ohOut;S.kit=keep.kit}
+    const off=Math.round(b0*bd*sr);jobs.push(ctx.startRendering().then(buf=>{for(let c=0;c<4;c++){const d=buf.getChannelData(c),o=outs[c],n=Math.min(d.length,total-off);for(let k=0;k<n;k++)o[off+k]+=d[k]}}))}
+  await Promise.all(jobs);
+  return[.85,.75,.55,.65].map((pk,i)=>{const a=outs[i];let m=0;for(let j=0;j<a.length;j++){const v=Math.abs(a[j]);if(v>m)m=v}if(m>1e-4){const g2=pk/m;for(let j=0;j<a.length;j++)a[j]*=g2}return a})}
+// the demo project's sounds, mix, key and sections
+function demoSetup(){S.bpm=DEMO.bpm;S.tm[0]=(DEMO.bpm-40)/160;
+  setEngine(8,8);applyPreset(8,3);setEngine(9,9);applyPreset(9,1);setEngine(11,11);applyPreset(11,4);drumP[0].km=[(1+.5)/4,1];
+  S.lv=[.8,.78,.62,.7];S.pn=[.5,.5,.42,.58];S.srv=[.08,0,.4,.3];S.sdl=[0,0,.1,.35];S.mute=[0,0,0,0];S.solo=[0,0,0,0];
+  S.kc=[(9+.5)/12,(2+.5)/12,0,0];const bs=4*60/DEMO.bpm;S.mk=[0,4*bs,12*bs,20*bs,null,null];S.mkn=[0,1,2,5,4,5];
+  S.inst='synth';S.slot=8;S.mode='tape';S.overlay=null;S.track=0;S.loop=false;applyRack();applyMix();applyPatch()}
+async function demoMake(first){if(!AC||!tape||DEMO.busy)return;DEMO.busy=true;
+  try{demoSetup();const tr=await demoRender(AC.sampleRate),sr=AC.sampleRate;
+    tape.port.postMessage({t:'load',tr});tape.port.postMessage({t:'seek',pos:0});
+    tr.forEach((a,k)=>{const o=ov[k];for(let b=0;b<BINS;b++){let m=0;const i1=Math.min(a.length,Math.floor((b+1)*sr/10));for(let i=Math.floor(b*sr/10);i<i1;i+=4){const v=Math.abs(a[i]);if(v>m)m=v}o[b]=m>.003?Math.min(1,m*3+.08):0}});
+    tapeDirty=true;if(first){const c=pjCur();if(c){c.name=pjName('DEMO SONG',c);pjSave()}}try{localStorage.setItem('web1.intro','1')}catch(_){}
+    status('the demo song is on the tape: press PLAY');leds();if(first)tourStart()}
+  catch(e){console.warn('demo failed',e);status('could not make the demo song')}
+  DEMO.busy=false}
+// PROJECTS → DEMO SONG (and SYSTEM → ABOUT): a new project, with the demo made in it after the page reloads
+function demoProject(){try{localStorage.setItem('web1.demo','1')}catch(_){}pjSwitch(null,'MAKING THE DEMO…',pjm().list.some(p=>p.name==='DEMO SONG')?'DEMO':'DEMO SONG')}
+
+/* ───────────── guided tour: eight steps; each one points at the key or knob to use and moves on once you use it.
+   Shift + STOP ends it; SYSTEM → ABOUT → GUIDED TOUR starts it again ───────────── */
+const kb=x=>OS1||HW.ok?'':' ('+x+')',TOUR={on:false,i:0,at:0,done:0,lv:0,notes:0};
+const TST=[
+  {k:'play',t:'WELCOME TO WEB-1! THIS SHORT TOUR SHOWS YOU THE BASICS.',a:()=>'PRESS ▶ PLAY'+kb('SPACE')+' TO HEAR THE DEMO SONG',ok:()=>S.playing},
+  {k:'mixer',t:'THE SONG IS ON THE TAPE: FOUR TRACKS, ONE COLOUR EACH.',a:()=>'PRESS MIXER'+kb('V')+' TO SEE THE FOUR TRACKS',ok:()=>S.mode==='mixer'&&!S.overlay},
+  {k:'e0',t:'THE FOUR KNOBS CHANGE THE FOUR COLOURED VALUES ON THE SCREEN.',a:'TURN THE BLUE KNOB: TRACK 1, THE DRUMS',in:()=>TOUR.lv=S.lv[0],ok:()=>Math.abs(S.lv[0]-TOUR.lv)>.04},
+  {k:'synth',t:()=>kScl()?'THE KEYS ARE SET TO THE SONG\'S KEY, '+NOTE_N[kRoot()]+' '+SCL[kSi()][0]+', SO EVERY NOTE FITS.':'THE KEYBOARD PLAYS THE SOUND YOU PICK.',a:()=>'PRESS SYNTH'+kb('Z')+', THEN PLAY A FEW KEYS'+kb('A S D F G H J'),in:()=>TOUR.notes=0,ok:()=>S.mode==='synth'&&TOUR.notes>=3},
+  {k:'t1',t:'1–8 PICK A SOUND, SHIFT + 1–8 EIGHT MORE. T1–T4 PICK THE PAGE.',a:()=>'PRESS T2'+kb('N')+' FOR THE ENVELOPE',ok:()=>S.mode==='synth'&&S.page===1&&!S.overlay},
+  {k:'tape',t:'IN TAPE MODE, T1–T4 PICK A TRACK AND ● REC RECORDS WHAT YOU PLAY ON IT.',a:()=>'PRESS TAPE'+kb('C'),ok:()=>S.mode==='tape'&&!S.overlay},
+  {k:()=>S.overlay==='fx'?'s1':'fx',t:'FX OPENS THE MASTER EFFECTS. WHILE IT IS OPEN, 1–8 ARE LIVE EFFECTS.',a:()=>S.overlay==='fx'?'HOLD 2 FOR A BEAT REPEAT ON THE SONG':'PRESS FX'+kb('I'),ok:()=>LV.held.length>0},
+  {k:null,t:()=>'THAT\'S THE TOUR! '+(OS1?'? OPENS THE CONTROLS CARD.':HW.ok?'THE GUIDE HAS EVERY KEY AND KNOB.':'/ OPENS THE CONTROLS CARD.'),a:'YOUR OWN SONG: SHIFT + 7 IN TAPE MODE (PROJECTS), THEN NEW',end:true}];
+function tourStart(){TOUR.on=true;TOUR.i=0;TOUR.done=0;TOUR.at=performance.now();if(TST[0].in)TST[0].in();leds()}
+function tourEnd(){TOUR.on=false;tourHL(null);status('tour finished: SYSTEM → ABOUT → GUIDED TOUR starts it again')}
+function tourTick(){const st=TST[TOUR.i],now=performance.now();
+  if(st.end){if(now-TOUR.at>15000)tourEnd();return}
+  if(!TOUR.done&&st.ok())TOUR.done=now;
+  if(TOUR.done&&now-TOUR.done>900){TOUR.i++;TOUR.done=0;TOUR.at=now;const n=TST[TOUR.i];if(n.in)n.in();leds()}}
+const fitT=(s,x,y,c,sz,mw,al)=>{g.font=`${sz}px ${FONT}`;const w=g.measureText(s).width;txt(s,x,y,c,w>mw?sz*mw/w:sz,al)};
+function drawTour(){if(!TOUR.on)return;const st=TST[TOUR.i],y=71,ok=!!TOUR.done,f=v=>typeof v==='function'?v():v;
+  g.fillStyle='rgba(7,8,10,.95)';g.fillRect(0,y,W,29);ln(0,y+.5,W,y+.5,COL.o,1);
+  fitT(f(st.t),8,y+9.5,COL.w,6.2,W-16);fitT(ok?'NICE!':f(st.a),8,y+19,ok?COL.g:COL.o,7,W-16);
+  txt('TOUR '+(TOUR.i+1)+'/'+TST.length,8,y+27,'#5d6169',4.8);txt(st.end?'ANY KEY ENDS THE TOUR':'SHIFT + STOP ENDS THE TOUR',W-8,y+27,'#5d6169',4.8,'right');
+  for(let i=0;i<TST.length;i++)circ(CX-14+i*4,y+25.5,1.1,i<=TOUR.i?COL.o:'#3a3d44',true)}
+// the key or knob the tour points at: a pulsing outline, and its light blinks orange (on the hardware too)
+let TOURHL=null;function tourHL(k){const el=k?(k[0]==='e'&&k.length===2?encEl[+k[1]]:actEl[k]):null;if(TOURHL&&TOURHL!==el){TOURHL.classList.remove('tourk');TOURHL=null;leds()}if(el){el.classList.add('tourk');TOURHL=el}}
+setInterval(()=>{if(!TOUR.on){if(TOURHL)tourHL(null);return}const st=TST[TOUR.i],k=typeof st.k==='function'?st.k():st.k;tourHL(TOUR.done?null:k);
+  if(TOURHL&&k&&actEl[k]===TOURHL){const on=Math.floor(performance.now()/300)%2===0;TOURHL.classList.toggle('lit',on);TOURHL.classList.toggle('alt',on)}},60);
+
+/* ───────────── tips: the first few times you open a screen, one short tip at the bottom of the screen (SYSTEM → DISPLAY → TIPS) ───────────── */
+const TIPS={synth:['PRESS T1 AGAIN FOR THE SAMPLER','HOLD SHIFT ON T1 FOR THE MACRO KNOB','SHIFT + SYNTH: EVERY SOUND AND ITS PRESETS','T4 HAS TWO LFOS: HOLD SHIFT FOR LFO 2'],
+  drum:['1–8 PICK A KIT','SHIFT + DRUM OPENS THE DRUM MACHINE','SHIFT + 4: A SAMPLER FOR THE PAD YOU HIT','HOLD SHIFT ON T1 FOR THE KIT MODEL'],
+  tape:['T1–T4 PICK THE TRACK · ● REC RECORDS ON IT','HOLD 1, 2 OR 3 WHILE IT PLAYS: BRAKE, STUTTER, REVERSE','SHIFT + LOOP: SONG SECTIONS TO JUMP BETWEEN','LIFT CUTS A BAR, DROP PASTES IT, SHIFT + DROP UNDOES'],
+  mixer:['1–4 MUTE A TRACK, 5–8 SOLO ONE','HOLD SHIFT FOR PANS AND MORE ON EVERY PAGE','SHIFT + MIXER: SENDS, SIDECHAIN, BOUNCE, EXPORT'],
+  dm:['ON T4 (STEPS) THE KEYS TURN STEPS ON AND OFF','HOLD A STEP, THEN T1–T3, TO CHANGE A KNOB JUST FOR IT','T4 AGAIN: DICE A NEW GROOVE, AND FILLS','1–8 PICK THE PATTERN'],
+  seq:['T1–T4 PICK THE SEQUENCER','PATTERN: HOLD SHIFT FOR VELOCITY, CHANCE AND CONDITIONS'],fx:['T1–T4 PICK AN EFFECT, THE SAME T AGAIN TURNS IT ON','HOLD 1–8 FOR LIVE EFFECTS ON EVERYTHING'],
+  key:['T2 MAKES CHORD PROGRESSIONS, T3 A BASS THAT FOLLOWS YOU','CHORD: ONE KEY PLAYS A WHOLE CHORD'],pse:['T2 SLICE · T3 RECORD · T4 FROM TAPE'],menu:['THE ORANGE KNOB MAKES A RANDOM SOUND'],mk:['1–6 SET A MARKER, OR JUMP TO IT ON THE NEXT BAR']},TIP={ctx:'',at:0,txt:''};
+let TIPN={};try{TIPN=JSON.parse(localStorage.getItem('web1.tips')||'{}')||{}}catch(_){}
+function tipTick(){const c=S.overlay?(TIPS[S.overlay]?S.overlay:''):S.mode;if(c===TIP.ctx)return;TIP.ctx=c;if(!c||!S.sys.tips||TOUR.on||DEMO.busy)return;const L=TIPS[c],n=TIPN[c]|0;if(!L||n>=L.length)return;
+  TIP.txt=L[n];TIP.at=performance.now();TIPN[c]=n+1;try{localStorage.setItem('web1.tips',JSON.stringify(TIPN))}catch(_){}}
+function drawTip(){const e=performance.now()-TIP.at;if(!TIP.txt||e>5500||!S.sys.tips)return;g.globalAlpha=Math.max(0,Math.min(1,e/250,(5500-e)/500));g.fillStyle='rgba(7,8,10,.92)';g.fillRect(0,90,W,10);
+  txt('TIP',8,97.5,COL.o,5.5);fitT(TIP.txt,24,97.5,COL.w,5.5,W-32);g.globalAlpha=1}
 function boot(t){for(let i=0;i<5;i++)plot(u=>65+Math.sin(u*9+t*1.4+i*.9)*(8+i*4)*Math.sin(u*3.14),20,W-20,i===4?COL.w:TC[i%4],1);txt(NAME,CX,34,COL.w,13,'center');txt(OS1?'TAP ANY KEY':'PRESS ANY KEY',CX,118,Math.sin(t*4)>0?COL.o:COL.dim,7,'center')}
 function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PERF.t0>1000){PERF.fps=PERF.n*1000/(ts-PERF.t0);PERF.n=0;PERF.t0=ts;perfTick()}
   if(HW.off){g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);txt('SAVED',CX,58,COL.g,16,'center');txt('WEB-1 IS TURNING OFF',CX,76,COL.w,7,'center');return}g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);
@@ -2858,7 +2958,8 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PER
     else{title='LFO '+(S.shift?'2':'1')+' · '+(S.inst==='synth'?slotNm(S.slot):'DRUM '+(S.kit+1));drawLfo(t,P)}}
   if(S.count){const left=Math.max(1,Math.ceil(S.count.b0-beatNow().b-1e-6));g.fillStyle='rgba(5,5,7,.86)';g.fillRect(0,14,W,86);
     txt(''+left,CX,80,COL.red,48,'center');txt('COUNT-IN · TRACK '+(S.track+1),CX,28,COL.dim,7,'center');title='REC'}
-  if(S.shift&&!S.shiftUsed&&performance.now()-(S.shiftAt||0)>500&&S.overlay!=='save'){drawShiftMap();title='SHIFT MAP'}
+  tipTick();if(TOUR.on){tourTick();drawTour()}else drawTip();
+  if(DEMO.busy){g.fillStyle='rgba(7,8,10,.92)';g.fillRect(0,14,W,86);txt('MAKING THE DEMO SONG…',CX,54,COL.w,10,'center');txt('WEB-1 PLAYS IT WITH ITS OWN SOUNDS, ONTO THE FOUR TRACKS',CX,68,COL.dim,6,'center')}
   g.restore();
   txt(title,6,10,COL.w,7);
   let hx=W-6;const hd=(s,c)=>{txt(s,hx,10,c,7,'right');hx-=g.measureText(s).width+8};

@@ -2,6 +2,12 @@
 
 This is the full manual for WEB-1. In the app itself, press **/** at any time, or click **guide** under the device, for a short controls card.
 
+## Start here
+
+- **The demo song.** The first time you open WEB-1, it makes a demo song with its own sounds and puts it on the four tape tracks, in a project called **DEMO SONG**. Press **PLAY** to hear it: drums on track 1, bass on 2, pads on 3 and a lead on 4, in A minor at 108 BPM, with section markers for the INTRO, VERSE, CHORUS and OUTRO. Mute tracks in the mixer, jump between the sections (Shift + LOOP in tape mode), play along on the keys (they are set to A minor), or try the live effects on it. **PROJECTS → DEMO SONG** (Shift + 7 in tape mode), or **SYSTEM → ABOUT → DEMO SONG**, makes it again in a new project. Your other projects are kept.
+- **The guided tour.** On first launch a short tour starts too: eight steps at the bottom of the screen, each pointing at the key or knob to use (it blinks orange and gets an orange outline), and moving on once you use it. **Shift + STOP** ends it; **SYSTEM → ABOUT → GUIDED TOUR** (Shift + 8 in tape mode) starts it again.
+- **Tips.** The first few times you open a screen, a one-line tip shows at the bottom of the screen for a few seconds. Turn them off, or on again to see them all again, in **SYSTEM → DISPLAY → TIPS**.
+
 **Contents**
 
 1. [The device at a glance](#1-the-device-at-a-glance)
@@ -61,16 +67,11 @@ A push does the action shown on that knob, or puts the value back where it was b
 
 Turning a knob all the way to YES still works everywhere. On the hardware, the screen's hints say PUSH WHITE instead of TURN WHITE.
 
-### The Shift map
-
-There are about 40 Shift combinations, so WEB-1 shows them for you. Hold **Shift** for half a second without pressing anything else, and the screen shows the **SHIFT MAP**: what every key does with Shift in the mode you are in (synth, drum, tape, mixer…), plus the ones that work everywhere. Let go of Shift to close it. If you press the other key before half a second has passed, the map doesn't appear, so quick Shift combinations are never interrupted.
-
 ## 2. Keyboard map
 
 | Key | Action |
 |---|---|
 | **A W S E D F T G Y H U J K O L P ; '** | Musical keys (W E T Y U O P are the black keys) |
-| **Hold Shift** | After half a second, the Shift map shows every Shift combination in this mode |
 | **Shift + ← / →** | Octave down / up |
 | **← / →** (synth mode) | Hold for pitch bend down / up (2 semitones) |
 | **Z X C V** | Mode: SYNTH · DRUM · TAPE · MIXER |
@@ -463,10 +464,10 @@ In tape mode, hold **Shift** and press **8** (labelled **MENU**) to open the sys
 | **TIME** | Hour, minute, 12 or 24 hour clock, date, and USE DEVICE TIME to go back to the real clock. On the hardware, these set the device's own clock |
 | **TIMEZONE** | AUTO (this device) or a city from UTC−10 to UTC+12, with the local time. Summer time follows each city's own rules. On the hardware, this sets the device's timezone |
 | **STORAGE** | Projects, space used, number of samples and user presets, ERASE SAMPLES, ERASE PRESETS, ERASE TAPE (opens the erase prompt) and ERASE EVERYTHING. On the hardware, also the USB stick: its name and free space, LOAD SAMPLE FROM USB (into the synth slot you were on), BACKUP TO USB (every project in one .web1 file) and EJECT USB |
-| **DISPLAY** | Brightness (20–100%), screen sleep after 1, 5, 10 or 30 minutes (any key or knob wakes it), and a clock in the title bar |
+| **DISPLAY** | Brightness (20–100%), screen sleep after 1, 5, 10 or 30 minutes (any key or knob wakes it), a clock in the title bar, and TIPS (on or off; turning them on again shows them all again) |
 | **MIDI** | CONNECT (the same as the connect midi button), CLOCK OUT, CLOCK IN, NOTES OUT and CHANNEL (see MIDI below) |
 | **CPU** | AUDIO LOAD (how busy the sound engine is, with its peak), SCREEN (frames per second), VOICES (notes sounding, out of the limit), VOICE LIMIT and DROPOUTS (audio that came too late). Audio load and dropouts show where the browser reports them. With VOICE LIMIT on AUTO, WEB-1 plays fewer notes at once when the device struggles, and gives them back when it recovers; the title bar shows CPU while it holds back. Or pick a fixed limit from 4 to 16 voices |
-| **ABOUT** | Device, version, design, engines, tape size and MIDI status. On the hardware: CHECK FOR UPDATE, and INSTALL UPDATE, which fetches the new version and restarts WEB-1 |
+| **ABOUT** | Device, version, design, engines, GUIDED TOUR (starts the tour), DEMO SONG (makes the demo in a new project), tape size and MIDI status. On the hardware: CHECK FOR UPDATE, and INSTALL UPDATE, which fetches the new version and restarts WEB-1 |
 
 The settings are saved. In the browser, battery and storage show what the browser can see. The items marked "on the hardware" appear when WEB-1 runs on the device (see [On the WEB-1 hardware](#16-on-the-web-1-hardware)).
 
@@ -728,6 +729,7 @@ A project is one whole song: its tape, every sound and kit setting, the sequence
 | **DELETE** | Deletes the selected project. You can't delete the one that is open: open another one first |
 | **SAVE FILE** | Saves the selected project as a **.web1** file |
 | **BACKUP ALL** | Saves every project in one **.web1** file |
+| **DEMO SONG** | Makes the demo song in a new project (the one you were in is kept) |
 | **LOAD FILE** | Adds the projects from a **.web1** file. Nothing is overwritten: a name that is already taken gets a letter, for example PROJECT 1B. On the hardware, it lists the .web1 files on the USB stick |
 
 Your saved presets and the system settings (time, display) are shared by every project. The **save project** and **load project** buttons under the device save the open project and load a file in one click. A .web1 file keeps the audio at 16 bits and is compressed, so a short song is small; four full tracks of 60 seconds come to at most about 23 MB. Files made on a device with another sample rate are converted when you open them. **reset all** now erases every project.
@@ -772,7 +774,6 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 | The letter keys type instead of playing notes | The SAVE PRESET screen is open. Press **Esc** to close it, or **Enter** to save. |
 | Crackles | Close other heavy tabs. Very big chords on NEON or HOOVER use the most CPU. The system menu's CPU section shows the audio load and dropouts. |
 | Fewer notes sound than I play, and the title bar shows CPU | The device is busy, so the AUTO voice limit is holding back. Close other tabs, or set VOICE LIMIT in the system menu (CPU). |
-| A list of Shift combinations covers the screen | That is the Shift map: you held Shift for half a second. Let go to close it, or press the other key sooner. |
 | A bass plays along by itself | FOLLOW BASS is on (the title bar shows BASS A1, for example). Open KEY & CHORDS (Shift + -), press T3 and set SLOT to OFF. |
 | Pressing T1 opened the sampler | Pressing T1 on the T1 page opens the SAMPLER. Press T1 on its EDIT page to go back. |
 | Some steps only play now and then | They have a CHANCE below 100% or a condition (1 OF 2, FILL…). Hold the step, turn CHANCE up, or hold Shift and set COND to ALWAYS. |
