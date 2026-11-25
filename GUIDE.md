@@ -42,7 +42,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 
 ## 1. The device at a glance
 
-- **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge, the picture sits in the middle, and the four coloured values along the bottom edge belong to the four knobs. The tape screen leaves them out to make room for the tape. It is always a black display, whichever finish you choose.
+- **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge (where you are in grey, the page you are on in white, for example SYNTH A1 · CLUSTER), the picture sits in the middle, and the knob bar along the bottom edge shows the four knobs: each knob's name small, with its value large underneath in the knob's colour. The tape screen leaves them out to make room for the tape. It is always a black display, whichever finish you choose.
 - **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click (double-tap on a phone) **pushes** the knob: it resets the value, or does the knob's action, such as SAVE. See [Knob clicks and pushes](#knob-clicks-and-pushes).
 - **Volume knob** (small white knob, top left): the master output level.
 - **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
@@ -689,9 +689,9 @@ All three settings are remembered, and **reset all** does not change them.
 
 ### The screens
 
-Every picture is drawn to fill the screen, from edge to edge between the title and the four values.
+Every picture is drawn to fill the screen, from edge to edge between the title and the four values. They share one style: lines with round ends, small labels in spaced capitals (VOICES, FILTER, DECAY, RESONANCE…), and any extra amount drawn as a labelled bar on a dark track, such as SUB, TONE, OCTAVE, SWELL, BRIGHT or DIVE.
 
-- **Bank A (A1–A8):** CLUSTER, FM (a round planet with a moon on a circular orbit), PULSE, ORGAN (four tall drawbars), FOLD and STORM each draw their sound large across the screen.
+- **Bank A (A1–A8):** CLUSTER (the voices beside the filter curve, with a ring on the resonance), FM (the modulator circling the carrier on a dashed orbit, beside the decay curve), PULSE (the wave with its width in %, and PWM and SUB labelled), ORGAN (four tall drawbars in rounded slots), FOLD (the folded wave with OCTAVE and TONE bars) and STORM each draw their sound large across the screen.
 - **STRINGS (A3):** a vintage string-machine panel in flat lines. Its four sliders (TONE, PHASE, CELLO, VIB) follow the four knobs in their colours, the PHASER light pulses at the phaser's speed, and the level meter and two-octave keyboard light up as you play.
 - **PLUCK:** six strings over a round sound hole. Every note that sounds shakes the string nearest its pitch, so chords shake several strings; a note you let go of stops shaking quickly. The rings round the hole follow BODY, and an orange mark shows where the strings are plucked.
 - **TINE:** the tines and tone bars of an electric piano, one per key. A held note's tine rings and its hammer lights; two lights at the top swing from left to right with the tremolo.
@@ -706,8 +706,8 @@ Every picture is drawn to fill the screen, from edge to edge between the title a
 - **BRASS (B5):** a vintage polysynth in isometric line art. Its keys go down in orange as you play, its four panel knobs follow the four encoders, and a raised display traces the filter envelope, with a needle VU meter and A·D·S·R faders beside it.
 - **NEON (B1):** a synthwave sunset in flat colour bands: a striped sun over a perspective grid that scrolls faster as you play.
 - **AURORA (B6):** flat aurora curtains rippling at the ensemble speed, over stars and layered hills.
-- **HOOVER (B8):** three thick saw waves in blue, green and white swirling over each other. At each note they bend up from a lower pitch (DIVE, also shown as a small bar), DETUNE pulls them apart, CHORUS makes them sway and the orange bar shows TONE.
-- **LADDER, ORBIT, ACID:** live filter curve, ringed planet and resonant peak.
+- **HOOVER (B8):** three thick saw waves in blue, green and white swirling over each other. At each note they bend up from a lower pitch (DIVE, also shown as a labelled bar), DETUNE pulls them apart, CHORUS makes them sway and the orange bar shows TONE.
+- **LADDER, ORBIT, ACID:** live filter curve (with a dashed cutoff mark and its frequency in HZ), ringed planet (with a SWELL bar) and resonant peak (with its Q).
 - **Sampler and pad sample editor:** both use the same screen: the waveform with START and END markers, fade ramps, a green loop mark, the play mode, and an orange playhead for each note or hit that is still sounding.
 - **Effects (T3):** all eight effects draw their picture on the left with two big numbers on the right.
 - **Tape:** two views, picked in SYSTEM → DISPLAY → TAPE VIEW, both using the whole screen with no knob values along the bottom. **TAPE FOCUS** has two big turning reels with the tape running over rollers and the head, the time, bar and section between them, the track number large in its colour with a hollow FX box that turns orange while effects are on, the speed gauge on the right edge, and one thin coloured line per track along the bottom. **TRACK FOCUS** has small reels and the time on top, a strip of the whole tape with its sections, and four tall lanes with each track's audio, level and MUTE, SOLO or REC. In both, hold Shift to see the four edits (COPY · CROP · DOUBLE · ERASE) and an outline around the part they will change; the name of the edit you just used flashes on screen.
