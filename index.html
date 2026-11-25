@@ -2196,24 +2196,30 @@ let neonS=0;
 // pixel sprites for the game-style screens: one character per pixel, '.' is empty
 const spr=(rows,x,y,px,pal)=>{for(let j=0;j<rows.length;j++){const r=rows[j];for(let i=0;i<r.length;i++){const c=r[i];if(c!=='.'){g.fillStyle=pal[c];g.fillRect(x+i*px,y+j*px,px+.05,px+.05)}}}};
 const SHIP=['.bb.........','.bbbb.......','obbbbbbww...','oobbbbbbbbbw','obbbbbbww...','.bbbb.......','.bb.........'];
+// small labels: tracked capitals; meters: a slim track with a round coloured fill (and an optional label on the left)
+const lab=(s,x,y,c,al='left',sz=5.2)=>{g.letterSpacing='.55px';txt(s,x,y,c,sz,al);g.letterSpacing='0px'};
+const meter=(x0,x1,y,v,c,lb)=>{if(lb){lab(lb,x0,y+1.9,c);x0+=g.measureText(lb).width+6}ln(x0,y,x1,y,'#1f2227',1.6);if(v>.005)ln(x0,y,x0+(x1-x0)*clamp(v),y,c,1.6)};
 const ALIEN=[['...gg...','.gggggg.','gg.ww.gg','gggggggg','.g.gg.g.','g.g..g.g'],['...gg...','.gggggg.','gg.ww.gg','gggggggg','.g.gg.g.','.g.g.g.g']];
 const HERO={st:[],sh:[],fo:[],pa:[],sc:0,lt:-1,last:0,y:CY};
-const NOSCOPE=new Set([1,2,4,6,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
+const NOSCOPE=new Set([1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]);
 const ENGDRAW=[
- (t,p,l)=>{const lx=CX/2+4;for(let k=-2;k<=2;k++){const x=lx+k*(8+p[0]*20),h=Math.min(38,16+l*26+((k+2)%2)*5);ln(x,CY-h,x,CY+h,COL.b,2)}
-   circ(lx,CY,8+p[1]*24,COL.g);const x0=CX+6,x1=W-14,xc=x0+30+p[2]*(x1-x0-60),y=CY-12;g.strokeStyle=COL.w;g.lineWidth=1.5;g.beginPath();g.moveTo(x0,y);g.lineTo(xc-20,y);g.quadraticCurveTo(xc-6,y-p[3]*40,xc,y);g.quadraticCurveTo(xc+12,y+24,xc+22,y+46);g.stroke();
-   circ(xc-7,y-p[3]*20,2.5,COL.o,true)},
+ (t,p,l)=>{const lx=CX/2+4;lab('VOICES',16,24,COL.dim);ln(26,CY,CX-14,CY,'#1a1c20',.6);for(let k=-2;k<=2;k++){const x=lx+k*(8+p[0]*20),h=Math.min(34,14+l*24+((k+2)%2)*5);ln(x,CY-h,x,CY+h,COL.b,k?1.8:2.4)}
+   const sr=8+p[1]*24;circ(lx,CY,sr,COL.g);g.globalAlpha=.3;circ(lx,CY,sr+3,COL.g);g.globalAlpha=1;
+   const x0=CX+6,x1=W-14,xc=x0+30+p[2]*(x1-x0-60),y=CY-12,yb=y+46;lab('FILTER',x0,24,COL.dim);for(let k=0;k<3;k++)ln(x0,y+k*16,x1,y+k*16,'#15171b',.6);ln(x0,yb,x1,yb,'#2a2d34',.6);
+   g.beginPath();g.moveTo(x0,y);g.lineTo(xc-20,y);g.quadraticCurveTo(xc-6,y-p[3]*40,xc,y);g.quadraticCurveTo(xc+12,y+24,xc+22,yb);g.strokeStyle=COL.w;g.lineWidth=1.5;g.stroke();g.lineTo(x0,yb);g.closePath();g.fillStyle='rgba(242,242,236,.035)';g.fill();
+   const ry=y-p[3]*20;g.globalAlpha=.35;circ(xc-7,ry,5,COL.o);g.globalAlpha=1;circ(xc-7,ry,2.5,COL.o,true)},
  (t,p,l)=>{const r=FMR[idx(p[0],8)],R=18+p[1]*18,a=t*(1+r*.6),ox=CX-92,mx=ox+Math.cos(a)*R,my=CY+Math.sin(a)*R;
-   circ(ox,CY,10+l*6,COL.w);g.strokeStyle=COL.dim;g.lineWidth=1;g.beginPath();g.arc(ox,CY,R,0,6.283);g.stroke();circ(mx,my,5,COL.b,true);ln(ox,CY,mx,my,COL.b,.8);
+   circ(ox,CY,10+l*6,COL.w);g.globalAlpha=.3;circ(ox,CY,13+l*6,COL.w);g.globalAlpha=1;g.strokeStyle=COL.dim;g.lineWidth=.8;g.setLineDash([2,2.5]);g.beginPath();g.arc(ox,CY,R,0,6.283);g.stroke();g.setLineDash([]);ln(ox,CY,mx,my,COL.b,.8);circ(mx,my,5,COL.b,true);
+   lab('OPERATORS',16,24,COL.dim);ln(CX-6,24,CX-6,92,'#1a1c20',.6);lab('DECAY',CX+4,24,COL.dim);ln(CX+4,CY+36,W-14,CY+36,'#2a2d34',.6);
    circ(mx+Math.cos(a*3)*(5+p[2]*7),my+Math.sin(a*3)*(5+p[2]*7),2.5,COL.g,true);
-   plot(u=>CY+36-Math.exp(-u*(5-p[3]*4.9))*62,CX+4,W-14,COL.o,1.4);scope(CX+4,W-14,CY-6,30,COL.w)},
+   plot(u=>CY+36-Math.exp(-u*(5-p[3]*4.9))*62,CX+4,W-14,COL.o,1.4);g.lineTo(W-14,CY+36);g.lineTo(CX+4,CY+36);g.closePath();g.fillStyle='rgba(255,106,43,.08)';g.fill();scope(CX+4,W-14,CY-6,30,COL.w)},
  // STRINGS: a flat vintage string-machine panel — four sliders follow the knobs, a phaser LED pulses at its rate,
  // a level meter and a small keyboard light up with the notes you hold
  (t,p,l)=>{const px=14,py=18,pw=W-28,ph=78,held=new Set();voices.forEach(v=>{if(!v.off)held.add(v.note)});
    g.strokeStyle=COL.w;g.lineWidth=1;g.beginPath();g.roundRect(px+.5,py+.5,pw,ph,4);g.stroke();ln(px,py+12.5,px+pw,py+12.5,COL.dim,.6);
-   txt('STRINGS',px+6,py+9,COL.w,6.5);txt('ENSEMBLE',px+pw-6,py+9,COL.dim,5.5,'right');
+   lab('STRINGS',px+6,py+9,COL.w,'left',6.2);lab('ENSEMBLE',px+pw-6,py+9,COL.dim,'right');
    ['TONE','PHASE','CELLO','VIB'].forEach((n,i)=>{const x=px+16+i*26,y0=py+22,y1=py+66,y=y1-(y1-y0)*p[i];
-     ln(x,y0,x,y1,'#2a2d34',2);ln(x,y,x,y1,TC[i],2);g.fillStyle=TC[i];g.fillRect(x-6,y-2.5,12,5);g.fillStyle='#07080a';g.fillRect(x-4,y-.4,8,.8);txt(n,x,py+75,TC[i],5,'center')});
+     ln(x,y0,x,y1,'#2a2d34',1.6);ln(x,y,x,y1,TC[i],1.6);g.fillStyle=TC[i];g.beginPath();g.roundRect(x-6,y-2.6,12,5.2,1.3);g.fill();g.fillStyle='#07080a';g.fillRect(x-4,y-.4,8,.8);lab(n,x,py+75,TC[i],'center',4.8)});
    const lx=px+118;ln(lx-8,py+16,lx-8,py+ph-4,COL.dim,.6);
    const on=p[1]>.02&&Math.sin(t*(.1+p[1]*.45)*6.283)>0;circ(lx+6,py+24,3,COL.g,on);txt('PHASER',lx+13,py+26,COL.dim,5);
    const nb=16;for(let k=0;k<nb;k++){const lit=k<l*nb*1.4;g.fillStyle=lit?(k>12?COL.o:k>9?COL.w:COL.b):'#1c1e22';g.fillRect(lx+62+k*7.4,py+21,5.6,6)}
@@ -2221,13 +2227,16 @@ const ENGDRAW=[
    const WN=[0,2,4,5,7,9,11],BN=[1,3,-1,6,8,10,-1],lo=48;
    for(let i=0;i<nw;i++){const n=lo+12*Math.floor(i/7)+WN[i%7],hit=[...held].some(h=>((h-n)%24+24)%24===0);g.fillStyle=hit?COL.o:'#07080a';g.fillRect(kx+i*ww+.5,ky,ww-1,30);g.strokeStyle=COL.w;g.lineWidth=.7;g.strokeRect(kx+i*ww+.5,ky+.5,ww-1,30)}
    for(let i=0;i<nw;i++){const b=BN[i%7];if(b<0||i===nw-1)continue;const n=lo+12*Math.floor(i/7)+b,hit=[...held].some(h=>((h-n)%24+24)%24===0);g.fillStyle=hit?COL.o:COL.w;g.fillRect(kx+(i+1)*ww-ww*.3,ky,ww*.6,18)}},
- (t,p,l)=>{const w0=.5-p[0]*.45,w=clamp(w0+Math.sin(t*.6*2**(p[2]*4))*p[1]*.85*w0,.02,.98),A=20+l*14,x0=16,cw=(W-32)/4;
+ (t,p,l)=>{const w0=.5-p[0]*.45,w=clamp(w0+Math.sin(t*.6*2**(p[2]*4))*p[1]*.85*w0,.02,.98),A=18+l*12,x0=16,cw=(W-32)/4;
+   ln(x0,CY,W-16,CY,'#1a1c20',.6);g.fillStyle='rgba(79,143,255,.1)';for(let c=0;c<4;c++)g.fillRect(x0+c*cw,CY-A,cw*w,2*A);
+   lab('WIDTH '+Math.round(w*100)+'%',x0,24,COL.b);meter(W/2,W-16,22,p[3],COL.o,'SUB');
    g.strokeStyle=COL.b;g.lineWidth=1.8;g.beginPath();g.moveTo(x0,CY+A);for(let c=0;c<4;c++){const x=x0+c*cw;g.lineTo(x,CY-A);g.lineTo(x+cw*w,CY-A);g.lineTo(x+cw*w,CY+A);g.lineTo(x+cw,CY+A)}g.stroke();
-   plot(u=>CY+40-Math.sin(u*6.283*2+t*3)*3*p[1],x0,W-16,COL.g,1.2);ln(x0,CY-40,x0+(W-32)*p[3],CY-40,COL.o,2.5)},
- (t,p,l)=>{p.forEach((v,i)=>{const x=W/8+i*W/4,top=18,hh=76,h=8+v*(hh-12);g.strokeStyle=COL.dim;g.lineWidth=.8;g.strokeRect(x-16,top,32,hh);g.fillStyle=TC[i];g.fillRect(x-13,top+3,26,h);g.fillStyle='#08090b';g.fillRect(x-8,top+h-4,16,3)});
+   lab('PWM',x0,96,COL.g);plot(u=>CY+37-Math.sin(u*6.283*2+t*3)*3*p[1],x0+22,W-16,COL.g,1.2)},
+ (t,p,l)=>{p.forEach((v,i)=>{const x=W/8+i*W/4,top=19,hh=74,h=8+v*(hh-12);g.strokeStyle='#3a3d44';g.lineWidth=.8;g.beginPath();g.roundRect(x-16,top,32,hh,3);g.stroke();
+     for(let k=1;k<8;k++){const y=top+3+k*(hh-6)/8;ln(x+19,y,x+21,y,'#2a2d34',.6)}g.fillStyle=TC[i];g.beginPath();g.roundRect(x-13,top+3,26,h,2);g.fill();g.fillStyle='#08090b';g.beginPath();g.roundRect(x-8,top+h-4.5,16,2.6,1.3);g.fill()});
    scope(16,W-16,CY,12+l*14,'rgba(255,255,255,.25)')},
- (t,p,l)=>{const G=(.1+p[0]*.75)*4.5*Math.PI*(.7+l*.3);plot(u=>CY-4-Math.sin(G*Math.sin(u*6.283*2+t*2)+p[1]*1.2)*32,14,W-14,COL.b,1.6,300);
-   plot(u=>CY-4-Math.sin(u*6.283*2+t*2)*32,14,W-14,'rgba(255,255,255,.18)');ln(14,CY+39,14+(W-28)*p[3],CY+39,COL.o,2.5);ln(14,CY+34,14+(W-28)*p[2],CY+34,COL.w,2.5)},
+ (t,p,l)=>{const G=(.1+p[0]*.75)*4.5*Math.PI*(.7+l*.3);ln(14,CY-4,W-14,CY-4,'#1a1c20',.6);plot(u=>CY-4-Math.sin(G*Math.sin(u*6.283*2+t*2)+p[1]*1.2)*32,14,W-14,COL.b,1.6,300);
+   plot(u=>CY-4-Math.sin(u*6.283*2+t*2)*32,14,W-14,'rgba(255,255,255,.18)');meter(14,CX-8,95,p[2],COL.w,'OCTAVE');meter(CX+8,W-14,95,p[3],COL.o,'TONE')},
  // HERO: an arcade space shooter — the ship follows the pitch (with glide), every note fires, aliens burst into pixels
  (t,p,l)=>{const H=HERO,dt=Math.min(.05,Math.max(0,t-(H.last||t)));H.last=t;
    if(!H.st.length)for(let k=0;k<70;k++)H.st.push({x:hash(k)*W,y:16+hash(k+99)*82,z:1+Math.floor(hash(k+7)*3)});
@@ -2259,10 +2268,10 @@ const ENGDRAW=[
    for(let k=0;k<9;k++){const y=hz+(100-hz)*Math.pow((k+neonS)/9,2.2);g.moveTo(0,y);g.lineTo(W,y)}g.stroke();ln(0,hz,W,hz,COL.o,1.2)},
  // LADDER: live 4-pole response with the contour envelope, glide dot on the pitch axis
  (t,p,l)=>{const s=since(),f=lastOn.f,base=40*2**(p[0]*8.5)*Math.sqrt(f/220),pk=Math.min(18000,base*2**(p[2]*5)),dec=.08+p[2]*.5,fc=Math.min(18000,base+(pk-base)*Math.exp(-s*3/dec)),y0=88;
-   for(let k=0;k<4;k++)ln(24,24+k*16,W-24,24+k*16,'#15171b',.6);respCurve(fc,.6,.5+p[1]*p[1]*18,54,.9,y0,COL.o);
+   for(let k=0;k<4;k++)ln(24,32+k*14,W-24,32+k*14,'#15171b',.6);respCurve(fc,.6,.5+p[1]*p[1]*18,54,.9,y0,COL.o);
    g.lineTo(W-24,y0);g.lineTo(24,y0);g.closePath();g.fillStyle='rgba(255,106,43,.12)';g.fill();
    const gt=p[3]>.02?p[3]*p[3]*.8:0,fn=gt?lastOn.pf*(f/lastOn.pf)**Math.min(1,s/gt):f;ln(24,y0,W-24,y0,COL.dim,.5);circ(fx2x(fn),y0,3+l*2,COL.b,true);
-   ['SAW','SQR','SUB'].forEach((n,i)=>txt(n,28+i*24,26,TC[i],6));txt(Math.round(fc)+'Hz',W-8,26,COL.o,7,'right')},
+   ['SAW','SQR','SUB'].forEach((n,i)=>lab(n,24+i*24,25,TC[i]));{const cx=fx2x(fc);g.setLineDash([1.5,2]);ln(cx,30,cx,y0,'rgba(255,106,43,.45)',.6);g.setLineDash([])}txt(Math.round(fc)+' HZ',W-14,25.5,COL.o,6.5,'right')},
  // ORBIT: ringed planet, one moon per held note
  (t,p,l)=>{const rx=92,ry=16,tilt=-.22,lw=1.2+p[1]*6,act=voices.filter(v=>!v.off).slice(-8),R0=28+l*4;
    const ring=(a0,a1)=>{g.strokeStyle='rgba(242,242,236,.55)';g.lineWidth=lw;g.beginPath();g.ellipse(CX,CY,rx,ry,tilt,a0,a1);g.stroke();g.strokeStyle=COL.o;g.lineWidth=.6;g.beginPath();g.ellipse(CX,CY,rx+lw+2,ry+2,tilt,a0,a1);g.stroke()};
@@ -2271,7 +2280,7 @@ const ENGDRAW=[
    g.save();g.beginPath();g.arc(CX,CY,R0,0,6.283);g.fillStyle='#0d1424';g.fill();g.clip();
    for(let k=-3;k<=3;k++){g.strokeStyle=k%2?'rgba(79,143,255,.5)':'rgba(255,106,43,.35)';g.lineWidth=3.5;g.beginPath();const y=CY+k*8+Math.sin(t*.8+k)*1.2;g.moveTo(CX-R0,y+4);g.quadraticCurveTo(CX,y-2,CX+R0,y-4);g.stroke()}
    g.restore();circ(CX,CY,R0,COL.w);ring(0,Math.PI);ms.filter(m=>m.fr).forEach(m=>circ(m.x,m.y,m.r,m.c,true));
-   ln(24,94,24+(W-48)*(p[0]*.5+.02),94,COL.b,2);if(!act.length)txt('HOLD A CHORD',W-8,26,COL.dim,6,'right')},
+   meter(16,CX-40,95,p[0],COL.b,'SWELL');if(!act.length)lab('HOLD A CHORD',W-14,25,COL.dim,'right')},
  // VELVET: a retro android whose LED-matrix visor shows the chord, between two speaker stacks that pump with the level (flat colours only)
  (t,p,l)=>{const act=voices.filter(v=>!v.off),B=COL.b,G=COL.g,Wt=COL.w,O=COL.o,hx=CX;g.lineWidth=1.2;g.strokeStyle=B;
    g.beginPath();g.moveTo(hx-62,93);g.lineTo(hx-62,48);g.bezierCurveTo(hx-62,16,hx+62,16,hx+62,48);g.lineTo(hx+62,93);g.stroke();ln(hx-62,93,hx+62,93,B,1.2);
@@ -2326,7 +2335,7 @@ const ENGDRAW=[
    g.shadowColor=COL.g;g.shadowBlur=6;respCurve(fc,.7,q,60,.75,y0,COL.g);g.shadowBlur=0;
    const px=fx2x(fc),py=clamp(60-20*Math.log10(q)*.75,18,y0);
    for(let k=0;k<6+l*30;k++){const life=(t*1.5+hash(k))%1,a=hash(k+5)*6.283;circ(px+Math.cos(a)*life*30,py-Math.abs(Math.sin(a))*life*22+life*life*30,.9,k%3?COL.o:COL.w,true)}
-   circ(px,py,3+l*3,COL.o,true);ln(24,y0,W-24,y0,COL.dim,.5);txt('Q '+q.toFixed(0),W-8,26,COL.g,7,'right')},
+   g.globalAlpha=.35;circ(px,py,6+l*3,COL.o);g.globalAlpha=1;circ(px,py,3+l*3,COL.o,true);ln(24,y0,W-24,y0,'#2a2d34',.6);lab('RESONANCE',24,25,COL.dim);txt('Q '+q.toFixed(0),W-14,25.5,COL.g,6.5,'right')},
  // HOOVER: three thick saw waves swirling over each other — at each note they bend up from a lower pitch (DIVE),
  // DETUNE pulls them apart, CHORUS makes them sway, TONE is the bar at the bottom
  (t,p,l)=>{const x0=16,x1=W-16,s=since(),dv=p[0]*Math.exp(-s/(.06+p[0]*.25)),A=14+l*12,cyc=5*(1-dv*.6);
@@ -2335,8 +2344,7 @@ const ENGDRAW=[
      g.strokeStyle=c;g.lineWidth=j===2?2.2:1.8;g.beginPath();let py=null;
      for(let i=0;i<=320;i++){const u=i/320,x=x0+(x1-x0)*u,fr=((u*cyc*(1+k*p[1]*.08)+ph)%1+1)%1,y=CY+off+sw*Math.sin(u*6.283+t)+(1-2*fr)*A;
        if(py!==null&&Math.abs(y-py)>A)g.lineTo(x,py),g.lineTo(x,y);else i?g.lineTo(x,y):g.moveTo(x,y);py=y}g.stroke()});
-   txt('DIVE',x0,24,COL.b,6);ln(x0+20,21.5,x0+20+dv*40,21.5,COL.b,1.5);ln(x0+20,21.5,x0+60,21.5,COL.dim,.5);
-   ln(x0,CY+40,x0+(x1-x0)*p[3],CY+40,COL.o,2.5)},
+   meter(x0,x0+70,22,dv,COL.b,'DIVE');meter(x0,x1,95,p[3],COL.o,'TONE')},
  // PLUCK: six strings over a round sound hole; the string nearest the note shakes and fades with DECAY, BODY lights the rings round the hole,
  // the orange mark is where the string is plucked (PICK), BRIGHT is the blue bar
  (t,p,l)=>{const x0=16,x1=W-16,hx=CX+46,R=27,now=AC.currentTime,amp=[0,0,0,0,0,0];
@@ -2347,7 +2355,7 @@ const ENGDRAW=[
    for(let k=0;k<6;k++){const y=CY+22.5-k*9,A=amp[k],on=A>.3,w=2.2-k*.3;
      plot(u=>y+(on?Math.sin(u*Math.PI)*Math.sin(t*(55+k*9))*A:0),x0+5,x1-3,on?COL.o:k<3?COL.w:'#c9cac4',w,on?120:2)}
    const px=x0+5+(x1-x0-8)*(.05+p[3]*.42);g.fillStyle=COL.o;g.beginPath();g.moveTo(px-5,CY-34);g.lineTo(px+5,CY-34);g.lineTo(px,CY-27);g.closePath();g.fill();
-   ln(x0,CY+40,x0+(x1-x0)*p[0],CY+40,COL.b,2.5)},
+   meter(x0,CX-10,95,p[0],COL.b,'BRIGHT')},
  // TINE: the tines and tone bars of an electric piano, one per key: a held note's tine rings (TINE adds shimmer, BARK reddens the hammer),
  // the two tremolo lights at the top swing from left to right (TREMOLO), TONE is the orange bar
  (t,p,l)=>{const n=24,x0=18,x1=W-18,w=(x1-x0)/n,b0=base(),held=new Set();voices.forEach(v=>{if(!v.off)held.add(v.note)});
@@ -2355,18 +2363,18 @@ const ENGDRAW=[
    for(let i=0;i<n;i++){const x=x0+i*w+w/2,on=held.has(b0+i),len=44-i*1.15,y0=30,amp=on?(1.2+l*5)*(.35+p[1]):0;
      ln(x-2.2,y0,x-2.2,y0+len*.62,on?COL.g:'#2a2d34',2.4);
      g.strokeStyle=on?COL.w:'#3a3d44';g.lineWidth=.9;g.beginPath();for(let s2=0;s2<=10;s2++){const u=s2/10;s2?g.lineTo(x+1+Math.sin(t*48+i)*amp*u*u,y0+u*len):g.moveTo(x+1,y0)}g.stroke();
-     g.fillStyle=on?(p[0]>.6?COL.o:COL.w):'#1f2126';g.fillRect(x-2.5,y0+len+2,6,3)}
-   ln(x0,CY+40,x0+(x1-x0)*p[3],CY+40,COL.o,2.5)},
+     g.fillStyle=on?(p[0]>.6?COL.o:COL.w):'#1f2126';g.beginPath();g.roundRect(x-2.5,y0+len+2,6,3,1);g.fill()}
+   lab('TREMOLO',CX-24,24,COL.dim,'right');meter(x0,x1,95,p[3],COL.o,'TONE')},
  // BOOM: a subwoofer that pushes out with each note and the level (DRIVE adds orange rings), and the pitch drop drawn beside it:
  // PUNCH is how far it falls from, GLIDE how long a slide takes; the dot follows the last note
  (t,p,l)=>{const s=since(),cx=CX-78,R=32,hit=Math.exp(-s*5)*(.4+p[0]*.6),push=hit*3+l*3;
    g.strokeStyle=COL.dim;g.lineWidth=1;g.strokeRect(cx-R-8.5,CY-R-8.5,2*R+17,2*R+17);[[cx-R-4,CY-R-4],[cx+R+4,CY-R-4],[cx-R-4,CY+R+4],[cx+R+4,CY+R+4]].forEach(([x,y])=>circ(x,y,1.2,COL.dim,true));
    for(let k=0;k<Math.round(p[1]*4);k++){g.globalAlpha=.5-k*.1;circ(cx,CY,R+2+k*2.2+push*.4,COL.o)}g.globalAlpha=1;
    circ(cx,CY,R,COL.w);circ(cx,CY,R*.78+push*.6,'#8a8e96');circ(cx,CY,R*.52+push*.9,'#5d6169');circ(cx,CY,8+push*1.4,COL.o,true);
-   const gx0=CX-20,gx1=W-18,gy0=24,gy1=CY+30,T=.5,dr=p[0]*2.4,tt=.015+p[0]*.07;ln(gx0,gy1+.5,gx1,gy1+.5,COL.dim,.5);txt('PITCH',gx0,22,COL.dim,6);txt('GLIDE '+Math.round(p[2]*p[2]*600)+' MS',gx1,22,COL.g,6,'right');
+   const gx0=CX-20,gx1=W-18,gy0=24,gy1=CY+30,T=.5,dr=p[0]*2.4,tt=.015+p[0]*.07;ln(gx0,gy1+.5,gx1,gy1+.5,COL.dim,.5);lab('PITCH',gx0,24,COL.dim);lab('GLIDE '+Math.round(p[2]*p[2]*600)+' MS',gx1,24,COL.g,'right');
    plot(u=>{const tm=u*T,dv=dr*Math.exp(-tm/(tt/3));return gy1-12-dv/2.4*(gy1-gy0-20)},gx0,gx1,COL.b,1.6);
    const u=Math.min(1,s/T),dv=dr*Math.exp(-u*T/(tt/3));circ(gx0+(gx1-gx0)*u,gy1-12-dv/2.4*(gy1-gy0-20),2.6+l*2,COL.o,true);
-   ln(gx0,CY+40,gx0+(gx1-gx0)*p[3],CY+40,COL.o,2.5)},
+   meter(gx0,gx1,95,p[3],COL.o,'TONE')},
  // MALLET: a row of bars over resonator tubes: MATERIAL colours them (wood orange, metal blue, glass white), a held note lights its bar
  // and a mallet comes down on it, HARDNESS is the mallet's size, TREMOLO spins the little fans in the tubes
  (t,p,l)=>{const n=15,x0=20,x1=W-20,w=(x1-x0)/n,b0=base(),mc=p[0]<.34?COL.o:p[0]<.67?COL.b:COL.w,WI=[0,0,1,1,2,3,3,4,4,5,5,6],on=new Set();
@@ -2383,7 +2391,7 @@ const ENGDRAW=[
    for(let i=0;i<160;i++){const h=1+pk[i]*24;g.fillStyle='#2a2d34';g.fillRect(x0+i*ww/160,yc-h,ww/160-.4,h*2)}
    const sp=p[3]*.175,a=clamp(p[0]-sp),b=clamp(p[0]+sp);g.fillStyle=COL.b;g.globalAlpha=.18;g.fillRect(x0+a*ww,26,(b-a)*ww+1,68);g.globalAlpha=1;ln(x0+p[0]*ww,24,x0+p[0]*ww,96,COL.b,1.4);
    GRV.forEach(q=>{const age=(now-q.at)/q.d;if(age<0||age>1.6)return;g.globalAlpha=clamp(1-age/1.6);circ(x0+q.u*ww,yc-age*34,1.2+p[1]*3,age<1?COL.o:COL.w,true)});g.globalAlpha=1;
-   txt(sm?'THE SLOT SAMPLE':'BUILT-IN TEXTURE · LOAD A SAMPLE TO USE YOURS',x0,22,COL.dim,5.5);txt(Math.round(4+p[2]*p[2]*56)+' GRAINS/S',W-16,22,COL.g,5.5,'right')},
+   lab(sm?'THE SLOT SAMPLE':'BUILT-IN TEXTURE · LOAD A SAMPLE TO USE YOURS',x0,24,COL.dim);lab(Math.round(4+p[2]*p[2]*56)+' GRAINS/S',W-16,24,COL.g,'right')},
  // VOWEL: a little choir of three singers. Their mouths take the shape of the vowel (A wide open, E wide, I a thin smile, O round,
  // U small and pursed) and open with the level; SIZE makes them small or tall, BREATH puffs from their mouths, VIBRATO makes them sway.
  // The vowel is shown big on the left, and the three formant peaks stand as bars on the right
@@ -2405,7 +2413,7 @@ const ENGDRAW=[
      held=voices.filter(v=>!v.off).map(v=>v.note).sort((a,b)=>a-b);
    for(let i=0;i<40;i++){const u=(i/10+t*2)%1;let v;if(w<3)v=u<[.125,.25,.5][w]?1:-1;else if(w===3)v=Math.round((1-4*Math.abs(u-.5))*3)/3;else v=hash(Math.floor(i+t*30))*2-1;
      const y=CY-Math.round(v*5)*px;g.fillStyle=COL.g;g.globalAlpha=.35;g.fillRect(x0+i*px,Math.min(CY,y),px-1,Math.abs(y-CY)+px-1);g.globalAlpha=1;g.fillStyle=i%10===0?COL.w:COL.g;g.fillRect(x0+i*px,y,px-1,px-1)}
-   txt(['PULSE 12.5%','PULSE 25%','PULSE 50%','TRIANGLE','NOISE'][w],x0,24,COL.b,6);txt(A?['','OCTAVE','MAJOR','MINOR'][idx(p[1],4)]+' ARP':'NO ARP',x0,94,COL.g,6);
+   lab(['PULSE 12.5%','PULSE 25%','PULSE 50%','TRIANGLE','NOISE'][w],x0,24,COL.b);lab(A?['','OCTAVE','MAJOR','MINOR'][idx(p[1],4)]+' ARP':'NO ARP',x0,95,COL.g);
    // right: a pixel piano roll. Each step of the arpeggio (or each beat of a plain note) adds a block at its note's height, newest on the right,
    // coloured by its place in the chord; the newest block sparkles. With nothing playing, a few pixels twinkle
    const cols=24,rows=13,px2=6,gx=W-12-cols*px2,gy=18,pt=performance.now(),dur=(A?st:.15)*1000;if(!CHIPR.at||pt-CHIPR.at>=dur){const steps=Math.min(cols,CHIPR.at?Math.floor((pt-CHIPR.at)/dur):1);
@@ -2427,7 +2435,7 @@ const ENGDRAW=[
      const hy=o&&o.age<.15?40:52;ln(x,hy+8,x,82,'#5d6169',1.2);g.fillStyle=COL.o;g.beginPath();g.ellipse(x,hy+4,w*.32,5+p[2]*2,0,0,6.283);g.fill();
      g.fillStyle=lift?COL.w:'#3a3d44';g.fillRect(x0+i*w+1,86,w-2,8)}
    if(p[3]>.02)[[W-44,20],[W-26,20]].forEach(([x,y])=>{circ(x,y,6,COL.g);const a=t*p[3]*8;ln(x,y,x+Math.cos(a)*5,y+Math.sin(a)*5,COL.g,1)});
-   ln(x0,98,x0+(x1-x0)*p[0],98,COL.b,1.5)}
+   ln(x0,98,x1,98,'#1f2227',1.2);ln(x0,98,x0+(x1-x0)*p[0],98,COL.b,1.2)}
 ];
 function drawEnv(p){const [a,d,s,r]=p,x0=30,w=W-60,y0=92,y1=24,xa=x0+a*w*.25,xd=xa+d*w*.25,xs=xd+w*.25,xr=xs+r*w*.25,ys=y0-(y0-y1)*s;
   g.lineWidth=1.6;const seg=(c,f)=>{g.strokeStyle=c;g.beginPath();f();g.stroke()};
@@ -2981,7 +2989,7 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PER
   if(HW.off){g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);txt('SAVED',CX,58,COL.g,16,'center');txt('WEB-1 IS TURNING OFF',CX,76,COL.w,7,'center');return}g.setTransform(3,0,0,3,0,0);g.fillStyle='#07080a';g.fillRect(0,0,W,H);
   if(!AC){boot(t);return}
   if(S.sys.sleep&&performance.now()-lastIn>S.sys.sleep*60000){g.fillStyle='#000';g.fillRect(0,0,W,H);return}
-  readScope();const P=cur();let title;
+  readScope();g.lineCap='round';g.lineJoin='round';const P=cur();let title;
   FULL=S.mode==='tape'&&!S.overlay&&!S.count&&!HW.off;  // the tape screen has no knob bar: its pictures use the whole height
   g.save();g.beginPath();g.rect(0,14,W,FULL?116:86);g.clip();
   if(S.overlay==='dm'){const H=DM.hold;title=H&&H.pg<3?'DRUM MACHINE · STEP '+(H.st+1)+' LOCKS · '+['VOICE 1','VOICE 2','FILTER'][H.pg]:'DRUM MACHINE · '+['VOICE 1','VOICE 2','FILTER','STEPS','DICE & FILL'][DM.page]+(DM.page>=3?' · PATTERN '+(DM.pe+1)+(DM.page===3&&dmChain()>1?' · CHAIN 1–'+dmChain():'')+(H?' · STEP '+(H.st+1):''):'');drawDM(t)}
@@ -3012,11 +3020,11 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PER
   tipTick();if(TOUR.on){tourTick();drawTour()}else drawTip();
   if(DEMO.busy){g.fillStyle='rgba(7,8,10,.92)';g.fillRect(0,14,W,86);txt('MAKING THE DEMO SONG…',CX,54,COL.w,10,'center');txt('WEB-1 PLAYS IT WITH ITS OWN SOUNDS, ONTO THE FOUR TRACKS',CX,68,COL.dim,6,'center')}
   g.restore();
-  txt(title,6,10,COL.w,7);
+  {const pt=String(title).split(' · '),last=pt.pop();let x=6;g.letterSpacing='.25px';if(pt.length){const a=pt.join(' · ')+' · ';txt(a,x,10,'#8d9199',7);x+=g.measureText(a).width}txt(last,x,10,COL.w,7);g.letterSpacing='0px'}
   let hx=W-6;const hd=(s,c)=>{txt(s,hx,10,c,7,'right');hx-=g.measureText(s).width+8};
   hd('♩'+S.bpm,COL.dim);if(HW.power&&HW.power.ok)hd((HW.power.charging?'⚡':'')+Math.round(HW.power.soc)+'%',HW.power.soc<15?COL.red:COL.dim);if(!S.sys.vl&&PERF.vmax<10)hd('CPU',COL.o);if(S.inst==='synth'&&synthP[S.slot].pm&&pmOf(synthP[S.slot]))hd(PMN[pmOf(synthP[S.slot])],COL.b);if(kOn())hd(kTag(),COL.g);if(S.sys.clk)hd(clockStr(),COL.w);if(S.oct)hd('OCT'+(S.oct>0?'+':'')+S.oct,COL.g);if(seq.on)hd('SEQ',COL.g);if((S.bs[0]|0)&&S.inst==='synth')hd('BASS '+slotNm((S.bs[0]|0)-1),COL.b);if(S.rkOn.some(x=>x)||S.rkOn2.some(x=>x))hd('FX',COL.o);if(qStep())hd('Q'+QZN[idx(S.tq[1],5)],COL.w);if(S.loop)hd('LOOP',COL.b);if(S.playing)hd(S.rec?'●REC':'▶',S.rec?COL.red:COL.w);if(MIX.rec)hd('●MIX',COL.red);if(SCENE.msg&&performance.now()-SCENE.at<1600)hd(SCENE.msg,COL.o);if(S.solo.some(Boolean)||S.mute.some(Boolean))hd(S.solo.some(Boolean)?'SOLO':'MUTE',S.solo.some(Boolean)?COL.g:COL.o);if(S.shift)hd('SHIFT',COL.o);
   ln(0,14,W,14,'#1c1e22',.6);if(!FULL)ln(0,100,W,100,'#1c1e22',.6);
-  if(!FULL)params().forEach((p,i)=>{if(!p)return;const x=i*W/4+W/8;txt(p.n,x,111,COL.dim,6.5,'center');txt(p.val(),x,123,TC[i],9.5,'center')});
+  if(!FULL)params().forEach((p,i)=>{if(!p)return;const x=i*W/4+W/8;g.letterSpacing='.7px';txt(p.n,x+.35,109.2,'#6f737b',5.2,'center');g.letterSpacing='0px';fitT(p.val(),x,124.25,TC[i],14,W/4-10,'center')});  // equal gaps: line → label → value → bottom edge, all values on one baseline
   if(S.sys.bri<1){g.fillStyle=`rgba(0,0,0,${(1-S.sys.bri)*.8})`;g.fillRect(0,0,W,H)}}
 requestAnimationFrame(draw);
 {const b=()=>{requestAnimationFrame(b);blit()};requestAnimationFrame(b)}
