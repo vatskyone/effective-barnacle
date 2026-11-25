@@ -42,7 +42,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 
 ## 1. The device at a glance
 
-- **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge, the picture sits in the middle, and the four coloured values along the bottom edge belong to the four knobs. It is always a black display, whichever finish you choose.
+- **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge, the picture sits in the middle, and the four coloured values along the bottom edge belong to the four knobs. The tape screen leaves them out to make room for the tape. It is always a black display, whichever finish you choose.
 - **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click (double-tap on a phone) **pushes** the knob: it resets the value, or does the knob's action, such as SAVE. See [Knob clicks and pushes](#knob-clicks-and-pushes).
 - **Volume knob** (small white knob, top left): the master output level.
 - **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
@@ -440,7 +440,14 @@ Press **TAPE** (C). The tape has **4 tracks × 60 seconds**.
 
 SPEED works like real tape: record at one speed and play back at another, and the pitch changes.
 
-**The tape screen:** the time runs along the top with the bar and beat under it. Two big reels turn as the tape moves, and the tape itself leaves from the bottom of each reel and runs over two rollers and the head, its marks sliding along as it plays: the left reel empties and the right one fills as you go. The big number in the top-left corner is the selected track, in its colour, and under it an **FX** box: a hollow rectangle whose outline and letters turn orange while any master effect is on, and stay dim grey when they are all off. The orange line on the right edge shows the SPEED. The four tracks run along the bottom as slim lanes with bar and beat lines, and the red line is the tape head.
+**The tape screen** comes in two views; pick one in **SYSTEM → DISPLAY → TAPE VIEW**:
+
+- **TAPE FOCUS** (the default): two big reels that turn as the tape moves, with the tape pack growing on the right as it plays, and the tape running over two rollers and the head. Between the reels: the time, the bar and beat, and the section you are in (from SECTIONS). On the left, the selected track's number in its colour, the **FX** box (orange while any master effect is on) and any recording settings that are on; on the right, the tape SPEED. Under the tape, each track is one thin line in its colour where it has audio, with bar ticks, the loop, the section markers and the red head.
+- **TRACK FOCUS**: small reels and the time on top, the section you are in and what comes next ("NEXT OUTRO IN 6 BARS"), the play state, FX and speed. Under them, a strip of the whole 60-second tape with the sections in their colours, the loop and the head, then four tall lanes: each shows its number, MUTE, SOLO or REC, its mixer level, and its audio around the head with bar lines.
+
+In both, holding Shift shows the four edits (T1–T4) and outlines the bar they will use, and a tape trick shows its name while you hold it.
+
+The tape screen has no row of knob values along the bottom, so both views use the whole height. The four knobs still work as usual (JOG, LOOP, REC LVL, SPEED); the time, the loop and the SPEED gauge show their effect.
 
 ### Advanced REC: Shift + REC
 
@@ -475,7 +482,7 @@ In tape mode, hold **Shift** and press **8** (labelled **MENU**) to open the sys
 | **TIME** | Hour, minute, 12 or 24 hour clock, date, and USE DEVICE TIME to go back to the real clock. On the hardware, these set the device's own clock |
 | **TIMEZONE** | AUTO (this device) or a city from UTC−10 to UTC+12, with the local time. Summer time follows each city's own rules. On the hardware, this sets the device's timezone |
 | **STORAGE** | Projects, space used, number of samples and user presets, ERASE SAMPLES, ERASE PRESETS, ERASE TAPE (opens the erase prompt) and ERASE EVERYTHING. On the hardware, also the USB stick: its name and free space, LOAD SAMPLE FROM USB (into the synth slot you were on), BACKUP TO USB (every project in one .web1 file) and EJECT USB |
-| **DISPLAY** | Brightness (20–100%), screen sleep after 1, 5, 10 or 30 minutes (any key or knob wakes it), a clock in the title bar, and TIPS (on or off; turning them on again shows them all again) |
+| **DISPLAY** | Brightness (20–100%), screen sleep after 1, 5, 10 or 30 minutes (any key or knob wakes it), a clock in the title bar, TAPE VIEW (TAPE FOCUS or TRACK FOCUS), and TIPS (on or off; turning them on again shows them all again) |
 | **MIDI** | CONNECT (the same as the connect midi button), CLOCK OUT, CLOCK IN, NOTES OUT and CHANNEL (see MIDI below) |
 | **CPU** | AUDIO LOAD (how busy the sound engine is, with its peak), SCREEN (frames per second), VOICES (notes sounding, out of the limit), VOICE LIMIT and DROPOUTS (audio that came too late). Audio load and dropouts show where the browser reports them. With VOICE LIMIT on AUTO, WEB-1 plays fewer notes at once when the device struggles, and gives them back when it recovers; the title bar shows CPU while it holds back. Or pick a fixed limit from 4 to 16 voices |
 | **ABOUT** | Device, version, design, engines, GUIDED TOUR (starts the tour), DEMO SONG (makes the demo in a new project), tape size and MIDI status. On the hardware: CHECK FOR UPDATE, and INSTALL UPDATE, which fetches the new version and restarts WEB-1 |
