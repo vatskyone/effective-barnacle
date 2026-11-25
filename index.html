@@ -2446,58 +2446,60 @@ function drawFx(t,P){const ty=P.fxType,p=P.fx[ty];if(ty>=4){FXDRAW[ty-4](t,p);re
 const FXDRAW_A=[
  // ECHO: the note and its repeats, spaced by TIME and fading by REPEAT; a pulse runs from one repeat to the next
  (t,p)=>{const L=S.lvl,x0=26,x1=232,gap=7+p[0]*30,n=Math.min(14,Math.floor((x1-x0)/gap)+1),per=.25+p[0]*.9,ph=(t/per)%n,yb=CY+32;
-  ln(x0,yb+.5,x1,yb+.5,COL.dim,.5);txt('TONE',x0,24,COL.w,6);ln(x0+22,21.5,x0+22+p[2]*40,21.5,COL.w,1.5);ln(x0+22,21.5,x0+62,21.5,COL.dim,.5);
+  ln(x0,yb+.5,x1,yb+.5,'#2a2d34',.6);meter(x0,x0+80,22,p[2],COL.w,'TONE');
   for(let k=0;k<n;k++){const x=x0+k*gap,a=k?Math.pow(.25+p[1]*.7,k)*(.5+p[3]*.5):1,h=Math.max(1.5,(20+L*8)*a),hot=Math.floor(ph)===k;
-   g.globalAlpha=clamp(.2+a);g.fillStyle=k?COL.b:COL.w;g.fillRect(x-1.5,yb-h*2,3,h*2);if(hot)circ(x,yb-h*2-5,2+L*2,COL.o,true)}g.globalAlpha=1;
+   ln(x,yb+2.5,x,yb+4,'#3a3d44',.6);g.globalAlpha=clamp(.2+a);ln(x,yb-1.5,x,yb-h*2+1.5,k?COL.b:COL.w,3);if(hot)circ(x,yb-h*2-6,2+L*2,COL.o,true)}g.globalAlpha=1;
   fxSide(['TIME',p[0],COL.b],['REPEAT',p[1],COL.g])},
  // ROOM: a room seen from above; reflections spread from the sound and fade with DAMP
  (t,p)=>{const L=S.lvl,w=70+p[0]*136,h=40+p[0]*30,rx=26,ry=CY-h/2,sx=rx+14+p[2]*30,sy=CY;
-  g.strokeStyle=COL.w;g.lineWidth=1;g.strokeRect(rx+.5,ry+.5,w,h);g.save();g.beginPath();g.rect(rx+1,ry+1,w-1,h-1);g.clip();
+  g.strokeStyle=COL.w;g.lineWidth=1;g.beginPath();g.roundRect(rx+.5,ry+.5,w,h,3);g.stroke();lab('ROOM',rx,ry-4,COL.dim);g.save();g.beginPath();g.roundRect(rx+1,ry+1,w-1,h-1,2.5);g.clip();
   for(let k=0;k<8;k++){const r=((t*28+k*18)%(18*8)),a=clamp(1-r/(18*8))*(1-p[1]*.6)*(.3+p[3]*.7+L*.5);g.globalAlpha=clamp(a);g.strokeStyle=k%2?COL.b:COL.g;g.lineWidth=1;g.beginPath();g.arc(sx,sy,r,0,6.283);g.stroke()}
-  g.restore();g.globalAlpha=1;circ(sx,sy,3+L*3,COL.o,true);ln(rx,sy,sx-4,sy,COL.dim,.5);
+  g.restore();g.globalAlpha=1;g.setLineDash([1.5,2]);ln(rx+1,sy,sx-5,sy,COL.w,.6);g.setLineDash([]);if(p[2]>.05)lab('PRE',rx+5,sy-3,COL.w,'left',4.6);g.globalAlpha=.35;circ(sx,sy,6+L*3,COL.o);g.globalAlpha=1;circ(sx,sy,3+L*3,COL.o,true);
   fxSide(['SIZE',p[0],COL.b],['DAMP',p[1],COL.g])},
  // CRUSH: the clean wave and the crushed, driven one in big steps
  (t,p)=>{const L=S.lvl,x0=24,x1=232,st=2**(12-Math.round(p[0]*10))/2,qs=Math.min(st,12),A=24+L*6,sh=Math.max(1,Math.round(p[0]*p[0]*12));
+  if(qs<=12)for(let k=-qs;k<=qs;k++)ln(x0,CY-k/qs*A,x1,CY-k/qs*A,k?'#121418':'#1c1e22',.6);
   plot(u=>CY-Math.sin(u*6.283*2+t)*A,x0,x1,'rgba(255,255,255,.18)');
   g.strokeStyle=COL.b;g.lineWidth=1.6;g.beginPath();for(let x=x0;x<=x1;x+=sh){const u=(x-x0)/(x1-x0),v=Math.round(Math.tanh(Math.sin(u*6.283*2+t)*(1+p[1]*3))*qs)/qs,y=CY-v*A;x===x0?g.moveTo(x,y):g.lineTo(x,y);g.lineTo(x+sh,y)}g.stroke();
-  txt(Math.round(12-p[0]*10)+' BIT',x0,24,COL.b,6);
+  lab(Math.round(12-p[0]*10)+' BIT',x0,24,COL.b);
   fxSide(['CRUSH',p[0],COL.b],['DRIVE',p[1],COL.g])},
  // SWIRL: four phase-shifted waves weaving around each other
- (t,p)=>{const x0=24,x1=232,L=S.lvl;for(let k=0;k<4;k++)plot(u=>CY+Math.sin(u*6.283*(1+k*.5)+t*(.3+p[0]*6)+k*(1+p[2]*2))*(8+p[1]*22+L*4)*(1-k*.15),x0,x1,TC[k],1.2);
+ (t,p)=>{const x0=24,x1=232,L=S.lvl;ln(x0,CY,x1,CY,'#1a1c20',.6);for(let k=0;k<4;k++){const f=u=>CY+Math.sin(u*6.283*(1+k*.5)+t*(.3+p[0]*6)+k*(1+p[2]*2))*(8+p[1]*22+L*4)*(1-k*.15);plot(f,x0,x1,TC[k],1.3);circ(x1,f(1),2.2,TC[k],true)}
   fxSide(['RATE',p[0],COL.b],['DEPTH',p[1],COL.g])}];
 const bigN=(s,x,y,c,size,al='left')=>{g.fillStyle=c;g.font=`200 ${size}px ${FONT}`;g.textAlign=al;g.fillText(s,x,y)};
-const fxSide=(a,b)=>[a,b].forEach(([n,v,c],k)=>{const y=k?60:17;txt(n,326,y+9,c,7,'right');bigN(''+Math.round(v*100),326,y+35,c,28,'right')});
+const fxSide=(a,b)=>{ln(252,22,252,92,'#1a1c20',.6);[a,b].forEach(([n,v,c],k)=>{const y=k?60:17;lab(n,326,y+9,c,'right',6);bigN(''+Math.round(v*100),326,y+35,c,28,'right')})};
 const FXDRAW=[
  // BOUNCE: a ball bouncing between the left and right walls, losing height with each repeat
  (t,p)=>{const x0=26,x1=228,gy=92,L=S.lvl,fb=Math.max(.05,p[2]*.88),n=7,T=.025+Math.pow(p[0],1.6)*.75,wob=p[1],H=k=>60*Math.pow(fb,k*.6);
-  ln(x0,22,x0,gy,COL.b,1.2);ln(x1,22,x1,gy,COL.b,1.2);txt('L',x0+4,28,COL.b,7);txt('R',x1-4,28,COL.b,7,'right');ln(x0,gy+.5,x1,gy+.5,COL.dim,.6);
+  ln(x0,22,x0,gy,COL.b,1.4);ln(x1,22,x1,gy,COL.b,1.4);lab('L',x0+5,28,COL.b,'left',6);lab('R',x1-5,28,COL.b,'right',6);ln(x0,gy+.5,x1,gy+.5,'#2a2d34',.6);
   const arc=(k,u)=>{const a=k%2?x1:x0,b=k%2?x0:x1;return[a+(b-a)*u,gy-4*H(k)*u*(1-u)+Math.sin(u*24+t*(2+wob*8)+k)*wob*3.5*Math.sin(Math.PI*u)]};
   for(let k=0;k<n;k++){g.globalAlpha=clamp(1-k/n*.9);g.strokeStyle=k?COL.b:COL.w;g.lineWidth=1.1;g.beginPath();for(let s=0;s<=48;s++){const[x,y]=arc(k,s/48);s?g.lineTo(x,y):g.moveTo(x,y)}g.stroke()}
-  const ph=(t/(.3+T*1.6))%n,k=Math.floor(ph),[bx,by]=arc(k,ph-k);g.globalAlpha=clamp(1-k/n*.9);circ(bx,by,2.5+L*4,COL.w,true);g.globalAlpha=1;
+  const ph=(t/(.3+T*1.6))%n,k=Math.floor(ph),[bx,by]=arc(k,ph-k);g.globalAlpha=.25*clamp(1-(gy-by)/70);g.fillStyle=COL.w;g.beginPath();g.ellipse(bx,gy+.5,4+L*3,1.2,0,0,6.283);g.fill();g.globalAlpha=clamp(1-k/n*.9);circ(bx,by,2.5+L*4,COL.w,true);g.globalAlpha=1;
   fxSide(['WOBBLE',p[1],COL.g],['FEEDBK',p[2],COL.w])},
  // COIL: a spring in perspective; a ripple runs along it when you play
  (t,p)=>{const x0=40,x1=226,L=S.lvl,turns=7+Math.round(p[1]*11),R=13,N=turns*24;
-  g.fillStyle=COL.b;g.fillRect(x0-14,CY-15,5,30);g.fillStyle=COL.o;g.fillRect(x1+9,CY-15,5,30);ln(x0-9,CY,x0,CY,COL.b,1.2);ln(x1,CY,x1+9,CY,COL.o,1.2);
+  g.fillStyle=COL.b;g.beginPath();g.roundRect(x0-14,CY-15,5,30,1.5);g.fill();g.fillStyle=COL.o;g.beginPath();g.roundRect(x1+9,CY-15,5,30,1.5);g.fill();lab('IN',x0-11.5,CY+24,COL.b,'center',4.6);lab('OUT',x1+11.5,CY+24,COL.o,'center',4.6);ln(x0-9,CY,x0,CY,COL.b,1.2);ln(x1,CY,x1+9,CY,COL.o,1.2);
   for(let pass=0;pass<2;pass++){g.strokeStyle=pass?COL.w:COL.dim;g.lineWidth=pass?1.3:1;g.beginPath();let pen=false;
     for(let s=0;s<=N;s++){const u=s/N,th=u*turns*6.2832,front=Math.cos(th)>0,
       rip=1+L*1.5*Math.sin(u*14-t*16)*Math.exp(-u*(1.2+p[2]*4))+.05*Math.sin(u*9-t*3),x=x0+6+u*(x1-x0-12)+Math.cos(th)*R*.5,y=CY+Math.sin(th)*R*rip;
       if(front===!!pass){pen?g.lineTo(x,y):g.moveTo(x,y);pen=true}else pen=false}g.stroke()}
-  txt('TONE',x0-14,26,COL.b,7);ln(x0+10,23.5,x0+10+p[0]*40,23.5,COL.b,1.5);ln(x0+10,23.5,x0+50,23.5,COL.dim,.5);
+  meter(x0-14,x0+70,23,p[0],COL.b,'TONE');
   fxSide(['TENSION',p[1],COL.g],['DAMP',p[2],COL.w])},
  // CUBE: a turning wireframe room, with a reflection tracing a trail inside it
  (t,p)=>{const L=S.lvl,cx=122,cy=CY+2,a=17+p[0]*15,ry=t*.35,rx=.45,
   P3=(x,y,z)=>{const c=Math.cos(ry),s=Math.sin(ry),X=x*c+z*s,Z=-x*s+z*c,cc=Math.cos(rx),ss=Math.sin(rx),Y=y*cc-Z*ss,Z2=y*ss+Z*cc,f=170/(170+Z2);return[cx+X*f,cy+Y*f]};
   const A=a*(1+p[1]*.75)*(1+L*.12),B=a*(1-p[1]*.35)*(1+L*.12),C=a*(1-p[1]*.1)*(1+L*.12),V=[];for(let i=0;i<8;i++)V.push(P3(i&1?A:-A,i&2?B:-B,i&4?C:-C));
-  [[0,1],[2,3],[4,5],[6,7],[0,2],[1,3],[4,6],[5,7],[0,4],[1,5],[2,6],[3,7]].forEach(([i,j])=>ln(V[i][0],V[i][1],V[j][0],V[j][1],COL.b,1));
+  g.globalAlpha=.12;g.fillStyle=COL.b;g.beginPath();g.ellipse(cx,CY+35,a*1.5,2.6,0,0,6.283);g.fill();g.globalAlpha=1;
+  [[0,1],[2,3],[4,5],[6,7],[0,2],[1,3],[4,6],[5,7],[0,4],[1,5],[2,6],[3,7]].forEach(([i,j])=>ln(V[i][0],V[i][1],V[j][0],V[j][1],COL.b,1));V.forEach(([x,y])=>circ(x,y,1.1,COL.b,true));
   const tri=v=>{v=((v%2)+2)%2;return v<1?v*2-1:3-v*2},sp=1.6/(.5+p[0]),pos=u=>P3(A*.92*tri(u*.9),B*.92*tri(u*1.3+.4),C*.92*tri(u*1.1+.9)),M=Math.round(8+p[2]*40);
   for(let k=M;k>0;k--){const[x1,y1]=pos(t*sp-k*.03),[x2,y2]=pos(t*sp-(k-1)*.03);g.globalAlpha=clamp(1-k/M);ln(x1,y1,x2,y2,COL.g,1.2)}g.globalAlpha=1;
   const[hx,hy]=pos(t*sp);circ(hx,hy,2+L*3,COL.w,true);
   fxSide(['SIZE',p[0],COL.b],['FEEDBK',p[2],COL.w])},
  // RADIO: a tuning dial with a needle, and the crushed, crackling signal above it
  (t,p)=>{const L=S.lvl,x0=22,x1=238,y0=66,y1=94,w=x1-x0-16,nd=x0+8+p[0]*w,q=Math.max(2,Math.round(2**(8-p[1]*6))),stw=Math.max(1,1+p[1]*p[1]*16),nz=p[2];
-  g.strokeStyle=COL.dim;g.lineWidth=.8;g.strokeRect(x0,y0,x1-x0,y1-y0);
+  g.strokeStyle='#3a3d44';g.lineWidth=.8;g.beginPath();g.roundRect(x0,y0,x1-x0,y1-y0,3);g.stroke();
   for(let i=0;i<=40;i++){const x=x0+8+i*w/40;ln(x,y1-3,x,y1-(i%5?6:10),i%5?COL.dim:COL.w,.6)}
-  ['LW','MW','SW','FM'].forEach((s,i)=>txt(s,x0+8+(i+.5)*w/4,y0+9,COL.b,6,'center'));ln(nd,y0-3,nd,y1+3,COL.red,1.5);
+  ['LW','MW','SW','FM'].forEach((s,i)=>lab(s,x0+8+(i+.5)*w/4,y0+9,COL.b,'center',5.6));ln(nd,y0-3,nd,y1+3,COL.red,1.5);circ(nd,y0-4,2.2,COL.red,true);ln(x0,38,x1,38,'#1a1c20',.6);
   plot(u=>38-Math.sin(u*6.283*3+t*2)*14,x0,x1,'rgba(255,255,255,.15)');
   g.strokeStyle=COL.g;g.lineWidth=1.3;g.beginPath();for(let x=x0;x<=x1;x+=stw){const u=(x-x0)/(x1-x0),v=Math.round(Math.sin(u*6.283*3+t*2)*q)/q,drop=Math.sin(u*7+t*5)>1-nz*.6?.2:1,y=38-v*14*drop*(.6+L*.8)+(Math.random()*2-1)*nz*3;x===x0?g.moveTo(x,y):g.lineTo(x,y);g.lineTo(x+stw,y)}g.stroke();
   for(let i=0;i<nz*40;i++)circ(x0+Math.random()*(x1-x0),20+Math.random()*36,.5,COL.w,true);
