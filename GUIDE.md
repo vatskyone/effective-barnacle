@@ -109,7 +109,7 @@ Turning a knob all the way to YES still works everywhere. On the hardware, the s
 | **Enter** | STOP (press twice to rewind) |
 | **← →** | In synth mode: pitch bend. In the other modes: hold to wind the tape |
 | **Q** | Loop on/off |
-| **Shift + Q** (tape mode) | SECTIONS: song markers. Then 1–6 set a marker or jump to it |
+| **Shift + Q** (tape mode) | SECTIONS: song markers. Then 1–6 set a marker or jump to it; T2 is SONG mode, T3 SONG ON |
 | **1 – 8** (FX screen open) | Hold for live FX: REPEAT 1/4–1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP |
 | **1 – 8** (drum machine) | Pick the pattern; Shift + 1–8 copies the pattern there |
 | **→** (drum machine) | Hold for a fill |
@@ -458,7 +458,7 @@ A recorded or taken sample is set to full level and starts exactly where it was 
 
 ## 6. Tape mode
 
-Press **TAPE** (C). The tape has **4 tracks × 60 seconds**.
+Press **TAPE** (C). The tape has **4 tracks**, **1 minute** long in a new project. Each project can have a longer tape: **PROJECTS → TAPE LENGTH** (Shift + 7 in tape mode), turn the orange knob to **1, 2, 4 or 6 MIN** and push DO IT. WEB-1 saves the tape and opens the project again at the new length, with everything on it kept. Making it shorter cuts what is after the new end, so that takes two pushes. A long tape uses more memory (about 46 MB a minute), so on a phone shorter is safer.
 
 - **T1–T4** pick the track to record on. The selected track's number is shown large in the top-left corner, in its colour.
 - **REC** arms the tape and starts it. Whatever you play is recorded onto the selected track, on top of what is already there.
@@ -561,6 +561,24 @@ Mark the parts of your song (intro, verse, chorus…) and jump or loop between t
 | **Orange: CLEAR** | Push twice, or turn to YES, to remove the marker |
 
 The markers also show as small flags with their names on the tape screen. They are saved with the project, and erasing the whole tape clears them. You can't jump while recording.
+
+#### Song mode: T2 on SECTIONS
+
+Build a whole song from parts, and let WEB-1 play it for you. On SECTIONS, **T1** is the markers above, **T2** is the **SONG** page and **T3** switches **SONG ON** or off.
+
+- A song is a list of up to 16 **parts**, for example INTRO 4 bars → VERSE 8 → CHORUS 8 → BRIDGE 4 → CHORUS 8 → OUTRO 4. A new song starts with four parts to change.
+- Each part says which **drum machine pattern** plays (or none), which **mixer scene** comes in (or KEEP the mix as it is), and whether the **chords** play: the progression in the CHAIN sequencer (make one in KEY & CHORDS → PROGRESSION), with FOLLOW BASS if you set it.
+- With **SONG ON**, **PLAY** runs the parts in order along the tape, from the tape's beginning: each part starts exactly on its bar, and the song stops at the end of the last part. **REC** records it onto the selected track, so you can lay down the whole arrangement and play over it on another track.
+- With SONG ON, the parts are also written as the tape's section markers (the first six), so the tape screen and the markers page show the song.
+
+| Knob | Job | Shift + knob | Job |
+|---|---|---|---|
+| **Blue: PART** | Picks a part; past the last one, **+ ADD** (push it to add a copy of the last part) | **NAME** | INTRO · VERSE · CHORUS · BRIDGE… (the section names) |
+| **Green: BARS** | How long the part is, 1–32 bars | **CHORDS** | ON or OFF |
+| **White: DRUMS** | OFF, or the drum machine's PATTERN 1–8 | **MOVE** | Moves the part earlier or later in the song |
+| **Orange: SCENE** | KEEP, or mixer SCENE 1–4 (store scenes with Shift + 5–8 in mixer mode) | **DELETE** | Push twice to remove the part |
+
+The screen shows the song as a row of blocks, as wide as their bars, with the part that plays lit and a red line that follows the tape. Above it: the number of parts, the bars and the song's length, in orange if the song is longer than the tape.
 
 ## 7. Mixer mode
 
