@@ -3002,7 +3002,7 @@ function drawSampleView(label,lit,pk,q,heads,flash){const x0=20,ww=W-40,w=ww/160
   txt(S.shift?'SHIFT ▸ PLAY · FADES · LEVEL':'SHIFT ▸ PLAY MODE',W-8,99,S.shift?COL.o:'#4a4d54',5.5,'right')}
 /* ── SAMPLER (T1 again in synth or drum mode, Shift + 4 in drum mode): T1 EDIT · T2 SLICE · T3 RECORD · T4 FROM TAPE ──
    it works on the selected pad (drum mode) or on the synth slot (synth mode) */
-const SMPX={to:'pad',pg:0,sl:[0,6,0,.5],rc:[0,2,0,0],tp:[0,4,0],go:0,ck:'',cp:null},RS={on:0,at:0,end:0,st:null,node:null,to:null};
+const SMPX={to:'pad',pg:0,sl:[0,6,0,.5],rc:[0,2,0,0],tp:[0,4,0],ft:[0,1],go:0,ck:'',cp:null},RS={on:0,at:0,end:0,st:null,node:null,to:null};
 const RLN=['1 BEAT','2 BEATS','1 BAR','2 BARS','4 BARS'],RLB=[1,2,4,8,16];
 function smpOpen(){S.overlay='pse';SMPX.pg=0;SMPX.go=0;SMPX.to=S.inst==='drum'?'pad':'slot'}
 const smpTarget=()=>SMPX.to==='pad'?'DRUM '+(S.kit+1)+' · '+padNm(S.pad|0):'SYNTH '+slotNm(S.slot);
@@ -3012,6 +3012,30 @@ function smpKnobs(P){return S.shift?[mk(P.smp,4,'PLAY',v=>SMODE[idx(v,3)]),mk(P.
 function goK(label,fn,busy){return{n:label,val:()=>(busy&&busy())||(SMPX.go<.02?(HW.ok?'PUSH':'TURN ▸'):'YES ▸'),push(){SMPX.go=0;fn()},turn(d){SMPX.go=clamp(SMPX.go+d*1.6);if(SMPX.go>=1){SMPX.go=0;fn()}}}}
 function smpSrc(){if(SMPX.to==='pad'){const ps=padSmp[S.kit][S.pad|0];if(!ps)return null;const q=padPar(S.kit,S.pad|0),d=ps.buf.getChannelData(0),n=d.length;return{d,sr:ps.buf.sampleRate,a:Math.floor(clamp(q[0],0,.98)*n),b:Math.floor(Math.min(1,q[1])*n)}}
   const sm=slotSmp[S.slot];if(!sm)return null;const p=synthP[S.slot].smp,d=sm.buf.getChannelData(0),n=d.length;return{d,sr:sm.buf.sampleRate,a:Math.floor(clamp(p[0],0,.98)*n),b:Math.floor(Math.min(1,p[1])*n)}}
+/* FIT TO TEMPO (Shift on the SLICE page): the part between START and END is stretched to a whole number of bars at the tempo.
+   KEEP PITCH ON time-stretches it (WSOLA: overlapping grains laid at the new spacing, each lined up with the last so nothing clicks);
+   OFF changes its speed like tape, so the pitch moves too */
+const FITB=['AUTO','1/4 BAR','1/2 BAR','1 BAR','2 BARS','4 BARS','8 BARS'],FITV=[0,.25,.5,1,2,4,8];
+function fitBars(s){const L=(s.b-s.a)/s.sr,bar=barS()/AC.sampleRate,ch=SMPX.ft[0]|0;if(ch)return FITV[ch];let best=1,bd=1e9;for(const v of FITV.slice(1)){const d=Math.abs(Math.log(L/(v*bar)));if(d<bd){bd=d;best=v}}return best}
+function wsola(x,ratio){const N=1024,Hs=512,Ha=Hs/ratio,tol=384,n=Math.max(1,Math.round(x.length*ratio)),y=new Float32Array(n+N),w=new Float32Array(N),at=i=>i>=0&&i<x.length?x[i]:0;
+  for(let i=0;i<N;i++)w[i]=.5-.5*Math.cos(2*Math.PI*i/N);let prev=0;
+  for(let k=0;k*Hs<n;k++){const nom=Math.round(k*Ha);let best=0;
+    if(k){const nat=prev+Hs;let bc=-Infinity;for(let d=-tol;d<=tol;d+=4){const p=nom+d;if(p<0||p>=x.length)continue;let c=0;for(let j=0;j<N;j+=8)c+=at(p+j)*at(nat+j);if(c>bc){bc=c;best=d}}}
+    const p=Math.max(0,nom+best),o=k*Hs;prev=p;for(let j=0;j<N&&o+j<y.length;j++)y[o+j]+=at(p+j)*(k===0&&j<N/2?1:w[j])}
+  return y.slice(0,n)}
+// for loops: each 16th of the loop is stretched on its own and starts exactly on its new grid line, so hits on the grid are never lost; short crossfades join them
+function fitStretch(x,n,segs){const y=new Float32Array(n),X=96,L=x.length;
+  for(let i=0;i<segs;i++){const a=Math.round(i*L/segs),b=Math.round((i+1)*L/segs),oa=Math.round(i*n/segs),ob=Math.round((i+1)*n/segs),r=(ob-oa)/Math.max(1,b-a),
+      part=wsola(x.subarray(a,Math.min(L,b+2048)),r),need=Math.min(part.length,ob-oa+X);
+    for(let j=0;j<need&&oa+j<n;j++){y[oa+j]+=part[j]*(j>=ob-oa?1-(j-(ob-oa))/X:1)}}
+  return y}
+function varispeed(x,n){const y=new Float32Array(n),r=x.length/n;for(let i=0;i<n;i++){const f=i*r,a=Math.floor(f),u=f-a;y[i]=(x[a]||0)*(1-u)+(x[a+1]||0)*u}return y}
+function fitGo(){const s=smpSrc();if(!s){status('nothing to fit: load or record a sample first');return}if(s.b-s.a<1024){status('the part between START and END is too short');return}
+  const bars=fitBars(s),n=Math.round(bars*barS()/AC.sampleRate*s.sr),lim=s.sr*(SMPX.to==='pad'?6:10);if(n>lim){status(bars+' bars at '+S.bpm+' BPM is longer than a sample can be: pick fewer BARS');toast('TOO LONG · PICK FEWER BARS');return}
+  const src=s.d.slice(s.a,s.b),keep=(SMPX.ft[1]|0)===1,out=keep?fitStretch(src,n,Math.max(1,Math.round(bars*16))):varispeed(src,n),pk=out.reduce((m,v)=>Math.max(m,Math.abs(v)),0),_n=pk>.98&&out.forEach((v,i)=>out[i]=v*.98/pk),nm=(bars<1?(bars===.5?'1/2':'1/4'):bars)+(bars>1?' BARS':' BAR');
+  if(SMPX.to==='pad'){const ps=padSmp[S.kit][S.pad|0];setPadSample(S.kit,S.pad|0,out,s.sr,false,(ps&&ps.name||'sample')+' · FIT',true)}
+  else{setSample(S.slot,out,s.sr,false,true);const p=synthP[S.slot].smp;p[0]=0;p[1]=1}
+  SMPX.ck='';toast('FIT TO '+nm+' · '+S.bpm+' BPM');status('the sample now lasts exactly '+nm.toLowerCase()+' at '+S.bpm+' BPM'+(keep?', at the same pitch':' (its pitch moved with the speed)'))}
 // SLICE: EVEN cuts the part between START and END into equal slices; AT HITS cuts where the sound jumps up (SENSE sets how small a jump counts)
 function slicePts(s){const n=2+(SMPX.sl[1]|0),{d,sr,a,b}=s,key=[d.length,a,b,n,SMPX.sl[0]|0,SMPX.sl[3].toFixed(2),SMPX.to,S.kit,S.pad,S.slot].join();if(SMPX.ck===key)return SMPX.cp;let pts;
   if(!(SMPX.sl[0]|0))pts=Array.from({length:n},(_,k)=>Math.round(a+(b-a)*k/n));
@@ -3019,7 +3043,7 @@ function slicePts(s){const n=2+(SMPX.sl[1]|0),{d,sr,a,b}=s,key=[d.length,a,b,n,S
     const top=Math.max(...E),need=7-6*SMPX.sl[3],cand=[];for(let j=1;j<E.length;j++){const lo=Math.min(E[j-1],E[Math.max(0,j-2)],E[Math.max(0,j-3)]);if(E[j]>top-45&&E[j]-lo>need)cand.push([E[j]-lo,j])}
     cand.sort((x,y)=>y[0]-x[0]);const pick=[0];for(const[,j]of cand){if(pick.length>=n)break;if(pick.every(p=>Math.abs(p-j)>=6))pick.push(j)}pts=pick.sort((x,y)=>x-y).map(j=>a+j*F)}
   SMPX.ck=key;SMPX.cp=pts;return pts}
-function sliceParams(){return[stepK(SMPX.sl,0,'MODE',['EVEN','AT HITS']),stepK(SMPX.sl,1,'SLICES',Array.from({length:23},(_,i)=>''+(i+2))),goK('SLICE',sliceGo),mk(SMPX.sl,3,'SENSE',pct)]}
+function sliceParams(){if(S.shift)return[stepK(SMPX.ft,0,'BARS',FITB),goK('FIT',fitGo),stepK(SMPX.ft,1,'KEEP PITCH',['OFF','ON']),null];return[stepK(SMPX.sl,0,'MODE',['EVEN','AT HITS']),stepK(SMPX.sl,1,'SLICES',Array.from({length:23},(_,i)=>''+(i+2))),goK('SLICE',sliceGo),mk(SMPX.sl,3,'SENSE',pct)]}
 function sliceGo(){const s=smpSrc();if(!s){status('nothing to slice: record a sample on T3, or take one from the tape on T4');return}
   const pts=slicePts(s),e=[...pts.slice(1),s.b],d=s.d.slice(),kt=S.kit;pts.forEach((p,k)=>{if(e[k]-p>64)setPadSample(kt,k,d.subarray(p,e[k]),s.sr,false,'SLICE '+(k+1),true)});
   SMPX.ck='';if(SMPX.to==='pad')S.pad=0;status(pts.length+' slices on kit '+(kt+1)+' '+KITS[kt]+' — play them in drum mode, slice 1 on the lowest key');leds()}
@@ -3056,8 +3080,10 @@ function drawSampler(t){const pg=SMPX.pg;
   if(pg===1){const s=smpSrc();if(!s){txt('NOTHING TO SLICE YET',CX,48,COL.w,9,'center');txt('T3 RECORDS A SAMPLE · T4 TAKES ONE FROM THE TAPE',CX,62,COL.dim,6,'center');return}
     const pts=slicePts(s),x0=20,ww=W-40,A=s.a,B=s.b,X=i=>x0+(i-A)/Math.max(1,B-A)*ww;
     for(let i=0;i<160;i++){const j0=Math.floor(A+(B-A)*i/160),j1=Math.floor(A+(B-A)*(i+1)/160);let m=0;for(let j=j0;j<j1;j+=8)m=Math.max(m,Math.abs(s.d[j]));const h=1+m*28;g.fillStyle='#6a6e76';g.fillRect(x0+i*ww/160,CY+4-h,ww/160-.4,h*2)}
+    if(S.shift){const bars=fitBars(s),nb=Math.max(1,Math.round(bars*beats())),L=(B-A)/s.sr,T=bars*barS()/AC.sampleRate;for(let k=0;k<=nb;k++){const x=x0+k/nb*ww,bar=k%beats()===0;ln(x,29,x,94,bar?COL.o:'#5a3a26',bar?1.2:.7)}
+      lab('FIT TO TEMPO · '+L.toFixed(2)+' S → '+FITB[FITV.indexOf(bars)]+(SMPX.ft[0]|0?'':' (AUTO)')+' = '+T.toFixed(2)+' S AT '+S.bpm+' BPM',8,24,COL.o);lab((SMPX.ft[1]|0)?'KEEP PITCH':'SPEED + PITCH',W-8,24,COL.dim,'right');return}
     pts.forEach((p,k)=>{const x=X(p);ln(x,29,x,94,TC[k%4],1);txt(''+(k+1),x+1.5,35,TC[k%4],5)});
-    txt(pts.length+' SLICES → KIT '+(S.kit+1)+' '+KITS[S.kit]+' · PADS 1–'+pts.length,8,24,COL.w,6);txt('SLICE 1 = LOWEST KEY',W-8,24,COL.dim,5.5,'right');return}
+    txt(pts.length+' SLICES → KIT '+(S.kit+1)+' '+KITS[S.kit]+' · PADS 1–'+pts.length,8,24,COL.w,6);txt('SLICE 1 = LOWEST KEY · SHIFT ▸ FIT TO TEMPO',W-8,24,COL.dim,5.5,'right');return}
   if(pg===2){const now=AC.currentTime,inp=SMPX.rc[0]|0,secs=recSecs(),rec=RS.on&&now>=RS.at,wait=RS.on&&now<RS.at;
     circ(42,50,15,rec||(wait&&Math.sin(t*12)>0)?COL.red:'#3a3d44',rec);txt(rec?'RECORDING':wait?'WAITING FOR THE BAR':'READY',42,80,rec||wait?COL.red:COL.w,6,'center');
     txt(inp?'INPUT · '+(S.rm2[3]>.5?'LINE IN':'MIC'):'MASTER · WHAT YOU HEAR',90,30,COL.w,7);txt(secs.toFixed(2)+' S · '+RLN[SMPX.rc[1]|0]+' AT '+S.bpm+' BPM'+(SMPX.rc[3]|0?' · FROM THE NEXT BAR':''),90,40,COL.dim,5.5);
