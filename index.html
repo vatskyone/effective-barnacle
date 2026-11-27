@@ -74,7 +74,7 @@ body{background:radial-gradient(ellipse at 50% 30%,color-mix(in srgb,var(--bg) 8
 .sig{position:absolute;right:47px;bottom:23px;writing-mode:vertical-rl;transform:rotate(180deg);font:400 7.5px/1 "Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;letter-spacing:.16em;color:#9a9d9f;text-shadow:0 -1px 0 rgba(255,255,255,.7),0 1px 0 rgba(0,0,0,.18);white-space:nowrap}
 .scr .glow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;display:none;filter:blur(5px) brightness(1.35) saturate(1.2);mix-blend-mode:screen;opacity:.55}
 html.oled .scr .glow{display:block}
-#bar button.tg.on{color:var(--o);border-color:var(--o)}
+#bar button.tg.on,#bar #themeBtn.on{color:var(--o);border-color:var(--o)}
 /* dark case (the screen stays black, like a real display) */
 html.dark{--bg:#151618;--hint:#8b8c88;--ink:#e4e5e1}
 html.dark .dev{background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 1px,rgba(0,0,0,.05) 1px 2px,transparent 2px 3px),linear-gradient(#45484b,#323437);box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 -2px 0 rgba(0,0,0,.35) inset,0 0 0 1px #1d1e20,0 40px 70px -28px rgba(0,0,0,.8),0 6px 14px rgba(0,0,0,.45)}
@@ -184,16 +184,97 @@ html.line .vu.r.on{background:#ff3b30!important}
 /* desktop black keys can be wider than their cap: keep the cap centred on its note */
 html:not(.os1) .bk::after{inset:12px auto;left:calc(var(--cx,32.5px) - 20.5px);width:41px}
 html.line:not(.os1) .bk::after{inset:15px auto!important;left:calc(var(--cx,32.5px) - 17.5px)!important;width:35px}
+
+/* ── themes: alternative industrial designs over the same controls (theme button in the bar) ── */
+/* Lattice: flush keys in a dark machined grid, a colour strip per key group, pixel LEDs, e-paper screen, square knobs */
+html.th-lattice{--bg:#e6e4de;--hint:#6c6a63;--ink:#1d1d1f;--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
+html.th-lattice .dev{background:#cfccc3;border-radius:10px;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 1px #b4b0a6,0 40px 70px -28px rgba(0,0,0,.45),0 6px 14px rgba(0,0,0,.16)}
+html.th-lattice:not(.os1) .dev::before{background:#19191b;border-radius:6px}
+html.th-lattice .k{border-radius:3px;background:#e8e5dd;box-shadow:inset 0 1px 0 #f6f4ef,inset 0 -1px 0 #c8c4b9;font-family:var(--mono);font-weight:600;letter-spacing:.06em}
+html.th-lattice .k.on{background:#d9d5cb;box-shadow:inset 0 1px 3px rgba(0,0,0,.25)}
+html.th-lattice .k .ring{border:0;width:auto;height:auto}
+html.th-lattice .k svg{stroke-linecap:square;stroke-linejoin:miter;stroke-width:1.6}
+html.th-lattice .k .num{font-family:var(--mono);font-weight:600;font-size:18px}
+html.th-lattice .k .sub{font-family:var(--mono);font-weight:400;color:#6c6a63;font-size:6.5px}
+html.th-lattice .k::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;border-radius:0 0 3px 3px;background:var(--gs,#8d8a82);pointer-events:none}
+html.th-lattice .k:is([data-a=synth]){--gs:var(--b)}html.th-lattice .k:is([data-a=drum],[data-a=seq]){--gs:var(--g)}
+html.th-lattice .k:is([data-a=tape],[data-a=lift],[data-a=drop],[data-a=loop]){--gs:var(--o)}
+html.th-lattice .k:is([data-a=mixer],[data-a=t0],[data-a=t1],[data-a=t2],[data-a=t3]){--gs:#1d1d1f}
+html.th-lattice .k.sl{--gs:#f0a020}html.th-lattice .k:is([data-a=rec],[data-a=play],[data-a=stop]){--gs:#e5352b}
+html.th-lattice .led{top:6px;right:6px;width:5px;height:5px;border-radius:0;background:#bfbbb0}
+html.th-lattice .dots i{border-radius:0;background:#bfbbb0}
+html.th-lattice .wk{background:#efece5}
+html.th-lattice .wk::before{inset:auto 24px 12px;height:3px;border-radius:0;background:#c8c4b9;box-shadow:none}
+html.th-lattice .wk::after{display:none}
+html.th-lattice:not(.os1) .bkrow{background:#19191b;border-radius:3px}
+html.th-lattice .bk{border-radius:3px;background:#2e2e31;box-shadow:inset 0 1px 0 #3d3d41}
+html.th-lattice:not(.os1) .bk{outline-color:#19191b}
+html.th-lattice .bk.on{background:#252528}
+html.th-lattice .bk::after{inset:auto auto 12px auto!important;left:calc(var(--cx,32.5px) - 12px)!important;width:24px!important;height:3px;border-radius:0;background:#5a5a5f!important;box-shadow:none!important}
+html.th-lattice .spk,html.th-lattice:not(.os1) .spk{opacity:1;border-radius:3px;background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='17' height='16'><rect x='3.5' y='3' width='10' height='10' fill='%230f0f10'/></svg>") 9px 9px/17px 16px,#2a2a2d;box-shadow:inset 0 0 0 9px #2a2a2d}
+html.th-lattice .scr{border-radius:3px;background:#dcd9cf}
+html.th-lattice .scr::after{display:none}
+html.th-lattice .scr canvas#scr{filter:invert(.93) hue-rotate(180deg) sepia(.22) saturate(.75) contrast(1.05)}
+html.th-lattice .enc,html.th-lattice:not(.os1) .vol{border-radius:3px;background:#2a2a2d;box-shadow:none}
+html.th-lattice .enc .base{background:none;box-shadow:none}
+html.th-lattice .enc .cap,html.th-lattice:not(.os1) .enc .cap{width:78px;height:78px;border-radius:14px;background:#e8e5dd;box-shadow:0 3px 0 #0c0c0d,inset 0 0 0 1px rgba(0,0,0,.06)}
+html.th-lattice .enc .cap::after,html.th-lattice:not(.os1) .enc .cap::after{width:3px;height:14px;margin:-31px 0 0 -1.5px;border-radius:0;background:var(--c);box-shadow:none}
+html.th-lattice .vol .cap{width:36px;height:36px;border-radius:6px;background:#e8e5dd;box-shadow:0 2px 0 #0c0c0d}
+html.th-lattice .vol .cap::after{top:4px;width:2px;height:9px;margin-left:-1px;border-radius:0;background:#19191b}
+html.th-lattice .tag{font:600 12px/1 var(--mono);letter-spacing:.3em;color:#8d8a82}
+html.th-lattice .sig{font-family:var(--mono);color:#8d8a82;text-shadow:none}
+html.th-lattice .mic i{border-radius:0;width:3px;height:3px;background:#5a5852}
+html.th-lattice .vu{border-radius:0;width:12px;height:6px;background:#b8b4a9;box-shadow:none}
+html.th-lattice .vu.on{background:#26262a;box-shadow:none}
+html.th-lattice .vu.r.on{background:#e5352b}
+
+/* Walnut: charcoal deck between walnut cheeks, cream keys, brass-skirted knobs, brass speaker, amber screen */
+html.th-walnut{--bg:#e7e2d9;--hint:#7a6a58;--ink:#3b2f25}
+html.th-walnut .dev{background:#2b2926;border-radius:6px;box-shadow:inset 0 1px 0 #3d3a36,0 40px 70px -28px rgba(40,25,10,.55),0 6px 14px rgba(40,25,10,.3)}
+html.th-walnut .dev::after{content:"";position:absolute;inset:-8px -34px;z-index:-2;border-radius:16px;pointer-events:none;
+  background:repeating-linear-gradient(91deg,rgba(0,0,0,.16) 0 1px,transparent 1px 4px,rgba(0,0,0,.08) 4px 5px,transparent 5px 9px) left/34px 100% no-repeat,
+    repeating-linear-gradient(89deg,rgba(0,0,0,.16) 0 1px,transparent 1px 4px,rgba(0,0,0,.08) 4px 5px,transparent 5px 9px) right/34px 100% no-repeat,
+    linear-gradient(90deg,#6b4228 0 34px,transparent 34px calc(100% - 34px),#6b4228 calc(100% - 34px));box-shadow:0 30px 60px -28px rgba(40,25,10,.6)}
+html.th-walnut:not(.os1) .dev::before{background:#15130f;border-radius:6px}
+html.th-walnut .k{border-radius:6px;background:#efe7d6;box-shadow:0 2px 0 #15130f,inset 0 -3px 0 #d8cdb6;font-family:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;font-weight:600}
+html.th-walnut .k.on{background:#e3d9c4;box-shadow:inset 0 1px 3px rgba(0,0,0,.3)}
+html.th-walnut .k .ring{border:0;width:auto;height:auto}
+html.th-walnut .k .num{font-weight:500}
+html.th-walnut .k .sub{color:#a8642a}
+html.th-walnut .led{top:6px;left:50%;right:auto;margin-left:-3px;width:6px;height:6px;background:rgba(59,47,37,.14)}
+html.th-walnut .dots i{background:#d8cdb6}
+html.th-walnut .wk{background:#f4eee2;border-radius:4px 4px 8px 8px;box-shadow:0 2px 0 #15130f,inset 0 -6px 0 #ddd2bc}
+html.th-walnut .wk::before{display:none}
+html.th-walnut:not(.os1) .bkrow{background:#2b2926}
+html.th-walnut .bk{border-radius:6px;background:#191512;box-shadow:0 2px 0 #0b0a08,inset 0 1px 0 #3a332c}
+html.th-walnut:not(.os1) .bk{outline-color:#15130f}
+html.th-walnut .bk.on{background:#120f0d}
+html.th-walnut .bk::after{inset:auto!important;top:28px!important;left:calc(var(--cx,32.5px) - 10px)!important;width:20px!important;height:3px;border-radius:2px;background:#b08d57!important;box-shadow:none!important}
+html.th-walnut .spk,html.th-walnut:not(.os1) .spk{opacity:1;border-radius:6px;background:repeating-linear-gradient(90deg,#b08d57 0 6px,#2b2926 6px 10px);box-shadow:inset 0 0 0 16px #b08d57,inset 0 1px 0 16px #d2b27b}
+html.th-walnut .scr{border-radius:6px;background:#120d08;box-shadow:0 0 0 2px #46413b}
+html.th-walnut .scr canvas#scr{filter:grayscale(1) sepia(1) saturate(3.2) hue-rotate(-8deg) brightness(1.08)}
+html.th-walnut .enc,html.th-walnut:not(.os1) .vol{background:none;box-shadow:none}
+html.th-walnut .enc .base,html.th-walnut:not(.os1) .enc .base{width:104px;height:104px;background:#b08d57;box-shadow:0 6px 12px rgba(0,0,0,.45),inset 0 1px 0 #d8b985}
+html.th-walnut .enc .cap,html.th-walnut:not(.os1) .enc .cap{width:78px;height:78px;background:#efe7d6;box-shadow:inset 0 -3px 0 #d8cdb6}
+html.th-walnut .enc .cap::after,html.th-walnut:not(.os1) .enc .cap::after{width:3px;height:14px;margin:-32px 0 0 -1.5px;border-radius:2px;background:var(--c);box-shadow:none}
+html.th-walnut .vol .cap{background:#efe7d6;box-shadow:0 3px 6px rgba(0,0,0,.45),0 0 0 6px #b08d57}
+html.th-walnut .vol .cap::after{width:3px;height:10px;margin-left:-1.5px;border-radius:1px;background:#3b2f25}
+html.th-walnut .tag{font-weight:500;font-size:22px;letter-spacing:.2em;color:#b08d57}
+html.th-walnut .sig{color:#8a7350;text-shadow:none}
+html.th-walnut .mic i{background:#15130f}
+html.th-walnut .vu{background:#46413b;box-shadow:none}
+html.th-walnut .vu.on{background:#ffb347;box-shadow:0 0 6px #ffb347}
+html.line.th-walnut .dev::after{display:none}
 </style>
 </head>
 <body>
 <script>/* OS-1 is the phone layout: automatic on touch phones, or forced with ?os1 (and ?web1 forces the desktop device) */
 window.OS1=/[?&]os1\b/.test(location.search)||(!/[?&]web1\b/.test(location.search)&&matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<600);
 window.NAME=OS1?'OS-1':'WEB-1';document.documentElement.classList.toggle('os1',OS1);if(OS1)document.title='OS-1 Pocket Synth';
-try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentElement.classList.toggle('dark',!!u.dark);document.documentElement.classList.toggle('oled',!!u.oled);document.documentElement.classList.toggle('line',!!u.line)}catch(_){}</script>
+try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentElement.classList.toggle('dark',!!u.dark);document.documentElement.classList.toggle('oled',!!u.oled);document.documentElement.classList.toggle('line',!!u.line);if(u.theme==='lattice'||u.theme==='walnut')document.documentElement.classList.add('th-'+u.theme)}catch(_){}</script>
 <div class="wrap" id="wrap"><div class="dev" id="dev"></div></div>
 <div id="hint">click the synth or press a key to switch it on &nbsp;·&nbsp; play with A W S E D F T G Y H U J K &nbsp;·&nbsp; press / for help</div>
-<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="midi" id="midi" class="nomob">connect midi</button><button data-b="guide" class="h-web1">guide</button><button data-b="build">how to build</button><button data-b="dark" class="tg">dark mode</button><button data-b="oled" class="tg">oled</button><button data-b="line" class="tg">line art</button><button data-b="reset">reset all</button></div>
+<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="midi" id="midi" class="nomob">connect midi</button><button data-b="guide" class="h-web1">guide</button><button data-b="build">how to build</button><button data-b="theme" id="themeBtn">theme: classic</button><button data-b="dark" class="tg">dark mode</button><button data-b="oled" class="tg">oled</button><button data-b="line" class="tg">line art</button><button data-b="reset">reset all</button></div>
 <input type="file" id="file" accept="audio/*" hidden><canvas id="probe" width="640" height="230"></canvas>
 <div id="help"><div class="card">
 <div class="h-os1">
@@ -899,7 +980,8 @@ function fit(){const DW=OS1?906:1215,DH=dev.offsetHeight||452,cs=getComputedStyl
   let aw=innerWidth-(OS1?pad('paddingLeft','paddingRight')+6:24),ah=innerHeight-(OS1?pad('paddingTop','paddingBottom')+6:110);
   ROT=OS1&&innerHeight>innerWidth;/* OS-1 is a landscape device: on an upright phone it is drawn turned, so it still fills the screen */
   if(ROT){const s=Math.min(ah/DW,aw/DH,1.5);dev.style.transform=`translate(${DH*s}px,0) rotate(90deg) scale(${s})`;w.style.width=DH*s+'px';w.style.height=DW*s+'px';return}
-  const s=Math.min(aw/DW,ah/DH,1.5);dev.style.transform=`scale(${s})`;w.style.width=DW*s+'px';w.style.height=DH*s+'px'}
+  const ch=document.documentElement.classList.contains('th-walnut')?34:0;/* the walnut theme's wood cheeks stick out 34 px each side */
+  const s=Math.min(aw/(DW+2*ch),ah/(DH+(ch?16:0)),1.5);dev.style.transform=`translate(${ch*s}px,${(ch?8:0)*s}px) scale(${s})`;w.style.width=(DW+2*ch)*s+'px';w.style.height=(DH+(ch?16:0))*s+'px'}
 addEventListener('resize',fit);fit();
 if(OS1){/* phone plumbing: tools live in the help sheet, iOS audio unlock, no page zoom or scroll */
   $('#help .card').prepend($('#bar'));aSess('playback');
@@ -982,7 +1064,10 @@ function release(a){if(a[0]==='s'&&a.length===2&&S.trick===+a[1])trick(S.trick,f
 $('#help').addEventListener('click',()=>$('#help').classList.remove('show'));
 const UIK='web1.ui',uiSet=(k,v)=>{document.documentElement.classList.toggle(k,v);document.querySelector(`#bar [data-b=${k}]`).classList.toggle('on',v);try{const u=JSON.parse(localStorage.getItem(UIK)||'{}');u[k]=v;localStorage.setItem(UIK,JSON.stringify(u))}catch(_){}};
 ['dark','oled','line'].forEach(k=>uiSet(k,document.documentElement.classList.contains(k)));
-$('#bar').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;b.blur();if(b.dataset.b==='guide'){$('#help').classList.add('show');return}if(b.dataset.b==='build'){window.open('web1-3d.html','_blank','noopener');return}if(b.classList.contains('tg')){const k=b.dataset.b;uiSet(k,!document.documentElement.classList.contains(k));return}await initAudio();const a=b.dataset.b;
+// themes: classic (the original), lattice and walnut; one at a time, remembered with the other display settings
+const THEMES=['classic','lattice','walnut'],themeSet=t=>{THEMES.forEach(x=>document.documentElement.classList.toggle('th-'+x,x===t&&x!=='classic'));$('#themeBtn').textContent='theme: '+t;$('#themeBtn').classList.toggle('on',t!=='classic');if(typeof fit==='function')fit();try{const u=JSON.parse(localStorage.getItem(UIK)||'{}');u.theme=t;localStorage.setItem(UIK,JSON.stringify(u))}catch(_){}};
+themeSet(THEMES.find(t=>document.documentElement.classList.contains('th-'+t))||'classic');
+$('#bar').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;b.blur();if(b.dataset.b==='guide'){$('#help').classList.add('show');return}if(b.dataset.b==='build'){window.open('web1-3d.html','_blank','noopener');return}if(b.dataset.b==='theme'){const c=THEMES.find(t=>document.documentElement.classList.contains('th-'+t))||'classic';themeSet(THEMES[(THEMES.indexOf(c)+1)%THEMES.length]);return}if(b.classList.contains('tg')){const k=b.dataset.b;uiSet(k,!document.documentElement.classList.contains(k));return}await initAudio();const a=b.dataset.b;
   if(a==='wav')exportWav();else if(a==='file')$('#file').click();else if(a==='mic')micSample(b);else if(a==='midi')initMidi();
   else if(a==='clr'&&S.inst==='drum'&&S.mode==='drum'){const k=S.pad|0;if(padSmp[S.kit][k]){padSmp[S.kit][k]=null;idb.del(padK(S.kit,k)).catch(()=>{});status('sample cleared from '+padNm(k)+' · kit '+(S.kit+1))}else status(padNm(k)+' has no sample in kit '+(S.kit+1)+' — hit a pad, then load sample')}
   else if(a==='clr'){if(slotSmp[S.slot]){slotSmp[S.slot]=null;idb.del('smp'+S.slot).catch(()=>{});status('sample cleared from slot '+slotNm(S.slot))}else status('slot '+slotNm(S.slot)+' has no sample')}
