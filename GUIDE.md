@@ -44,7 +44,7 @@ This is the full manual for WEB-1. In the app itself, press the **HELP** key (**
 ## 1. The device at a glance
 
 - **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge (where you are in grey, the page you are on in white, for example SYNTH A1 · CLUSTER), the picture sits in the middle, and the knob bar along the bottom edge shows the four knobs: each knob's name small, with its value large underneath in the knob's colour. The tape screen leaves them out to make room for the tape. It is always a black display, whichever finish you choose.
-- **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click (double-tap on a phone) **pushes** the knob: it resets the value, or does the knob's action, such as SAVE. See [Knob clicks and pushes](#knob-clicks-and-pushes).
+- **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click (double-tap on a phone) **pushes** the knob: it resets the value to its default (the value the loaded preset set, or the factory value), or does the knob's action, such as SAVE. The screen confirms it, for example CUTOFF RESET. See [Knob clicks and pushes](#knob-clicks-and-pushes).
 - **Volume knob** (small white knob, top left): the master output level.
 - **HELP key (?)** (below the volume knob, the **-** key): shows what every key does on the screen you are on. Shift + HELP opens the controls card.
 - **TEMPO key** (right edge, between FX and SEQ, the **`** key): opens the tempo screen, and blinks on every beat while the metronome is on. Shift + TEMPO opens KEY & CHORDS.
@@ -76,7 +76,7 @@ A push does the action shown on that knob, or puts the value back where it was b
 | Mixer bank B, T3 | White: BOUNCE | Bounces the chosen tracks |
 | Mixer bank B, T4 | Green: GO | Exports, or starts and stops a live mixdown |
 | USB stick list | White: LOAD | Loads the file |
-| Everywhere else | Any knob | Resets the value |
+| Everywhere else | Any knob | Resets the value to its default: the loaded preset's value, or the factory value |
 
 Turning a knob all the way to YES still works everywhere. On the hardware, the screen's hints say PUSH WHITE instead of TURN WHITE.
 
@@ -114,7 +114,8 @@ Turning a knob all the way to YES still works everywhere. On the hardware, the s
 | **1 – 8** (drum machine) | Pick the pattern; Shift + 1–8 copies the pattern there |
 | **→** (drum machine) | Hold for a fill |
 | **[ ]** | LIFT · DROP (Shift + LIFT erases the track) |
-| **Shift + ]** | Undo the last tape change (Shift + DROP); again to redo |
+| **Shift + ]** | Undo the last change, anywhere (Shift + DROP); again to go further back |
+| **Shift + Enter** | Redo (Shift + STOP) |
 | **Shift + B N M ,** (tape mode) | Tape edits: COPY · CROP · DOUBLE · ERASE |
 | **=** | Sequencer screen (Shift + = clears it) |
 | **I** | FX rack (Shift + I switches between bank A and bank B) |
@@ -498,7 +499,7 @@ The settings are saved. In the browser, battery and storage show what the browse
 - **LIFT** (`[`) cuts the loop, or the current bar, out of the selected track.
 - **DROP** (`]`) pastes it at the tape head.
 - **Shift + LIFT** erases the whole track.
-- **Shift + DROP** (Shift + ]) is **UNDO**: it puts back the track as it was before the last tape change. Press it again to **REDO**.
+- **Shift + DROP** (Shift + ]) is **UNDO**: it puts back the track as it was before the last tape change (and undoes any other change too, see [Undo](#undo-shift--drop)). **Shift + STOP** is **REDO**.
 
 **More edits: Shift + T1–T4** work on the selected track, over the loop if LOOP is on, otherwise over the bar at the tape head. While you hold Shift, the tape screen shows the four edits and outlines the bar they will use.
 
@@ -757,7 +758,14 @@ Your saved presets and the system settings (time, display) are shared by every p
 
 ### Undo: Shift + DROP
 
-Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tape: a recording (so a take in REPLACE mode can be taken back), LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE. The tape screen flashes **UNDO · TRACK 2**, for example. Press it again to **REDO**. While you hold Shift in tape mode, the top right of the tape screen shows **DROP ▸ UNDO** and the track it will change. There is one level of undo, and erasing the whole tape (Shift + TAPE) can't be undone.
+Hold **Shift** and press **DROP** (Shift + ]) to undo the last change, wherever you made it:
+
+- **Sounds and settings:** a knob turn, a preset or engine change, a step or pattern edit, a mixer or FX move, the tempo, a scene. Each knob turn or edit is one step; touching another knob starts a new one.
+- **The tape:** a recording (so a take in REPLACE mode can be taken back), LIFT, DROP, Shift + LIFT, CROP, DOUBLE or ERASE.
+
+Press it again to go further back, up to 64 steps. **Shift + STOP** (Shift + Enter) is **REDO**: it steps forward again. A small label at the top of the screen says what changed, for example **UNDO · CUTOFF** or **REDO · TAPE**. While you hold Shift in tape mode, the top right of the tape screen shows **DROP ▸ UNDO** and what it will undo.
+
+The tape keeps only its last change, so an older tape edit can't be undone once you make a new one. Erasing the whole tape (Shift + TAPE) can't be undone. Switching slot, kit, octave or mode, the system settings and your saved presets aren't part of undo.
 
 ## 14. Your first song in 10 steps
 
