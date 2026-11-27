@@ -139,7 +139,7 @@ hw: `<!doctype html>
 // The case window shows a 94.7 x 41.5 mm band of the panel: move it with BAND_TOP.
 var BAND_TOP = 20, BAND_H = 369;
 // LED chain order (must match code.py): 29 key lights, then 5 VU lights (top = red)
-var ACTS = ['fx','tempo','metro','synth','drum','tape','mixer','t0','t1','t2','t3','s0','s1','s2','s3','s4','s5','s6','s7','seq','lift','drop','loop','rec','play','stop','left','right','shift'];
+var ACTS = ['fx','help','tempo','synth','drum','tape','mixer','t0','t1','t2','t3','s0','s1','s2','s3','s4','s5','s6','s7','seq','lift','drop','loop','rec','play','stop','left','right','shift'];
 var f = document.getElementById('f'), out = document.getElementById('out'), g = out.getContext('2d');
 var W = null, writer = null, lastLed = '';
 f.addEventListener('load', function () {
@@ -212,7 +212,7 @@ COLS = (board.GP8, board.GP9, board.GP10, board.GP11, board.GP12, board.GP13, bo
 
 # Matrix slot n sits at row n // 8, column n % 8 (see the Wiring tab).
 # nX = musical key, X = semitone 0-23 from the lowest C. eX = push on knob X.
-SLOTS = ("fx", "tempo", "metro", "synth", "drum", "tape", "mixer", "t0",
+SLOTS = ("fx", "help", "tempo", "synth", "drum", "tape", "mixer", "t0",
          "t1", "t2", "t3", "s0", "s1", "s2", "s3", "s4",
          "s5", "s6", "s7", "seq", "lift", "drop", "loop", "rec",
          "play", "stop", "left", "right", "shift", "n0", "n2", "n4",
@@ -222,7 +222,7 @@ SLOTS = ("fx", "tempo", "metro", "synth", "drum", "tape", "mixer", "t0",
          "e3")
 
 # Function keys type the same shortcuts as the desktop app.
-HID = {"fx": K.I, "tempo": K.MINUS, "metro": K.GRAVE_ACCENT, "seq": K.EQUALS,
+HID = {"fx": K.I, "help": K.MINUS, "tempo": K.GRAVE_ACCENT, "seq": K.EQUALS,
        "synth": K.Z, "drum": K.X, "tape": K.C, "mixer": K.V,
        "t0": K.B, "t1": K.N, "t2": K.M, "t3": K.COMMA,
        "s0": K.ONE, "s1": K.TWO, "s2": K.THREE, "s3": K.FOUR,
@@ -370,13 +370,12 @@ const ICON = {
   lift: { p: ['M12 19V6M7 11l5-5 5 5'] }, drop: { p: ['M12 5v13M7 13l5 5 5-5'] },
   seq: { p: ['M3 18h4v-4h4v-4h4V6h6'] },
   tempo: { p: ['M8 20l3-16h2l3 16zM12 16l4-6'] },
-  metro: { c: [[12, 12, 7]], p: ['M12 8v4l3 2'] },
 };
 // [action, x, y, w, h, icon colour, label, sub-label, name, shortcut]
 const FKEYS = [
   ['fx', 1092, 20, 65, 72, null, 'FX', null, 'FX rack', 'I'],
-  ['tempo', 154, 94, 65, 72, null, null, null, 'Tempo screen', '−'],
-  ['metro', 1092, 94, 65, 72, null, null, null, 'Metronome', '`'],
+  ['help', 154, 94, 65, 72, null, '?', null, 'Help', '−'],
+  ['tempo', 1092, 94, 65, 72, null, null, null, 'Tempo screen', '`'],
   ['synth', 20, 168, 65, 65, BLUE, null, null, 'SYNTH mode', 'Z'],
   ['drum', 87, 168, 65, 65, GREEN, null, null, 'DRUM mode', 'X'],
   ['tape', 154, 168, 65, 65, ORANGE, null, null, 'TAPE mode', 'C'],
@@ -1272,7 +1271,7 @@ ${HW.map(h => `<tr data-part="${h[0]}"><td class="id">${h[0]}</td><td>${esc(h[1]
 <p class="note">The 4.3" panel is taller than the window, so it sits under the PCB, about ${(SCREEN_TOP - DISP_TOP).toFixed(1)} mm below the window, inside a black shroud (P12). The keys in front of the screen (MIXER and T1–T4) sit on the PCB above the lower part of the panel: solder those 5 switches without sockets and trim their pins flush. Check your panel's top border: the back wall gives it about 3 mm.</p>
 <p class="note">Each light pipe sits 7.9 mm from the key centre, about 0.9 mm further out than the LED dot in the app, so it clears the 15 mm Choc housing.</p>`;
 
-const SLOTNAMES = ['fx', 'tempo', 'metro', 'synth', 'drum', 'tape', 'mixer', 't0', 't1', 't2', 't3', 's0', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 'seq', 'lift', 'drop', 'loop', 'rec', 'play', 'stop', 'left', 'right', 'shift',
+const SLOTNAMES = ['fx', 'help', 'tempo', 'synth', 'drum', 'tape', 'mixer', 't0', 't1', 't2', 't3', 's0', 's1', 's2', 's3', 's4', 's5', 's6', 's7', 'seq', 'lift', 'drop', 'loop', 'rec', 'play', 'stop', 'left', 'right', 'shift',
   ...WHITE_SEMI.map(s => 'n' + s), ...BLACK_SEMI.map(s => 'n' + s), 'e0', 'e1', 'e2', 'e3'];
 const fk = Object.fromEntries(FKEYS.map(k => [k.a, k]));
 const slotRows = SLOTNAMES.map((n, i) => {

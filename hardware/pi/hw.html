@@ -12,7 +12,7 @@
 // The case window shows a 94.7 x 41.5 mm band of the panel: move it with BAND_TOP.
 var BAND_TOP = 20, BAND_H = 369;
 // LED chain order (must match code.py): 29 key lights, then 5 VU lights (top = red)
-var ACTS = ['fx','tempo','metro','synth','drum','tape','mixer','t0','t1','t2','t3','s0','s1','s2','s3','s4','s5','s6','s7','seq','lift','drop','loop','rec','play','stop','left','right','shift'];
+var ACTS = ['fx','help','tempo','synth','drum','tape','mixer','t0','t1','t2','t3','s0','s1','s2','s3','s4','s5','s6','s7','seq','lift','drop','loop','rec','play','stop','left','right','shift'];
 var f = document.getElementById('f'), out = document.getElementById('out'), g = out.getContext('2d');
 var W = null, writer = null, lastLed = '';
 f.addEventListener('load', function () {
