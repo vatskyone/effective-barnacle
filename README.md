@@ -17,7 +17,7 @@ The fastest way is the **[live version](https://vatskyone.github.io/effective-ba
 1. Download or clone this repository.
 2. Open `index.html` in a recent desktop browser (Chrome, Edge, Firefox or Safari).
 3. Click the device or press any key to switch the sound on.
-4. Play notes with the **A W S E D F T G Y H U J K** keys, and press **/** (or click **guide**) for the controls card.
+4. Play notes with the **A W S E D F T G Y H U J K** keys, and press **-** for HELP: it shows what every key does on the screen you are on (Shift + - or the **guide** button opens the controls card).
 
 The first time you open it, WEB-1 makes a **demo song** with its own sounds on the four tape tracks and starts a short **guided tour** that points at each key to press. Small tips show the first few times you open each screen. Start the tour again from SYSTEM → ABOUT, and make the demo again from PROJECTS → DEMO SONG.
 
@@ -33,7 +33,7 @@ Then open <http://localhost:8000>.
 
 Open the same link on an iPhone and WEB-1 becomes **OS-1**: the same instrument re-laid out for touch in landscape, sized to fill the phone's screen: the display and the four knobs on top, two rows of keys, and two octaves along the bottom. Hold the phone sideways (with rotation lock on it still fills the screen, drawn turned).
 
-- Tap **?** on the device for the controls card and the tools (export, samples, dark mode, OLED, line art, reset).
+- Tap **?** on the device to see what every key does on the current screen. **shift + ?** opens the controls card and the tools (export, samples, dark mode, OLED, line art, reset).
 - Drag the knobs up or down; double-tap one to push it (it resets the value, or confirms an action such as SAVE). Hold **shift** with one finger and tap with another.
 - For full screen, tap Share in Safari and choose **Add to Home Screen**. OS-1 then opens like an app, and works with no connection.
 - If you hear nothing, turn the volume up and switch silent mode off.
@@ -64,9 +64,9 @@ The device software is in [`hardware/pi/`](hardware/pi/). `hw.html` shows WEB-1'
 | **FX** | 8 per-sound effects (ECHO · ROOM · CRUSH · SWIRL, plus BOUNCE · COIL · CUBE · RADIO on Shift + T3) and a master rack with two banks: DRIVE → CHORUS → DELAY → REVERB, and FILTER → GATE → FLANGER → LO-FI on Shift + FX. Each of the 8 per-sound effects has its own animated screen with its two main values in big numbers. LIVE FX on the number keys while the FX screen is open: beat repeat (1/4 to 1/32), freeze, filter sweeps and tape stop |
 | **Mixer** | Mute and solo on keys 1–8, four scenes that store and glide between whole mixes (Shift + 1–8), reverb and delay sends per track, a sidechain that makes the tracks pump with the drums, bouncing tracks together, and export as a tape mix, stems or a live mixdown (Shift + MIXER). Level and pan per track on one page, a 3-band multiband compressor, a 4-band EQ with movable frequencies, and a master page with compressor, stereo width and a limiter. Shift + knobs reach the extra settings on every page |
 | **System menu** (Shift + 8 in tape mode) | Battery, time and timezone, storage (erase samples, presets, the tape or everything), display brightness, sleep and the tape view, MIDI, a CPU page with a voice limit that adapts when the device is busy, and about. On the hardware it also powers off safely, uses a USB stick and installs updates. ABOUT starts the guided tour again and makes the demo song; DISPLAY turns the tips on or off |
-| **Learning** | A demo song made with WEB-1's own sounds on the four tape tracks (A minor, 108 BPM, with INTRO, VERSE, CHORUS and OUTRO markers), an eight-step guided tour that lights up each key or knob to use and moves on when you use it, and one-line tips the first few times you open each screen |
-| **Knobs and Shift** | Double-click a knob to push it: it confirms SAVE, BOUNCE, export and the system menu's actions (two pushes to delete or erase), or resets the value. Hold Shift for a second layer on most keys and knobs; the controls card (**/** or **guide**) lists them |
-| **Timing** | Tempo, metronome, count-in, swing, live quantize, and bar and beat snapping |
+| **Learning** | A HELP key (?) that shows what every key does on any screen, a demo song made with WEB-1's own sounds on the four tape tracks (A minor, 108 BPM, with INTRO, VERSE, CHORUS and OUTRO markers), an eight-step guided tour that lights up each key or knob to use and moves on when you use it, and one-line tips the first few times you open each screen |
+| **Knobs and Shift** | Double-click a knob to push it: it confirms SAVE, BOUNCE, export and the system menu's actions (two pushes to delete or erase), or resets the value. Hold Shift for a second layer on most keys and knobs; the HELP key (**?**) shows them for the screen you are on, and the controls card (**Shift + ?** or **guide**) lists them all |
+| **Timing** | Tempo, a metronome (Shift + orange knob on the tempo screen; the TEMPO key blinks on the beat), count-in, swing, live quantize, and bar and beat snapping |
 | **Looks** | Aluminium-style case with keys set in a thin black grid, a frameless screen with full-screen animated pictures in one clean style (round lines, spaced capital labels, a knob bar with large values), light or dark finish, a flat line-art finish, and a subtle OLED glow option. The REC key is a red disc set inside its ring |
 | **MIDI** | Velocity, pitch bend, mod wheel and sustain from any connected keyboard; MIDI clock out and in, and notes out from the sequencers or everything you play (system menu) |
 

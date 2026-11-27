@@ -1,6 +1,6 @@
 # WEB-1 Guide
 
-This is the full manual for WEB-1. In the app itself, press **/** at any time, or click **guide** under the device, for a short controls card. New to WEB-1? Read [Start here](#start-here) first.
+This is the full manual for WEB-1. In the app itself, press the **HELP** key (**?**, or **-** on a computer) at any time to see what every key does on the screen you are on; **Shift + HELP** or the **guide** button under the device opens a short controls card. New to WEB-1? Read [Start here](#start-here) first.
 
 ## Start here
 
@@ -18,6 +18,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
   | 7 | Press **FX** (I), then hold **2** | The master effects, and a live beat repeat on the song |
   | 8 | Any key | Where to find help, and how to start your own song |
 - **Tips.** The first few times you open a screen, a one-line tip shows at the bottom of the screen for a few seconds. Turn them off, or on again to see them all again, in **SYSTEM → DISPLAY → TIPS**.
+- **The HELP key (?).** On any screen, tap **HELP** (the **-** key) to see what every key does there, in two columns: **KEYS** and **SHIFT +**. It stays up until you press another key, which then does its job. Hold HELP instead to peek, and it closes when you let go. **Shift + HELP** opens the full controls card.
 
 **Contents**
 
@@ -45,7 +46,8 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 - **Screen** (top left, set flush into the case with no frame): shows the current mode and an animated picture of the sound. It fills its whole tile: the title runs along the top edge (where you are in grey, the page you are on in white, for example SYNTH A1 · CLUSTER), the picture sits in the middle, and the knob bar along the bottom edge shows the four knobs: each knob's name small, with its value large underneath in the knob's colour. The tape screen leaves them out to make room for the tape. It is always a black display, whichever finish you choose.
 - **Four coloured knobs** (blue, green, white, orange), each sitting in a ring with a short pointer near its edge: each changes the value of the same colour on the screen. Drag up or down or scroll over a knob to turn it. Double-click (double-tap on a phone) **pushes** the knob: it resets the value, or does the knob's action, such as SAVE. See [Knob clicks and pushes](#knob-clicks-and-pushes).
 - **Volume knob** (small white knob, top left): the master output level.
-- **Metronome key** (below the volume knob): opens the tempo screen (the **-** key).
+- **HELP key (?)** (below the volume knob, the **-** key): shows what every key does on the screen you are on. Shift + HELP opens the controls card.
+- **TEMPO key** (right edge, between FX and SEQ, the **`** key): opens the tempo screen, and blinks on every beat while the metronome is on. Shift + TEMPO opens KEY & CHORDS.
 - **Mode keys:** SYNTH, DRUM, TAPE and MIXER. SYNTH lights orange while the synths & presets menu is open (Shift + SYNTH), DRUM while the drum machine is open (Shift + DRUM).
 - **T1–T4:** pick the page inside a mode.
 - **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the sampler (Shift + 4). All eight numbers sit at the same height in their rings, labelled or not.
@@ -57,7 +59,7 @@ This is the full manual for WEB-1. In the app itself, press **/** at any time, o
 
 All the controls sit in one block, separated by thin black lines, so each key reads as its own button. Each key has a large ring with a bold icon or number. In the black keys' row, the outer key of each group widens out to the next white-key line, so the row has no gaps, while each round black cap stays centred over its note. The row sits on the same black plate as everything else, so the rounded corners of the black keys meet clean black lines with no light specks. The WEB-1 name and the "by Snow Bayles - 2026" engraving run up the right edge of the case.
 
-Everything on the device can be clicked or tapped, and almost everything also has a computer-keyboard shortcut. The controls card opens from the **guide** button under the device, or with **/**.
+Everything on the device can be clicked or tapped, and almost everything also has a computer-keyboard shortcut. The controls card opens from the **guide** button under the device, or with **Shift + HELP** (Shift + -). HELP on its own shows what the keys do on the current screen.
 
 ### Knob clicks and pushes
 
@@ -89,7 +91,7 @@ Turning a knob all the way to YES still works everywhere. On the hardware, the s
 | **Shift + V** | Mixer bank B (Shift + MIXER): sends, sidechain, bounce, export |
 | **Shift + 1 – 8** (mixer mode) | Scenes: Shift + 5–8 store, Shift + 1–4 recall |
 | **Shift + Z** | Synths & presets menu (Shift + SYNTH) |
-| **Shift + -** | Key & chords (Shift + TEMPO): scale lock and chord mode |
+| **Shift + `** | Key & chords (Shift + TEMPO): scale lock and chord mode |
 | **Shift + B** (synth mode) | Save preset (Shift + T1) |
 | **Shift + X** | Drum machine (Shift + DRUM) |
 | **B N M ,** | T1 · T2 · T3 · T4 |
@@ -116,9 +118,9 @@ Turning a knob all the way to YES still works everywhere. On the hardware, the s
 | **Shift + B N M ,** (tape mode) | Tape edits: COPY · CROP · DOUBLE · ERASE |
 | **=** | Sequencer screen (Shift + = clears it) |
 | **I** | FX rack (Shift + I switches between bank A and bank B) |
-| **-** | Tempo screen |
-| **`** | Metronome on/off |
-| **/** | Help card (also the **guide** button under the device) |
+| **-** (or **/**) | HELP: what every key does on this screen (tap to keep it up, hold to peek) |
+| **Shift + -** | The controls card (also the **guide** button under the device) |
+| **`** | Tempo screen (the metronome is Shift + orange knob there) |
 
 ## 3. Synth mode
 
@@ -236,7 +238,7 @@ On a computer you can also type the name on the keyboard (Backspace and ← → 
 
 ### Key & chords: Shift + TEMPO
 
-Hold **Shift** and press **TEMPO** (Shift + -) to open **KEY & CHORDS**. The TEMPO key lights orange. Pick a key and a scale and every note you play stays in it; turn on a chord type and every key plays a whole chord that fits. It works on all the synths, from the computer keyboard, the on-screen keys and MIDI, and in the sequencers. Drum mode is not affected.
+Hold **Shift** and press **TEMPO** (Shift + `) to open **KEY & CHORDS**. The TEMPO key lights orange. Pick a key and a scale and every note you play stays in it; turn on a chord type and every key plays a whole chord that fits. It works on all the synths, from the computer keyboard, the on-screen keys and MIDI, and in the sequencers. Drum mode is not affected.
 
 | Knob | Job | Shift + knob | Job |
 |---|---|---|---|
@@ -642,16 +644,16 @@ You can hold several at once, such as a sweep with a repeat. Of the repeats, FRE
 
 ## 10. Tempo, count-in and quantize
 
-Press **-** for the tempo screen.
+Press **TEMPO** (**`**) for the tempo screen.
 
 | Knob | Normal | With Shift held |
 |---|---|---|
 | Blue | BPM (40–200) | SWING |
 | Green | COUNT-IN (off, 1 bar, 2 bars) | BEATS per bar |
 | White | QUANTIZE (off, 1/4, 1/8, 1/16, 1/32) | SNAP on/off |
-| Orange | Metronome CLICK level | – |
+| Orange | Metronome CLICK level | METRONOME on/off |
 
-- **`** switches the metronome on or off.
+- **Metronome:** hold Shift and turn the orange knob right to switch it on, left to switch it off (or push the knob). The TEMPO key blinks on every beat while it is on, and the beat dots on the tempo screen light up.
 - **Count-in:** pressing REC from stop clicks you in, and the tape starts on the downbeat. Press STOP or REC to cancel.
 - **Quantize:** notes from the keys or MIDI snap to the grid, which follows the tape's bars. Notes that are only slightly late play straight away. Sequencers also start on the grid.
 - **Snap:** loop, lift and drop line up with bars and beats.
@@ -679,7 +681,7 @@ These settings are shared by every project. Web MIDI needs Chrome or Edge.
 
 ## 12. Looks: dark mode, OLED and line art
 
-The buttons under the device change how WEB-1 looks (on OS-1 they are in the **?** card):
+The buttons under the device change how WEB-1 looks (on OS-1 they are in the controls card: Shift + ?):
 
 - **dark mode:** a graphite case and keys, with the same black screen. The black lines between the keys stay black. Switch it off for the light aluminium case with the black screen.
 - **oled:** adds a subtle glow (halation) to the screen, like light spreading on an OLED panel.
@@ -761,7 +763,7 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 
 **Before you start:** if you are in the DEMO SONG project (the title bar of the tape screen shows the project's name), start a new one so you record on an empty tape: in tape mode press **Shift + 7**, turn the green knob to **NEW** and push the white knob (or turn it to YES). The demo stays in its own project.
 
-1. Press **-** and set the BPM with the blue knob. Turn the green knob to **1 BAR** count-in, then press **-** again to close the screen.
+1. Press **TEMPO** (**`**) and set the BPM with the blue knob. Turn the green knob to **1 BAR** count-in, then press TEMPO again to close the screen.
 2. Press **X** for drums and pick a kit with **1**. Press **C** for tape and **B** to select track 1.
 3. Press **R**. After the count-in, play a beat on the keys for a few bars, then press **Enter**.
 4. Press **Enter** twice to rewind, then press **Q** to loop the first bars.
@@ -772,7 +774,7 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 9. Press **I**, then switch on DELAY (T3) and REVERB (T4) for space.
 10. Click **export tape as wav** to download your song.
 
-**A shortcut for chords and bass:** in step 6, open KEY & CHORDS (Shift + -), press T2 and push MAKE for a progression, then press T3 and pick a slot for the bass. Tap the low C while recording, and the chords and a bass line go onto the track in one take.
+**A shortcut for chords and bass:** in step 6, open KEY & CHORDS (Shift + `), press T2 and push MAKE for a progression, then press T3 and pick a slot for the bass. Tap the low C while recording, and the chords and a bass line go onto the track in one take.
 
 ## 15. Troubleshooting
 
@@ -795,7 +797,7 @@ Hold **Shift** and press **DROP** (Shift + ]) to undo the last change to the tap
 | The letter keys type instead of playing notes | The SAVE PRESET screen is open. Press **Esc** to close it, or **Enter** to save. |
 | Crackles | Close other heavy tabs. Very big chords on NEON or HOOVER use the most CPU. The system menu's CPU section shows the audio load and dropouts. |
 | Fewer notes sound than I play, and the title bar shows CPU | The device is busy, so the AUTO voice limit is holding back. Close other tabs, or set VOICE LIMIT in the system menu (CPU). |
-| A bass plays along by itself | FOLLOW BASS is on (the title bar shows BASS A1, for example). Open KEY & CHORDS (Shift + -), press T3 and set SLOT to OFF. |
+| A bass plays along by itself | FOLLOW BASS is on (the title bar shows BASS A1, for example). Open KEY & CHORDS (Shift + `), press T3 and set SLOT to OFF. |
 | Pressing T1 opened the sampler | Pressing T1 on the T1 page opens the SAMPLER. Press T1 on its EDIT page to go back. |
 | Some steps only play now and then | They have a CHANCE below 100% or a condition (1 OF 2, FILL…). Hold the step, turn CHANCE up, or hold Shift and set COND to ALWAYS. |
 | ← and → don't bend the pitch | The PATTERN sequencer is on screen: there the arrows pick the step. Close the sequencer screen to bend. |
