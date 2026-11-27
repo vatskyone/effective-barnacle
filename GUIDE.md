@@ -719,10 +719,13 @@ WEB-1 can also drive and follow other gear. In tape mode, open the system menu (
 | Item | What it does |
 |---|---|
 | **CONNECT** | Asks the browser for MIDI, like the connect midi button, and shows how many inputs and outputs it found |
-| **CLOCK OUT** | Sends MIDI clock (24 ticks per beat) at WEB-1's tempo, with START when the tape plays and STOP when it stops, so drum machines and sequencers play in time |
+| **CLOCK OUT** | Sends MIDI clock (24 ticks per beat) at WEB-1's tempo, with START when the tape plays from the beginning and STOP when it stops, so drum machines and sequencers play in time. Playing from the middle of the tape sends the SONG POSITION and CONTINUE instead, so the other gear starts from the same bar |
 | **CLOCK IN** | FOLLOW: WEB-1 takes its tempo from another device's clock, and starts and stops the tape with it |
 | **NOTES OUT** | SEQUENCERS sends the notes the sequencers play; EVERYTHING also sends what you play on the keys. Notes coming in over MIDI are never sent back out |
 | **CHANNEL** | The MIDI channel for the notes WEB-1 sends (1–16) |
+| **DRUMS OUT** | GM DRUMS: the drum machine's steps, and the drum keys in drum mode, go out as General MIDI drum notes (KICK 36, RIM 37, SNARE 38, CLAP 39, HAT 42, OPEN 46, TOMS 41 · 43 · 45, BELL 56, CYMBAL 49, SHAKER 70; a kit's HIGH pads use the other GM drums: 35, 40, 44, 48, 50…), so a drum machine or a DAW drum rack plays your beat. They follow NOTES OUT: the drum machine counts as a sequencer, the drum keys as EVERYTHING. OFF sends no drums |
+| **DRUM CHANNEL** | The channel for the drums, 10 by default (the usual drum channel) |
+| **KNOBS OUT** | CC 70–73: turning the four knobs sends their values as MIDI controllers 70, 71, 72 and 73 on CHANNEL, so a DAW can record your knob moves or map them to anything |
 
 These settings are shared by every project. Web MIDI needs Chrome or Edge.
 
