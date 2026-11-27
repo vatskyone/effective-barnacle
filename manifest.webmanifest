@@ -1,0 +1,14 @@
+{
+  "name": "WEB-1",
+  "short_name": "WEB-1",
+  "description": "A portable synth, drum machine, sampler and 4-track tape recorder.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#151618",
+  "theme_color": "#151618",
+  "icons": [
+    { "src": "os1-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

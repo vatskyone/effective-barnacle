@@ -20,3 +20,7 @@ in parallel (37 Wh, about 6 h) with a BQ25895 charger, USB-C data/charging, ON/O
 cooling grille under the CM5. Keycaps are single solids: flat underside with the stem socket printed on.
 
 `renders/` has the latest renders.
+
+`pi/` has the software that runs on the device: `hw.html` (shows WEB-1's screen on the panel and links the
+key and knob controller) and `web1-helper.py` (serves the app, and handles the battery, clock, USB stick, line in,
+updates and power off). Setup is in the Software tab of `../web1-3d.html`.
