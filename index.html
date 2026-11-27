@@ -288,8 +288,8 @@ window.NAME=OS1?'OS-1':'WEB-1';document.documentElement.classList.toggle('os1',O
 try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentElement.classList.toggle('dark',!!u.dark);document.documentElement.classList.toggle('oled',!!u.oled);document.documentElement.classList.toggle('line',!!u.line);if(u.theme==='lattice'||u.theme==='walnut')document.documentElement.classList.add('th-'+u.theme)}catch(_){}</script>
 <div class="wrap" id="wrap"><div class="dev" id="dev"></div></div>
 <div id="hint">click the synth or press a key to switch it on &nbsp;·&nbsp; play with A W S E D F T G Y H U J K &nbsp;·&nbsp; press / for help</div>
-<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="psave">save project</button><button data-b="pload">load project</button><button data-b="midi" id="midi" class="nomob">connect midi</button><button data-b="guide" class="h-web1">guide</button><button data-b="build">how to build</button><button data-b="theme" id="themeBtn">theme: classic</button><button data-b="dark" class="tg">dark mode</button><button data-b="oled" class="tg">oled</button><button data-b="line" class="tg">line art</button><button data-b="reset">reset all</button></div>
-<input type="file" id="file" accept="audio/*" hidden><input type="file" id="pfile" accept=".web1" hidden><canvas id="probe" width="640" height="230"></canvas>
+<div id="bar"><button data-b="wav">export tape as wav</button><button data-b="file">load sample</button><button data-b="browse">browse samples</button><button data-b="mic">record sample</button><button data-b="clr">clear sample</button><button data-b="psave">save project</button><button data-b="pload">load project</button><button data-b="midi" id="midi" class="nomob">connect midi</button><button data-b="guide" class="h-web1">guide</button><button data-b="build">how to build</button><button data-b="theme" id="themeBtn">theme: classic</button><button data-b="dark" class="tg">dark mode</button><button data-b="oled" class="tg">oled</button><button data-b="line" class="tg">line art</button><button data-b="reset">reset all</button></div>
+<input type="file" id="file" accept="audio/*" hidden><input type="file" id="dir" webkitdirectory multiple hidden><input type="file" id="pfile" accept=".web1" hidden><canvas id="probe" width="640" height="230"></canvas>
 <div id="help"><div class="card">
 <div class="h-os1">
 <h2>OS-1 · CONTROLS</h2>
@@ -317,7 +317,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>FX</td><td>Master rack: DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, tap the same T again to switch it on/off. SHIFT + FX switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). SHIFT + FX again goes back to bank A. LIVE FX: with the FX screen open, hold 1–8: REPEAT 1/4 · 1/8 · 1/16 · 1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP, on everything you hear.</td></tr>
 <tr><td>Tempo</td><td>The metronome-shaped key opens TEMPO: count-in (green), quantize (white), click level (orange); hold SHIFT for swing, beats, snap and METRONOME on/off (orange). The TEMPO key blinks on the beat while the metronome is on.</td></tr>
 <tr><td>Help</td><td>The ? key shows what every key does on the screen you are on, and with SHIFT. Hold it to peek, or tap it to keep it up until you press another key. SHIFT + ? opens this list.</td></tr>
-<tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back. T1 again opens the SAMPLER: T1 EDIT · T2 SLICE (across the pads, evenly or at each hit) · T3 RECORD (resample what you hear, or the input) · T4 FROM TAPE (the lifted piece, the loop or a bar).</td></tr>
+<tr><td>Sounds by type</td><td>In the synths &amp; presets menu (Shift + SYNTH), T2 lists every sound by type: BASS · KEYS · PAD · LEAD · PLUCK · PERC · FX · FAVOURITES. Green scrolls and plays a preview; white stars a favourite; orange picks the slot.</td></tr><tr><td>Shift + LOOP</td><td>In synth mode: no wrong notes. SCALE LOCK → CHORDS → FREE PLAY.</td></tr><tr><td>Starters</td><td>PROJECTS → NEW: the orange knob picks EMPTY, LO-FI BEAT, HOUSE LOOP or TRAP SKETCH (drums running, chords on the low C, follow bass).</td></tr><tr><td>Fit to tempo</td><td>Sampler SLICE page + Shift: BARS · FIT · KEEP PITCH fits the loop to whole bars at the tempo.</td></tr><tr><td>Shift + 5</td><td>In drum mode: RESAMPLE what you hear onto the selected pad.</td></tr><tr><td>Sampler</td><td>“load sample” / “record sample” above puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back. T1 again opens the SAMPLER: T1 EDIT · T2 SLICE (across the pads, evenly or at each hit) · T3 RECORD (resample what you hear, or the input) · T4 FROM TAPE (the lifted piece, the loop or a bar).</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved on this phone automatically. “export tape as wav” shares the mix.</td></tr>
 <tr><td>No sound?</td><td>Turn the volume up and switch the phone's silent mode off.</td></tr>
 <tr><td>Full screen</td><td>Hold the phone sideways. In Safari tap Share, then “Add to Home Screen”: OS-1 then opens like an app, fills the screen and works with no connection.</td></tr>
@@ -359,7 +359,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Shift + TAPE</td><td>ERASE TAPE: hold T1, T2, T3 and T4 down together to wipe all four tracks (there is no undo; on a computer hold B N M , together). Letting go of a key puts its box out. Shift + TAPE again, or any mode key, cancels before all four are held.</td></tr>
 <tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY (on the hardware: POWER OFF saves first) · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything; on the hardware the USB stick: load a sample, back up all projects, eject) · DISPLAY (brightness, screen sleep, clock in the title bar, TAPE VIEW: tape focus or track focus, tips) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · CPU (audio load, screen speed, voices, and the VOICE LIMIT, which AUTO lowers when the device struggles) · ABOUT (on the hardware: check for and install updates). To confirm, turn white all the way to YES or push it; erasing takes two pushes.</td></tr>
 <tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
-<tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back. T1 again opens the SAMPLER: T1 EDIT · T2 SLICE (across the pads, evenly or at each hit) · T3 RECORD (resample what you hear, or the input) · T4 FROM TAPE (the lifted piece, the loop or a bar).</td></tr>
+<tr><td>Sounds by type</td><td>In the synths &amp; presets menu (Shift + SYNTH), T2 lists every sound by type: BASS · KEYS · PAD · LEAD · PLUCK · PERC · FX · FAVOURITES. Green scrolls and plays a preview; white stars a favourite; orange picks the slot.</td></tr><tr><td>Shift + LOOP</td><td>In synth mode: no wrong notes. SCALE LOCK → CHORDS → FREE PLAY.</td></tr><tr><td>Starters</td><td>PROJECTS → NEW: the orange knob picks EMPTY, LO-FI BEAT, HOUSE LOOP or TRAP SKETCH (drums running, chords on the low C, follow bass).</td></tr><tr><td>Fit to tempo</td><td>Sampler SLICE page + Shift: BARS · FIT · KEEP PITCH fits the loop to whole bars at the tempo.</td></tr><tr><td>Shift + 5</td><td>In drum mode: RESAMPLE what you hear onto the selected pad.</td></tr><tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back. T1 again opens the SAMPLER: T1 EDIT · T2 SLICE (across the pads, evenly or at each hit) · T3 RECORD (resample what you hear, or the input) · T4 FROM TAPE (the lifted piece, the loop or a bar).</td></tr>
 <tr><td>MIDI</td><td>“connect midi” enables any attached keyboard: velocity, pitch bend, mod wheel (LFO amount), sustain pedal.</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved in this browser automatically. “export tape as wav” downloads the mix. Once opened, WEB-1 also works offline.</td></tr>
 <tr><td>I</td><td>FX RACK: four master effects in a chain, DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, press the same T again to switch it on/off. Shift+FX (Shift+I) switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). Shift+FX (Shift+I) again goes back to bank A. LIVE FX: with the FX screen open, hold 1–8: REPEAT 1/4 · 1/8 · 1/16 · 1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP, on everything you hear (not recorded on the tape). The four lights on the FX key show which are on. Delay is synced to the tempo; delay and reverb tails ring out when switched off. The rack is included in the WAV export.</td></tr>
@@ -1568,7 +1568,7 @@ function shiftMap(){const m=S.mode,o=S.overlay,A=[];
   if(o==='dm')A.push(['DRUM','CLOSE THE DRUM MACHINE'],['KNOBS ON T4','PATTERN · CHAIN · HITS · ROTATE'],['A KEY','PICK A PAD (ON STEPS)'],['1–8','COPY THIS PATTERN TO 1–8'],['KNOBS (STEP HELD)','CONDITION (1 OF 2, FILL…)']);
   else if(o==='seq')A.push(['KEYS','ADD STEPS (ENDLESS, CHAIN)'],['→ / ←','REST / REMOVE (CHAIN)'],['SEQ','CLEAR THE SEQUENCE'],['KNOBS (PATTERN)','VEL · CHANCE · ROLL · COND']);
   else if(!o&&m==='synth')A.push(['LOOP','SCALE LOCK · CHORDS · FREE'],['1–8','SYNTH BANK B'],['T1','SAVE PRESET'],['T3','FX BANK B (SOUND FX)'],['KNOBS ON T1','MACRO'],['KNOBS ON T2','PLAY MODE · GLIDE · DRIFT · VEL'],['KNOBS ON T4','LFO 2']);
-  else if(!o&&m==='drum')A.push(['4','SAMPLER (THIS PAD)'],['KNOBS ON T1','KIT MODEL · CHOKE'],['T3','FX BANK B (SOUND FX)'],['KNOBS ON T4','LFO 2']);
+  else if(!o&&m==='drum')A.push(['4','SAMPLER (THIS PAD)'],['5','RESAMPLE WHAT YOU HEAR → PAD'],['KNOBS ON T1','KIT MODEL · CHOKE'],['T3','FX BANK B (SOUND FX)'],['KNOBS ON T4','LFO 2']);
   else if(!o&&m==='tape')A.push(['T1–T4','COPY · CROP · DOUBLE · ERASE'],['4','LIFTED PIECE → SAMPLER'],['LOOP','SECTIONS (SONG MARKERS)'],['7','PROJECTS'],['8','SYSTEM MENU']);
   else if(!o&&m==='mixer')A.push(['1–4','RECALL SCENE 1–4'],['5–8','STORE SCENE 1–4'],['KNOBS','PAN · X-OVER · FREQ · LIMITER']);
   A.push(['SYNTH','SYNTHS & PRESETS'],['DRUM','DRUM MACHINE'],['TAPE','ERASE TAPE'],['MIXER','MIXER BANK B'],['FX','FX BANK B'],['TEMPO','KEY & CHORDS'],
@@ -1714,18 +1714,26 @@ async function hwShutdown(){if(HW.off)return;HW.off=true;try{if(S.rec){S.rec=fal
 async function usbWrite(blob,name){const r=await fetch('/api/usb/file?name='+encodeURIComponent(name),{method:'PUT',body:blob});if(!r.ok)throw new Error('usb '+r.status);hwUsb()}
 // a list of the stick's files to load a project or a sample (blue picks, a push or the white knob loads it)
 const UB={kind:'project',sel:0,a:0,ret:null};
-function usbOpen(kind){if(!HW.ok){status('the USB stick works on the WEB-1 device');return}UB.kind=kind;UB.sel=0;UB.a=0;UB.ret={o:S.overlay,m:S.mode,i:S.inst};S.overlay='usb';hwUsb()}
-const usbFiles=()=>(HW.usb&&HW.usb.files||[]).filter(f=>UB.kind==='project'?/\.web1$/i.test(f.name):/\.(wav|mp3|aiff?|flac|ogg|m4a)$/i.test(f.name));
-async function usbLoad(){const f=usbFiles()[UB.sel];if(!f)return;status('loading '+f.name+'…');try{const buf=await hwApi('/api/usb/file?name='+encodeURIComponent(f.name));
+function usbOpen(kind){if(!HW.ok){status('the USB stick works on the WEB-1 device');return}UB.local=null;UB.kind=kind;UB.sel=0;UB.a=0;UB.ret={o:S.overlay,m:S.mode,i:S.inst};S.overlay='usb';hwUsb()}
+const usbFiles=()=>UB.local&&UB.kind!=='project'?UB.local:(HW.usb&&HW.usb.files||[]).filter(f=>UB.kind==='project'?/\.web1$/i.test(f.name):/\.(wav|mp3|aiff?|flac|ogg|m4a)$/i.test(f.name));
+/* preview: the file under the cursor plays (up to 4 s, faded out) as you scroll; the last few are kept decoded */
+const UBC=new Map();let ubT=0;
+const ubBytes=f=>f.file?f.file.arrayBuffer():hwApi('/api/usb/file?name='+encodeURIComponent(f.name));
+function ubStop(){if(UB.pv){try{UB.pv.g.gain.setTargetAtTime(0,AC.currentTime,.03);UB.pv.s.stop(AC.currentTime+.2)}catch(_){}UB.pv=null}}
+function ubPreview(){clearTimeout(ubT);ubT=setTimeout(async()=>{if(!AC||S.overlay!=='usb'||UB.kind==='project')return;const f=usbFiles()[UB.sel];if(!f)return;const key=f.name+':'+f.size;
+  try{let b=UBC.get(key);if(!b){b=await AC.decodeAudioData(await ubBytes(f));UBC.set(key,b);if(UBC.size>12)UBC.delete(UBC.keys().next().value)}
+    if(usbFiles()[UB.sel]!==f||S.overlay!=='usb')return;ubStop();const s2=AC.createBufferSource(),g2=gn(.8),t=AC.currentTime,d=Math.min(4,b.duration);s2.buffer=b;s2.connect(g2);g2.connect(N.out);
+    if(d<b.duration){g2.gain.setValueAtTime(.8,t+d-.3);g2.gain.linearRampToValueAtTime(0,t+d)}s2.start(t);s2.stop(t+d+.05);UB.pv={s:s2,g:g2,at:t,d,key};UB.dur=b.duration}catch(_){status('could not play '+f.name)}},170)}
+async function usbLoad(){const f=usbFiles()[UB.sel];if(!f)return;ubStop();status('loading '+f.name+'…');try{const buf=await ubBytes(f);
     if(UB.kind==='project')await pjLoadFile(new File([buf],f.name));else{S.overlay=UB.ret&&UB.ret.o==='pse'?'pse':null;await decodeToSample(buf,f.name)}}catch(_){status('could not read '+f.name)}}
-function usbParams(){return[{n:'FILE',val:()=>{const n=usbFiles().length;return n?(UB.sel+1)+'/'+n:'NONE'},step(k){UB.sel=clamp(UB.sel+k,0,Math.max(0,usbFiles().length-1))},turn(d){UB.f=(UB.f||0)+d*15;while(Math.abs(UB.f)>=1){const s2=Math.sign(UB.f);UB.f-=s2;this.step(s2)}}},
-  null,{n:'LOAD',val:()=>usbFiles().length?(UB.a<.02?'PUSH':'YES ▸'):'—',push(){usbLoad()},turn(d){UB.a=clamp(UB.a+d*1.6);if(UB.a>=1){UB.a=0;usbLoad()}}},null]}
-function drawUsb(t){const fs=usbFiles(),dr=HW.usb&&HW.usb.drive;
+function usbParams(){return[{n:'FILE',val:()=>{const n=usbFiles().length;return n?(UB.sel+1)+'/'+n:'NONE'},step(k){const o=UB.sel;UB.sel=clamp(UB.sel+k,0,Math.max(0,usbFiles().length-1));if(UB.sel!==o)ubPreview()},turn(d){UB.f=(UB.f||0)+d*15;while(Math.abs(UB.f)>=1){const s2=Math.sign(UB.f);UB.f-=s2;this.step(s2)}}},
+  UB.kind==='project'?null:{n:'HEAR',val:()=>UB.pv&&AC&&AC.currentTime<UB.pv.at+UB.pv.d?'PLAYING':'PUSH',push(){ubPreview()},turn(d){if(d>.05)ubPreview()}},{n:'LOAD',val:()=>usbFiles().length?(UB.a<.02?'PUSH':'YES ▸'):'—',push(){usbLoad()},turn(d){UB.a=clamp(UB.a+d*1.6);if(UB.a>=1){UB.a=0;usbLoad()}}},null]}
+function drawUsb(t){const fs=usbFiles(),dr=UB.local&&UB.kind!=='project'?{label:'FOLDER',local:1}:HW.usb&&HW.usb.drive;
   if(!dr){txt('NO USB STICK',CX,52,COL.w,10,'center');txt('PLUG ONE IN: WEB-1 USES ITS WEB-1 FOLDER',CX,66,COL.dim,6,'center');return}
-  txt(dr.label+' · '+mb(dr.free||0)+' FREE',8,24,COL.dim,6);txt(UB.kind==='project'?'PROJECTS (.web1)':'SAMPLES (WAV · MP3 · AIFF · FLAC)',W-8,24,COL.o,6,'right');
+  txt(dr.local?'FOLDER · '+fs.length+' FILES · TURN BLUE TO HEAR EACH ONE':dr.label+' · '+mb(dr.free||0)+' FREE',8,24,COL.dim,6);txt(UB.kind==='project'?'PROJECTS (.web1)':'SAMPLES (WAV · MP3 · AIFF · FLAC)',W-8,24,COL.o,6,'right');
   if(!fs.length){txt('NOTHING TO LOAD HERE YET',CX,56,COL.w,8,'center');txt('PUT FILES IN THE WEB-1 FOLDER OF THE STICK',CX,68,COL.dim,6,'center');return}
   const st=clamp(UB.sel-3,0,Math.max(0,fs.length-7));for(let r=0;r<7&&st+r<fs.length;r++){const i=st+r,f=fs[i],y=30+r*10,on=i===UB.sel;if(on){g.fillStyle=COL.b;g.fillRect(8,y-1,W-16,9.5)}
-    txt(f.name.slice(0,44),12,y+6.5,on?'#07080a':COL.w,6.5);txt(mb(f.size),W-12,y+6.5,on?'#07080a':COL.dim,6,'right')}}
+    txt(f.name.slice(0,44),12,y+6.5,on?'#07080a':COL.w,6.5);if(on&&UB.pv&&AC&&AC.currentTime<UB.pv.at+UB.pv.d){const u=(AC.currentTime-UB.pv.at)/UB.pv.d;g.fillStyle='#07080a';g.fillRect(8,y+7.6,(W-16)*u,.9)}txt(mb(f.size),W-12,y+6.5,on?'#07080a':COL.dim,6,'right')}}
 // the IANA names of the timezone list, so summer time is right and the device's clock can follow the choice
 const TZN=[null,'Pacific/Honolulu','America/Los_Angeles','America/Denver','America/Chicago','America/New_York','America/Sao_Paulo','Europe/London','Europe/Paris','Europe/Athens','Europe/Moscow','Asia/Dubai','Asia/Kolkata','Asia/Bangkok','Asia/Singapore','Asia/Tokyo','Australia/Sydney','Pacific/Auckland'];
 function zoneOffset(z){try{const d=new Date(),p=x=>new Date(d.toLocaleString('en-US',{timeZone:x}));return Math.round((p(z)-p('UTC'))/60000)}catch(_){return null}}
@@ -1990,7 +1998,7 @@ function bindTurn(el,turn,reset){let y=null,tap=0,mv=0;el.addEventListener('poin
   addKey(17,1,'fx','FX<span class="dots">'+TC.map(c=>`<i style="--c:${c}"></i>`).join('')+'</span>',COL.o);if(!OS1)addKey(17,2,'tempo');addKey(17,3,'seq',null,COL.g).style.color='#2fb673';
   ['synth','drum','tape','mixer'].forEach((m,i)=>addKey(i+1,3,m,null,TC[i]).style.color=['#3f7fe8','#2fb673','#ff6427',''][i]);
   for(let i=0;i<4;i++)addKey(5+i,3,'t'+i,'T'+(i+1),TC[i]);
-  const TRK=['brake','stutter','reverse','sample',0,0,'project','menu'];for(let i=0;i<8;i++)addKey(9+i,3,'s'+i,`<span class="num">${i+1}</span>`+(TRK[i]?`<span class="sub">${TRK[i]}</span>`:'<span class="sub" style="visibility:hidden">·</span>'),'#3a3b3d').classList.add('sl');
+  const TRK=['brake','stutter','reverse','sample','resample',0,'project','menu'];for(let i=0;i<8;i++)addKey(9+i,3,'s'+i,`<span class="num">${i+1}</span>`+(TRK[i]?`<span class="sub">${TRK[i]}</span>`:'<span class="sub" style="visibility:hidden">·</span>'),'#3a3b3d').classList.add('sl');
   [['lift','drop','loop'],['rec','play','stop'],['left','right','shift']].forEach((r,j)=>r.forEach((a,i)=>{const b=addKey(i+1,4+j,a,null,a==='rec'?'#e5352b':a==='play'?COL.g:COL.b);if(j===0)b.style.color='#ff6427'}));
   const row=document.createElement('div');row.className='bkrow';if(!OS1)dev.appendChild(row);
   const WS=[0,2,4,5,7,9,11];
@@ -2219,7 +2227,7 @@ function press(a){initAudio();wake();
     if(S.overlay==='fx'&&!S.shift){liveKey(i,true);leds();return}
     if(S.overlay==='dm'){if(S.shift){if(i!==DM.pe){DM.pats[i]=dmCopy(DM.pats[DM.pe]);status('pattern '+(DM.pe+1)+' copied to pattern '+(i+1))}}else{DM.pe=i;DM.sq2[0]=(i+.5)/8}leds();return}
     if(S.shift&&S.mode==='synth'){S.slot=8+i}
-    else if(S.shift&&S.mode==='drum'){if(i===3){if(S.overlay==='pse')S.overlay=null;else{smpOpen();SMPX.to='pad'}}}
+    else if(S.shift&&S.mode==='drum'){if(i===4){quickResample();leds();return}if(i===3){if(S.overlay==='pse')S.overlay=null;else{smpOpen();SMPX.to='pad'}}}
     else if(S.shift&&S.mode==='tape'&&i===3){clipToSampler()}
     else if(S.shift&&S.mode==='tape'&&i===6){if(S.overlay==='proj')S.overlay=null;else if(S.overlay!=='erase')pjPage()}
     else if(S.shift&&S.mode==='tape'&&i===7){if(S.overlay==='sys')S.overlay=null;else if(S.overlay!=='erase')sysOpen()}
@@ -2267,12 +2275,15 @@ const THEMES=['classic','lattice','walnut'],themeSet=t=>{THEMES.forEach(x=>docum
 themeSet(THEMES.find(t=>document.documentElement.classList.contains('th-'+t))||'classic');
 $('#bar').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;b.blur();if(b.dataset.b==='guide'){$('#help').classList.add('show');return}if(b.dataset.b==='build'){window.open('web1-3d.html','_blank','noopener');return}if(b.dataset.b==='theme'){const c=THEMES.find(t=>document.documentElement.classList.contains('th-'+t))||'classic';themeSet(THEMES[(THEMES.indexOf(c)+1)%THEMES.length]);return}if(b.classList.contains('tg')){const k=b.dataset.b;uiSet(k,!document.documentElement.classList.contains(k));return}await initAudio();const a=b.dataset.b;
   if(a==='psave'){const c=pjCur();if(c)pjSaveFile([c],'project');return}if(a==='pload'){$('#pfile').click();return}
-  if(a==='wav')exportWav();else if(a==='file')$('#file').click();else if(a==='mic')micSample(b);else if(a==='midi')initMidi();
+  if(a==='wav')exportWav();else if(a==='file')$('#file').click();else if(a==='browse')$('#dir').click();else if(a==='mic')micSample(b);else if(a==='midi')initMidi();
   else if(a==='clr'&&S.inst==='drum'&&S.mode==='drum'){const k=S.pad|0;if(padSmp[S.kit][k]){padSmp[S.kit][k]=null;idb.del(padK(S.kit,k)).catch(()=>{});status('sample cleared from '+padNm(k)+' · kit '+(S.kit+1))}else status(padNm(k)+' has no sample in kit '+(S.kit+1)+' — hit a pad, then load sample')}
   else if(a==='clr'){if(slotSmp[S.slot]){slotSmp[S.slot]=null;idb.del('smp'+S.slot).catch(()=>{});status('sample cleared from slot '+slotNm(S.slot))}else status('slot '+slotNm(S.slot)+' has no sample')}
   else if(a==='reset'&&confirm('Erase every project: all saved sounds, sequences, samples and tapes?'))wipeAll()});
 const loadFile=async f=>{await initAudio();try{await decodeToSample(await f.arrayBuffer(),f.name)}catch(_){status('could not read that file')}};
 $('#file').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(f)loadFile(f)});
+// browse samples: a folder from the computer, listed like the USB stick, with a preview as you scroll
+$('#dir').addEventListener('change',e=>{const L=[...e.target.files].filter(f=>/\.(wav|mp3|aiff?|flac|ogg|m4a)$/i.test(f.name)).map(f=>({name:(f.webkitRelativePath||f.name).split('/').slice(1).join('/')||f.name,size:f.size,file:f})).sort((a,b)=>a.name.localeCompare(b.name));
+  e.target.value='';if(!L.length){status('no audio files in that folder');return}UB.local=L;UB.kind='audio';UB.sel=0;UB.a=0;UB.ret={o:S.overlay==='usb'?(UB.ret&&UB.ret.o):S.overlay,m:S.mode,i:S.inst};S.overlay='usb';ubPreview()});
 $('#pfile').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(f)pjLoadFile(f)});
 addEventListener('dragover',e=>e.preventDefault());addEventListener('drop',e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f)loadFile(f)});
 
@@ -3050,6 +3061,10 @@ function sliceGo(){const s=smpSrc();if(!s){status('nothing to slice: record a sa
 // RECORD (resampling): MASTER records what you hear, INPUT the mic or line in (INPUT in advanced REC); NOW or on the NEXT BAR, for a set length
 function recParams(){return[stepK(SMPX.rc,0,'SOURCE',['MASTER','INPUT']),stepK(SMPX.rc,1,'LENGTH',RLN),goK('REC',smpRec,()=>RS.on?(AC.currentTime<RS.at?'WAIT · STOP':'STOP'):''),stepK(SMPX.rc,3,'START',['NOW','NEXT BAR'])]}
 const recSecs=()=>Math.min(RLB[SMPX.rc[1]|0]*60/S.bpm,SMPX.to==='pad'?6:10);
+// one-press resample (drum mode, Shift + 5): records what you hear onto the selected pad, for the RECORD page's LENGTH;
+// on the next bar while something plays, straight away otherwise. Press it again to stop early
+function quickResample(){if(RS.on){smpRec();return}const k=[SMPX.to,SMPX.rc[0],SMPX.rc[3]];SMPX.to='pad';SMPX.rc[0]=0;SMPX.rc[3]=S.playing||DM.sq[3]>.5||seq.playing?1:0;
+  smpRec();[SMPX.to,SMPX.rc[0],SMPX.rc[3]]=k;if(RS.on)toast('RESAMPLE → '+padNm(S.pad|0)+' · '+RLN[SMPX.rc[1]|0])}
 async function smpRec(){if(!AC||!N.grab){status('recording needs a browser with audio worklets');return}
   if(RS.on){N.grab.port.postMessage({stop:1});return}
   const sr=AC.sampleRate,secs=recSecs(),inp=SMPX.rc[0]|0;
@@ -3224,7 +3239,7 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PER
   else if(S.overlay==='erase'){title='ERASE TAPE';drawErase(t)}
   else if(S.overlay==='sys'){title='SYSTEM · '+SYSN[SYS.s];drawSys(t)}
   else if(S.overlay==='save'){title=SAVE.kind==='project'?'NAME PROJECT':'SAVE PRESET · '+slotNm(S.slot)+' · '+engOf().name;drawSave(t)}
-  else if(S.overlay==='usb'){title='USB STICK · '+(UB.kind==='project'?'LOAD A PROJECT':'LOAD A SAMPLE');drawUsb(t)}
+  else if(S.overlay==='usb'){title=(UB.local&&UB.kind!=='project'?'SAMPLES':'USB STICK')+' · '+(UB.kind==='project'?'LOAD A PROJECT':'LOAD A SAMPLE');drawUsb(t)}
   else if(S.overlay==='proj'){title='PROJECTS · '+(pjCur()||{name:''}).name;drawProj(t)}
   else if(S.overlay==='menu'){title=MENU.pg===1?'SOUNDS BY TYPE · '+slotNm(S.slot)+' · '+engOf().name:'SYNTHS & PRESETS · '+engOf().name+' · '+(synthP[S.slot].rnd?'RANDOM #'+synthP[S.slot].rnd:presetsSl(S.slot)[S.pre[S.slot]][0]);drawMenu(t)}
   else if(S.overlay==='tempo'){title='TEMPO';drawTempo(t)}
@@ -3243,7 +3258,7 @@ function draw(ts){requestAnimationFrame(draw);const t=ts/1000;PERF.n++;if(ts-PER
   if(S.count){const left=Math.max(1,Math.ceil(S.count.b0-beatNow().b-1e-6));g.fillStyle='rgba(5,5,7,.86)';g.fillRect(0,14,W,86);
     txt(''+left,CX,80,COL.red,48,'center');txt('COUNT-IN · TRACK '+(S.track+1),CX,28,COL.dim,7,'center');title='REC'}
   tipTick();if(TOUR.on){tourTick();drawTour()}else drawTip();
-  drawToast();
+  drawToast();if(UB.pv&&S.overlay!=='usb')ubStop();
   if(S.help){drawHelp();title='HELP · '+(S.overlay?String(title).split(' · ')[0]:S.mode.toUpperCase())}
   if(DEMO.busy){g.fillStyle='rgba(7,8,10,.92)';g.fillRect(0,14,W,86);txt('MAKING THE DEMO SONG…',CX,54,COL.w,10,'center');txt('WEB-1 PLAYS IT WITH ITS OWN SOUNDS, ONTO THE FOUR TRACKS',CX,68,COL.dim,6,'center')}
   g.restore();

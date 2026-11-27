@@ -222,7 +222,20 @@ Hold **Shift** and press **SYNTH** (Shift + Z) to open a menu of every synth wit
 - **White knob: ENGINE.** Picks the engine that plays in the slot you are on, from the whole engine library (see below). The slot starts from that engine's own sound, and the list on the green knob shows that engine's presets. The left of the screen shows ENGINE 17/20, for example.
 - **Orange knob: RANDOM.** Each step you turn it makes a new random sound for the slot, kept within musical limits (a gentle envelope, a light effect, now and then a little LFO). The title shows RANDOM #3, for example. Save one you like with Shift + T1.
 - Your own presets appear at the end of each synth's list, marked with a dot. A preset you save belongs to the engine it was made with, so it is there in any slot that plays that engine.
-- Press **Shift + SYNTH** again, or any T key, to close the menu.
+- Press **Shift + SYNTH** again, or T3 or T4, to close the menu.
+
+#### Sounds by type: T2 in the menu
+
+**T1** is the list by slot above; **T2** lists every sound by what it is, across all 24 engines, so you can look for "a bass" rather than a slot or an engine.
+
+| Knob | Job |
+|---|---|
+| **Blue: TYPE** | **BASS · KEYS · PAD · LEAD · PLUCK · PERC · FX**, or **FAVOURITES** |
+| **Green: SOUND** | Scrolls through every sound of that type, with its engine on the right. Each one loads as you turn, and plays a short preview that fits the type (a bass line, a chord, a riff), so you can hear it without playing |
+| **White: FAVOURITE** | Stars the sound (turn right, or push); turn left to take the star off. Starred sounds have a ★ and are listed under FAVOURITES. Favourites are kept for every project, like your saved presets |
+| **Orange: SLOT** | The slot the sound loads into |
+
+Your own presets are listed under their engine's type.
 
 ### Saving your own presets: Shift + T1
 
@@ -238,6 +251,8 @@ In synth mode, hold **Shift** and press **T1** (Shift + B) to open **SAVE PRESET
 On a computer you can also type the name on the keyboard (Backspace and ← → work too). **Enter** saves and closes, **Esc** closes without saving. While the screen is open the letter keys type instead of playing. If the current sound is one of your presets, its name is already filled in, so you can overwrite or delete it straight away. Each synth holds up to 16 of your presets.
 
 ### Key & chords: Shift + TEMPO
+
+**No wrong notes, in one press:** in synth mode, **Shift + LOOP** steps through **SCALE LOCK** (every key snaps to the project's key and scale) → **CHORDS** (each key also plays the chord that fits it in the key) → **FREE PLAY** (both off). It remembers the scale and chord type you used last, and the title bar shows what is on (A MIN · TRIAD, for example). KEY & CHORDS below sets everything in detail.
 
 Hold **Shift** and press **TEMPO** (Shift + `) to open **KEY & CHORDS**. The TEMPO key lights orange. Pick a key and a scale and every note you play stays in it; turn on a chord type and every key plays a whole chord that fits. It works on all the synths, from the computer keyboard, the on-screen keys and MIDI, and in the sequencers. Drum mode is not affected.
 
@@ -374,7 +389,7 @@ Press **Shift + DRUM** (Shift + X) to open the drum machine. The DRUM light turn
 | **T1 VOICE 1** | TUNE · WAVE (sine, triangle, square, noise) · DECAY · BEND (pitch drop) | Both voices side by side, with a tune dial, wave shape and decay and pitch curves |
 | **T2 VOICE 2** | Same, for the second voice | Same, with voice 2 highlighted |
 | **T3 FILTER** | MODE (off, low, high, band, notch, peak, ring, crush) · CUTOFF · RESO · MIX (voice 1 ↔ voice 2) | Mode dial and the filter's response curve |
-| **T4 STEPS** | PAD · LENGTH (1–16 steps, for this pattern) · LEVEL · RUN | A 16-step grid for all 12 pads, with the playhead, and the 8 patterns on the left |
+| **T4 STEPS** | PAD · LENGTH (1–16 steps, for this pattern) · PAD LEN (the selected pad's own length) · RUN | A 16-step grid for all 12 pads, with the playhead, and the 8 patterns on the left |
 
 - On **STEPS**, the first 16 keys switch steps on and off for the selected pad. Hold Shift and press a key to pick a different pad.
 - **Edit a step:** hold its key and turn the knobs. The title shows the step, and the knobs become **VELOCITY** (how loud), **CHANCE** (how often it plays, from never to always), **ROLL** (1 to 4 quick hits in the step, for hat rolls) and **NUDGE** (a little early or late). Letting go of a step you turned on and didn't change keeps it; tapping a step that was on turns it off.
@@ -387,11 +402,13 @@ Press **Shift + DRUM** (Shift + X) to open the drum machine. The DRUM light turn
 - **Patterns on the keys:** with the drum machine open, **1–8** pick the pattern to edit, and **Shift + 1–8** copies the pattern you are on to that number (handy for a variation or a fill).
 - **Step locks:** hold a step, then press **T1**, **T2** or **T3**. The knobs become that page's knobs (VOICE 1, VOICE 2 or FILTER) for this step only. Turn one to lock its value on the step, for example a higher TUNE on one snare hit or another filter on one hat. Locked values show a dot, and the voice and filter pictures show the step's sound. Push a knob (double-click) to clear its lock. A step with locks has an orange dot on the grid. Press **T4** while holding to go back to VELOCITY · CHANCE · ROLL · NUDGE.
 - **Conditions:** while holding a step, hold **Shift** too and turn the blue knob. **COND** makes the step play only on some passes of the pattern: **1 OF 2** (the first of every two passes), **2 OF 2**, **1 OF 3** … **4 OF 4**, **FILL** (only during a fill), **NO FILL** (never during a fill) or **FIRST** (only the first pass after you start). Steps with a condition have a small mark in the corner, orange for FILL ones.
+- **Pad lengths:** **PAD LEN** (white knob on STEPS) gives the selected pad its own length, from 1 to 16 steps; push the knob to set it back to **ALL** (the pattern's length). A pad with its own length loops over just those steps while the others carry on, so a 12-step hat over a 16-step kick drifts against it and the groove keeps shifting, a bar at a time. The drift carries on from pass to pass and starts again when the pattern changes. On the grid, steps past a pad's length are dimmed, a thin line marks where it ends, and each pad shows its own playhead. **HITS** and **ROTATE** work within the pad's own length.
 - **DICE & FILL:** press **T4** again on STEPS for the **DICE & FILL** page (T4 lights orange):
   - **Blue: DICE** rolls a new pattern: kick on the one, snare on the backbeat, hats on the 8ths (16ths when it is busy), an open hat now and then, and tom fills marked FILL at the end. Turn it back to return to earlier rolls, and forward again to replay them; past the last one it rolls a new one. Push it to roll at once.
   - **Green: WHAT:** ALL PADS, or THIS PAD to roll only the selected pad.
   - **White: DENSITY:** how busy the rolls are.
   - **Orange: FILL:** OFF, or EVERY 2, 4 or 8 passes: the last pass of each group is a fill.
+  - Hold **Shift** on this page for the drum machine's **LEVEL** (blue knob).
 - **Fills by hand:** hold **→** while the drum machine is open. FILL steps play, NO FILL steps rest, and FILL lights up in orange on the screen. Fills also work for the PATTERN sequencer's FILL steps.
 - Press **Shift + DRUM** again to close it. Your pads and all 8 patterns, with their locks and conditions, are saved with the project.
 
@@ -400,6 +417,7 @@ Press **Shift + DRUM** (Shift + X) to open the drum machine. The DRUM light turn
 Any synth slot can hold a sample instead of its engine.
 
 - **load sample:** pick an audio file. You can also drag an audio file onto the page.
+- **browse samples:** pick a folder; its audio files (WAV, MP3, AIFF, FLAC, OGG, M4A) are listed on the screen. Turn the blue knob to scroll, and each one plays a short preview (up to 4 s) as you land on it; **HEAR** (green) plays it again; **LOAD** (white) puts it in the synth slot, or on the selected pad in drum mode. On the WEB-1 device, the USB stick's sample list works the same way (SYSTEM → STORAGE → LOAD SAMPLE FROM USB).
 - **record sample:** record from the microphone, or from the line input when INPUT is set to LINE IN in advanced REC (Shift + REC, then Shift + orange knob).
 - **clear sample:** removes the sample and brings the slot's engine back.
 
@@ -421,9 +439,18 @@ Press **T1** again on the T1 page to open the **SAMPLER**: in synth mode it work
 | Page | Knobs | What it does |
 |---|---|---|
 | **T1 EDIT** | START · END · TUNE · REVERSE; Shift: PLAY · FADE IN · FADE OUT · LEVEL | The sample editor described above |
-| **T2 SLICE** | MODE · SLICES · SLICE · SENSE | Cuts the sample (between START and END) into slices and puts them on the pads of the current kit, slice 1 on the lowest key. **EVEN** cuts 2 to 24 equal parts; **AT HITS** cuts where the sound jumps up, such as each hit of a drum loop, up to the SLICES number. **SENSE** sets how small a jump counts. The screen shows the cuts on the waveform. Push SLICE, or turn it to YES, to do it |
+| **T2 SLICE** | MODE · SLICES · SLICE · SENSE; Shift: BARS · FIT · KEEP PITCH | Cuts the sample (between START and END) into slices and puts them on the pads of the current kit, slice 1 on the lowest key. **EVEN** cuts 2 to 24 equal parts; **AT HITS** cuts where the sound jumps up, such as each hit of a drum loop, up to the SLICES number. **SENSE** sets how small a jump counts. The screen shows the cuts on the waveform. Push SLICE, or turn it to YES, to do it |
 | **T3 RECORD** | SOURCE · LENGTH · REC · START | Resampling: records **MASTER** (everything you hear, effects and all) or the **INPUT** (the mic or line in, as set in advanced REC) into the slot or the pad. LENGTH: 1 BEAT, 2 BEATS, 1 BAR, 2 BARS or 4 BARS at the tempo (up to 10 s in a slot, 6 s on a pad). START: NOW, or on the NEXT BAR so the sample starts on the beat. Push REC to start; push it again to stop early |
 | **T4 FROM TAPE** | FROM · TRACK · TAKE | Takes a piece of the tape into the sampler: the **LIFTED** piece (the last LIFT or COPY), the **LOOP** area or the **BAR** at the tape head, from one **TRACK** or ALL four mixed at their levels. Push TAKE |
+
+**Fit to tempo:** hold **Shift** on the SLICE page. The part of the sample between START and END is fitted to a whole number of bars at the tempo, so a loop from anywhere plays in time with your song.
+
+- **Blue: BARS:** **AUTO** picks the number of bars closest to the loop's length (1/4, 1/2, 1, 2, 4 or 8), or pick one yourself.
+- **Green: FIT:** push it, or turn it to YES, to do it. The sample then lasts exactly that many bars, and START and END go back to the whole sample.
+- **White: KEEP PITCH:** **ON** stretches the time and keeps the pitch; the loop is stretched a 16th note at a time, so every hit on the grid lands on the new grid. **OFF** changes the speed like tape, so the pitch moves too.
+- The screen shows the loop's length, what it will become, and the new bars and beats over the waveform.
+
+**One-press resample:** in drum mode, **Shift + 5** (labelled **RESAMPLE**) records what you hear onto the selected pad, for the LENGTH set on the RECORD page. While the tape, the drum machine or a sequencer plays, it starts on the next bar; otherwise straight away. Press it again to stop early.
 
 **Straight from the tape:** in tape mode, **Shift + 4** sends the piece you just lifted (LIFT) or copied (Shift + T1) to the sampler: to the synth slot you are on, or to the selected pad when DRUM is the instrument.
 
@@ -585,6 +612,7 @@ Press **=** to open the sequencer screen, then choose a type with T1, T2, T3 or 
   - The orange knob starts and stops the pattern.
   - Knobs: STEP · RATE · LENGTH · RUN.
   - **Step settings:** hold **Shift** and the knobs set the selected step's **VELOCITY** · **CHANCE** · **ROLL** (1–4 quick repeats) · **COND** (the same conditions as the drum machine: 1 OF 2 … 4 OF 4, FILL, NO FILL, FIRST). Quiet steps are drawn dimmer, a line under a step shows its chance, and a corner mark shows a condition.
+  - **Accent and slide:** turn **VELOCITY** past 100% for **ACCENT**: the step plays louder and the sound's brightness knob (CUTOFF, TONE, BRIGHT…) opens up for that step. Turn **ROLL** below 1× for **SLIDE**: the note of the step before is held and glides into this step's note instead of playing again; slide several steps in a row for a long glide. Accented steps have an orange triangle under them, and a white line joins a slid step to the one before. Together they make the classic squelchy bassline on ACID or LADDER.
   - **Locks:** press **T2** again for **LOCKS**: the knobs become the sound's four engine knobs (CUTOFF, DETUNE…) for the selected step only. Turn one to lock it; push it (double-click) to clear it. Press T2 again to go back. Steps with locks have an orange dot.
   - **←** and **→** pick the step (on both pages), so they don't bend the pitch while PATTERN is on screen.
 - **ARP (T3):**
@@ -741,11 +769,12 @@ A project is one whole song: its tape, every sound and kit setting, the sequence
 | **Blue: PROJECT** | Picks a project. The open one has a ▸ |
 | **Green: ACTION** | Picks what to do |
 | **White: DO IT** | Turn it all the way to YES, or push it, to do it. DELETE takes two pushes |
+| **Orange: START** | With NEW: **EMPTY**, or a starter: **LO-FI BEAT**, **HOUSE LOOP** or **TRAP SKETCH** |
 
 | Action | What it does |
 |---|---|
 | **OPEN** | Opens the selected project. The one you were in is kept exactly as it was, and the page reloads with the new one |
-| **NEW** | Starts an empty project (and keeps the one you were in) |
+| **NEW** | Starts a new project (and keeps the one you were in): empty, or from a starter picked with the orange knob. A starter sets the tempo and swing, the key with scale lock on, a keys sound on A1 and a bass on A2, a drum machine beat (already running), a chord progression in CHAIN (tap the low C to play it) and FOLLOW BASS on A2. LO-FI BEAT: 82 BPM in D minor, soft keys and a swung boom-bap beat. HOUSE LOOP: 124 BPM in A minor, stabs, an offbeat bass and four on the floor. TRAP SKETCH: 140 BPM in C minor, a bell, an 808 glide and rolling hats |
 | **DUPLICATE** | Makes a copy of the selected project, for trying ideas without losing the original |
 | **RENAME** | Opens the naming screen: blue picks a letter, green moves along, white renames (push it or turn it to YES, or type the name and press Enter) |
 | **DELETE** | Deletes the selected project. You can't delete the one that is open: open another one first |

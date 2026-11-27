@@ -384,7 +384,7 @@ const FKEYS = [
   ['t1', 355, 168, 65, 65, null, 'T2', null, 'T2 page', 'N'],
   ['t2', 422, 168, 65, 65, null, 'T3', null, 'T3 page', 'M'],
   ['t3', 489, 168, 65, 65, null, 'T4', null, 'T4 page', ','],
-  ...[0, 1, 2, 3, 4, 5, 6, 7].map(i => ['s' + i, 556 + 67 * i, 168, 65, 65, null, String(i + 1), ['brake', 'stutter', 'reverse', 'sample'][i] || null, 'Slot ' + (i + 1), String(i + 1)]),
+  ...[0, 1, 2, 3, 4, 5, 6, 7].map(i => ['s' + i, 556 + 67 * i, 168, 65, 65, null, String(i + 1), ['brake', 'stutter', 'reverse', 'sample', 'resample'][i] || null, 'Slot ' + (i + 1), String(i + 1)]),
   ['seq', 1092, 168, 65, 65, GREEN, null, null, 'Sequencer', '='],
   ['lift', 20, 235, 65, 65, ORANGE, null, null, 'LIFT', '['],
   ['drop', 87, 235, 65, 65, ORANGE, null, null, 'DROP', ']'],
