@@ -360,7 +360,7 @@ try{const u=JSON.parse(localStorage.getItem('web1.ui')||'{}');document.documentE
 <tr><td>Shift + 8</td><td>In tape mode: SYSTEM menu (key 8 is labelled MENU). Blue picks a section, green an item, white changes it: BATTERY (on the hardware: POWER OFF saves first) · TIME (hour, minute, 12/24 h, date) · TIMEZONE · STORAGE (space used; erase samples, presets, the tape or everything; on the hardware the USB stick: load a sample, back up all projects, eject) · DISPLAY (brightness, screen sleep, clock in the title bar, TAPE VIEW: tape focus or track focus, tips) · MIDI (connect, CLOCK OUT, CLOCK IN to follow another device, NOTES OUT from the sequencers or everything, CHANNEL) · CPU (audio load, screen speed, voices, and the VOICE LIMIT, which AUTO lowers when the device struggles) · ABOUT (on the hardware: check for and install updates). To confirm, turn white all the way to YES or push it; erasing takes two pushes.</td></tr>
 <tr><td>Shift + T1–T4</td><td>In tape mode, SHIFT + T1–T4 edit the selected track over the loop (or the bar at the tape head): T1 COPY (then DROP pastes it) · T2 CROP (keep only that part) · T3 DOUBLE (repeat it right after) · T4 ERASE (clear only that part).</td></tr>
 <tr><td>Sounds by type</td><td>In the synths &amp; presets menu (Shift + SYNTH), T2 lists every sound by type: BASS · KEYS · PAD · LEAD · PLUCK · PERC · FX · FAVOURITES. Green scrolls and plays a preview; white stars a favourite; orange picks the slot.</td></tr><tr><td>Shift + LOOP</td><td>In synth mode: no wrong notes. SCALE LOCK → CHORDS → FREE PLAY.</td></tr><tr><td>Starters</td><td>PROJECTS → NEW: the orange knob picks EMPTY, LO-FI BEAT, HOUSE LOOP or TRAP SKETCH (drums running, chords on the low C, follow bass).</td></tr><tr><td>Fit to tempo</td><td>Sampler SLICE page + Shift: BARS · FIT · KEEP PITCH fits the loop to whole bars at the tempo.</td></tr><tr><td>Shift + 5</td><td>In drum mode: RESAMPLE what you hear onto the selected pad.</td></tr><tr><td>Song mode</td><td>Tape mode, Shift + LOOP, then T2: a song of parts (bars · drum pattern · mixer scene · chords). T3 switches SONG ON; PLAY runs it, REC records it.</td></tr><tr><td>Sampler</td><td>“load sample” / “record sample” (or drop an audio file on the page) puts a sound into the current synth slot and plays it across the keys. The knobs are START · END · TUNE · REVERSE; hold SHIFT for PLAY (ONE SHOT plays the whole sample from one tap, GATE plays while the key is held, LOOP loops while it is held) · FADE IN · FADE OUT · LEVEL, the same as the drum pad editor. An orange line runs through the waveform as each note plays. “clear sample” brings the engine back. T1 again opens the SAMPLER: T1 EDIT · T2 SLICE (across the pads, evenly or at each hit) · T3 RECORD (resample what you hear, or the input) · T4 FROM TAPE (the lifted piece, the loop or a bar).</td></tr>
-<tr><td>MIDI</td><td>“connect midi” enables any attached keyboard: velocity, pitch bend, mod wheel (LFO amount), sustain pedal.</td></tr>
+<tr><td>MIDI</td><td>“connect midi” enables any attached keyboard: velocity, pitch bend, mod wheel (LFO amount), sustain pedal. SYSTEM → MIDI: clock out (with song position) and in, notes out on a channel, drums out as GM drum notes on channel 10, knobs out as CC 70–73.</td></tr>
 <tr><td>Saving</td><td>Sounds, sequences, samples and the tape are saved in this browser automatically. “export tape as wav” downloads the mix. Once opened, WEB-1 also works offline.</td></tr>
 <tr><td>I</td><td>FX RACK: four master effects in a chain, DRIVE → CHORUS → DELAY → REVERB. T1–T4 pick an effect, press the same T again to switch it on/off. Shift+FX (Shift+I) switches to bank B: FILTER (DJ low/high-pass with wobble) → GATE (tempo-synced chopper) → FLANGER → LO-FI (bit crush, tape wow and hiss). Shift+FX (Shift+I) again goes back to bank A. LIVE FX: with the FX screen open, hold 1–8: REPEAT 1/4 · 1/8 · 1/16 · 1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP, on everything you hear (not recorded on the tape). The four lights on the FX key show which are on. Delay is synced to the tempo; delay and reverb tails ring out when switched off. The rack is included in the WAV export.</td></tr>
 <tr><td>- · /</td><td>HELP: what every key does here (Shift for this list)</td></tr>
@@ -394,7 +394,7 @@ const S={tlen:1,mode:'synth',inst:'synth',page:0,slot:0,kit:0,oct:0,shift:false,
   rk:[[.35,0,.6,1],[.3,.5,.8,.5],[.55,.4,.3,.3],[.45,.5,.5,.3]],rkOn:[false,false,false,false],rkSel:0,
   rk2:[[.35,.3,0,1],[.33,.8,.2,1],[.3,.6,.5,.6],[.4,.5,.3,.8]],rkOn2:[false,false,false,false],rkB:false, // FX rack bank B: FILTER GATE FLANGER LO-FI
   tq:[.5,0,1],count:null,fb:0,fbT:0,lastBeat:-1e9,tposAt:0,
-  metro:false,help:false,helpAt:0,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],mk:Array(6).fill(null),mkn:[0,1,2,3,4,5],kp:[0,0,1],bs:[0,0,1,.8],rm:[0,1,0,0],rm2:[.3,0,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0,tips:1,tv:0},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
+  metro:false,help:false,helpAt:0,bendK:null,pre:Array(16).fill(0),up:Array.from({length:16},()=>[]),scn:[null,null,null,null],midi:[0,0,0,0,1,9,0],mute:[0,0,0,0],solo:[0,0,0,0],srv:[0,0,0,0],sdl:[0,0,0,0],sc:[0,.5,.35,.4],mxB:false,kc:[0,0,0,0],kc2:[0,0,0,1],mk:Array(6).fill(null),mkn:[0,1,2,3,4,5],kp:[0,0,1],bs:[0,0,1,.8],rm:[0,1,0,0],rm2:[.3,0,0,0],sys:{tz:-1,toff:0,h24:1,bri:1,sleep:0,clk:0,vl:0,tips:1,tv:0},nextClick:0,beatN:0,lvl:0,flash:new Float32Array(24),clipLen:0};
 const seq={on:false,type:0,pat:Array.from({length:16},()=>[]),ps:{v:Array(16).fill(.9),p:Array(16).fill(1),c:Array(16).fill(0),r:Array(16).fill(0),lk:Array(16).fill(null),a:Array(16).fill(0),sl:Array(16).fill(0)},lkPg:false,loopN:0,steps:[],ch:[],ins:new Set(),sub:0,held:new Set(),playing:false,i:0,cnt:0,next:0,tr:0,dirS:1,cur:-1};
 /* ── drum machine (Shift + DRUM): 12 pads, each built from 2 synth voices + a filter, and a 16-step pattern ──
    voice v=[TUNE, WAVE, DECAY, BEND] · filter f=[MODE, CUTOFF, RESO, MIX] · sq=[PAD, LENGTH, LEVEL, RUN] */
@@ -600,7 +600,7 @@ try{const d=JSON.parse(localStorage.getItem(LSK)||'null');if(d){const old=!(d.ve
   // version 4: the LFO has 9 destinations and 6 shapes (was 4 and 4)
   if(!(d.ver>=4)){const m4=L=>{if(L&&L.length>=4){L[2]=(idx(L[2],4)+.5)/9;L[3]=(idx(L[3],4)+.5)/6}};synthP.forEach(P=>m4(P.lfo));drumP.forEach(P=>m4(P.lfo));(S.up||[]).forEach(U=>(U||[]).forEach(u=>m4(u.lfo)))}
   S.mode=S.inst}}catch(_){}
-if(![1,2,4,6].includes(S.tlen))S.tlen=1;TAPE_SECS=60*S.tlen;BINS=TAPE_SECS*10;
+if(![1,2,4,6].includes(S.tlen))S.tlen=1;while(S.midi.length<7)S.midi.push([0,0,0,0,1,9,0][S.midi.length]);TAPE_SECS=60*S.tlen;BINS=TAPE_SECS*10;
 synthP.forEach(P=>{if(!P.lfo2)P.lfo2=[...LF2D];if(!P.mac)P.mac=[...MACD]});if(!seq.ps.a)seq.ps.a=Array(16).fill(0);if(!seq.ps.sl)seq.ps.sl=Array(16).fill(0);
 [...synthP,...drumP].forEach(P=>{const f=fxDef(-1);for(let i=P.fx.length;i<f.length;i++)P.fx[i]=f[i];if(!(P.fxType<f.length))P.fxType=0});
 let lastSnap=snapshot(),tapeDirty=false;
@@ -1297,7 +1297,7 @@ function patPlay(i,tt,d,L){const ps=seq.ps,ns=seq.pat[i],acc=!!(ps.a&&ps.a[i]),j
   patSlideEnd(tt);
   if(nx&&rt===1){seq.slH=ns.map(n=>voiceOn(n,tt,vel,lk));return}  // held into the next step, which slides
   for(let q=0;q<rt;q++)ns.forEach(n=>trig(n,tt+q*d/rt,d*.6/rt,vel*(q?.8:1),lk))}
-function trig(note,t,dur,vel=.9,lk=null){if(S.midi[2]>=1)midiNote(note,Math.min(1,vel),t,dur);if(S.inst==='drum')drumHit(mod24(note-base()),t,vel,dur);else{htAdd(note,t,t+dur);const v=voiceOn(note,t,vel,lk);voiceOff(v,t+dur)}}
+function trig(note,t,dur,vel=.9,lk=null){if(S.midi[2]>=1){if(S.inst==='drum')midiDrum(mod24(note-base()),Math.min(1,vel),t);else midiNote(note,Math.min(1,vel),t,dur)}if(S.inst==='drum')drumHit(mod24(note-base()),t,vel,dur);else{htAdd(note,t,t+dur);const v=voiceOn(note,t,vel,lk);voiceOff(v,t+dur)}}
 function click(t,acc){const o=osc('square',acc?1760:1100,t),g=gn(0);g.gain.setValueAtTime(.5,t);g.gain.exponentialRampToValueAtTime(.001,t+.04);o.connect(g);g.connect(N.click);o.stop(t+.06);return o}
 
 /* ── apply settings ── */
@@ -1562,7 +1562,12 @@ const midiTs=t=>{try{const o=AC.getOutputTimestamp();return o.performanceTime+(t
 function midiSend(d,t){if(!MIDI.out.length)return;const ts=t!=null&&AC?midiTs(t):undefined;MIDI.out.forEach(o=>{try{o.send(d,ts)}catch(_){}})}
 // while clock out is off it still follows the transport, so START / STOP are right when it is turned on
 function midiClock(now){if(!S.midi[0]||!MIDI.out.length){MIDI.next=0;MIDI.was=S.playing;return}const tick=60/S.bpm/24;if(!MIDI.next||MIDI.next<now-.2)MIDI.next=now+.02;
-  if(S.playing!==MIDI.was){MIDI.was=S.playing;midiSend([S.playing?0xFA:0xFC],now)}while(MIDI.next<now+.1){midiSend([0xF8],MIDI.next);MIDI.next+=tick}}
+  if(S.playing!==MIDI.was){MIDI.was=S.playing;if(S.playing&&AC&&S.tpos>AC.sampleRate*.05){const sx=Math.round(S.tpos/AC.sampleRate/(60/S.bpm)*4);midiSend([0xF2,sx&127,(sx>>7)&127],now);midiSend([0xFB],now)}else midiSend([S.playing?0xFA:0xFC],now)}/* from the middle of the tape: SONG POSITION, then CONTINUE */while(MIDI.next<now+.1){midiSend([0xF8],MIDI.next);MIDI.next+=tick}}
+// drums go out as General MIDI drum notes on their own channel (10 by default): the 12 pads, and the kits' HIGH pads as their alternates
+const GMD=[36,37,38,39,41,43,42,45,46,56,49,70],GMH=[35,37,40,39,48,50,44,47,46,53,57,69];
+function midiDrum(k,vel,t){if(!MIDI.out.length||!S.midi[4]||MIDI.fromIn)return;const ch=S.midi[5],n=(k>=12?GMH:GMD)[k%12];midiSend([0x90|ch,n,clamp(Math.round(vel*127),1,127)],t);midiSend([0x80|ch,n,0],(t??(AC?AC.currentTime:0))+.08)}
+// the four knobs as controllers CC 70–73 on the notes channel, when they change (KNOBS OUT)
+const MCC=[-1,-1,-1,-1];function midiKnob(i,p){if(!S.midi[6]||!MIDI.out.length||!p||!p.arr||typeof p.arr[p.i]!=='number')return;const v=Math.round(clamp(p.arr[p.i])*127);if(v===MCC[i])return;MCC[i]=v;midiSend([0xB0|S.midi[3],70+i,v])}
 function midiNote(n,vel,t,dur){if(!MIDI.out.length)return;const ch=S.midi[3];midiSend([0x90|ch,clamp(n,0,127),clamp(Math.round(vel*127),1,127)],t);if(dur!=null)midiSend([0x80|ch,clamp(n,0,127),0],t+dur)}
 
 /* ───────────── Shift map: lists what each key does with Shift. Not shown for now (holding Shift kept bringing it up); it will come back on a key of its own ───────────── */
@@ -1791,7 +1796,8 @@ function sysItems(){const y=S.sys,b=SYS.bat;switch(SYS.s){
     {n:'SCREEN SLEEP',v:()=>y.sleep?y.sleep+' MIN':'OFF',adj:k=>y.sleep=SLEEPS[clamp(SLEEPS.indexOf(y.sleep)+k,0,SLEEPS.length-1)]},{n:'CLOCK IN TITLE',v:()=>y.clk?'ON':'OFF',adj:()=>y.clk=y.clk?0:1},{n:'TAPE VIEW',v:()=>y.tv?'TRACK FOCUS':'TAPE FOCUS',adj:()=>y.tv=y.tv?0:1},{n:'TIPS',v:()=>y.tips?'ON':'OFF',adj:()=>{y.tips=y.tips?0:1;if(y.tips){TIPN={};try{localStorage.removeItem('web1.tips')}catch(_){}}}}];
   case 5:return[{n:'CONNECT',v:()=>midiOK?MIDI.ins+' IN · '+MIDI.out.length+' OUT':TW(),go:initMidi},{n:'CLOCK OUT',v:()=>S.midi[0]?'ON':'OFF',adj:()=>S.midi[0]=S.midi[0]?0:1},
     {n:'CLOCK IN',v:()=>S.midi[1]?'FOLLOW':'OFF',adj:()=>S.midi[1]=S.midi[1]?0:1},{n:'NOTES OUT',v:()=>['OFF','SEQUENCERS','EVERYTHING'][S.midi[2]],adj:k=>S.midi[2]=clamp(S.midi[2]+k,0,2)},
-    {n:'CHANNEL',v:()=>''+(S.midi[3]+1),adj:k=>S.midi[3]=clamp(S.midi[3]+k,0,15)}];
+    {n:'CHANNEL',v:()=>''+(S.midi[3]+1),adj:k=>S.midi[3]=clamp(S.midi[3]+k,0,15)},{n:'DRUMS OUT',v:()=>S.midi[4]?'GM DRUMS':'OFF',adj:()=>S.midi[4]=S.midi[4]?0:1},
+    {n:'DRUM CHANNEL',v:()=>''+(S.midi[5]+1),adj:k=>S.midi[5]=clamp(S.midi[5]+k,0,15)},{n:'KNOBS OUT',v:()=>S.midi[6]?'CC 70–73':'OFF',adj:()=>S.midi[6]=S.midi[6]?0:1}];
   case 6:return[{n:'AUDIO LOAD',v:()=>PERF.load!=null?Math.round(PERF.load*100)+'% · PEAK '+Math.round((PERF.peak||0)*100)+'%':'NOT REPORTED'},{n:'SCREEN',v:()=>Math.round(PERF.fps)+' FPS'},
     {n:'VOICES',v:()=>voices.filter(v=>!v.off).length+' OF '+vmax()},{n:'VOICE LIMIT',v:()=>S.sys.vl?S.sys.vl+' VOICES':'AUTO ('+PERF.vmax+')',adj:k=>S.sys.vl=VLIM[clamp(VLIM.indexOf(S.sys.vl)+k,0,VLIM.length-1)]},
     {n:'DROPOUTS',v:()=>PERF.under!=null?(PERF.under*100).toFixed(1)+'%':'NOT REPORTED'}];
@@ -2006,7 +2012,7 @@ const kkey=p=>p.n+S.mode+S.slot+(S.overlay||'')+S.rkSel+(S.shift?'^':'')+(S.over
 const ENC=[0,1,2,3].map(()=>({t:0,n:0})),PUSH2={k:'',at:0};
 const armed=k=>PUSH2.k===k&&performance.now()-PUSH2.at<3000;
 function twoStep(k,fn){if(armed(k)){PUSH2.k='';fn()}else{PUSH2.k=k;PUSH2.at=performance.now();status('push again to confirm')}}  // erasing needs two pushes
-function encStep(i,k){initAudio();wake();if(S.shift)S.shiftUsed=true;const p=params()[i];k=Math.round(k);if(!p||!k)return;uLab(p.n);
+function encStep(i,k){initAudio();wake();if(S.shift)S.shiftUsed=true;const p=params()[i];k=Math.round(k);if(!p||!k)return;uLab(p.n);setTimeout(()=>midiKnob(i,p),0);
   if(p.step)p.step(k);
   else if(p.arr){const a=p.arr,ix=p.i,fm=p.fm,D=new Set(),E=ENC[i],kd=KDEF[i];for(let q=0;q<=200;q++)D.add(fm(q/200));if(kd&&!kd.has(kkey(p)))kd.set(kkey(p),a[ix]);
     const now=performance.now(),fast=D.size>24&&now-E.t<70?Math.min(6,E.n+1):1;E.t=now;E.n=fast;
@@ -2045,7 +2051,7 @@ function bindTurn(el,turn,reset){let y=null,tap=0,mv=0;el.addEventListener('poin
   ['b','g','w','o'].forEach((c,i)=>{const e=document.createElement('div');e.className='enc';e.style.gridColumn=OS1?(15+i*5)+'/span 5':(9+i*2)+'/'+(11+i*2);e.style.setProperty('--c',`var(--${c})`);
     e.innerHTML='<div class="base"><div class="cap"></div></div>';dev.appendChild(e);encEl.push(e);let ang=0;const defs=KDEF[i]=new Map();
     KR[i]=()=>{const p=params()[i];if(p&&p.push){p.push();return}if(p&&p.arr){let v=kdefault(p);const k=kkey(p);if(typeof v!=='number'&&defs.has(k))v=defs.get(k);if(typeof v==='number'){uLab(p.n);p.turn(v-p.arr[p.i]);toast(p.n+' RESET')}}};
-    bindTurn(e,d=>{wake();if(S.shift)S.shiftUsed=true;const p=params()[i];if(p)uLab(p.n);ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=kkey(p);if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
+    bindTurn(e,d=>{wake();if(S.shift)S.shiftUsed=true;const p=params()[i];if(p)uLab(p.n);setTimeout(()=>midiKnob(i,p),0);ang+=d*320;e.style.setProperty('--a',ang+'deg');if(!p)return;if(p.arr){const k=kkey(p);if(!defs.has(k))defs.set(k,p.arr[p.i])}p.turn(d)},
       ()=>KR[i]())});
   addKey(17,1,'fx','FX<span class="dots">'+TC.map(c=>`<i style="--c:${c}"></i>`).join('')+'</span>',COL.o);if(!OS1)addKey(17,2,'tempo');addKey(17,3,'seq',null,COL.g).style.color='#2fb673';
   ['synth','drum','tape','mixer'].forEach((m,i)=>addKey(i+1,3,m,null,TC[i]).style.color=['#3f7fe8','#2fb673','#ff6427',''][i]);
@@ -2221,10 +2227,10 @@ function noteOn1(n,vel=1){const now=AC.currentTime,ty=seq.type;wake();if(S.overl
     else if(ty===1){if(S.overlay==='seq'&&!S.shift){const st=seq.pat[patStep()],j=st.indexOf(n);if(j>=0)st.splice(j,1);else{st.push(n);trig(n,now,.15)}return}}
     else{seq.held.add(n);if(!seq.playing){seq.playing=true;seq.i=0;seq.cnt=0;seq.next=qStart(now)}return}}
   const tq=qt(now);
-  if(S.midi[2]===2&&!MIDI.fromIn)midiNote(n,vel,tq);
+  if(S.midi[2]===2&&!MIDI.fromIn){if(S.inst==='drum')midiDrum(mod24(n-base()),vel,tq);else midiNote(n,vel,tq)}
   if(S.inst==='drum'){S.pad=mod24(n-base());drumHit(S.pad,tq,vel);return}
   if(held[n]){voiceOff(held[n],tq);htEnd(n,tq)}held[n]=voiceOn(n,tq,vel);held[n].qt=tq;htAdd(n,tq)}
-function noteOff1(n){if(S.midi[2]===2&&!MIDI.fromIn&&MIDI.out.length)midiSend([0x80|S.midi[3],clamp(n,0,127),0]);if(S.overlay==='dm'&&DM.page===3)dmUp(mod24(n-base()));seq.ins.delete(n);if(S.inst==='drum'&&AC)padRelease(mod24(n-base()));
+function noteOff1(n){if(S.midi[2]===2&&!MIDI.fromIn&&MIDI.out.length&&S.inst!=='drum')midiSend([0x80|S.midi[3],clamp(n,0,127),0]);if(S.overlay==='dm'&&DM.page===3)dmUp(mod24(n-base()));seq.ins.delete(n);if(S.inst==='drum'&&AC)padRelease(mod24(n-base()));
   if(seq.held.delete(n)&&!seq.held.size&&(seq.type===2||(seq.type===0&&S.sqp[0][3]<=.5)||(seq.type===3&&S.sqp[3][3]<=.5)))seq.playing=false;
   if(held[n]){const te=Math.max(AC.currentTime,(held[n].qt||0)+.06);voiceOff(held[n],te);htEnd(n,te);delete held[n]}}
 function keyDown(ki){initAudio();if(S.shift)S.shiftUsed=true;if(!AC||downNote[ki]!==undefined)return;const n=base()+ki;downNote[ki]=n;keyEl[ki].classList.add('on');noteOn(n,1)}
@@ -2773,7 +2779,7 @@ function drawDrum(){const now=performance.now();for(let k=0;k<24;k++){const c=k%
   const ps=padSmp[S.kit][k];circ(x,y,9+f*3,f>0?TC[DG[c]]:ps?TC[DG[c]]:COL.dim,f>0);if(f<=0){if(ps){g.fillStyle=TC[DG[c]];g.fillRect(x-3,y-3,6,6)}else circ(x,y,2,TC[DG[c]],true)}if(k===(S.pad|0))circ(x,y,13.5,COL.w);if(r)txt(DN[c],x,96,COL.dim,5.5,'center')}}
 const DMW=['SINE','TRI','SQR','NOISE'],DMF=['OFF','LOW','HIGH','BAND','NOTCH','PEAK','RING','CRUSH'],DMFS=['OFF','LP','HP','BP','NT','PK','RG','CR'];
 const dmFr=v=>30*2**(v*8),dmDec=v=>.02+v*v*1.5,dmCut=v=>Math.min(18000,40*2**(v*9)),dmLen=()=>DM.pats[DM.pe].len;
-function dmHit(k,t,vel=1,lk){const ty=k%12,hi=k>=12,P=lk?dmLocked(DM.pads[ty],lk):DM.pads[ty],[m,c,r,mx]=P.f,mode=idx(m,8),fc=dmCut(c);
+function dmHit(k,t,vel=1,lk){if(S.midi[2]>=1&&!dmHit.quiet)midiDrum(k,Math.min(1,vel),t);const ty=k%12,hi=k>=12,P=lk?dmLocked(DM.pads[ty],lk):DM.pads[ty],[m,c,r,mx]=P.f,mode=idx(m,8),fc=dmCut(c);
   const out=gn(.9*DM.sq[2]*1.25*(.25+.75*vel)*[1,1,1.2,3,1,1,2.6,1][mode]);out.connect(N.drumBus);let dest=out,end=0;
   if(ty===6){if(dmOH)choke(dmOH,t);dmOH=null}else if(ty===8)dmOH=out;  // the closed hat cuts the open one
   if(ty===0&&N.kickKey)out.connect(N.kickKey);
