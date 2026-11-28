@@ -3061,17 +3061,18 @@ function drawSeq(){if(seq.type===3){drawChain();return}txt('T1–T4 ▸ TYPE',W-
   txt(L+' STEPS',W-8,36,COL.dim,6,'right')}
 /* the sample view, shared by the synth sampler and the drum pad editor:
    q = {a,b (0–1), rv, md, fi, fo (seconds), D}, heads = sounding voices {t0,rate,a,b (s),rv,md,D}, flash = a hit just now */
-function drawSampleView(label,lit,pk,q,heads,flash){const x0=20,ww=W-40,w=ww/160,{rv,md,D}=q,a=q.a,b=Math.max(a+.005,Math.min(1,q.b));txt(label,8,24,lit?COL.w:COL.dim,6);
+function drawSampleView(label,lit,pk,q,heads,flash){const x0=20,ww=W-40,w=ww/160,{rv,md,D}=q,a=q.a,b=Math.max(a+.005,Math.min(1,q.b));lab(label,8,24,lit?COL.w:COL.dim);
+  {const X0=x0+(rv?1-b:a)*ww,X1=x0+(rv?1-a:b)*ww;g.fillStyle='rgba(242,242,236,.045)';g.fillRect(X0,29,X1-X0,66)}ln(x0,CY,x0+ww,CY,'#1a1c20',.6);
   for(let i=0;i<160;i++){const u=i/160,h=1+pk[rv?159-i:i]*30,uu=rv?1-u:u;g.fillStyle=uu>=a&&uu<=b?COL.w:'#3a3d44';g.fillRect(x0+i*w,CY-h,w-.4,h*2)}
-  const X=u=>x0+(rv?1-u:u)*ww,xa=X(a),xb=X(b),fi=Math.min(b-a,q.fi/D),fo=Math.min(b-a,q.fo/D);ln(xa,30,xa,94,COL.b,1.5);ln(xb,30,xb,94,COL.g,1.5);
-  g.strokeStyle=COL.o;g.lineWidth=1;if(fi*ww>1){g.beginPath();g.moveTo(X(a),CY+31);g.lineTo(X(a+fi),CY-31);g.stroke()}
-  if(fo*ww>1&&md<2){g.beginPath();g.moveTo(X(b-fo),CY-31);g.lineTo(X(b),CY+31);g.stroke()}
-  if(md===2){g.fillStyle=COL.g;g.fillRect(Math.min(xa,xb),92,Math.abs(xb-xa),1.2)}
+  const X=u=>x0+(rv?1-u:u)*ww,xa=X(a),xb=X(b),fi=Math.min(b-a,q.fi/D),fo=Math.min(b-a,q.fo/D);ln(xa,30,xa,94,COL.b,1.5);ln(xb,30,xb,94,COL.g,1.5);[[xa,COL.b],[xb,COL.g]].forEach(([x,c])=>{g.fillStyle=c;g.beginPath();g.moveTo(x-3,29);g.lineTo(x+3,29);g.lineTo(x,33);g.closePath();g.fill()});
+  g.strokeStyle=COL.o;g.lineWidth=1;if(fi*ww>1){g.beginPath();g.moveTo(X(a),CY+31);g.lineTo(X(a+fi),CY-31);g.stroke();g.lineTo(X(a+fi),CY+31);g.closePath();g.fillStyle='rgba(255,106,43,.045)';g.fill()}
+  if(fo*ww>1&&md<2){g.beginPath();g.moveTo(X(b-fo),CY-31);g.lineTo(X(b),CY+31);g.stroke();g.lineTo(X(b-fo),CY+31);g.closePath();g.fillStyle='rgba(255,106,43,.045)';g.fill()}
+  if(md===2){const l0=Math.min(xa,xb),l1=Math.max(xa,xb);ln(l0,93,l1,93,COL.g,1.4);ln(l0,90.5,l0,95.5,COL.g,1);ln(l1,90.5,l1,95.5,COL.g,1)}
   const now=AC.currentTime;heads.forEach(v=>{if(now<v.t0||(v.end!==undefined&&now>v.end))return;const el=(now-v.t0)*v.rate,L=v.b-v.a;let o;
     if(v.md===2)o=el%L;else if(el<=L)o=el;else return;const x=X((v.rv?v.b-o:v.a+o)/v.D);
     g.shadowColor=COL.o;g.shadowBlur=5;ln(x,30,x,96,COL.o,1.4);g.shadowBlur=0;circ(x,30,2,COL.o,true)});
-  circ(W-14,24,3,COL.o,!!flash);txt(SMODE[md]+(rv?' · REVERSE':''),W-24,26,COL.w,6,'right');
-  txt(S.shift?'SHIFT ▸ PLAY · FADES · LEVEL':'SHIFT ▸ PLAY MODE',W-8,99,S.shift?COL.o:'#4a4d54',5.5,'right')}
+  circ(W-14,22.5,2.6,COL.o,!!flash);lab(SMODE[md]+(rv?' · REVERSE':''),W-22,24,COL.w,'right');
+  lab(S.shift?'SHIFT ▸ PLAY · FADES · LEVEL':'SHIFT ▸ PLAY MODE',W-8,99,S.shift?COL.o:'#4a4d54','right',4.6)}
 /* ── SAMPLER (T1 again in synth or drum mode, Shift + 4 in drum mode): T1 EDIT · T2 SLICE · T3 RECORD · T4 FROM TAPE ──
    it works on the selected pad (drum mode) or on the synth slot (synth mode) */
 const SMPX={to:'pad',pg:0,sl:[0,6,0,.5],rc:[0,2,0,0],tp:[0,4,0],ft:[0,1],go:0,ck:'',cp:null},RS={on:0,at:0,end:0,st:null,node:null,to:null};
@@ -3155,26 +3156,27 @@ function drawSampler(t){const pg=SMPX.pg;
   if(pg===0){if(SMPX.to==='pad')drawPadSmp();else if(slotSmp[S.slot])drawSmp(synthP[S.slot].smp);else{txt('NO SAMPLE IN '+slotNm(S.slot),CX,48,COL.w,9,'center');txt('T3 RECORDS ONE (RESAMPLE OR INPUT) · T4 TAKES ONE FROM THE TAPE',CX,62,COL.dim,5.5,'center');txt('OR: LOAD SAMPLE · DROP A FILE ON THE PAGE',CX,72,COL.dim,5.5,'center')}return}
   if(pg===1){const s=smpSrc();if(!s){txt('NOTHING TO SLICE YET',CX,48,COL.w,9,'center');txt('T3 RECORDS A SAMPLE · T4 TAKES ONE FROM THE TAPE',CX,62,COL.dim,6,'center');return}
     const pts=slicePts(s),x0=20,ww=W-40,A=s.a,B=s.b,X=i=>x0+(i-A)/Math.max(1,B-A)*ww;
-    for(let i=0;i<160;i++){const j0=Math.floor(A+(B-A)*i/160),j1=Math.floor(A+(B-A)*(i+1)/160);let m=0;for(let j=j0;j<j1;j+=8)m=Math.max(m,Math.abs(s.d[j]));const h=1+m*28;g.fillStyle='#6a6e76';g.fillRect(x0+i*ww/160,CY+4-h,ww/160-.4,h*2)}
+    ln(x0,CY+4,x0+ww,CY+4,'#1a1c20',.6);for(let i=0;i<160;i++){const j0=Math.floor(A+(B-A)*i/160),j1=Math.floor(A+(B-A)*(i+1)/160);let m=0;for(let j=j0;j<j1;j+=8)m=Math.max(m,Math.abs(s.d[j]));const h=1+m*28;g.fillStyle='#6a6e76';g.fillRect(x0+i*ww/160,CY+4-h,ww/160-.4,h*2)}
     if(S.shift){const bars=fitBars(s),nb=Math.max(1,Math.round(bars*beats())),L=(B-A)/s.sr,T=bars*barS()/AC.sampleRate;for(let k=0;k<=nb;k++){const x=x0+k/nb*ww,bar=k%beats()===0;ln(x,29,x,94,bar?COL.o:'#5a3a26',bar?1.2:.7)}
       lab('FIT TO TEMPO · '+L.toFixed(2)+' S → '+FITB[FITV.indexOf(bars)]+(SMPX.ft[0]|0?'':' (AUTO)')+' = '+T.toFixed(2)+' S AT '+S.bpm+' BPM',8,24,COL.o);lab((SMPX.ft[1]|0)?'KEEP PITCH':'SPEED + PITCH',W-8,24,COL.dim,'right');return}
-    pts.forEach((p,k)=>{const x=X(p);ln(x,29,x,94,TC[k%4],1);txt(''+(k+1),x+1.5,35,TC[k%4],5)});
-    txt(pts.length+' SLICES → KIT '+(S.kit+1)+' '+KITS[S.kit]+' · PADS 1–'+pts.length,8,24,COL.w,6);txt('SLICE 1 = LOWEST KEY · SHIFT ▸ FIT TO TEMPO',W-8,24,COL.dim,5.5,'right');return}
+    pts.forEach((p,k)=>{const x=X(p),c=TC[k%4],tw=k<9?6:8.5;ln(x,33,x,94,c,1);g.fillStyle=c;g.beginPath();g.roundRect(x-.5,28,tw,6,1.5);g.fill();txt(''+(k+1),x+tw/2-.5,32.6,'#07080a',4.6,'center')});
+    lab(pts.length+' SLICES → KIT '+(S.kit+1)+' '+KITS[S.kit]+' · PADS 1–'+pts.length,8,24,COL.w);lab('SLICE 1 = LOWEST KEY · SHIFT ▸ FIT',W-8,24,COL.dim,'right');return}
   if(pg===2){const now=AC.currentTime,inp=SMPX.rc[0]|0,secs=recSecs(),rec=RS.on&&now>=RS.at,wait=RS.on&&now<RS.at;
-    circ(42,50,15,rec||(wait&&Math.sin(t*12)>0)?COL.red:'#3a3d44',rec);txt(rec?'RECORDING':wait?'WAITING FOR THE BAR':'READY',42,80,rec||wait?COL.red:COL.w,6,'center');
-    txt(inp?'INPUT · '+(S.rm2[3]>.5?'LINE IN':'MIC'):'MASTER · WHAT YOU HEAR',90,30,COL.w,7);txt(secs.toFixed(2)+' S · '+RLN[SMPX.rc[1]|0]+' AT '+S.bpm+' BPM'+(SMPX.rc[3]|0?' · FROM THE NEXT BAR':''),90,40,COL.dim,5.5);
-    const x0=90,ww=W-100,f=rec?clamp((now-RS.at)/(RS.end-RS.at)):0;g.strokeStyle='#33363d';g.lineWidth=1;g.strokeRect(x0+.5,54.5,ww,10);g.fillStyle=COL.red;g.fillRect(x0+1,55,(ww-1)*f,9);
-    txt('INTO '+smpTarget(),90,78,COL.o,6);txt(SMPX.to==='pad'?'UP TO 6 S ON A PAD':'UP TO 10 S IN A SLOT',90,87,COL.dim,5);return}
+    const on=rec||(wait&&Math.sin(t*12)>0);circ(42,50,17,on?COL.red:'#3a3d44',false);circ(42,50,13,on?COL.red:'#1c1e22',true);lab('REC',42,52,on?'#07080a':'#5d6066','center',5.4);lab(rec?'RECORDING':wait?'WAITING FOR THE BAR':'READY',42,80,rec||wait?COL.red:COL.w,'center',5.4);
+    txt(inp?'INPUT · '+(S.rm2[3]>.5?'LINE IN':'MIC'):'MASTER · WHAT YOU HEAR',90,30,COL.w,7);lab(secs.toFixed(2)+' S · '+RLN[SMPX.rc[1]|0]+' AT '+S.bpm+' BPM'+(SMPX.rc[3]|0?' · FROM THE NEXT BAR':''),90,40,COL.dim);
+    const x0=90,ww=W-100,f=rec?clamp((now-RS.at)/(RS.end-RS.at)):0,nbt=Math.max(1,Math.round(secs/(60/S.bpm)));g.strokeStyle='#33363d';g.lineWidth=1;g.beginPath();g.roundRect(x0+.5,54.5,ww,10,3);g.stroke();if(f>0){g.fillStyle=COL.red;g.beginPath();g.roundRect(x0+1.5,55.5,Math.max(2,(ww-2)*f),8,2.4);g.fill()}
+    if(nbt<=32)for(let k=1;k<nbt;k++){const x=x0+k/nbt*ww;ln(x,66.5,x,68.5,'#3a3d44',.6)}
+    lab('INTO '+smpTarget(),90,80,COL.o);lab(SMPX.to==='pad'?'UP TO 6 S ON A PAD':'UP TO 10 S IN A SLOT',90,89,COL.dim,'left',4.8);return}
   const from=SMPX.tp[0]|0,tr=SMPX.tp[1]|0,sp=tapeSpan(from),sr=AC.sampleRate;
-  txt(['THE LIFTED PIECE (LIFT OR COPY)','THE LOOP AREA','THE BAR AT THE TAPE HEAD'][from],20,28,COL.w,7);if(from)txt(tr<4?'TRACK '+(tr+1):'ALL FOUR TRACKS, MIXED',20,37,COL.dim,6);
+  txt(['THE LIFTED PIECE (LIFT OR COPY)','THE LOOP AREA','THE BAR AT THE TAPE HEAD'][from],20,28,COL.w,7);if(from)lab(tr<4?'TRACK '+(tr+1):'ALL FOUR TRACKS, MIXED',20,37,COL.dim);
   if(!sp||sp[1]<=sp[0]){txt(from===0?'NOTHING LIFTED YET':'NO LOOP SET',CX,64,COL.dim,8,'center')}
   else{const b0=Math.floor(sp[0]/sr*10),b1=Math.max(b0+1,Math.ceil(sp[1]/sr*10)),x0=20,ww=W-40,nb=b1-b0;
-    for(let k=0;k<4;k++){const y=46+k*9,src=from===0?(k===S.track?clipOv:null):ov[k],use=from===0?k===S.track:tr===4||tr===k;g.fillStyle='#121418';g.fillRect(x0,y,ww,6);if(!src)continue;
+    for(let k=0;k<4;k++){const y=46+k*9,src=from===0?(k===S.track?clipOv:null):ov[k],use=from===0?k===S.track:tr===4||tr===k;lab('T'+(k+1),8,y+5,use?TC[k]:'#3a3d44','left',4.6);g.fillStyle='#121418';g.beginPath();g.roundRect(x0,y,ww,6,2);g.fill();if(!src)continue;
       g.fillStyle=TC[k];g.globalAlpha=use?1:.2;for(let b=0;b<nb;b++){const v=from===0?src[b]:src[b0+b];if(v>0){const h=1+v*4.5;g.fillRect(x0+b*ww/nb,y+3-h/2,Math.max(.6,ww/nb-.3),h)}}g.globalAlpha=1}
-    txt(((sp[1]-sp[0])/sr).toFixed(2)+' S',W-8,28,COL.dim,6,'right')}
-  txt('INTO '+smpTarget(),20,96,COL.o,6)}
+    lab(((sp[1]-sp[0])/sr).toFixed(2)+' S',W-8,28,COL.dim,'right')}
+  lab('INTO '+smpTarget(),20,96,COL.o)}
 function drawPadSmp(){const k=S.pad|0,ps=padSmp[S.kit][k];
-  if(!ps){txt(padNm(k),8,24,COL.dim,6);txt('NO SAMPLE ON '+padNm(k),CX,52,COL.w,9,'center');txt('HIT A PAD, THEN LOAD SAMPLE',CX,66,COL.dim,7,'center');return}
+  if(!ps){lab(padNm(k),8,24,COL.dim);txt('NO SAMPLE ON '+padNm(k),CX,52,COL.w,9,'center');txt('HIT A PAD, THEN LOAD SAMPLE',CX,66,COL.dim,7,'center');return}
   const p=padPar(S.kit,k);drawSampleView(padNm(k)+' · '+ps.name.slice(0,22),1,ps.pk,{a:p[0],b:p[1],rv:p[3]>.5,md:idx(p[4],3),fi:fadeS(p[5]),fo:fadeS(p[6]),D:ps.buf.duration},
     padPlay.filter(v=>v.k===k&&v.kit===S.kit),S.flash[k]&&performance.now()-S.flash[k]<180)}
 function drawSave(t){const sl=S.slot,U=S.up[sl],hit=svHit(),now=performance.now(),fl=SAVE.msg&&now-SAVE.at<1400;
