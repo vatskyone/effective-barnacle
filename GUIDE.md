@@ -19,6 +19,10 @@ This is the full manual for WEB-1. In the app itself, press the **HELP** key (**
   | 8 | Any key | Where to find help, and how to start your own song |
 - **Tips.** The first few times you open a screen, a one-line tip shows at the bottom of the screen for a few seconds. Turn them off, or on again to see them all again, in **SYSTEM → DISPLAY → TIPS**.
 - **The HELP key (?).** On any screen, tap **HELP** (the **-** key) to see what every key does there, in two columns: **KEYS** and **SHIFT +**. It stays up until you press another key, which then does its job. Hold HELP instead to peek, and it closes when you let go. **Shift + HELP** opens the full controls card.
+- **Start from a starter.** PROJECTS → NEW (Shift + 7 in tape mode) can open a **LO-FI BEAT**, a **HOUSE LOOP** or a **TRAP SKETCH** instead of an empty tape: the beat is already running, tap the low C for the chords, and play over them on the keys. See [Projects](#projects-shift--7).
+- **Find a sound by what it is.** Shift + SYNTH, then **T2**: every BASS, KEYS, PAD, LEAD, PLUCK, PERC or FX sound from all the engines, each playing a short preview as you scroll. Star the ones you like. See [Sounds by type](#sounds-by-type-t2-in-the-menu).
+- **No wrong notes.** In synth mode, **Shift + LOOP** locks the keys to the song's key; press it again and each key plays a whole chord that fits; once more for free play.
+- **Undo anything.** **Shift + DROP** takes back the last change, anywhere (a knob, a pattern, a recording…); **Shift + STOP** brings it back.
 
 **Contents**
 
@@ -50,7 +54,7 @@ This is the full manual for WEB-1. In the app itself, press the **HELP** key (**
 - **TEMPO key** (right edge, between FX and SEQ, the **`** key): opens the tempo screen, and blinks on every beat while the metronome is on. Shift + TEMPO opens KEY & CHORDS.
 - **Mode keys:** SYNTH, DRUM, TAPE and MIXER. SYNTH lights orange while the synths & presets menu is open (Shift + SYNTH), DRUM while the drum machine is open (Shift + DRUM).
 - **T1–T4:** pick the page inside a mode.
-- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, and key 4 with SAMPLE, the sampler (Shift + 4). All eight numbers sit at the same height in their rings, labelled or not.
+- **1–8:** sound slots. They choose a synth, or a kit in drum mode. With bank B selected, the slot light turns orange. Keys 1–3 are labelled with the tape tricks, key 4 with SAMPLE, the sampler (Shift + 4), and key 5 with RESAMPLE (Shift + 5 in drum mode). All eight numbers sit at the same height in their rings, labelled or not.
 - **Transport:** REC (a red disc inside the key's ring, Shift + REC for advanced recording), PLAY and STOP, plus the ← → arrows: pitch bend in synth mode, tape winding in the other modes.
 - **Musical keys:** the keyboard along the bottom, with white and black keys.
 - **Lights on the right edge:** the output level meter. The red light at the top means you are near the maximum level.
@@ -109,6 +113,8 @@ Turning a knob all the way to YES still works everywhere. On the hardware, the s
 | **Enter** | STOP (press twice to rewind) |
 | **← →** | In synth mode: pitch bend. In the other modes: hold to wind the tape |
 | **Q** | Loop on/off |
+| **Shift + Q** (synth mode) | No wrong notes: SCALE LOCK → CHORDS → FREE PLAY |
+| **Shift + 5** (drum mode) | RESAMPLE what you hear onto the selected pad |
 | **Shift + Q** (tape mode) | SECTIONS: song markers. Then 1–6 set a marker or jump to it; T2 is SONG mode, T3 SONG ON |
 | **1 – 8** (FX screen open) | Hold for live FX: REPEAT 1/4–1/32 · FREEZE · SWEEP DOWN · SWEEP UP · TAPE STOP |
 | **1 – 8** (drum machine) | Pick the pattern; Shift + 1–8 copies the pattern there |
@@ -473,7 +479,7 @@ SPEED works like real tape: record at one speed and play back at another, and th
 **The tape screen** comes in two views; pick one in **SYSTEM → DISPLAY → TAPE VIEW**:
 
 - **TAPE FOCUS** (the default): two big reels that turn as the tape moves, with the tape pack growing on the right as it plays, and the tape running over two rollers and the head. Between the reels: the time, the bar and beat, and the section you are in (from SECTIONS). On the left, the selected track's number in its colour, the **FX** box (orange while any master effect is on) and any recording settings that are on; on the right, the tape SPEED. Under the tape, each track is one thin line in its colour where it has audio, with bar ticks, the loop, the section markers and the red head.
-- **TRACK FOCUS**: small reels and the time on top, the section you are in and what comes next ("NEXT OUTRO IN 6 BARS"), the play state, FX and speed. Under them, a strip of the whole 60-second tape with the sections in their colours, the loop and the head, then four tall lanes: each shows its number, MUTE, SOLO or REC, its mixer level, and its audio around the head with bar lines.
+- **TRACK FOCUS**: small reels and the time on top, the section you are in and what comes next ("NEXT OUTRO IN 6 BARS"), the play state, FX and speed. Under them, a strip of the whole tape with the sections in their colours, the loop and the head, then four tall lanes: each shows its number, MUTE, SOLO or REC, its mixer level, and its audio around the head with bar lines.
 
 In both, holding Shift shows the four edits (T1–T4) and outlines the bar they will use, and a tape trick shows its name while you hold it.
 
@@ -727,7 +733,7 @@ WEB-1 can also drive and follow other gear. In tape mode, open the system menu (
 | **DRUM CHANNEL** | The channel for the drums, 10 by default (the usual drum channel) |
 | **KNOBS OUT** | CC 70–73: turning the four knobs sends their values as MIDI controllers 70, 71, 72 and 73 on CHANNEL, so a DAW can record your knob moves or map them to anything |
 
-These settings are shared by every project. Web MIDI needs Chrome or Edge.
+These settings are shared by every project. Web MIDI needs Chrome or Edge. Ableton Link isn't available: a web page can't reach the network the way Link needs, so use MIDI clock to play in time with other apps and gear.
 
 ## 12. Looks: dark mode, OLED and line art
 
@@ -819,7 +825,7 @@ The tape keeps only its last change, so an older tape edit can't be undone once 
 
 ## 14. Your first song in 10 steps
 
-**Before you start:** if you are in the DEMO SONG project (the title bar of the tape screen shows the project's name), start a new one so you record on an empty tape: in tape mode press **Shift + 7**, turn the green knob to **NEW** and push the white knob (or turn it to YES). The demo stays in its own project.
+**Before you start:** if you are in the DEMO SONG project (the title bar of the tape screen shows the project's name), start a new one so you record on an empty tape: in tape mode press **Shift + 7**, turn the green knob to **NEW** and push the white knob (or turn it to YES). The demo stays in its own project. Turn the orange knob to a starter (LO-FI BEAT, HOUSE LOOP or TRAP SKETCH) if you want drums, bass and chords ready to play over; the steps below start from an empty tape.
 
 1. Press **TEMPO** (**`**) and set the BPM with the blue knob. Turn the green knob to **1 BAR** count-in, then press TEMPO again to close the screen.
 2. Press **X** for drums and pick a kit with **1**. Press **C** for tape and **B** to select track 1.
@@ -839,6 +845,9 @@ The tape keeps only its last change, so an older tape edit can't be undone once 
 | Problem | Fix |
 |---|---|
 | A track is silent on playback | It may be muted (key 1–4 lit orange in mixer mode) or left out of a solo (keys 5–8). The title bar shows MUTE or SOLO. |
+| The song stops by itself | SONG ON is set and the song's last part has ended (the screen says SONG END). Add parts on SECTIONS → SONG, or press T3 there for SONG OFF. |
+| The tape is too short for my song | PROJECTS → TAPE LENGTH: 2, 4 or 6 minutes. |
+| My hand-set markers changed | With SONG ON, the song's parts are written as the section markers. Switch SONG OFF to set them by hand. |
 | All my tracks keep dipping | The sidechain is on: Shift + MIXER, T2, set SOURCE to OFF. |
 | I recorded over something by mistake | Press **Shift + DROP** straight away to undo the take. |
 | I want my work on another computer | Open PROJECTS (Shift + 7 in tape mode), choose **BACKUP ALL**, and load the file there with **load project**. |
