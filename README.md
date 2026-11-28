@@ -2,7 +2,7 @@
 
 **A portable synth, drum machine, sampler and 4-track tape recorder that runs in one web page.**
 
-WEB-1 is a small instrument for making music in the browser. It has 24 synth engines that can go in any of its 16 sound slots, 8 drum kits (with your own samples on any pad), a drum machine with a 16-step pattern, a sampler, sequencers, 8 sound effects, a master FX rack and a 4-track tape that you record on, loop, cut and play backwards. It is one HTML file with no install, no build step and no dependencies.
+WEB-1 is a small instrument for making music in the browser. It has 24 synth engines that can go in any of its 16 sound slots, 8 drum kits (with your own samples on any pad), a drum machine with a 16-step pattern, a sampler, sequencers, 8 sound effects, a master FX rack, a 4-track tape of 1 to 6 minutes that you record on, loop, cut and play backwards, and a song mode that plays a whole arrangement. It sends and follows MIDI. It is one HTML file with no install, no build step and no dependencies.
 
 Designed and built by Snow Bayles, 2026.
 
@@ -19,7 +19,7 @@ The fastest way is the **[live version](https://vatskyone.github.io/effective-ba
 3. Click the device or press any key to switch the sound on.
 4. Play notes with the **A W S E D F T G Y H U J K** keys, and press **-** for HELP: it shows what every key does on the screen you are on (Shift + - or the **guide** button opens the controls card).
 
-The first time you open it, WEB-1 makes a **demo song** with its own sounds on the four tape tracks and starts a short **guided tour** that points at each key to press. Small tips show the first few times you open each screen. Start the tour again from SYSTEM → ABOUT, and make the demo again from PROJECTS → DEMO SONG.
+The first time you open it, WEB-1 makes a **demo song** with its own sounds on the four tape tracks and starts a short **guided tour** that points at each key to press. Small tips show the first few times you open each screen. Start the tour again from SYSTEM → ABOUT, and make the demo again from PROJECTS → DEMO SONG. For a quick start of your own, PROJECTS → NEW opens a LO-FI BEAT, HOUSE LOOP or TRAP SKETCH with the beat running and chords ready, and the HELP key (?) shows what every key does on any screen.
 
 To serve it locally instead, for example to use MIDI or the microphone:
 
